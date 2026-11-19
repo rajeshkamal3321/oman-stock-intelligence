@@ -1,0 +1,13 @@
+{
+  "name": "msx-company-visualizer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Muscat Stock Exchange (MSX) Equity Intelligence Dashboard in OMR — Static Cloudflare Pages Build",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "preview": "python3 -m http.server 8788 --directory dist"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

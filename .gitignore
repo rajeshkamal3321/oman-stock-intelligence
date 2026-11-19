@@ -1,0 +1,19 @@
+# Build & upload artifacts (rebuilt automatically in CI)
+dist/
+oman-stock-intelligence-dist.zip
+
+# Local caches & pilot PDF archives (Phase 2 links filings directly to msx.om)
+.msx_cache/
+filings/
+
+# Legacy pre-MSX files
+_worker.js
+server.py
+cloudflare-upload/
+functions/
+
+# OS & Python artifacts
+.DS_Store
+__pycache__/
+*.pyc
+node_modules/

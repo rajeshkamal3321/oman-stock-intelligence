@@ -1,0 +1,2444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Oman Stock Intelligence" />
+  <meta id="theme-color-meta" name="theme-color" content="#060a12" />
+  <title>Oman Stock Intelligence — Muscat Stock Exchange Equity Intelligence (OMR)</title>
+
+  <!-- Initialize System / Saved Theme immediately before paint -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('cv-theme') || 'system';
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var isDark = saved === 'dark' || (saved === 'system' && prefersDark);
+        document.documentElement.classList.toggle('dark', isDark);
+        document.documentElement.classList.toggle('light', !isDark);
+      } catch (e) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js'"></script>
+  <!-- Lucide Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js" onerror="this.onerror=null;this.src='https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js'"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script>
+    if (typeof tailwind !== 'undefined') {
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+              mono: ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace'],
+            },
+            colors: {
+              slate: {
+                850: '#151e2e',
+                925: '#0b111d',
+                950: '#060a12',
+              }
+            }
+          }
+        }
+      };
+    }
+  </script>
+
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg-body: #f8fafc;
+      --bg-header: rgba(255, 255, 255, 0.90);
+      --bg-card: rgba(255, 255, 255, 0.92);
+      --bg-card-hover: rgba(241, 245, 249, 0.95);
+      --bg-sub: rgba(241, 245, 249, 0.85);
+      --border-card: rgba(203, 213, 225, 0.85);
+      --border-sub: rgba(226, 232, 240, 0.95);
+      --text-main: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --scroll-track: #f1f5f9;
+      --scroll-thumb: #cbd5e1;
+    }
+
+    html.dark {
+      --bg-body: #060a12;
+      --bg-header: rgba(6, 10, 18, 0.90);
+      --bg-card: rgba(15, 23, 42, 0.78);
+      --bg-card-hover: rgba(30, 41, 59, 0.65);
+      --bg-sub: rgba(15, 23, 42, 0.80);
+      --border-card: rgba(51, 65, 85, 0.55);
+      --border-sub: rgba(30, 41, 59, 0.85);
+      --text-main: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --scroll-track: #0b111d;
+      --scroll-thumb: #334155;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .glass-card {
+      background: var(--bg-card);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-card);
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+    }
+
+    html.dark .glass-card {
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+    }
+
+    .glass-card-hover {
+      transition: all 0.2s ease;
+    }
+
+    .glass-card-hover:hover {
+      border-color: rgba(99, 102, 241, 0.5);
+      background: var(--bg-card-hover);
+    }
+
+    /* Automatic Light Mode Overrides */
+    html.light .text-white { color: #0f172a !important; }
+    html.light .text-slate-100 { color: #0f172a !important; }
+    html.light .text-slate-200 { color: #1e293b !important; }
+    html.light .text-slate-300 { color: #334155 !important; }
+    html.light .text-slate-400 { color: #475569 !important; }
+    html.light .text-slate-500 { color: #64748b !important; }
+
+    html.light .bg-slate-950,
+    html.light .bg-slate-950\/95,
+    html.light .bg-slate-950\/90 {
+      background-color: var(--bg-header) !important;
+    }
+    html.light .bg-slate-900,
+    html.light .bg-slate-900\/90,
+    html.light .bg-slate-900\/75,
+    html.light .bg-slate-900\/70,
+    html.light .bg-slate-900\/60,
+    html.light .bg-slate-900\/50,
+    html.light .bg-slate-900\/40 {
+      background-color: var(--bg-sub) !important;
+    }
+    html.light .bg-slate-800,
+    html.light .bg-slate-800\/70 {
+      background-color: #e2e8f0 !important;
+    }
+
+    html.light .border-slate-900,
+    html.light .border-slate-800,
+    html.light .border-slate-800\/90,
+    html.light .border-slate-800\/80,
+    html.light .border-slate-800\/70,
+    html.light .border-slate-800\/60,
+    html.light .border-slate-700,
+    html.light .border-slate-700\/80,
+    html.light .border-slate-700\/60 {
+      border-color: var(--border-card) !important;
+    }
+
+    html.light .divide-slate-800\/60 > :not([hidden]) ~ :not([hidden]) {
+      border-color: var(--border-sub) !important;
+    }
+
+    /* Keep explicit white text on colored badges/buttons in light mode */
+    html.light #company-logo,
+    html.light .range-btn.active,
+    html.light .tab-btn.active,
+    html.light .currency-btn.active,
+    html.light .news-filter-btn.bg-indigo-600,
+    html.light #copy-lan-btn,
+    html.light .avatar-badge {
+      color: #ffffff !important;
+    }
+
+    html.light .text-indigo-400,
+    html.light .text-indigo-300 { color: #4f46e5 !important; }
+    html.light .text-emerald-400 { color: #059669 !important; }
+    html.light .text-rose-400 { color: #e11d48 !important; }
+    html.light .text-amber-300,
+    html.light .text-amber-400 { color: #d97706 !important; }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--scroll-track);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--scroll-thumb);
+      border-radius: 3px;
+    }
+
+    .ticker-pill.active {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.22), rgba(59, 130, 246, 0.16)) !important;
+      border-color: #6366f1 !important;
+      color: var(--text-main) !important;
+    }
+
+    .range-btn.active,
+    .tab-btn.active,
+    .currency-btn.active {
+      background-color: #4f46e5 !important;
+      color: #ffffff !important;
+      border-color: #6366f1 !important;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.15); }
+    }
+    .live-dot {
+      animation: pulse-dot 2s infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-4">
+
+      <!-- Brand -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+          <i data-lucide="bar-chart-big" class="w-5 h-5 text-white" style="color:#fff !important"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-bold tracking-tight text-white">Oman Stock Intelligence</h1>
+          </div>
+          <p class="text-xs text-slate-400">Muscat Stock Exchange (OMR / USD) • Financial Statements, Ownership &amp; Governance</p>
+        </div>
+      </div>
+
+      <!-- Quick Watchlist Pills + All MSX Directory Trigger -->
+      <div class="flex items-center gap-1.5 overflow-x-auto py-1 max-w-full">
+        <button id="all-stocks-btn" class="px-3 py-1.5 rounded-xl text-xs font-mono font-semibold bg-indigo-600/20 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-600/35 hover:text-white flex items-center gap-1.5 transition shrink-0" title="Browse all MSX listed SAOG companies">
+          <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+          <span>All MSX (<span id="all-stocks-count">115</span>)</span>
+        </button>
+        <div class="flex items-center gap-1.5" id="company-pills">
+          <!-- Populated from ./data/index.json -->
+        </div>
+      </div>
+
+      <!-- Search & Actions -->
+      <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+        <div class="relative flex-1 sm:w-64 md:w-72">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input
+            id="ticker-search"
+            type="text"
+            placeholder="Search all MSX stocks (e.g. BKMB, OTEL, OQGN)..."
+            class="w-full pl-9 pr-4 py-1.5 text-xs sm:text-sm bg-slate-900 border border-slate-700/80 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+          />
+          <div id="search-dropdown" class="hidden absolute left-0 right-0 mt-1 glass-card rounded-lg shadow-2xl overflow-hidden z-50 border border-slate-700 max-h-80 overflow-y-auto">
+            <!-- Populated from ./data/index.json -->
+          </div>
+        </div>
+
+        <!-- Currency Switcher (OMR / USD @ CBO Fixed Peg 1 OMR = $2.6008) -->
+        <div class="flex items-center bg-slate-900 p-0.5 rounded-lg border border-slate-700/80 text-xs font-mono shrink-0" title="Switch Display Currency (CBO Fixed Peg: 1 OMR = 2.6008 USD)">
+          <button data-currency="OMR" class="currency-btn active px-2.5 py-1.5 rounded-md text-slate-300 hover:text-white transition font-semibold">OMR</button>
+          <button data-currency="USD" class="currency-btn px-2.5 py-1.5 rounded-md text-slate-300 hover:text-white transition font-semibold">USD</button>
+        </div>
+
+        <!-- Theme Switcher Button -->
+        <button id="theme-toggle-btn" title="Theme: Auto (Follows System Dark/Light Mode) — Click to cycle" class="p-2 rounded-lg bg-slate-900 border border-slate-700/80 text-slate-300 hover:text-white hover:border-indigo-500 transition flex items-center gap-1.5 text-xs font-mono shrink-0">
+          <i data-lucide="monitor" id="theme-icon" class="w-4 h-4"></i>
+          <span id="theme-label" class="hidden xl:inline">Auto</span>
+        </button>
+
+        <button id="refresh-btn" title="Reload MSX Market Data" class="p-2 rounded-lg bg-slate-900 border border-slate-700/80 text-slate-300 hover:text-white hover:border-indigo-500 transition flex items-center gap-1.5 text-xs font-mono shrink-0">
+          <i data-lucide="refresh-cw" id="refresh-icon" class="w-4 h-4"></i>
+          <span class="hidden md:inline">Reload</span>
+        </button>
+
+        <button id="share-btn" title="Open on Mobile / Share Link" class="p-2 rounded-lg bg-indigo-600/20 border border-indigo-500/40 text-indigo-300 hover:text-white hover:bg-indigo-600/40 transition flex items-center gap-1.5 text-xs font-mono shrink-0">
+          <i data-lucide="smartphone" class="w-4 h-4"></i>
+          <span class="hidden md:inline">Share</span>
+        </button>
+
+        <button id="export-btn" title="Export Verified Company JSON (OMR)" class="p-2 rounded-lg bg-slate-900 border border-slate-700/80 text-slate-300 hover:text-white hover:border-slate-600 transition shrink-0">
+          <i data-lucide="download" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- LOADING BANNER -->
+  <div id="loading-bar" class="hidden bg-indigo-600/20 border-b border-indigo-500/30 text-indigo-300 text-xs py-1.5 px-6 text-center font-mono">
+    Loading verified MSX, MCD &amp; corporate governance dataset...
+  </div>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-1 max-w-[1600px] w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+    <!-- COMPANY HERO HEADER -->
+    <section class="glass-card rounded-2xl p-6 shadow-xl relative overflow-hidden">
+      <div class="absolute -right-24 -top-24 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+        <!-- Left: Identity -->
+        <div class="flex items-start sm:items-center gap-4">
+          <div id="company-logo" class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-600 to-slate-900 flex items-center justify-center text-xl font-bold text-white shadow-inner shrink-0 border border-white/10 font-mono">
+            BKMB
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2.5">
+              <h2 id="company-name" class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Loading...</h2>
+              <span id="company-ticker" class="font-mono text-sm font-semibold px-2.5 py-0.5 rounded-md bg-slate-800 text-indigo-400 border border-slate-700">MSX: BKMB</span>
+              <span id="company-sector" class="text-xs font-medium px-2.5 py-0.5 rounded-md bg-slate-800/70 text-slate-300 border border-slate-700/60">—</span>
+              <span id="company-isin" class="font-mono text-[11px] px-2 py-0.5 rounded-md bg-slate-900/90 text-slate-400 border border-slate-700/60">ISIN: —</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-x-5 gap-y-1.5 mt-2 text-xs text-slate-400">
+              <span class="flex items-center gap-1.5"><i data-lucide="user-check" class="w-3.5 h-3.5 text-slate-500"></i> CEO: <strong id="company-ceo" class="text-slate-200 font-medium">—</strong></span>
+              <span class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-500"></i> HQ: <strong id="company-hq" class="text-slate-200 font-medium">—</strong></span>
+              <span class="flex items-center gap-1.5"><i data-lucide="users" class="w-3.5 h-3.5 text-slate-500"></i> Staff: <strong id="company-employees" class="text-slate-200 font-medium">—</strong></span>
+              <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5 text-slate-500"></i> Est: <strong id="company-founded" class="text-slate-200 font-medium">—</strong></span>
+              <a id="company-website" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-indigo-400 hover:text-indigo-300 transition"><i data-lucide="globe" class="w-3.5 h-3.5"></i> Corporate Site</a>
+              <a id="company-msx-link" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-emerald-400 hover:text-emerald-300 transition"><i data-lucide="external-link" class="w-3.5 h-3.5"></i> msx.om Profile</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: MSX Share Price & 52W Range Bar -->
+        <div class="flex flex-col sm:flex-row lg:items-center gap-6 pt-4 lg:pt-0 border-t lg:border-t-0 border-slate-800/80">
+          <div>
+            <div class="flex items-center gap-2 text-xs uppercase tracking-wider text-slate-400 font-medium mb-1">
+              <span id="hero-price-label">MSX Share Price (OMR)</span>
+              <span id="last-updated-tag" class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">Verified</span>
+            </div>
+            <div class="flex items-baseline gap-3">
+              <span id="current-price" class="text-3xl sm:text-4xl font-bold font-mono text-white">OMR —</span>
+              <span id="price-change-badge" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                — (1Y)
+              </span>
+            </div>
+            <div id="day-change-text" class="text-xs text-slate-400 mt-1 font-mono">Session: — • Vol: —</div>
+          </div>
+
+          <!-- 52-Week Range Visual Gauge -->
+          <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 min-w-[260px]">
+            <div class="flex justify-between text-[11px] text-slate-400 font-mono mb-1.5">
+              <span>52W Low: <strong id="low-52w" class="text-slate-200">OMR —</strong></span>
+              <span>52W High: <strong id="high-52w" class="text-slate-200">OMR —</strong></span>
+            </div>
+            <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden relative">
+              <div id="range-52w-bar" class="h-full bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 rounded-full" style="width: 50%;"></div>
+            </div>
+            <div class="flex justify-between items-center mt-1.5 text-[11px] text-slate-400">
+              <span>Market Cap / Cash Yield</span>
+              <span id="hero-mcap-yield" class="font-mono font-semibold text-indigo-400">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW NAVIGATION TABS -->
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <div class="inline-flex items-center gap-1.5 p-1 rounded-xl glass-card" role="tablist">
+        <button data-tab="overview" class="tab-btn active px-4 py-2 rounded-lg text-xs sm:text-sm font-medium border border-transparent text-slate-300 hover:text-white transition flex items-center gap-2">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+          <span>Overview &amp; Financials</span>
+        </button>
+        <button data-tab="governance" class="tab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-medium border border-transparent text-slate-300 hover:text-white transition flex items-center gap-2">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+          <span>Governance &amp; Ownership</span>
+        </button>
+        <button data-tab="filings" class="tab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-medium border border-transparent text-slate-300 hover:text-white transition flex items-center gap-2">
+          <i data-lucide="file-text" class="w-4 h-4"></i>
+          <span>Filings &amp; Audit Trail</span>
+        </button>
+      </div>
+
+      <!-- Quick Primary Source Pills -->
+      <div class="flex flex-wrap items-center gap-2 text-[11px] font-mono">
+        <span class="text-slate-500 uppercase tracking-wider">Primary Sources:</span>
+        <a id="pill-src-msx" href="https://www.msx.om/" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-indigo-400 hover:border-indigo-500 transition flex items-center gap-1">
+          <i data-lucide="check-circle-2" class="w-3 h-3 text-emerald-400"></i> msx.om
+        </a>
+        <a id="pill-src-mcd" href="https://www.mcd.om/en/Default/Statistic/MajorInvestors5OrMore" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-cyan-400 hover:border-cyan-500 transition flex items-center gap-1">
+          <i data-lucide="check-circle-2" class="w-3 h-3 text-emerald-400"></i> mcd.om
+        </a>
+        <a id="pill-src-corp" href="#" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-emerald-400 hover:border-emerald-500 transition flex items-center gap-1">
+          <i data-lucide="check-circle-2" class="w-3 h-3 text-emerald-400"></i> Corporate Website
+        </a>
+      </div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- TAB 1: OVERVIEW & FINANCIALS (Exact Existing Layout Adapted to OMR) -->
+    <!-- ================================================================== -->
+    <div id="tab-overview" class="space-y-6">
+
+      <!-- TOP GRID: DESCRIPTION & 1-YEAR SHARE PRICE CHART -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- LEFT 4 COLS: COMPANY DESCRIPTION & BUSINESS SEGMENTS -->
+        <div class="lg:col-span-4 flex flex-col gap-6 min-w-0">
+          <div class="glass-card rounded-2xl p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                  <i data-lucide="building-2" class="w-4 h-4 text-indigo-400"></i> Company Overview
+                </h3>
+                <span id="exchange-badge" class="text-[11px] font-mono text-slate-400">msx.om</span>
+              </div>
+              <p id="company-description" class="text-sm text-slate-300 leading-relaxed max-h-52 overflow-y-auto pr-1">
+                <!-- Populated from JSON -->
+              </p>
+
+              <!-- Core Pillars / Financial Highlights -->
+              <div class="mt-4 pt-4 border-t border-slate-800/80">
+                <h4 id="highlights-heading" class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5">Key Financial &amp; Strategic Highlights (OMR)</h4>
+                <ul id="company-highlights" class="space-y-2 text-xs text-slate-300">
+                  <!-- Populated from JSON -->
+                </ul>
+              </div>
+            </div>
+
+            <!-- Revenue / Income Mix by Segment -->
+            <div id="segment-section" class="mt-5 pt-4 border-t border-slate-800/80">
+              <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-between">
+                <span>Business Segment Breakdown</span>
+                <span id="segment-fy-note" class="text-[11px] text-slate-500 font-mono">FY2025 Audited</span>
+              </h4>
+              <div id="segment-bars" class="space-y-2.5">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT 8 COLS: 1-YEAR SHARE PRICE MOVEMENT -->
+        <div class="lg:col-span-8 glass-card rounded-2xl p-5 flex flex-col justify-between min-w-0">
+          <div>
+            <!-- Chart Header & Controls -->
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+              <div>
+                <h3 id="price-chart-title" class="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                  <i data-lucide="trending-up" class="w-4 h-4 text-indigo-400"></i> Share Price Movement (Last 1 Year — OMR)
+                </h3>
+                <p id="chart-subtitle" class="text-xs text-slate-400 mt-0.5">Daily closing prices from msx.om with 50D / 200D SMA &amp; MSX Flagship benchmark</p>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2">
+                <!-- Overlay toggles -->
+                <label class="inline-flex items-center gap-1.5 text-xs text-slate-300 bg-slate-900 border border-slate-800 px-2.5 py-1 rounded-lg cursor-pointer hover:border-slate-700">
+                  <input type="checkbox" id="toggle-sma" checked class="accent-indigo-500 rounded" />
+                  <span>50D SMA</span>
+                </label>
+                <label class="inline-flex items-center gap-1.5 text-xs text-slate-300 bg-slate-900 border border-slate-800 px-2.5 py-1 rounded-lg cursor-pointer hover:border-slate-700">
+                  <input type="checkbox" id="toggle-sma200" checked class="accent-amber-500 rounded" />
+                  <span>200D SMA</span>
+                </label>
+                <label class="inline-flex items-center gap-1.5 text-xs text-slate-300 bg-slate-900 border border-slate-800 px-2.5 py-1 rounded-lg cursor-pointer hover:border-slate-700">
+                  <input type="checkbox" id="toggle-benchmark" class="accent-cyan-400 rounded" />
+                  <span>vs MSX Flagship 8</span>
+                </label>
+
+                <!-- Timeframe Buttons -->
+                <div class="flex items-center bg-slate-900 p-0.5 rounded-lg border border-slate-800 text-xs font-mono">
+                  <button data-range="21" class="range-btn px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition">1M</button>
+                  <button data-range="63" class="range-btn px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition">3M</button>
+                  <button data-range="126" class="range-btn px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition">6M</button>
+                  <button data-range="999" class="range-btn active px-2.5 py-1 rounded-md text-slate-400 hover:text-white transition">1Y</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Price Chart Canvas -->
+            <div class="relative h-[330px] w-full min-w-0 overflow-hidden">
+              <canvas id="priceChart"></canvas>
+            </div>
+          </div>
+
+          <!-- 1-Year Return Summary Strip -->
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mt-4 pt-4 border-t border-slate-800/80">
+            <div class="bg-slate-900/70 rounded-xl p-2.5 border border-slate-800/70">
+              <div class="text-[11px] text-slate-400">1M Return</div>
+              <div id="ret-1m" class="text-sm font-mono font-semibold mt-0.5">—</div>
+            </div>
+            <div class="bg-slate-900/70 rounded-xl p-2.5 border border-slate-800/70">
+              <div class="text-[11px] text-slate-400">3M Return</div>
+              <div id="ret-3m" class="text-sm font-mono font-semibold mt-0.5">—</div>
+            </div>
+            <div class="bg-slate-900/70 rounded-xl p-2.5 border border-slate-800/70">
+              <div class="text-[11px] text-slate-400">6M Return</div>
+              <div id="ret-6m" class="text-sm font-mono font-semibold mt-0.5">—</div>
+            </div>
+            <div class="bg-slate-900/70 rounded-xl p-2.5 border border-slate-800/70">
+              <div class="text-[11px] text-slate-400">1Y Return</div>
+              <div id="ret-1y" class="text-sm font-mono font-semibold mt-0.5">—</div>
+            </div>
+            <div class="bg-slate-900/70 rounded-xl p-2.5 border border-slate-800/70 col-span-2 sm:col-span-1">
+              <div class="text-[11px] text-slate-400">1Y Volatility / Turnover</div>
+              <div id="volatility-beta" class="text-sm font-mono font-semibold text-slate-200 mt-0.5 truncate">—</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- KEY VALUATION METRICS & FINANCIAL HEALTH -->
+      <section class="glass-card rounded-2xl p-6">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <div>
+            <h3 id="valuation-title" class="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+              <i data-lucide="calculator" class="w-4 h-4 text-indigo-400"></i> Key Valuation Metrics &amp; Sector Financials (OMR)
+            </h3>
+            <p id="valuation-subtitle" class="text-xs text-slate-400 mt-0.5">Extracted exclusively from audited FY2025 &amp; Q3 2026 MSX financial statements</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span id="fiscal-note" class="text-xs font-mono text-slate-400 bg-slate-900 px-3 py-1 rounded-lg border border-slate-800">
+              Currency: OMR • FY2025 Audited + Q3 2026
+            </span>
+          </div>
+        </div>
+
+        <!-- 12 Metric Cards Grid -->
+        <div id="valuation-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
+          <!-- Populated from JSON -->
+        </div>
+      </section>
+
+      <!-- OWNERSHIP STRUCTURE & ANNUAL FINANCIALS -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- OWNERSHIP BREAKDOWN (7 COLS) -->
+        <div class="lg:col-span-7 glass-card rounded-2xl p-6 flex flex-col justify-between min-w-0">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+              <div>
+                <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                  <i data-lucide="pie-chart" class="w-4 h-4 text-indigo-400"></i> Shareholding &amp; Ownership Structure (mcd.om)
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">Omani / GCC / Foreign ownership split &amp; Major Investors (5%+) from Muscat Clearing &amp; Depository</p>
+              </div>
+              <span id="shares-outstanding" class="text-xs font-mono text-slate-400 bg-slate-900 px-2.5 py-1 rounded-md border border-slate-800">
+                Issued Shares: —
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+              <!-- Doughnut Chart -->
+              <div class="md:col-span-5 flex flex-col items-center">
+                <div class="relative w-48 h-48 overflow-hidden">
+                  <canvas id="ownershipChart"></canvas>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                    <span class="text-[11px] text-slate-400 uppercase">Omani</span>
+                    <span id="inst-center-label" class="text-xl font-bold font-mono text-white">—</span>
+                  </div>
+                </div>
+                <div id="ownership-legend" class="w-full mt-4 space-y-1.5 text-xs">
+                  <!-- Populated by JS -->
+                </div>
+              </div>
+
+              <!-- Major Investors (5%+) Table -->
+              <div class="md:col-span-7 min-w-0">
+                <div class="flex items-center justify-between mb-2.5">
+                  <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-400">Major Shareholders (5%+ Disclosure)</h4>
+                  <a href="https://www.mcd.om/en/Default/Statistic/MajorInvestors5OrMore" target="_blank" rel="noopener noreferrer" class="text-[11px] font-mono text-indigo-400 hover:underline flex items-center gap-1">
+                    Verify mcd.om <i data-lucide="external-link" class="w-3 h-3"></i>
+                  </a>
+                </div>
+                <div class="overflow-x-auto rounded-xl border border-slate-800/90 bg-slate-900/50">
+                  <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                      <tr class="border-b border-slate-800 text-slate-400 bg-slate-900/90">
+                        <th class="py-2.5 px-3 font-medium">Major Investor (5%+)</th>
+                        <th class="py-2.5 px-3 font-medium text-right">Stake (%)</th>
+                        <th class="py-2.5 px-3 font-medium text-right">Shares</th>
+                        <th id="holders-val-col" class="py-2.5 px-3 font-medium text-right">Value (OMR)</th>
+                      </tr>
+                    </thead>
+                    <tbody id="holders-table-body" class="divide-y divide-slate-800/60 font-mono">
+                      <!-- Populated by JS -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ownership Footer + Quick Jump to Governance Tab -->
+          <div class="mt-5 pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
+            <div id="insider-summary" class="flex items-center gap-1.5">
+              <!-- Populated by JS -->
+            </div>
+            <button onclick="switchTab('governance')" class="text-indigo-400 hover:text-indigo-300 font-mono text-xs flex items-center gap-1 shrink-0 transition">
+              <span>Board &amp; Full Ownership</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ANNUAL FINANCIALS BAR CHART + 9M 2026 MOMENTUM (5 COLS) -->
+        <div class="lg:col-span-5 flex flex-col gap-6 min-w-0">
+
+          <!-- Multi-Year Annual Performance Chart -->
+          <div class="glass-card rounded-2xl p-5 flex-1 flex flex-col justify-between min-w-0">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 id="fin-chart-title" class="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                  <i data-lucide="bar-chart-3" class="w-4 h-4 text-indigo-400"></i> Annual Performance (OMR M)
+                </h3>
+                <p id="fin-chart-subtitle" class="text-xs text-slate-400 mt-0.5">Multi-Year Audited IFRS Performance (msx.om Filings)</p>
+              </div>
+            </div>
+            <div class="relative h-52 w-full min-w-0 overflow-hidden">
+              <canvas id="financialsChart"></canvas>
+            </div>
+          </div>
+
+          <!-- 9M 2026 Quarterly Momentum Card -->
+          <div class="glass-card rounded-2xl p-5">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                <i data-lucide="activity" class="w-4 h-4 text-indigo-400"></i> 9M 2026 Momentum (YoY)
+              </h3>
+              <a id="q3-filing-link" href="#" target="_blank" rel="noopener noreferrer" class="text-xs text-indigo-400 hover:underline font-mono flex items-center gap-1">
+                Q3 2026 PDF <i data-lucide="file-text" class="w-3 h-3"></i>
+              </a>
+            </div>
+            <div id="quarterly-bars" class="space-y-2.5 text-xs">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- MSX DISCLOSURES & REGULATORY ANNOUNCEMENTS -->
+      <section class="glass-card rounded-2xl p-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
+          <div>
+            <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+              <i data-lucide="newspaper" class="w-4 h-4 text-indigo-400"></i> MSX Disclosures &amp; Announcements (2026)
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Regulatory filings sourced directly from msx.om — click any card to open the PDF disclosure</p>
+          </div>
+
+          <!-- Category Filter Buttons -->
+          <div class="flex flex-wrap items-center gap-1.5 text-xs" id="news-filters">
+            <button data-category="all" class="news-filter-btn px-3 py-1 rounded-lg bg-indigo-600 text-white font-medium transition">All Disclosures</button>
+            <button data-category="Financials" class="news-filter-btn px-3 py-1 rounded-lg bg-slate-900 text-emerald-400 border border-slate-800 hover:border-emerald-500/40 transition">Financials</button>
+            <button data-category="Dividends" class="news-filter-btn px-3 py-1 rounded-lg bg-slate-900 text-cyan-400 border border-slate-800 hover:border-cyan-500/40 transition">Dividends</button>
+            <button data-category="Governance" class="news-filter-btn px-3 py-1 rounded-lg bg-slate-900 text-amber-300 border border-slate-800 hover:border-amber-500/40 transition">Governance</button>
+            <button data-category="Corporate" class="news-filter-btn px-3 py-1 rounded-lg bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-600 transition">Corporate</button>
+          </div>
+        </div>
+
+        <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Populated from JSON -->
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- TAB 2: GOVERNANCE & OWNERSHIP (MCD + CORPORATE WEBSITES)           -->
+    <!-- ================================================================== -->
+    <div id="tab-governance" class="hidden space-y-6">
+
+      <!-- SECTION A: SHAREHOLDERS & NATIONALITY OWNERSHIP (MCD.OM) -->
+      <section class="glass-card rounded-2xl p-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
+          <div>
+            <h3 class="text-base font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+              <i data-lucide="landmark" class="w-4 h-4 text-indigo-400"></i> Major Shareholders &amp; Nationality Ownership Breakdown
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Verified exclusively from Muscat Clearing &amp; Depository (mcd.om) public registry tables</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <a id="gov-mcd-major-link" href="https://www.mcd.om/en/Default/Statistic/MajorInvestors5OrMore" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-lg bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-500/25 transition">
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Source: mcd.om Major Investors (5%+)
+            </a>
+            <a id="gov-mcd-nat-link" href="https://www.mcd.om/en/Default/Statistic/InvestorOwnership" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-lg bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/25 transition">
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Source: mcd.om Nationality Split
+            </a>
+          </div>
+        </div>
+
+        <!-- Capital Structure KPI Strip -->
+        <div id="gov-capital-strip" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <!-- Left 5 Cols: Nationality Ownership Doughnut + Limits Table -->
+          <div class="lg:col-span-5 bg-slate-900/60 border border-slate-800/80 rounded-xl p-5">
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-300 mb-4 flex items-center justify-between">
+              <span>Omani / GCC / Foreign Ownership Split</span>
+              <span class="font-mono text-[11px] text-slate-400">mcd.om Registry</span>
+            </h4>
+            <div class="flex flex-col sm:flex-row items-center gap-5 mb-4">
+              <div class="relative w-40 h-40 shrink-0">
+                <canvas id="govOwnershipChart"></canvas>
+                <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                  <span class="text-[10px] text-slate-400 uppercase">Omani</span>
+                  <span id="gov-omani-center" class="text-lg font-bold font-mono text-white">—</span>
+                </div>
+              </div>
+              <div id="gov-nat-legend" class="flex-1 w-full space-y-2 text-xs">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+            <div class="overflow-x-auto rounded-lg border border-slate-800/80">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="border-b border-slate-800 text-slate-400 bg-slate-900/90">
+                    <th class="py-2 px-3 font-medium">Nationality Group</th>
+                    <th class="py-2 px-3 font-medium text-right">Current %</th>
+                    <th class="py-2 px-3 font-medium text-right">Shares Held</th>
+                    <th class="py-2 px-3 font-medium text-right">Max Limit</th>
+                  </tr>
+                </thead>
+                <tbody id="gov-nat-table-body" class="divide-y divide-slate-800/60 font-mono">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Right 7 Cols: Major Investors (5%+) Full Table -->
+          <div class="lg:col-span-7 bg-slate-900/60 border border-slate-800/80 rounded-xl p-5">
+            <div class="flex items-center justify-between mb-3">
+              <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-300">Major Investors Holding 5% or More</h4>
+              <span id="gov-major-summary" class="text-[11px] font-mono text-slate-400">—</span>
+            </div>
+            <div class="overflow-x-auto rounded-lg border border-slate-800/80">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="border-b border-slate-800 text-slate-400 bg-slate-900/90">
+                    <th class="py-2.5 px-3 font-medium">Shareholder Name (mcd.om)</th>
+                    <th class="py-2.5 px-3 font-medium text-right">Stake (%)</th>
+                    <th class="py-2.5 px-3 font-medium text-right">Total Shares Owned</th>
+                    <th id="gov-major-val-col" class="py-2.5 px-3 font-medium text-right">Market Value (OMR)</th>
+                  </tr>
+                </thead>
+                <tbody id="gov-major-table-body" class="divide-y divide-slate-800/60 font-mono">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION B: BOARD OF DIRECTORS -->
+      <section class="glass-card rounded-2xl p-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
+          <div>
+            <h3 class="text-base font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+              <i data-lucide="users" class="w-4 h-4 text-indigo-400"></i> Board of Directors
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Current Board composition, roles (Chairman, Deputy Chairman, Directors), and independence status</p>
+          </div>
+          <div id="board-source-badge" class="flex flex-wrap items-center gap-2">
+            <!-- Populated with exact source URL badge or "Not disclosed on corporate website" -->
+          </div>
+        </div>
+
+        <div id="board-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- SECTION C: EXECUTIVE MANAGEMENT -->
+      <section class="glass-card rounded-2xl p-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
+          <div>
+            <h3 class="text-base font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+              <i data-lucide="briefcase" class="w-4 h-4 text-indigo-400"></i> Key Executive Management
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Chief Executive Officer, Chief Financial Officer, Chief Operating Officer, and C-Suite leadership</p>
+          </div>
+          <div id="mgmt-source-badge" class="flex flex-wrap items-center gap-2">
+            <!-- Populated with exact source URL badge or "Not disclosed on corporate website" -->
+          </div>
+        </div>
+
+        <div id="management-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- TAB 3: FILINGS & AUDIT TRAIL                                       -->
+    <!-- ================================================================== -->
+    <div id="tab-filings" class="hidden space-y-6">
+
+      <!-- Multi-Year Financial Statements Summary Table (OMR) -->
+      <section class="glass-card rounded-2xl p-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div>
+            <h3 id="fin-summary-title" class="text-base font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+              <i data-lucide="table" class="w-4 h-4 text-indigo-400"></i> Multi-Year Audited &amp; Interim Financial Summary (OMR)
+            </h3>
+            <p id="fin-summary-subtitle" class="text-xs text-slate-400 mt-0.5">All figures extracted directly from MSX XBRL financial statement PDFs in Omani Rials (OMR)</p>
+          </div>
+          <span id="fin-summary-unit" class="text-xs font-mono px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">Unit: OMR (Millions) • DPS in OMR</span>
+        </div>
+        <div class="overflow-x-auto rounded-xl border border-slate-800/90 bg-slate-900/50">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead id="fin-table-head"></thead>
+            <tbody id="fin-table-body" class="divide-y divide-slate-800/60 font-mono"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Direct MSX Financial Report Links -->
+      <section class="glass-card rounded-2xl p-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div>
+            <h3 class="text-base font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+              <i data-lucide="folder-down" class="w-4 h-4 text-indigo-400"></i> MSX Financial Statement Filings (msx.om)
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Direct download links to XBRL financial report ZIP archives hosted on msx.om (Balance Sheet, Income Statement, Cash Flow, Chairman Report, Corporate Governance, MD&amp;A)</p>
+          </div>
+        </div>
+        <div id="filings-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Data Provenance & Direct Verification URLs -->
+      <section class="glass-card rounded-2xl p-6">
+        <div class="mb-4">
+          <h3 class="text-base font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-emerald-400"></i> Primary Source Verification Matrix
+          </h3>
+          <p class="text-xs text-slate-400 mt-0.5">Zero third-party financial aggregators used. Every data section links directly to msx.om, mcd.om, or the company's corporate website.</p>
+        </div>
+        <div class="overflow-x-auto rounded-xl border border-slate-800/90 bg-slate-900/50">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400 bg-slate-900/90">
+                <th class="py-2.5 px-4 font-medium">Data Section</th>
+                <th class="py-2.5 px-4 font-medium">Primary Source</th>
+                <th class="py-2.5 px-4 font-medium">Direct Verification URL</th>
+              </tr>
+            </thead>
+            <tbody id="verification-table-body" class="divide-y divide-slate-800/60">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-900 bg-slate-950 py-4 px-6 text-center text-xs text-slate-500">
+    <div class="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>Oman Stock Intelligence — Independent analytics dashboard sourced from public msx.om, mcd.om &amp; corporate disclosures. Not affiliated with or endorsed by MSX or MCD.</span>
+      <span id="footer-status">Static Cloudflare Pages Build • Zero Aggregators</span>
+    </div>
+  </footer>
+
+  <!-- ALL MSX STOCKS DIRECTORY MODAL -->
+  <div id="directory-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6">
+    <div class="glass-card rounded-2xl max-w-5xl w-full max-h-[88vh] flex flex-col border border-slate-700 shadow-2xl overflow-hidden">
+      <div class="p-4 sm:p-5 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400">
+            <i data-lucide="layout-grid" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <span>MSX Listed Companies Directory</span>
+              <span id="dir-total-badge" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">—</span>
+            </h3>
+            <p class="text-xs text-slate-400">All active SAOG public companies on the Muscat Stock Exchange • Click any stock to inspect</p>
+          </div>
+        </div>
+        <button id="close-directory-modal" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Directory Controls -->
+      <div class="p-4 border-b border-slate-800/70 space-y-3 bg-slate-900/40">
+        <div class="flex flex-col sm:flex-row gap-2.5">
+          <div class="relative flex-1">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+            <input id="dir-search" type="text" placeholder="Filter by ticker, company name, sector, or ISIN..." class="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-slate-900 border border-slate-700/80 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500" />
+          </div>
+          <select id="dir-sort" class="px-3 py-2 text-xs font-mono bg-slate-900 border border-slate-700/80 rounded-lg text-slate-200 focus:outline-none focus:border-indigo-500">
+            <option value="mcap">Sort: Market Cap ↓</option>
+            <option value="ticker">Sort: Ticker A–Z</option>
+            <option value="change">Sort: 1D Change ↓</option>
+          </select>
+        </div>
+        <div id="dir-sector-pills" class="flex flex-wrap items-center gap-1.5 text-xs">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <!-- Directory Table -->
+      <div class="flex-1 overflow-y-auto">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead class="sticky top-0 bg-slate-950/95 backdrop-blur border-b border-slate-800 text-slate-400 z-10">
+            <tr>
+              <th class="py-2.5 px-4 font-medium">Ticker &amp; Company</th>
+              <th class="py-2.5 px-3 font-medium hidden md:table-cell">Sector</th>
+              <th class="py-2.5 px-3 font-medium hidden sm:table-cell">Market</th>
+              <th id="dir-price-col" class="py-2.5 px-3 font-medium text-right">Price (OMR)</th>
+              <th class="py-2.5 px-3 font-medium text-right">1D %</th>
+              <th id="dir-mcap-col" class="py-2.5 px-4 font-medium text-right">Market Cap (OMR)</th>
+            </tr>
+          </thead>
+          <tbody id="dir-table-body" class="divide-y divide-slate-800/60">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHARE / MOBILE QR MODAL -->
+  <div id="share-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-card rounded-2xl max-w-md w-full p-6 border border-slate-700 shadow-2xl relative">
+      <button id="close-share-modal" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div class="flex items-center gap-2.5 mb-3">
+        <div class="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400">
+          <i data-lucide="smartphone" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">Share MSX Dashboard</h3>
+          <p class="text-xs text-slate-400">Scan QR code or copy link to this company view</p>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl flex items-center justify-center my-4 mx-auto w-48 h-48 shadow-inner border border-slate-200">
+        <img id="qr-image" src="" alt="QR Code" class="w-40 h-40" />
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="text-slate-400 block mb-1 font-medium">Shareable Dashboard URL:</label>
+          <div class="flex items-center gap-2">
+            <input id="lan-url-input" type="text" readonly value="" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 font-mono text-indigo-400 text-xs focus:outline-none" />
+            <button id="copy-lan-btn" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium shrink-0 transition">Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION LOGIC (100% STATIC — ZERO SERVER DEPENDENCIES) -->
+  <script>
+    let currentTicker = "BKMB";
+    let currentCompanyData = null;
+    let watchlistData = [];
+    let currentRange = 999; // 21 (1M), 63 (3M), 126 (6M), 999 (1Y)
+    let currentCategoryFilter = "all";
+    let currentTab = "overview";
+    let themeMode = "system";
+    let currentCurrency = "OMR"; // "OMR" | "USD"
+    let dirSectorFilter = "All";
+    const OMR_TO_USD = 2.6008; // Central Bank of Oman fixed peg (1 USD = 0.3845 OMR)
+
+    let priceChartInstance = null;
+    let ownershipChartInstance = null;
+    let govOwnershipChartInstance = null;
+    let financialsChartInstance = null;
+
+    const LOGO_COLORS = {
+      BKMB: "from-rose-600 to-red-950",
+      BKSB: "from-blue-600 to-indigo-950",
+      NBOB: "from-indigo-600 to-slate-950",
+      BKDB: "from-emerald-600 to-teal-950",
+      OQGN: "from-cyan-600 to-blue-950",
+      OQEP: "from-amber-600 to-orange-950",
+      ABRJ: "from-violet-600 to-indigo-950",
+      PHPC: "from-sky-600 to-slate-900",
+    };
+
+    function getLogoGradient(company) {
+      if (LOGO_COLORS[company.ticker]) return LOGO_COLORS[company.ticker];
+      const sg = company.sectorGroup || "";
+      if (sg === "Banking") return "from-blue-600 to-indigo-950";
+      if (sg === "Energy & Utilities") return "from-cyan-600 to-teal-950";
+      if (sg === "Financials") return "from-indigo-600 to-slate-900";
+      if (sg === "Industrials") return "from-amber-600 to-stone-900";
+      return "from-violet-600 to-slate-900";
+    }
+
+    function safeCreateIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === "function") {
+        try { window.lucide.createIcons(); } catch (e) {}
+      }
+    }
+
+    function fxRate() {
+      return currentCurrency === "USD" ? OMR_TO_USD : 1;
+    }
+
+    function currPrefix() {
+      return currentCurrency === "USD" ? "$" : "OMR ";
+    }
+
+    function currCode() {
+      return currentCurrency;
+    }
+
+    function fmtPrice(omrVal, decimals = 3) {
+      if (omrVal === null || omrVal === undefined || Number.isNaN(Number(omrVal))) return `${currPrefix()}—`;
+      const v = Number(omrVal) * fxRate();
+      return `${currPrefix()}${v.toFixed(decimals)}`;
+    }
+
+    function fmtDps(omrVal) {
+      if (omrVal === null || omrVal === undefined || Number.isNaN(Number(omrVal))) return "—";
+      const v = Number(omrVal) * fxRate();
+      return `${currPrefix()}${v.toFixed(4)}`;
+    }
+
+    function fmtLarge(omrVal) {
+      if (omrVal === null || omrVal === undefined || Number.isNaN(Number(omrVal))) return "N/A";
+      const v = Number(omrVal) * fxRate();
+      const abs = Math.abs(v);
+      const sign = v < 0 ? "-" : "";
+      if (abs >= 1e9) return `${sign}${currPrefix()}${(abs / 1e9).toFixed(2)}B`;
+      if (abs >= 1e6) return `${sign}${currPrefix()}${(abs / 1e6).toFixed(2)}M`;
+      if (abs >= 1e3) return `${sign}${currPrefix()}${(abs / 1e3).toFixed(1)}K`;
+      return `${sign}${currPrefix()}${abs.toFixed(3)}`;
+    }
+
+    function fmtMillions(omrVal) {
+      if (omrVal === null || omrVal === undefined || Number.isNaN(Number(omrVal))) return "—";
+      const v = (Number(omrVal) * fxRate()) / 1e6;
+      return v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // Converts inline OMR strings (e.g. "OMR 3.09B", "-OMR 25.40M", "OMR 0.0180") to USD when USD is active
+    function localizeOmrText(text) {
+      if (!text || currentCurrency === "OMR") return text;
+      return String(text).replace(/(-?)OMR\s+([\d,]+(?:\.\d+)?)([BMK]?)/g, (_, sign, numStr, suffix) => {
+        const raw = parseFloat(numStr.replace(/,/g, ""));
+        if (Number.isNaN(raw)) return _;
+        const mult = suffix === "B" ? 1e9 : suffix === "M" ? 1e6 : suffix === "K" ? 1e3 : 1;
+        const valOmr = (sign === "-" ? -1 : 1) * raw * mult;
+        if (suffix) {
+          return fmtLarge(valOmr);
+        }
+        const decs = (numStr.split(".")[1] || "").length;
+        const converted = valOmr * OMR_TO_USD;
+        return `${converted < 0 ? "-" : ""}$${Math.abs(converted).toFixed(Math.max(2, Math.min(4, decs)))}`;
+      });
+    }
+
+    function applyCurrency(curr) {
+      currentCurrency = curr === "USD" ? "USD" : "OMR";
+      try { localStorage.setItem("cv-currency", currentCurrency); } catch (e) {}
+      document.querySelectorAll(".currency-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-currency") === currentCurrency);
+      });
+      renderWatchlistPills();
+      if (!document.getElementById("directory-modal").classList.contains("hidden")) {
+        renderDirectoryTable();
+      }
+      if (currentCompanyData) {
+        renderDashboard(currentCompanyData);
+      }
+    }
+
+    function getInitials(name) {
+      const cleaned = (name || "").replace(/\b(Sheikh|Eng\.|Dr\.|Mr\.|Ms\.|H\.E\.|Al Sayyid|Brigadier)\b/gi, "").trim();
+      const parts = cleaned.split(/\s+/).filter(Boolean);
+      if (parts.length === 0) return "MS";
+      if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+
+    // ============================================================================
+    // SYSTEM / DARK / LIGHT THEME ENGINE
+    // ============================================================================
+    function isDarkThemeActive() {
+      return document.documentElement.classList.contains("dark");
+    }
+
+    function getChartPalette() {
+      const dark = isDarkThemeActive();
+      return {
+        textMuted: dark ? "#94a3b8" : "#475569",
+        textSubtle: "#64748b",
+        gridColor: dark ? "rgba(51, 65, 85, 0.25)" : "rgba(203, 213, 225, 0.65)",
+        tooltipBg: dark ? "rgba(15, 23, 42, 0.95)" : "rgba(255, 255, 255, 0.98)",
+        tooltipTitle: dark ? "#f8fafc" : "#0f172a",
+        tooltipBody: dark ? "#cbd5e1" : "#334155",
+        tooltipBorder: dark ? "#334155" : "#cbd5e1",
+        doughnutBorder: dark ? "#0b111d" : "#ffffff",
+        benchColor: dark ? "#22d3ee" : "#0284c7",
+        smaColor: dark ? "#818cf8" : "#4f46e5",
+        sma200Color: dark ? "#f59e0b" : "#d97706"
+      };
+    }
+
+    function applyTheme(mode) {
+      themeMode = mode;
+      try { localStorage.setItem("cv-theme", mode); } catch (e) {}
+
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const isDark = mode === "dark" || (mode === "system" && prefersDark);
+
+      document.documentElement.classList.toggle("dark", isDark);
+      document.documentElement.classList.toggle("light", !isDark);
+
+      const metaTheme = document.getElementById("theme-color-meta");
+      if (metaTheme) metaTheme.setAttribute("content", isDark ? "#060a12" : "#f8fafc");
+
+      const labelEl = document.getElementById("theme-label");
+      const btnEl = document.getElementById("theme-toggle-btn");
+      let iconName = "monitor", labelText = "Auto";
+      if (mode === "dark") { iconName = "moon"; labelText = "Dark"; }
+      else if (mode === "light") { iconName = "sun"; labelText = "Light"; }
+      if (labelEl) labelEl.textContent = labelText;
+      if (btnEl) {
+        const currentIcon = btnEl.querySelector("svg, i");
+        if (currentIcon) {
+          const newI = document.createElement("i");
+          newI.setAttribute("data-lucide", iconName);
+          newI.id = "theme-icon";
+          newI.className = "w-4 h-4";
+          currentIcon.replaceWith(newI);
+        }
+      }
+      safeCreateIcons();
+
+      if (currentCompanyData) {
+        renderPriceChart(currentCompanyData);
+        renderOwnershipChart(currentCompanyData);
+        renderGovOwnershipChart(currentCompanyData);
+        renderFinancialsChart(currentCompanyData);
+      }
+    }
+
+    if (window.matchMedia) {
+      const mq = window.matchMedia("(prefers-color-scheme: dark)");
+      const handleOsChange = () => { if (themeMode === "system") applyTheme("system"); };
+      if (mq.addEventListener) mq.addEventListener("change", handleOsChange);
+      else if (mq.addListener) mq.addListener(handleOsChange);
+    }
+
+    function formatPctBadge(pct) {
+      const isPos = pct >= 0;
+      const sign = isPos ? "+" : "";
+      const cls = isPos ? "text-emerald-400" : "text-rose-400";
+      return `<span class="${cls}">${sign}${pct.toFixed(2)}%</span>`;
+    }
+
+    // ============================================================================
+    // TAB SWITCHER
+    // ============================================================================
+    window.switchTab = function(tabName) {
+      currentTab = tabName;
+      ["overview", "governance", "filings"].forEach(t => {
+        const panel = document.getElementById(`tab-${t}`);
+        if (panel) panel.classList.toggle("hidden", t !== tabName);
+      });
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-tab") === tabName);
+      });
+      if (currentCompanyData && tabName === "governance") {
+        renderGovOwnershipChart(currentCompanyData);
+      }
+      safeCreateIcons();
+    };
+
+    // ============================================================================
+    // 1. LOAD FULL MSX COMPANY UNIVERSE FROM STATIC ./data/index.json
+    // ============================================================================
+    async function loadWatchlist() {
+      try {
+        const resp = await fetch("./data/index.json");
+        const data = await resp.json();
+        if (data.companies && data.companies.length > 0) {
+          watchlistData = data.companies;
+          const cntEl = document.getElementById("all-stocks-count");
+          if (cntEl) cntEl.textContent = watchlistData.length;
+          const badgeEl = document.getElementById("dir-total-badge");
+          if (badgeEl) badgeEl.textContent = `${watchlistData.length} Active SAOGs`;
+          renderWatchlistPills();
+          renderDirectorySectorPills();
+          renderDirectoryTable();
+        }
+      } catch (e) {
+        console.error("Failed to load ./data/index.json:", e);
+      }
+    }
+
+    function renderWatchlistPills() {
+      const container = document.getElementById("company-pills");
+      const flagships = watchlistData.filter(c => c.isFlagship);
+      const pillList = flagships.length > 0 ? [...flagships] : watchlistData.slice(0, 8);
+
+      // If active company is outside the flagship 8, prepend it so it's always visible in the header
+      if (currentTicker && !pillList.some(c => c.ticker === currentTicker)) {
+        const activeObj = watchlistData.find(c => c.ticker === currentTicker);
+        if (activeObj) pillList.unshift(activeObj);
+      }
+
+      container.innerHTML = pillList.map(c => {
+        const isActive = c.ticker === currentTicker;
+        const pct = Number(c.dayChangePct || 0);
+        const isUp = pct >= 0;
+        const dispP = currentCurrency === "USD" ? `$${(Number(c.price || 0) * OMR_TO_USD).toFixed(3)}` : Number(c.price || 0).toFixed(3);
+        return `
+          <button
+            onclick="selectCompany('${c.ticker}')"
+            class="ticker-pill ${isActive ? 'active' : 'bg-slate-900/90 text-slate-300 border-slate-800 hover:border-slate-700'} border px-3 py-1.5 rounded-xl text-xs font-mono flex items-center gap-2 transition shrink-0"
+          >
+            <span class="font-bold">${c.ticker}</span>
+            <span class="text-slate-300">${dispP}</span>
+            <span class="${isUp ? 'text-emerald-400' : 'text-rose-400'}">${isUp ? '+' : ''}${pct.toFixed(2)}%</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    // ============================================================================
+    // 1B. ALL MSX STOCKS DIRECTORY MODAL
+    // ============================================================================
+    function renderDirectorySectorPills() {
+      const container = document.getElementById("dir-sector-pills");
+      if (!container) return;
+      const counts = { All: watchlistData.length, "Flagship 8": watchlistData.filter(c => c.isFlagship).length };
+      watchlistData.forEach(c => {
+        const g = c.sectorGroup || "Other";
+        counts[g] = (counts[g] || 0) + 1;
+      });
+      const order = ["All", "Flagship 8", "Banking", "Energy & Utilities", "Financials", "Industrials", "Services"];
+      const sectors = order.filter(s => counts[s] > 0);
+      Object.keys(counts).forEach(k => { if (!sectors.includes(k)) sectors.push(k); });
+
+      container.innerHTML = sectors.map(sec => {
+        const isAct = dirSectorFilter === sec;
+        return `
+          <button onclick="setDirSector('${sec}')" class="px-2.5 py-1 rounded-lg font-mono text-[11px] border transition ${
+            isAct
+              ? "bg-indigo-600 text-white border-indigo-500 font-semibold"
+              : "bg-slate-900 text-slate-300 border-slate-800 hover:border-slate-600"
+          }">
+            ${sec} <span class="opacity-70">(${counts[sec]})</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    window.setDirSector = function(sec) {
+      dirSectorFilter = sec;
+      renderDirectorySectorPills();
+      renderDirectoryTable();
+    };
+
+    function renderDirectoryTable() {
+      const tbody = document.getElementById("dir-table-body");
+      if (!tbody) return;
+      const q = (document.getElementById("dir-search")?.value || "").trim().toUpperCase();
+      const sortMode = document.getElementById("dir-sort")?.value || "mcap";
+      const cCode = currCode();
+
+      const priceCol = document.getElementById("dir-price-col");
+      const mcapCol = document.getElementById("dir-mcap-col");
+      if (priceCol) priceCol.textContent = `Price (${cCode})`;
+      if (mcapCol) mcapCol.textContent = `Market Cap (${cCode})`;
+
+      let list = watchlistData.filter(c => {
+        if (dirSectorFilter === "Flagship 8" && !c.isFlagship) return false;
+        else if (dirSectorFilter !== "All" && dirSectorFilter !== "Flagship 8" && c.sectorGroup !== dirSectorFilter) return false;
+        if (!q) return true;
+        return (
+          c.ticker.includes(q) ||
+          (c.name || "").toUpperCase().includes(q) ||
+          (c.sector || "").toUpperCase().includes(q) ||
+          (c.sectorGroup || "").toUpperCase().includes(q) ||
+          (c.isin || "").toUpperCase().includes(q)
+        );
+      });
+
+      list = [...list].sort((a, b) => {
+        if (sortMode === "ticker") return a.ticker.localeCompare(b.ticker);
+        if (sortMode === "change") return Number(b.dayChangePct || 0) - Number(a.dayChangePct || 0);
+        return Number(b.marketCapOmr || 0) - Number(a.marketCapOmr || 0);
+      });
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">No MSX companies match your filter.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(c => {
+        const isCurrent = c.ticker === currentTicker;
+        const pct = Number(c.dayChangePct || 0);
+        const isUp = pct >= 0;
+        const mkt = c.market || "MSX";
+        return `
+          <tr onclick="selectFromDirectory('${c.ticker}')" class="cursor-pointer transition ${isCurrent ? 'bg-indigo-500/15' : 'hover:bg-slate-800/60'}">
+            <td class="py-2.5 px-4">
+              <div class="flex items-center gap-2">
+                <span class="font-mono font-bold text-indigo-400 w-12 shrink-0">${c.ticker}</span>
+                <span class="text-slate-100 font-medium truncate max-w-[260px] sm:max-w-[340px]" title="${c.name}">${c.name}</span>
+                ${c.isFlagship ? '<span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shrink-0">Flagship</span>' : ''}
+              </div>
+            </td>
+            <td class="py-2.5 px-3 text-slate-400 hidden md:table-cell">${c.sectorGroup || c.sector || '—'}</td>
+            <td class="py-2.5 px-3 hidden sm:table-cell">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-700/80 text-slate-300">${mkt}</span>
+            </td>
+            <td class="py-2.5 px-3 text-right font-mono text-white font-semibold">${fmtPrice(c.price)}</td>
+            <td class="py-2.5 px-3 text-right font-mono ${isUp ? 'text-emerald-400' : 'text-rose-400'}">${isUp ? '+' : ''}${pct.toFixed(2)}%</td>
+            <td class="py-2.5 px-4 text-right font-mono text-slate-200">${fmtLarge(c.marketCapOmr)}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    window.selectFromDirectory = function(ticker) {
+      document.getElementById("directory-modal").classList.add("hidden");
+      selectCompany(ticker);
+    };
+
+    // ============================================================================
+    // 2. LOAD COMPANY DATA FROM STATIC ./data/<TICKER>.json
+    // ============================================================================
+    async function loadCompany(symbol) {
+      const sym = symbol.toUpperCase().trim();
+      const banner = document.getElementById("loading-bar");
+      const refreshIcon = document.getElementById("refresh-icon");
+      banner.classList.remove("hidden");
+      banner.textContent = `Loading MSX, MCD & corporate governance dataset for ${sym}...`;
+      if (refreshIcon) refreshIcon.classList.add("animate-spin");
+
+      try {
+        const resp = await fetch(`./data/${encodeURIComponent(sym)}.json`);
+        if (!resp.ok) {
+          alert(`Ticker "${sym}" was not found in the MSX SAOG dataset.`);
+          return;
+        }
+        const data = await resp.json();
+        currentTicker = data.ticker;
+        currentCompanyData = data;
+
+        // Update URL query for deep linking
+        try { history.replaceState(null, "", `?ticker=${data.ticker}`); } catch (_) {}
+
+        renderWatchlistPills();
+        renderDashboard(data);
+      } catch (e) {
+        console.error("Failed to load company JSON:", e);
+      } finally {
+        banner.classList.add("hidden");
+        const iconEl = document.getElementById("refresh-icon");
+        if (iconEl) iconEl.classList.remove("animate-spin");
+      }
+    }
+
+    // ============================================================================
+    // 3. RENDER FULL DASHBOARD
+    // ============================================================================
+    function renderDashboard(company) {
+      // Hero Identity
+      const logoEl = document.getElementById("company-logo");
+      const bgGrad = getLogoGradient(company);
+      logoEl.className = `w-16 h-16 rounded-2xl bg-gradient-to-br ${bgGrad} flex items-center justify-center text-base font-bold text-white shadow-inner shrink-0 border border-white/10 font-mono`;
+      logoEl.textContent = company.ticker;
+
+      document.getElementById("company-name").textContent = company.name;
+      document.getElementById("company-ticker").textContent = `MSX: ${company.ticker}`;
+      document.getElementById("company-sector").textContent = company.sector || company.sectorGroup || "—";
+      document.getElementById("company-isin").textContent = `ISIN: ${company.isin || "—"}`;
+      document.getElementById("company-ceo").textContent = company.ceo || "Not disclosed";
+      document.getElementById("company-hq").textContent = company.hq || "Sultanate of Oman";
+      document.getElementById("company-employees").textContent = company.employees || "—";
+      document.getElementById("company-founded").textContent = company.founded || "—";
+
+      const hasWeb = Boolean(company.website && /^https?:\/\//i.test(company.website));
+      const webLinkEl = document.getElementById("company-website");
+      const corpPillEl = document.getElementById("pill-src-corp");
+      if (hasWeb) {
+        webLinkEl.href = company.website;
+        webLinkEl.classList.remove("hidden");
+        corpPillEl.href = company.verificationUrls.corporateWebsite || company.website;
+        corpPillEl.classList.remove("hidden");
+      } else {
+        webLinkEl.classList.add("hidden");
+        corpPillEl.classList.add("hidden");
+      }
+
+      document.getElementById("company-msx-link").href = company.msxUrl;
+      document.getElementById("exchange-badge").textContent = company.dataSource || `msx.om (${company.ticker})`;
+      document.getElementById("last-updated-tag").textContent = company.lastUpdated;
+      const webHost = hasWeb ? ` • ${company.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}` : "";
+      document.getElementById("footer-status").textContent = `Sources: msx.om • mcd.om${webHost} • Snapshot: ${company.lastUpdated}`;
+
+      // Quick source pills
+      document.getElementById("pill-src-msx").href = company.verificationUrls.msxProfile;
+      document.getElementById("pill-src-mcd").href = company.verificationUrls.mcdMajorInvestors;
+
+      // Price & Returns
+      const prices = (company.series && company.series.prices) ? company.series.prices : [];
+      const pNow = prices.length ? prices[prices.length - 1] : Number(company.price || 0);
+      const p1Y = prices.length ? prices[0] : pNow;
+      const p6M = prices.length ? prices[Math.max(0, prices.length - 126)] : pNow;
+      const p3M = prices.length ? prices[Math.max(0, prices.length - 63)] : pNow;
+      const p1M = prices.length ? prices[Math.max(0, prices.length - 21)] : pNow;
+
+      const calcRet = (a, b) => (b && b > 0 ? ((a - b) / b) * 100 : 0);
+      const ret1Y = calcRet(pNow, p1Y);
+      const ret6M = calcRet(pNow, p6M);
+      const ret3M = calcRet(pNow, p3M);
+      const ret1M = calcRet(pNow, p1M);
+
+      document.getElementById("hero-price-label").textContent = currentCurrency === "USD" ? "MSX Share Price (USD • CBO Peg)" : "MSX Share Price (OMR)";
+      document.getElementById("current-price").textContent = fmtPrice(company.price);
+
+      const badge = document.getElementById("price-change-badge");
+      const is1YPos = ret1Y >= 0;
+      badge.className = `inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-mono font-semibold border ${
+        is1YPos ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30" : "bg-rose-500/15 text-rose-400 border-rose-500/30"
+      }`;
+      badge.textContent = `${is1YPos ? '+' : ''}${ret1Y.toFixed(2)}% (1Y)`;
+
+      const dayChgNum = Number(company.dayChange || 0);
+      const dayPctNum = Number(company.dayChangePct || 0);
+      const isDayPos = dayChgNum >= 0;
+      const convDayChg = (dayChgNum * fxRate()).toFixed(3);
+      const dayChgStr = currentCurrency === "USD" ? `${isDayPos ? '+' : '-'}$${Math.abs(Number(convDayChg)).toFixed(3)}` : `${isDayPos ? '+' : ''}${convDayChg} OMR`;
+      document.getElementById("day-change-text").innerHTML = `Session: <span class="${isDayPos ? 'text-emerald-400' : 'text-rose-400'}">${dayChgStr} (${isDayPos ? '+' : ''}${dayPctNum.toFixed(2)}%)</span> • Vol: ${company.volume || "0"}`;
+
+      // 52W Range Bar
+      document.getElementById("low-52w").textContent = fmtPrice(company.low52w);
+      document.getElementById("high-52w").textContent = fmtPrice(company.high52w);
+      const denom = Number(company.high52w || 0) - Number(company.low52w || 0);
+      const rangePos = denom > 0 ? Math.min(100, Math.max(4, ((Number(company.price || 0) - Number(company.low52w || 0)) / denom) * 100)) : 50;
+      document.getElementById("range-52w-bar").style.width = `${rangePos}%`;
+      const divYieldNum = Number(company.dividendYieldPct || 0);
+      document.getElementById("hero-mcap-yield").textContent = divYieldNum > 0
+        ? `${fmtLarge(company.marketCapOmr)} • ${divYieldNum.toFixed(2)}% Div`
+        : `${fmtLarge(company.marketCapOmr)} • ${company.market || "MSX"}`;
+
+      // Return Strip
+      document.getElementById("ret-1m").innerHTML = formatPctBadge(ret1M);
+      document.getElementById("ret-3m").innerHTML = formatPctBadge(ret3M);
+      document.getElementById("ret-6m").innerHTML = formatPctBadge(ret6M);
+      document.getElementById("ret-1y").innerHTML = formatPctBadge(ret1Y);
+      const turnoverDisp = company.turnoverOmr !== undefined ? fmtLarge(company.turnoverOmr) : localizeOmrText(company.turnover);
+      document.getElementById("volatility-beta").textContent = `${company.volatility || "—"} / ${turnoverDisp}`;
+
+      // Chart titles & subtitles
+      const fullDates = (company.series && company.series.fullDates) ? company.series.fullDates : [];
+      const startD = fullDates[0] || "—";
+      const endD = fullDates[fullDates.length - 1] || "—";
+      document.getElementById("price-chart-title").innerHTML = `<i data-lucide="trending-up" class="w-4 h-4 text-indigo-400"></i> Share Price Movement (Last 1 Year — ${currCode()})`;
+      document.getElementById("chart-subtitle").textContent = currentCurrency === "USD"
+        ? `MSX daily closing prices converted to USD at 1 OMR = $2.6008 (${startD} to ${endD} • ${prices.length} trading days)`
+        : `MSX daily closing prices in OMR (${startD} to ${endD} • ${prices.length} trading days) with 50D / 200D SMA`;
+
+      // Overview, Highlights & Segments
+      document.getElementById("company-description").textContent = company.description || "";
+      document.getElementById("highlights-heading").textContent = `Key Financial & Strategic Highlights (${currCode()})`;
+      document.getElementById("company-highlights").innerHTML = (company.highlights || []).map(h => `
+        <li class="flex items-start gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-1.5 shrink-0"></span>
+          <span>${localizeOmrText(h)}</span>
+        </li>
+      `).join("");
+
+      const segSec = document.getElementById("segment-section");
+      const segs = company.segments || [];
+      if (segs.length > 0) {
+        if (segSec) segSec.classList.remove("hidden");
+        document.getElementById("segment-fy-note").textContent = company.segmentNote || "FY2025 Audited";
+        document.getElementById("segment-bars").innerHTML = segs.map(s => `
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300 font-medium">${s.name}</span>
+              <span class="font-mono text-slate-400">${s.pct}%</span>
+            </div>
+            <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+              <div class="h-full ${s.color} rounded-full" style="width: ${s.pct}%"></div>
+            </div>
+          </div>
+        `).join("");
+      } else {
+        if (segSec) segSec.classList.add("hidden");
+      }
+
+      // Valuation Grid (12 sector-adapted cards)
+      document.getElementById("valuation-title").innerHTML = `<i data-lucide="calculator" class="w-4 h-4 text-indigo-400"></i> Key Valuation Metrics &amp; Sector Financials (${currCode()})`;
+      document.getElementById("fiscal-note").textContent = currentCurrency === "USD"
+        ? `Currency: USD (CBO Peg: 1 OMR = $2.6008) • ${company.latestFiscalYear || "Latest MSX Filing"}`
+        : `Currency: OMR • ${company.latestFiscalYear || "Latest MSX Filing"}`;
+      document.getElementById("valuation-subtitle").textContent = company.sectorGroup === "Banking"
+        ? `Banking Metrics in ${currCode()}: Net Interest & Islamic Income, Net Loans, Customer Deposits, ROE & Multiples (msx.om XBRL PDFs)`
+        : `${company.sectorGroup || "Corporate"} Metrics in ${currCode()}: Revenue, Operating Profit / EBITDA, Net Profit, Balance Sheet & Multiples (msx.om XBRL PDFs)`;
+
+      document.getElementById("valuation-grid").innerHTML = (company.valuation || []).map(m => {
+        const dotColor = m.status === "positive" ? "bg-emerald-500" : m.status === "negative" ? "bg-rose-500" : "bg-indigo-500";
+        const valText = localizeOmrText(m.value);
+        const subText = localizeOmrText(m.sub);
+        return `
+          <div class="bg-slate-900/75 border border-slate-800/80 rounded-xl p-3.5 glass-card-hover flex flex-col justify-between">
+            <div class="flex items-center justify-between text-xs text-slate-400 gap-1">
+              <span class="truncate" title="${m.label}">${m.label}</span>
+              <span class="w-1.5 h-1.5 rounded-full shrink-0 ${dotColor}"></span>
+            </div>
+            <div class="text-lg sm:text-xl font-bold font-mono text-white my-1.5 truncate" title="${valText}">${valText}</div>
+            <div class="text-[11px] text-slate-400 font-mono truncate" title="${subText}">${subText}</div>
+          </div>
+        `;
+      }).join("");
+
+      // Ownership Summary on Overview Tab
+      document.getElementById("holders-val-col").textContent = `Value (${currCode()})`;
+      document.getElementById("shares-outstanding").textContent = `Issued Shares: ${company.sharesOut} (${company.shareholderCount} holders)`;
+      document.getElementById("inst-center-label").textContent = `${company.ownership.breakdown[0].pct.toFixed(1)}%`;
+      document.getElementById("ownership-legend").innerHTML = company.ownership.breakdown.map(b => `
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-sm shrink-0" style="background-color: ${b.color}"></span>
+            <span class="text-slate-300">${b.label}</span>
+          </div>
+          <span class="font-mono font-semibold text-slate-200">${b.pct.toFixed(2)}%</span>
+        </div>
+      `).join("");
+
+      const majorsList = company.ownership.majorInvestors || [];
+      const majorsHtml = majorsList.length > 0
+        ? majorsList.map(h => `
+          <tr class="hover:bg-slate-800/40 transition">
+            <td class="py-2.5 px-3 font-sans font-medium text-slate-200">${h.name}</td>
+            <td class="py-2.5 px-3 text-right text-indigo-400 font-semibold">${h.stake}</td>
+            <td class="py-2.5 px-3 text-right text-slate-400">${h.sharesFmt}</td>
+            <td class="py-2.5 px-3 text-right text-slate-200">${fmtLarge(h.valueOmr)}</td>
+          </tr>
+        `).join("")
+        : `<tr><td colspan="4" class="py-3 px-3 text-slate-400 font-sans italic">No single shareholder disclosed at 5% or more on mcd.om</td></tr>`;
+      const publicRow = `
+        <tr class="bg-slate-900/60 text-slate-400">
+          <td class="py-2 px-3 font-sans italic">Other Shareholders (&lt;5% Public Float)</td>
+          <td class="py-2 px-3 text-right">${company.ownership.publicFloatPct.toFixed(2)}%</td>
+          <td class="py-2 px-3 text-right">—</td>
+          <td class="py-2 px-3 text-right">—</td>
+        </tr>
+      `;
+      document.getElementById("holders-table-body").innerHTML = majorsHtml + publicRow;
+
+      document.getElementById("insider-summary").innerHTML = `
+        <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+        <span>${company.ownership.note}</span>
+      `;
+
+      // Financials Chart Titles & 9M 2026 Momentum Bars
+      const fYears = (company.financials && company.financials.years) ? company.financials.years : [];
+      const yrRangeStr = fYears.length > 1 ? `${fYears[0]}–${fYears[fYears.length - 1]}` : (fYears[0] || "Latest Filings");
+      document.getElementById("fin-chart-title").innerHTML = `<i data-lucide="bar-chart-3" class="w-4 h-4 text-indigo-400"></i> ${company.sectorGroup === "Banking" ? `Annual Operating Income, NII & Net Profit (${currCode()} M)` : `Annual Revenue, Operating / EBITDA & Net Profit (${currCode()} M)`}`;
+      document.getElementById("fin-chart-subtitle").textContent = fYears.length > 0
+        ? (currentCurrency === "USD"
+          ? `IFRS Annual Statements converted at 1 OMR = $2.6008 (${yrRangeStr})`
+          : `IFRS Annual Statements (${yrRangeStr}) • Source: msx.om XBRL PDFs`)
+        : `Annual XBRL financial chart unavailable — open msx.om financial reports for full PDFs`;
+
+      const q3m = company.quarterlyMomentum || { bars: [] };
+      document.getElementById("q3-filing-link").href = q3m.sourceUrl || company.verificationUrls.msxFinancialReports;
+      if (q3m.bars && q3m.bars.length > 0) {
+        document.getElementById("quarterly-bars").innerHTML = q3m.bars.map(b => {
+          const isPos = Number(b.yoyPct) >= 0;
+          const barW = Math.min(100, Math.max(12, Math.abs(Number(b.yoyPct)) * 3.5 + 35));
+          const barColor = isPos ? "bg-emerald-500" : "bg-rose-500";
+          const txtColor = isPos ? "text-emerald-400" : "text-rose-400";
+          const curDisp = b.currentOmr !== undefined ? fmtLarge(b.currentOmr) : localizeOmrText(b.current);
+          const priDisp = b.priorOmr !== undefined ? fmtLarge(b.priorOmr) : localizeOmrText(b.prior);
+          return `
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-slate-300 font-medium">${b.label}</span>
+                <div class="font-mono flex items-center gap-2">
+                  <span class="text-white font-semibold">${curDisp}</span>
+                  <span class="text-[11px] ${txtColor}">${isPos ? '+' : ''}${b.yoyPct}% YoY</span>
+                </div>
+              </div>
+              <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full ${barColor} rounded-full" style="width: ${barW}%"></div>
+              </div>
+              <div class="text-[10px] text-slate-500 font-mono mt-0.5">vs Prior Period: ${priDisp}</div>
+            </div>
+          `;
+        }).join("");
+      } else {
+        document.getElementById("quarterly-bars").innerHTML = `
+          <div class="py-6 text-center text-xs text-slate-400 border border-dashed border-slate-800 rounded-xl px-4">
+            9M 2026 interim XBRL comparison not separately published yet. Use the msx.om Filing link above to view the latest report.
+          </div>
+        `;
+      }
+
+      // Render Charts & Disclosures
+      renderPriceChart(company);
+      renderOwnershipChart(company);
+      renderFinancialsChart(company);
+      renderDisclosures(company);
+
+      // Render Governance & Ownership Tab + Filings Tab
+      renderGovernanceTab(company);
+      renderFilingsTab(company);
+
+      safeCreateIcons();
+    }
+
+    // ============================================================================
+    // 4. GOVERNANCE & OWNERSHIP TAB RENDERER
+    // ============================================================================
+    function renderGovernanceTab(company) {
+      const own = company.ownership;
+      const gov = company.governance;
+
+      // Capital Strip
+      const capitalCards = [
+        { label: "Total Issued Shares", value: own.totalSharesFmt, sub: "Source: mcd.om" },
+        { label: "Paid-Up Capital", value: fmtLarge(own.paidUpCapitalOmr), sub: `Par Value: ${fmtPrice(own.faceValueOmr)}` },
+        { label: "Registered Shareholders", value: company.shareholderCount, sub: `ISIN: ${company.isin}` },
+        { label: "Major Holders (5%+)", value: `${own.majorTotalPct.toFixed(2)}%`, sub: `${own.majorInvestors.length} disclosed anchor(s)` },
+        { label: "Public Float (<5%)", value: `${own.publicFloatPct.toFixed(2)}%`, sub: `Auditor: ${company.auditor}` },
+      ];
+      document.getElementById("gov-capital-strip").innerHTML = capitalCards.map(c => `
+        <div class="bg-slate-900/75 border border-slate-800/80 rounded-xl p-3.5">
+          <div class="text-[11px] text-slate-400">${c.label}</div>
+          <div class="text-base sm:text-lg font-bold font-mono text-white mt-1 truncate" title="${c.value}">${c.value}</div>
+          <div class="text-[11px] text-slate-500 font-mono mt-0.5 truncate">${c.sub}</div>
+        </div>
+      `).join("");
+
+      // Nationality Breakdown Legend & Table
+      document.getElementById("gov-omani-center").textContent = `${own.breakdown[0].pct.toFixed(1)}%`;
+      document.getElementById("gov-nat-legend").innerHTML = own.breakdown.map(b => `
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-sm shrink-0" style="background-color: ${b.color}"></span>
+            <span class="text-slate-300">${b.label}</span>
+          </div>
+          <span class="font-mono font-semibold text-white">${b.pct.toFixed(2)}%</span>
+        </div>
+      `).join("");
+
+      const foreignItem = own.breakdown[2] || {};
+      const natRows = [
+        { name: "Omani", pct: own.breakdown[0].pct, shares: own.breakdown[0].shares, limit: own.breakdown[0].limitPct },
+        { name: "GCC (Gulf)", pct: own.breakdown[1].pct, shares: own.breakdown[1].shares, limit: own.breakdown[1].limitPct },
+        { name: "Arab (Non-GCC)", pct: foreignItem.arabPct ?? 0, shares: null, limit: foreignItem.limitPct },
+        { name: "Foreign (Non-Arab)", pct: foreignItem.foreignerPct ?? 0, shares: null, limit: foreignItem.limitPct },
+      ];
+      document.getElementById("gov-nat-table-body").innerHTML = natRows.map(r => `
+        <tr class="hover:bg-slate-800/40">
+          <td class="py-2 px-3 font-sans font-medium text-slate-200">${r.name}</td>
+          <td class="py-2 px-3 text-right text-indigo-400 font-semibold">${Number(r.pct).toFixed(2)}%</td>
+          <td class="py-2 px-3 text-right text-slate-300">${r.shares !== null ? Number(r.shares).toLocaleString("en-US") : "Included above"}</td>
+          <td class="py-2 px-3 text-right text-slate-400">${r.limit ? `${Number(r.limit).toFixed(0)}%` : "100%"}</td>
+        </tr>
+      `).join("");
+
+      // Major Investors Full Table
+      document.getElementById("gov-major-val-col").textContent = `Market Value (${currCode()})`;
+      document.getElementById("gov-major-summary").textContent = `${own.majorInvestors.length} Major Holders (${own.majorTotalPct.toFixed(2)}%) • Float: ${own.publicFloatPct.toFixed(2)}%`;
+      const govMajorsHtml = own.majorInvestors.length > 0 ? own.majorInvestors.map((h, idx) => `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="py-2.5 px-3 font-sans font-medium text-slate-200">
+            <span class="text-slate-500 font-mono mr-2">${idx + 1}.</span>${h.name}
+          </td>
+          <td class="py-2.5 px-3 text-right text-indigo-400 font-semibold">${h.stake}</td>
+          <td class="py-2.5 px-3 text-right text-slate-300">${h.sharesFmt}</td>
+          <td class="py-2.5 px-3 text-right text-emerald-400 font-semibold">${fmtLarge(h.valueOmr)}</td>
+        </tr>
+      `).join("") : `<tr><td colspan="4" class="py-4 px-3 text-slate-400 font-sans italic">No individual shareholder holds 5% or more per mcd.om public registry.</td></tr>`;
+      document.getElementById("gov-major-table-body").innerHTML = govMajorsHtml + `
+        <tr class="bg-slate-900/70 text-slate-400">
+          <td class="py-2.5 px-3 font-sans italic">Public &amp; Minority Shareholders (&lt;5% threshold)</td>
+          <td class="py-2.5 px-3 text-right font-semibold">${own.publicFloatPct.toFixed(2)}%</td>
+          <td class="py-2.5 px-3 text-right">${Math.max(0, own.totalShares - own.majorInvestors.reduce((a, b) => a + b.shares, 0)).toLocaleString("en-US")}</td>
+          <td class="py-2.5 px-3 text-right">—</td>
+        </tr>
+      `;
+
+      // Board of Directors Source Badge
+      const boardBadgeEl = document.getElementById("board-source-badge");
+      if (gov.boardDisclosedOnWebsite) {
+        boardBadgeEl.innerHTML = `
+          <a href="${gov.boardSourceUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition">
+            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+            <span>Source: ${(gov.boardSourceUrl || "").replace(/^https?:\/\//, "")}</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        `;
+      } else {
+        const bLbl = gov.boardSourceLabel || "MSX Board of Directors Registry";
+        boardBadgeEl.innerHTML = `
+          <span class="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-lg bg-amber-500/15 text-amber-300 border border-amber-500/30">
+            <i data-lucide="info" class="w-3.5 h-3.5"></i>
+            <span>${bLbl}</span>
+          </span>
+          <a href="${gov.boardFallbackUrl || gov.boardSourceUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-lg bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-500/25 transition">
+            <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+            <span>Verify on msx.om</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        `;
+      }
+
+      // Board of Directors Cards
+      const boardList = gov.board || [];
+      document.getElementById("board-grid").innerHTML = boardList.length > 0 ? boardList.map(m => {
+        const isChair = /chair/i.test(m.role) && !/deputy|vice/i.test(m.role);
+        const isDeputy = /deputy|vice/i.test(m.role);
+        const roleStyle = isChair
+          ? "bg-indigo-500/20 text-indigo-300 border-indigo-500/40"
+          : isDeputy
+            ? "bg-cyan-500/20 text-cyan-300 border-cyan-500/40"
+            : "bg-slate-800 text-slate-300 border-slate-700";
+        const avatarGrad = isChair ? "from-indigo-600 to-violet-700" : isDeputy ? "from-cyan-600 to-blue-700" : "from-slate-700 to-slate-800";
+        return `
+          <div class="bg-slate-900/75 border border-slate-800/80 rounded-xl p-4 glass-card-hover flex items-start gap-3.5">
+            <div class="avatar-badge w-10 h-10 rounded-xl bg-gradient-to-br ${avatarGrad} flex items-center justify-center text-xs font-bold font-mono text-white shrink-0 border border-white/10">
+              ${getInitials(m.name)}
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="text-sm font-semibold text-white leading-snug">${m.name}</div>
+              <div class="flex flex-wrap items-center gap-1.5 mt-1.5">
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded-md border ${roleStyle}">${m.role}</span>
+              </div>
+              <div class="text-[11px] text-slate-400 mt-1.5">${m.independence || "Board Member"}</div>
+            </div>
+          </div>
+        `;
+      }).join("") : `<div class="col-span-full py-6 text-center text-xs text-slate-400 border border-dashed border-slate-800 rounded-xl">Board roster not separately listed on msx.om — check the company's latest Corporate Governance report on msx.om.</div>`;
+
+      // Executive Management Source Badge
+      const mgmtBadgeEl = document.getElementById("mgmt-source-badge");
+      if (gov.managementDisclosedOnWebsite) {
+        mgmtBadgeEl.innerHTML = `
+          <a href="${gov.managementSourceUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition">
+            <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+            <span>Source: ${(gov.managementSourceUrl || "").replace(/^https?:\/\//, "")}</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        `;
+      } else {
+        const mLbl = gov.managementSourceLabel || "MSX Company Profile";
+        mgmtBadgeEl.innerHTML = `
+          <span class="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-lg bg-amber-500/15 text-amber-300 border border-amber-500/30">
+            <i data-lucide="info" class="w-3.5 h-3.5"></i>
+            <span>${mLbl}</span>
+          </span>
+          <a href="${gov.managementSourceUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-[11px] font-mono px-3 py-1.5 rounded-lg bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-500/25 transition">
+            <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+            <span>Verify on msx.om</span>
+            <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        `;
+      }
+
+      // Executive Management Cards
+      const mgmtList = gov.management || [];
+      document.getElementById("management-grid").innerHTML = mgmtList.length > 0 ? mgmtList.map((m, idx) => {
+        const isCeo = /chief executive officer|general manager|managing director/i.test(m.title) && !/deputy|country/i.test(m.title);
+        const isCfo = /chief financ/i.test(m.title);
+        const badgeCls = isCeo ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30"
+          : isCfo ? "bg-indigo-500/15 text-indigo-300 border-indigo-500/30"
+          : "bg-slate-800/80 text-slate-300 border-slate-700";
+        return `
+          <div class="bg-slate-900/75 border border-slate-800/80 rounded-xl p-4 glass-card-hover flex flex-col justify-between gap-2">
+            <div class="flex items-start gap-3">
+              <div class="avatar-badge w-9 h-9 rounded-lg bg-gradient-to-br ${isCeo ? 'from-emerald-600 to-teal-800' : 'from-indigo-600 to-slate-800'} flex items-center justify-center text-xs font-bold font-mono text-white shrink-0">
+                ${getInitials(m.name)}
+              </div>
+              <div class="min-w-0">
+                <div class="text-sm font-semibold text-white leading-snug">${m.name}</div>
+                <div class="text-xs text-slate-400 mt-0.5 leading-snug">${m.title}</div>
+              </div>
+            </div>
+            <div class="pt-2 border-t border-slate-800/60 flex items-center justify-between text-[10px] font-mono">
+              <span class="px-2 py-0.5 rounded border ${badgeCls}">${isCeo ? "CEO" : isCfo ? "CFO" : "Executive"}</span>
+              <span class="text-slate-500">#${idx + 1}</span>
+            </div>
+          </div>
+        `;
+      }).join("") : `<div class="col-span-full py-6 text-center text-xs text-slate-400 border border-dashed border-slate-800 rounded-xl">Executive roster not separately disclosed on msx.om profile. See the Annual Corporate Governance Report on msx.om.</div>`;
+
+      if (currentTab === "governance") {
+        renderGovOwnershipChart(company);
+      }
+    }
+
+    // ============================================================================
+    // 5. FILINGS & AUDIT TRAIL TAB RENDERER
+    // ============================================================================
+    function renderFilingsTab(company) {
+      const isBank = company.sectorGroup === "Banking";
+      const rows = company.financials.tableRows || [];
+      const cCode = currCode();
+
+      document.getElementById("fin-summary-title").innerHTML = `<i data-lucide="table" class="w-4 h-4 text-indigo-400"></i> Multi-Year Audited &amp; Interim Financial Summary (${cCode})`;
+      document.getElementById("fin-summary-subtitle").textContent = currentCurrency === "USD"
+        ? "All figures extracted from MSX XBRL financial statement PDFs (OMR) and converted to USD at the CBO fixed peg (1 OMR = $2.6008)"
+        : "All figures extracted directly from MSX XBRL financial statement PDFs in Omani Rials (OMR)";
+      document.getElementById("fin-summary-unit").textContent = `Unit: ${cCode} (Millions) • DPS in ${cCode}`;
+
+      // Multi-year table with Dividends Per Share column
+      if (isBank) {
+        document.getElementById("fin-table-head").innerHTML = `
+          <tr class="border-b border-slate-800 text-slate-400 bg-slate-900/90">
+            <th class="py-2.5 px-3 font-medium">Period</th>
+            <th class="py-2.5 px-3 font-medium text-right">Operating Income</th>
+            <th class="py-2.5 px-3 font-medium text-right">Net Int &amp; Islamic Inc</th>
+            <th class="py-2.5 px-3 font-medium text-right">Net Profit</th>
+            <th class="py-2.5 px-3 font-medium text-right">Dividends / Share</th>
+            <th class="py-2.5 px-3 font-medium text-right">Net Loans &amp; Fin.</th>
+            <th class="py-2.5 px-3 font-medium text-right">Customer Deposits</th>
+            <th class="py-2.5 px-3 font-medium text-right">Total Assets</th>
+            <th class="py-2.5 px-3 font-medium text-right">Attr. Equity</th>
+          </tr>
+        `;
+        document.getElementById("fin-table-body").innerHTML = rows.length > 0 ? rows.map(r => `
+          <tr class="hover:bg-slate-800/40 ${r.period.includes('9M') ? 'bg-indigo-500/5' : ''}">
+            <td class="py-2.5 px-3 font-semibold text-white">${r.period}</td>
+            <td class="py-2.5 px-3 text-right text-slate-200">${fmtMillions(r.primaryMetric)}</td>
+            <td class="py-2.5 px-3 text-right text-indigo-400">${fmtMillions(r.secondaryMetric)}</td>
+            <td class="py-2.5 px-3 text-right text-emerald-400 font-semibold">${fmtMillions(r.netProfit)}</td>
+            <td class="py-2.5 px-3 text-right text-cyan-400 font-semibold">${fmtDps(r.dps)}</td>
+            <td class="py-2.5 px-3 text-right text-slate-300">${fmtMillions(r.loans)}</td>
+            <td class="py-2.5 px-3 text-right text-slate-300">${fmtMillions(r.deposits)}</td>
+            <td class="py-2.5 px-3 text-right text-slate-200">${fmtMillions(r.assets)}</td>
+            <td class="py-2.5 px-3 text-right text-slate-300">${fmtMillions(r.equity)}</td>
+          </tr>
+        `).join("") : `<tr><td colspan="9" class="py-6 text-center text-slate-400 font-sans">No XBRL summary rows parsed yet — download the full report directly from msx.om below.</td></tr>`;
+      } else {
+        document.getElementById("fin-table-head").innerHTML = `
+          <tr class="border-b border-slate-800 text-slate-400 bg-slate-900/90">
+            <th class="py-2.5 px-3 font-medium">Period</th>
+            <th class="py-2.5 px-3 font-medium text-right">Revenue</th>
+            <th class="py-2.5 px-3 font-medium text-right">Operating / EBITDA</th>
+            <th class="py-2.5 px-3 font-medium text-right">Net Profit</th>
+            <th class="py-2.5 px-3 font-medium text-right">Dividends / Share</th>
+            <th class="py-2.5 px-3 font-medium text-right">Operating CF</th>
+            <th class="py-2.5 px-3 font-medium text-right">CapEx</th>
+            <th class="py-2.5 px-3 font-medium text-right">Total Assets</th>
+            <th class="py-2.5 px-3 font-medium text-right">Total Debt</th>
+            <th class="py-2.5 px-3 font-medium text-right">Total Equity</th>
+          </tr>
+        `;
+        document.getElementById("fin-table-body").innerHTML = rows.length > 0 ? rows.map(r => `
+          <tr class="hover:bg-slate-800/40 ${r.period.includes('9M') ? 'bg-indigo-500/5' : ''}">
+            <td class="py-2.5 px-3 font-semibold text-white">${r.period}</td>
+            <td class="py-2.5 px-3 text-right text-slate-200">${fmtMillions(r.primaryMetric)}</td>
+            <td class="py-2.5 px-3 text-right text-indigo-400">${fmtMillions(r.secondaryMetric)}</td>
+            <td class="py-2.5 px-3 text-right text-emerald-400 font-semibold">${fmtMillions(r.netProfit)}</td>
+            <td class="py-2.5 px-3 text-right text-cyan-400 font-semibold">${fmtDps(r.dps)}</td>
+            <td class="py-2.5 px-3 text-right text-slate-300">${fmtMillions(r.ocf)}</td>
+            <td class="py-2.5 px-3 text-right text-amber-300">${fmtMillions(r.capex)}</td>
+            <td class="py-2.5 px-3 text-right text-slate-200">${fmtMillions(r.assets)}</td>
+            <td class="py-2.5 px-3 text-right text-slate-300">${fmtMillions(r.debt)}</td>
+            <td class="py-2.5 px-3 text-right text-slate-300">${fmtMillions(r.equity)}</td>
+          </tr>
+        `).join("") : `<tr><td colspan="10" class="py-6 text-center text-slate-400 font-sans">No XBRL summary rows parsed yet — download the full report directly from msx.om below.</td></tr>`;
+      }
+
+      // Direct msx.om Filing Links (zero local PDF bloat)
+      const filingsList = company.filings || [];
+      document.getElementById("filings-grid").innerHTML = filingsList.length > 0 ? filingsList.map(f => {
+        const zipName = (f.sourceUrl || "").split("/").pop() || f.title;
+        return `
+          <div class="bg-slate-900/75 border border-slate-800/80 rounded-xl p-4 glass-card-hover flex flex-col justify-between gap-3">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">${f.period}</span>
+                <span class="text-[11px] font-mono text-slate-500">${f.uploadDate || ""}</span>
+              </div>
+              <div class="text-sm font-semibold text-white leading-snug">${f.title}</div>
+              <div class="text-[11px] font-mono text-slate-400 mt-1.5 break-all">msx.om: ${zipName}</div>
+            </div>
+            <div class="flex items-center gap-2 pt-3 border-t border-slate-800/70">
+              <a href="${f.sourceUrl}" target="_blank" rel="noopener noreferrer" class="flex-1 text-center px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium transition inline-flex items-center justify-center gap-1.5" style="color:#fff !important">
+                <span>Download on msx.om (ZIP)</span>
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        `;
+      }).join("") : `
+        <div class="col-span-full py-6 text-center text-xs text-slate-400 border border-dashed border-slate-800 rounded-xl">
+          No 2025–2026 XBRL financial ZIP filings indexed for ${company.ticker}. <a href="${company.verificationUrls.msxFinancialReports}" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:underline">Open msx.om snapshot page →</a>
+        </div>
+      `;
+
+      // Verification Matrix
+      const v = company.verificationUrls;
+      const matrix = [
+        { section: "Company Profile & Latest Quote", provider: "Muscat Stock Exchange (msx.om)", url: v.msxProfile },
+        { section: "1-Year Daily Share Price History", provider: "Muscat Stock Exchange (msx.om)", url: v.msxHistoricalPrices },
+        { section: "Audited Annual & Q3 2026 Financial Statements", provider: "Muscat Stock Exchange (msx.om)", url: v.msxFinancialReports },
+        { section: "Total Issued Shares & Paid-Up Capital", provider: "Muscat Clearing & Depository (mcd.om)", url: v.mcdListedInfo },
+        { section: "Major Investors (5% or More)", provider: "Muscat Clearing & Depository (mcd.om)", url: v.mcdMajorInvestors },
+        { section: "Omani / GCC / Foreign Ownership Breakdown", provider: "Muscat Clearing & Depository (mcd.om)", url: v.mcdNationalityOwnership },
+        { section: "Board of Directors", provider: company.governance.boardSourceLabel, url: v.boardOfDirectors },
+        { section: "Key Executive Management", provider: company.governance.managementSourceLabel, url: v.executiveManagement },
+      ];
+      document.getElementById("verification-table-body").innerHTML = matrix.map(row => `
+        <tr class="hover:bg-slate-800/40">
+          <td class="py-2.5 px-4 font-medium text-slate-200">${row.section}</td>
+          <td class="py-2.5 px-4 text-slate-400">${row.provider}</td>
+          <td class="py-2.5 px-4 font-mono">
+            <a href="${row.url}" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:underline break-all">${row.url}</a>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    // ============================================================================
+    // 6. CHARTS (Exact Chart.js Types & Styling — Currency in OMR)
+    // ============================================================================
+    function renderPriceChart(company) {
+      if (typeof Chart === "undefined") return;
+      const series = company.series || { dates: [], prices: [], sma50: [], sma200: [], benchmarkIndexed: [] };
+      const ctx = document.getElementById("priceChart").getContext("2d");
+      if (priceChartInstance) {
+        priceChartInstance.destroy();
+        priceChartInstance = null;
+      }
+      if (!series.prices || series.prices.length === 0) return;
+      const showSMA = document.getElementById("toggle-sma").checked;
+      const showSMA200 = document.getElementById("toggle-sma200").checked;
+      const showBench = document.getElementById("toggle-benchmark").checked;
+      const palette = getChartPalette();
+
+      const rate = fxRate();
+      const cCode = currCode();
+      const sliceIdx = currentRange >= series.dates.length ? 0 : Math.max(0, series.dates.length - currentRange);
+      const labels = series.dates.slice(sliceIdx);
+      const prices = series.prices.slice(sliceIdx).map(v => Number((v * rate).toFixed(3)));
+      const sma = (series.sma50 || []).slice(sliceIdx).map(v => Number((v * rate).toFixed(3)));
+      const sma200 = (series.sma200 || []).slice(sliceIdx).map(v => Number((v * rate).toFixed(3)));
+      const bench = (series.benchmarkIndexed || []).slice(sliceIdx).map(v => Number((v * rate).toFixed(3)));
+
+      const isPositiveRange = prices[prices.length - 1] >= prices[0];
+      const mainColor = isPositiveRange ? "#10b981" : "#f43f5e";
+
+      const gradient = ctx.createLinearGradient(0, 0, 0, 320);
+      if (isPositiveRange) {
+        gradient.addColorStop(0, "rgba(16, 185, 129, 0.25)");
+        gradient.addColorStop(1, "rgba(16, 185, 129, 0.0)");
+      } else {
+        gradient.addColorStop(0, "rgba(244, 63, 94, 0.25)");
+        gradient.addColorStop(1, "rgba(244, 63, 94, 0.0)");
+      }
+
+      const datasets = [
+        {
+          label: `${company.ticker} Close (${cCode})`,
+          data: prices,
+          borderColor: mainColor,
+          backgroundColor: gradient,
+          borderWidth: 2.2,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          fill: true,
+          tension: 0.2
+        }
+      ];
+
+      if (showSMA) {
+        datasets.push({
+          label: `50-Day SMA (${cCode})`,
+          data: sma,
+          borderColor: palette.smaColor,
+          borderWidth: 1.6,
+          borderDash: [5, 5],
+          pointRadius: 0,
+          fill: false,
+          tension: 0.25
+        });
+      }
+
+      if (showSMA200) {
+        datasets.push({
+          label: `200-Day SMA (${cCode})`,
+          data: sma200,
+          borderColor: palette.sma200Color,
+          borderWidth: 1.8,
+          borderDash: [8, 4],
+          pointRadius: 0,
+          fill: false,
+          tension: 0.25
+        });
+      }
+
+      if (showBench && bench.length > 0) {
+        datasets.push({
+          label: `MSX Flagship 8 (Indexed ${cCode})`,
+          data: bench,
+          borderColor: palette.benchColor,
+          borderWidth: 1.6,
+          borderDash: [2, 3],
+          pointRadius: 0,
+          fill: false,
+          tension: 0.25
+        });
+      }
+
+      if (priceChartInstance) priceChartInstance.destroy();
+
+      priceChartInstance = new Chart(ctx, {
+        type: "line",
+        data: { labels, datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: "index", intersect: false },
+          plugins: {
+            legend: {
+              display: true,
+              position: "top",
+              align: "end",
+              labels: {
+                color: palette.textMuted,
+                usePointStyle: true,
+                boxWidth: 8,
+                font: { family: "'JetBrains Mono', Consolas, monospace", size: 11 }
+              }
+            },
+            tooltip: {
+              backgroundColor: palette.tooltipBg,
+              titleColor: palette.tooltipTitle,
+              bodyColor: palette.tooltipBody,
+              borderColor: palette.tooltipBorder,
+              borderWidth: 1,
+              padding: 10,
+              bodyFont: { family: "'JetBrains Mono', Consolas, monospace", size: 12 },
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: ${currPrefix()}${ctx.parsed.y.toFixed(3)}`
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: palette.gridColor, drawBorder: false },
+              ticks: {
+                color: palette.textSubtle,
+                maxTicksLimit: 9,
+                font: { family: "'JetBrains Mono', Consolas, monospace", size: 10 }
+              }
+            },
+            y: {
+              position: "right",
+              grid: { color: palette.gridColor, drawBorder: false },
+              ticks: {
+                color: palette.textMuted,
+                font: { family: "'JetBrains Mono', Consolas, monospace", size: 11 },
+                callback: (val) => `${currPrefix()}${Number(val).toFixed(3)}`
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function createDoughnut(canvasId, prevInstance, company) {
+      if (typeof Chart === "undefined") return null;
+      const el = document.getElementById(canvasId);
+      if (!el) return null;
+      const ctx = el.getContext("2d");
+      const palette = getChartPalette();
+      if (prevInstance) prevInstance.destroy();
+
+      return new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: company.ownership.breakdown.map(b => b.label),
+          datasets: [{
+            data: company.ownership.breakdown.map(b => b.pct),
+            backgroundColor: company.ownership.breakdown.map(b => b.color),
+            borderColor: palette.doughnutBorder,
+            borderWidth: 3,
+            hoverOffset: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: "70%",
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: palette.tooltipBg,
+              titleColor: palette.tooltipTitle,
+              bodyColor: palette.tooltipBody,
+              borderColor: palette.tooltipBorder,
+              borderWidth: 1,
+              bodyFont: { family: "'JetBrains Mono', Consolas, monospace", size: 11 },
+              callbacks: {
+                label: (ctx) => `${ctx.label}: ${Number(ctx.parsed).toFixed(2)}%`
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function renderOwnershipChart(company) {
+      ownershipChartInstance = createDoughnut("ownershipChart", ownershipChartInstance, company);
+    }
+
+    function renderGovOwnershipChart(company) {
+      govOwnershipChartInstance = createDoughnut("govOwnershipChart", govOwnershipChartInstance, company);
+    }
+
+    function renderFinancialsChart(company) {
+      if (typeof Chart === "undefined") return;
+      const ctx = document.getElementById("financialsChart").getContext("2d");
+      const palette = getChartPalette();
+      if (financialsChartInstance) {
+        financialsChartInstance.destroy();
+        financialsChartInstance = null;
+      }
+
+      const f = company.financials || { years: [], primary: [], secondary: [], netIncome: [] };
+      if (!f.years || f.years.length === 0) return;
+      const rate = fxRate();
+      const cCode = currCode();
+      const replUnit = (lbl) => String(lbl || "").replace(/OMR M/g, `${cCode} M`);
+
+      financialsChartInstance = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: f.years,
+          datasets: [
+            {
+              label: replUnit(f.primaryLabel),
+              data: (f.primary || []).map(v => Number(((v || 0) * rate).toFixed(2))),
+              backgroundColor: "#6366f1",
+              borderRadius: 6
+            },
+            {
+              label: replUnit(f.secondaryLabel),
+              data: (f.secondary || []).map(v => Number(((v || 0) * rate).toFixed(2))),
+              backgroundColor: "#06b6d4",
+              borderRadius: 6
+            },
+            {
+              label: replUnit(f.tertiaryLabel),
+              data: (f.netIncome || []).map(v => Number(((v || 0) * rate).toFixed(2))),
+              backgroundColor: "#10b981",
+              borderRadius: 6
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "top",
+              align: "end",
+              labels: {
+                color: palette.textMuted,
+                usePointStyle: true,
+                boxWidth: 8,
+                font: { family: "'JetBrains Mono', Consolas, monospace", size: 10 }
+              }
+            },
+            tooltip: {
+              backgroundColor: palette.tooltipBg,
+              titleColor: palette.tooltipTitle,
+              bodyColor: palette.tooltipBody,
+              borderColor: palette.tooltipBorder,
+              borderWidth: 1,
+              bodyFont: { family: "'JetBrains Mono', Consolas, monospace", size: 11 },
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: ${currPrefix()}${Number(ctx.parsed.y).toFixed(2)}M`
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: palette.textMuted, font: { family: "'JetBrains Mono', Consolas, monospace", size: 11 } }
+            },
+            y: {
+              grid: { color: palette.gridColor },
+              ticks: {
+                color: palette.textSubtle,
+                font: { family: "'JetBrains Mono', Consolas, monospace", size: 10 },
+                callback: (v) => `${currPrefix()}${v}M`
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // ============================================================================
+    // 7. RENDER MSX DISCLOSURES
+    // ============================================================================
+    function renderDisclosures(company) {
+      const filtered = (company.disclosures || []).filter(n => currentCategoryFilter === "all" || n.category === currentCategoryFilter);
+      const container = document.getElementById("news-grid");
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-400 text-sm">No 2026 MSX disclosures matching '${currentCategoryFilter}' for ${company.name}.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        let badgeStyle = "bg-slate-800 text-slate-300 border-slate-700";
+        if (item.category === "Financials") badgeStyle = "bg-emerald-500/15 text-emerald-400 border-emerald-500/30";
+        if (item.category === "Dividends") badgeStyle = "bg-cyan-500/15 text-cyan-400 border-cyan-500/30";
+        if (item.category === "Governance") badgeStyle = "bg-amber-500/15 text-amber-300 border-amber-500/30";
+
+        return `
+          <a href="${item.link || '#'}" target="_blank" rel="noopener noreferrer" class="bg-slate-900/75 border border-slate-800/80 rounded-xl p-4 glass-card-hover flex flex-col justify-between group block">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2.5">
+                <span class="text-[11px] font-mono uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">${company.ticker} • MSX Filing</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded-full border ${badgeStyle}">${item.category}</span>
+              </div>
+              <h4 class="text-sm font-semibold text-slate-100 group-hover:text-indigo-400 transition leading-snug mb-2">${item.title}</h4>
+              <p class="text-xs text-slate-400 leading-relaxed line-clamp-3">${item.summary}</p>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-slate-500 mt-4 pt-3 border-t border-slate-800/70 font-mono">
+              <span class="text-slate-300">${item.source}</span>
+              <span>${item.date}</span>
+            </div>
+          </a>
+        `;
+      }).join("");
+    }
+
+    // ============================================================================
+    // 8. EVENT LISTENERS & CLIENT-SIDE SEARCH
+    // ============================================================================
+    window.selectCompany = function(ticker) {
+      document.getElementById("search-dropdown").classList.add("hidden");
+      document.getElementById("ticker-search").value = "";
+      loadCompany(ticker);
+    };
+
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => switchTab(btn.getAttribute("data-tab")));
+    });
+
+    document.querySelectorAll(".currency-btn").forEach(btn => {
+      btn.addEventListener("click", () => applyCurrency(btn.getAttribute("data-currency")));
+    });
+
+    document.getElementById("theme-toggle-btn").addEventListener("click", () => {
+      const order = ["system", "light", "dark"];
+      applyTheme(order[(order.indexOf(themeMode) + 1) % order.length]);
+    });
+
+    document.querySelectorAll(".range-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".range-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentRange = parseInt(btn.getAttribute("data-range"), 10);
+        if (currentCompanyData) renderPriceChart(currentCompanyData);
+      });
+    });
+
+    ["toggle-sma", "toggle-sma200", "toggle-benchmark"].forEach(id => {
+      document.getElementById(id).addEventListener("change", () => {
+        if (currentCompanyData) renderPriceChart(currentCompanyData);
+      });
+    });
+
+    document.querySelectorAll(".news-filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        currentCategoryFilter = btn.getAttribute("data-category");
+        document.querySelectorAll(".news-filter-btn").forEach(b => {
+          b.classList.remove("bg-indigo-600", "text-white");
+          b.classList.add("bg-slate-900");
+        });
+        btn.classList.remove("bg-slate-900");
+        btn.classList.add("bg-indigo-600", "text-white");
+        if (currentCompanyData) renderDisclosures(currentCompanyData);
+      });
+    });
+
+    // Pure Client-Side Search across All MSX SAOG Companies
+    const searchInput = document.getElementById("ticker-search");
+    const searchDropdown = document.getElementById("search-dropdown");
+
+    function renderSearchResults(query) {
+      const q = query.trim().toUpperCase();
+      if (!q) {
+        searchDropdown.classList.add("hidden");
+        return;
+      }
+      const matches = watchlistData
+        .filter(c =>
+          c.ticker.includes(q) ||
+          (c.name || "").toUpperCase().includes(q) ||
+          (c.sector || "").toUpperCase().includes(q) ||
+          (c.sectorGroup || "").toUpperCase().includes(q) ||
+          (c.isin || "").toUpperCase().includes(q)
+        )
+        .sort((a, b) => {
+          const aExact = a.ticker === q ? 0 : a.ticker.startsWith(q) ? 1 : 2;
+          const bExact = b.ticker === q ? 0 : b.ticker.startsWith(q) ? 1 : 2;
+          if (aExact !== bExact) return aExact - bExact;
+          return Number(b.marketCapOmr || 0) - Number(a.marketCapOmr || 0);
+        });
+
+      if (matches.length === 0) {
+        searchDropdown.innerHTML = `<div class="px-4 py-3 text-xs text-slate-400">No MSX company matching "${q}". Click "All MSX" to browse all ${watchlistData.length} listed companies.</div>`;
+      } else {
+        const shown = matches.slice(0, 12);
+        const extra = matches.length - shown.length;
+        searchDropdown.innerHTML = shown.map(c => `
+          <button onclick="selectCompany('${c.ticker}')" class="w-full text-left px-3.5 py-2.5 hover:bg-slate-800/90 flex items-center justify-between border-b border-slate-800/60 transition">
+            <div class="min-w-0 pr-2">
+              <div class="text-xs font-bold text-white font-mono truncate">${c.ticker} <span class="font-sans font-normal text-slate-300">— ${c.name}</span></div>
+              <div class="text-[11px] text-slate-500 truncate">${c.sectorGroup || c.sector} • ${c.market || "MSX"} • ISIN ${c.isin}</div>
+            </div>
+            <span class="text-[11px] font-mono text-indigo-400 shrink-0">${fmtPrice(c.price)} →</span>
+          </button>
+        `).join("") + (extra > 0 ? `
+          <button onclick="openDirectoryWithQuery('${q.replace(/'/g, "")}')" class="w-full text-center py-2 text-[11px] font-mono text-indigo-400 hover:bg-slate-800/80 transition">
+            +${extra} more matches — open full MSX Directory →
+          </button>
+        ` : "");
+      }
+      searchDropdown.classList.remove("hidden");
+    }
+
+    window.openDirectoryWithQuery = function(q) {
+      searchDropdown.classList.add("hidden");
+      const dirModal = document.getElementById("directory-modal");
+      const dirSearch = document.getElementById("dir-search");
+      if (dirSearch) dirSearch.value = q || "";
+      dirSectorFilter = "All";
+      renderDirectorySectorPills();
+      renderDirectoryTable();
+      dirModal.classList.remove("hidden");
+      safeCreateIcons();
+      if (dirSearch) dirSearch.focus();
+    };
+
+    const dirModal = document.getElementById("directory-modal");
+    document.getElementById("all-stocks-btn").addEventListener("click", () => openDirectoryWithQuery(""));
+    document.getElementById("close-directory-modal").addEventListener("click", () => dirModal.classList.add("hidden"));
+    dirModal.addEventListener("click", (e) => { if (e.target === dirModal) dirModal.classList.add("hidden"); });
+    document.getElementById("dir-search").addEventListener("input", () => renderDirectoryTable());
+    document.getElementById("dir-sort").addEventListener("change", () => renderDirectoryTable());
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        dirModal.classList.add("hidden");
+        shareModal.classList.add("hidden");
+      }
+    });
+
+    searchInput.addEventListener("input", (e) => renderSearchResults(e.target.value));
+    searchInput.addEventListener("focus", (e) => {
+      if (e.target.value.trim()) renderSearchResults(e.target.value);
+    });
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && searchInput.value.trim()) {
+        const q = searchInput.value.trim().toUpperCase();
+        const found = watchlistData.find(c => c.ticker === q || c.name.toUpperCase().includes(q));
+        if (found) selectCompany(found.ticker);
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+        searchDropdown.classList.add("hidden");
+      }
+    });
+
+    document.getElementById("refresh-btn").addEventListener("click", () => {
+      loadWatchlist();
+      loadCompany(currentTicker);
+    });
+
+    document.getElementById("export-btn").addEventListener("click", () => {
+      if (!currentCompanyData) return;
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentCompanyData, null, 2));
+      const a = document.createElement("a");
+      a.setAttribute("href", dataStr);
+      a.setAttribute("download", `${currentCompanyData.ticker}_MSX_OMR_verified.json`);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    });
+
+    // Share / QR Modal
+    const shareModal = document.getElementById("share-modal");
+    document.getElementById("share-btn").addEventListener("click", () => {
+      const targetUrl = window.location.href;
+      document.getElementById("lan-url-input").value = targetUrl;
+      document.getElementById("qr-image").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(targetUrl)}`;
+      shareModal.classList.remove("hidden");
+    });
+    document.getElementById("close-share-modal").addEventListener("click", () => shareModal.classList.add("hidden"));
+    shareModal.addEventListener("click", (e) => { if (e.target === shareModal) shareModal.classList.add("hidden"); });
+    document.getElementById("copy-lan-btn").addEventListener("click", (e) => {
+      const inp = document.getElementById("lan-url-input");
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(inp.value);
+      else { inp.select(); document.execCommand("copy"); }
+      e.target.textContent = "Copied!";
+      setTimeout(() => { e.target.textContent = "Copy"; }, 1800);
+    });
+
+    // Boot
+    try {
+      applyTheme(localStorage.getItem("cv-theme") || "system");
+      const savedCurr = localStorage.getItem("cv-currency") || "OMR";
+      currentCurrency = savedCurr === "USD" ? "USD" : "OMR";
+      document.querySelectorAll(".currency-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-currency") === currentCurrency);
+      });
+    } catch (e) {
+      applyTheme("system");
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const initialTicker = (params.get("ticker") || "BKMB").toUpperCase();
+    loadWatchlist();
+    loadCompany(initialTicker);
+  </script>
+</body>
+</html>

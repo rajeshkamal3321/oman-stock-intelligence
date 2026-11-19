@@ -1,0 +1,45 @@
+name: Sync All MSX Companies & Deploy to Cloudflare Pages
+
+on:
+  schedule:
+    # Daily at 11:30 UTC (15:30 Oman GST, after MSX market close), Sunday–Thursday
+    - cron: "30 11 * * 0-4"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install PDF text extraction dependency
+        run: pip install -r requirements.txt
+
+      - name: Sync all MSX SAOG companies from msx.om & mcd.om
+        run: python3 scripts/sync_all_msx.py
+
+      - name: Build lightweight static dist/ bundle
+        run: npm run build
+
+      - name: Deploy dist/ to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=oman-stock-intelligence
