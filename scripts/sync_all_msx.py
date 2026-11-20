@@ -1109,7 +1109,8 @@ def build_company_json(rec, bench_map, synced_stamp):
                     return round(val, 4)
             return None
 
-        dps_latest = calc_dps(q_cur) or calc_dps(latest_ann) or 0.0
+        # Dividend Yield strictly from last full audited fiscal year (never interim periods)
+        dps_latest = calc_dps(latest_ann) or 0.0
         div_yield_pct = (dps_latest / price * 100) if price > 0 and dps_latest > 0 else 0.0
         np_ann = latest_ann.get("netProfit")
         eq_latest = q_cur.get("equity") or latest_ann.get("equity")
@@ -1138,7 +1139,7 @@ def build_company_json(rec, bench_map, synced_stamp):
                 {"label": "Total Assets", "value": fmt_omr_large(ast_latest), "sub": f"Equity: {fmt_omr_large(eq_latest)}", "status": "positive"},
                 {"label": "Loan-to-Deposit Ratio", "value": f"{ldr_v:.1f}%" if ldr_v else "N/A", "sub": f"Paid-Up: {fmt_omr_large(paid_up_cap)}", "status": "neutral"},
                 {"label": f"Return on Equity ({latest_yr_name})", "value": f"{roe_val:.1f}%" if roe_val is not None else "N/A", "sub": f"ROA: {roa_val:.2f}%" if roa_val is not None else "ROA: N/A", "status": "positive"},
-                {"label": "Cash Dividend Yield", "value": f"{div_yield_pct:.2f}%" if dps_latest > 0 else "N/A", "sub": f"DPS: OMR {dps_latest:.4f}" if dps_latest > 0 else "No cash div parsed", "status": "positive"},
+                {"label": f"Cash Dividend Yield ({latest_yr_name})", "value": f"{div_yield_pct:.2f}%" if dps_latest > 0 else "N/A", "sub": f"{latest_yr_name} DPS: OMR {dps_latest:.4f}" if dps_latest > 0 else f"No {latest_yr_name} cash div", "status": "positive"},
             ]
             fin_chart = {
                 "unit": "OMR M",
@@ -1180,7 +1181,7 @@ def build_company_json(rec, bench_map, synced_stamp):
                 {"label": f"CapEx ({latest_yr_name})", "value": fmt_omr_large(capex_v), "sub": f"9M 26 CapEx: {fmt_omr_large(q_cur.get('capex'))}", "status": "neutral"},
                 {"label": f"Free Cash Flow ({latest_yr_name})", "value": fmt_omr_large(fcf_v), "sub": f"Net Margin: {net_margin:.1f}%" if net_margin is not None else f"Assets: {fmt_omr_large(ast_latest)}", "status": "positive" if (fcf_v or 0) >= 0 else "negative"},
                 {"label": f"Return on Equity ({latest_yr_name})", "value": f"{roe_val:.1f}%" if roe_val is not None else "N/A", "sub": f"NAV: OMR {nav_latest:.3f}" if nav_latest else f"Equity: {fmt_omr_large(eq_latest)}", "status": "positive" if (roe_val or 0) >= 0 else "negative"},
-                {"label": "Cash Dividend Yield", "value": f"{div_yield_pct:.2f}%" if dps_latest > 0 else "N/A", "sub": f"DPS: OMR {dps_latest:.4f}" if dps_latest > 0 else "No cash div parsed", "status": "positive"},
+                {"label": f"Cash Dividend Yield ({latest_yr_name})", "value": f"{div_yield_pct:.2f}%" if dps_latest > 0 else "N/A", "sub": f"{latest_yr_name} DPS: OMR {dps_latest:.4f}" if dps_latest > 0 else f"No {latest_yr_name} cash div", "status": "positive"},
             ]
             fin_chart = {
                 "unit": "OMR M",
