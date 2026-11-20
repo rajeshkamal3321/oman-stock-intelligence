@@ -11,7 +11,7 @@ function copyRecursive(src, dest) {
   if (stat.isDirectory()) {
     fs.mkdirSync(dest, { recursive: true });
     for (const entry of fs.readdirSync(src)) {
-      if (entry.startsWith(".") || entry === "ai_profiles.json") continue;
+      if (entry.startsWith(".") || entry === "ai_profiles.json" || entry === "ipo_prospectus_financials.json") continue;
       copyRecursive(path.join(src, entry), path.join(dest, entry));
     }
   } else {

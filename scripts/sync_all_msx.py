@@ -73,6 +73,14 @@ try:
 except Exception:
     AI_PROFILES = {}
 
+# Load verified pre-IPO historical financials from official MSX IPO Prospectuses
+IPO_PROSPECTUS_PATH = os.path.join(DATA_DIR, "ipo_prospectus_financials.json")
+try:
+    with open(IPO_PROSPECTUS_PATH, encoding="utf-8") as _ipf:
+        IPO_PROSPECTUS_FIN = json.load(_ipf)
+except Exception:
+    IPO_PROSPECTUS_FIN = {}
+
 FLAGSHIP_ORDER = ["BKMB", "BKSB", "NBOB", "BKDB", "OQGN", "OQEP", "ABRJ", "PHPC"]
 
 MARKET_NAMES = {
@@ -1068,9 +1076,14 @@ def build_company_json(rec, bench_map, synced_stamp):
             ]
         latest_fy_label = "FY2025 Audited + Q3 2026"
     else:
-        # Automated XBRL Parsed Financials for all other MSX SAOG companies
-        pf = rec["parsedFin"]
-        yr_keys = [y for y in ["FY2022", "FY2023", "FY2024", "FY2025"] if y in pf and any(pf[y].get(k) is not None for k in ("revenue", "opInc", "netProfit", "assets"))]
+        # Automated XBRL Parsed Financials + MSX IPO Prospectus Historical Backfill
+        pf = dict(rec["parsedFin"])
+        prosp_cfg = IPO_PROSPECTUS_FIN.get(sym) or {}
+        for py, pdata in (prosp_cfg.get("annuals") or {}).items():
+            if py not in pf or pdata.get("override"):
+                pf[py] = dict(pdata)
+
+        yr_keys = [y for y in ["FY2021", "FY2022", "FY2023", "FY2024", "FY2025", "FY2026"] if y in pf and any(pf[y].get(k) is not None for k in ("revenue", "opInc", "netProfit", "assets"))]
         latest_ann = pf[yr_keys[-1]] if yr_keys else {}
         latest_yr_name = yr_keys[-1] if yr_keys else "Latest"
         q_cur = pf.get("Q26_CUR") or {}
@@ -1085,8 +1098,10 @@ def build_company_json(rec, bench_map, synced_stamp):
         if q_pri.get("netProfit") is None and fp_pp is not None:
             q_pri["netProfit"] = fp_pp
 
-        # Derive per-year DPS from Cash Dividend Paid / Issued Shares
+        # Derive per-year DPS from explicit DPS or Cash Dividend Paid / Issued Shares
         def calc_dps(period_dict):
+            if period_dict.get("dps") is not None:
+                return period_dict["dps"]
             dp = period_dict.get("divPaid")
             if dp and shares_out_raw > 0:
                 val = dp / shares_out_raw
@@ -1236,6 +1251,14 @@ def build_company_json(rec, bench_map, synced_stamp):
         })
         if len(disclosures) >= 9:
             break
+
+    # Append MSX IPO/FPO Prospectus direct PDF links if available
+    prosp_filings = (IPO_PROSPECTUS_FIN.get(sym) or {}).get("prospectusFilings") or []
+    existing_furls = {f.get("sourceUrl") for f in filings}
+    for pf_item in prosp_filings:
+        if pf_item.get("sourceUrl") and pf_item["sourceUrl"] not in existing_furls:
+            filings.append(dict(pf_item))
+            existing_furls.add(pf_item["sourceUrl"])
 
     verification_urls = {
         "msxProfile": f"https://www.msx.om/snapshot.aspx?s={sym}",

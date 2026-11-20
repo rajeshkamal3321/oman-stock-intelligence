@@ -1,0 +1,192 @@
+{
+  "OMIF": {
+    "prospectusFilings": [
+      {
+        "period": "IPO Prospectus (FY2023–FY2025)",
+        "title": "OMIFCO IPO Prospectus — Audited FY2023–FY2025 Historical Financials (Ch. XIII)",
+        "uploadDate": "2026-06-12",
+        "sourceUrl": "https://www.msx.om/MSMDOCS/downloads/en_1781432968028_omifco-prospectus-en.pdf"
+      }
+    ],
+    "annuals": {
+      "FY2023": {
+        "revenue": 264300000.0,
+        "opProfit": 129700000.0,
+        "ebitda": 142200000.0,
+        "netProfit": 114100000.0,
+        "ocf": 97800000.0,
+        "capex": 6000000.0,
+        "assets": 283800000.0,
+        "debt": 11800000.0,
+        "cash": 101500000.0,
+        "equity": 199800000.0,
+        "eps": 0.0171,
+        "nav": 0.03,
+        "dps": null
+      },
+      "FY2024": {
+        "revenue": 255000000.0,
+        "opProfit": 109200000.0,
+        "ebitda": 123200000.0,
+        "netProfit": 95600000.0,
+        "ocf": 99700000.0,
+        "capex": 18300000.0,
+        "assets": 272700000.0,
+        "debt": 10300000.0,
+        "cash": 87700000.0,
+        "equity": 197500000.0,
+        "eps": 0.0143,
+        "nav": 0.03,
+        "dps": null
+      },
+      "FY2025": {
+        "revenue": 308900000.0,
+        "opProfit": 141900000.0,
+        "ebitda": 156300000.0,
+        "netProfit": 123500000.0,
+        "ocf": 135400000.0,
+        "capex": 11800000.0,
+        "assets": 333700000.0,
+        "debt": 10000000.0,
+        "cash": 104300000.0,
+        "equity": 211700000.0,
+        "eps": 0.0185,
+        "nav": 0.032,
+        "dps": null
+      }
+    }
+  },
+  "ASCO": {
+    "prospectusFilings": [
+      {
+        "period": "FPO Prospectus (2026)",
+        "title": "Asyad Shipping Follow-on Public Offering Prospectus (Oct 2026)",
+        "uploadDate": "2026-10-26",
+        "sourceUrl": "https://www.msx.om/MSMDOCS/downloads/en_1792991530536_2026.10.25%20-%20Voyage%20II%20-%20EN%20Prospectus%20%28clean%29%20Final.pdf"
+      },
+      {
+        "period": "IPO Prospectus (2025)",
+        "title": "Asyad Shipping Company SAOC IPO Prospectus (Feb 2025)",
+        "uploadDate": "2025-02-18",
+        "sourceUrl": "https://www.msx.om/MSMDOCS/downloads/en_1739876562094_Asyad_IPO%20Prospectus_Eng.pdf"
+      }
+    ],
+    "annuals": {
+      "FY2023": {
+        "revenue": 363716786.0,
+        "opProfit": 87781323.0,
+        "ebitda": 209678128.0,
+        "netProfit": 39489367.0,
+        "ocf": 182456565.0,
+        "capex": null,
+        "assets": 1156350187.0,
+        "debt": null,
+        "cash": 167567825.0,
+        "equity": 425905111.0,
+        "eps": 0.007,
+        "nav": 0.082,
+        "dps": null
+      },
+      "FY2024": {
+        "override": true,
+        "revenue": 366148116.0,
+        "opProfit": 86875952.0,
+        "ebitda": 216821151.0,
+        "netProfit": 51552792.0,
+        "ocf": 155477173.0,
+        "capex": 39835000.0,
+        "assets": 1084997516.0,
+        "debt": 444135000.0,
+        "cash": 132019524.0,
+        "equity": 450767697.0,
+        "eps": 0.009,
+        "nav": 0.087,
+        "dps": 0.0038
+      }
+    }
+  },
+  "OQBI": {
+    "prospectusFilings": [
+      {
+        "period": "IPO Prospectus (FY2021–FY2023)",
+        "title": "OQ Base Industries (SFZ) IPO Prospectus — Audited FY2021–FY2023 Combined Financials (Ch. XIII)",
+        "uploadDate": "2024-11-18",
+        "sourceUrl": "https://www.msx.om/MSMDOCS/downloads/en_1731945198529_OQBi-IPO-English-Prospectus-.pdf"
+      }
+    ],
+    "annuals": {
+      "FY2021": {
+        "revenue": 154200000.0,
+        "opProfit": 43400000.0,
+        "ebitda": 61300000.0,
+        "netProfit": 41200000.0,
+        "ocf": 62000000.0,
+        "capex": 49500000.0,
+        "assets": 812400000.0,
+        "debt": 558700000.0,
+        "cash": 135900000.0,
+        "equity": 184600000.0,
+        "eps": 0.0119,
+        "nav": 0.053,
+        "dps": null
+      },
+      "FY2022": {
+        "revenue": 215600000.0,
+        "opProfit": 69900000.0,
+        "ebitda": 92700000.0,
+        "netProfit": 61900000.0,
+        "ocf": 111600000.0,
+        "capex": 18900000.0,
+        "assets": 883100000.0,
+        "debt": 519700000.0,
+        "cash": 167500000.0,
+        "equity": 271300000.0,
+        "eps": 0.0179,
+        "nav": 0.078,
+        "dps": null
+      },
+      "FY2023": {
+        "revenue": 196200000.0,
+        "opProfit": 55900000.0,
+        "ebitda": 84600000.0,
+        "netProfit": 47500000.0,
+        "ocf": 93300000.0,
+        "capex": 22700000.0,
+        "assets": 798100000.0,
+        "debt": 439900000.0,
+        "cash": 108700000.0,
+        "equity": 252900000.0,
+        "eps": 0.0137,
+        "nav": 0.073,
+        "dps": null
+      }
+    }
+  },
+  "OQEP": {
+    "prospectusFilings": [
+      {
+        "period": "IPO Prospectus (FY2021–FY2023)",
+        "title": "OQ Exploration & Production IPO Prospectus — Audited FY2021–FY2023 Historical Financials (Ch. XIII)",
+        "uploadDate": "2024-09-22",
+        "sourceUrl": "https://www.msx.om/MSMDOCS/downloads/en_1727324988992_OQEP%20Prospectus%20Eng%202.pdf"
+      }
+    ],
+    "annuals": {
+      "FY2022": {
+        "revenue": 1266290000.0,
+        "opProfit": 628454000.0,
+        "ebitda": 1025474000.0,
+        "netProfit": 617330000.0,
+        "ocf": 1129691000.0,
+        "capex": 362225000.0,
+        "assets": 1960658000.0,
+        "debt": 206664000.0,
+        "cash": 158501000.0,
+        "equity": 1275059000.0,
+        "eps": 0.0772,
+        "nav": 0.159,
+        "dps": null
+      }
+    }
+  }
+}

@@ -1917,7 +1917,8 @@
       // Direct msx.om Filing Links (zero local PDF bloat)
       const filingsList = company.filings || [];
       document.getElementById("filings-grid").innerHTML = filingsList.length > 0 ? filingsList.map(f => {
-        const zipName = (f.sourceUrl || "").split("/").pop() || f.title;
+        const zipName = decodeURIComponent((f.sourceUrl || "").split("/").pop() || f.title);
+        const isPdf = (f.sourceUrl || "").toLowerCase().endsWith(".pdf");
         return `
           <div class="bg-slate-900/75 border border-slate-800/80 rounded-xl p-4 glass-card-hover flex flex-col justify-between gap-3">
             <div>
@@ -1930,7 +1931,7 @@
             </div>
             <div class="flex items-center gap-2 pt-3 border-t border-slate-800/70">
               <a href="${f.sourceUrl}" target="_blank" rel="noopener noreferrer" class="flex-1 text-center px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium transition inline-flex items-center justify-center gap-1.5" style="color:#fff !important">
-                <span>Download on msx.om (ZIP)</span>
+                <span>${isPdf ? "Open Prospectus on msx.om (PDF)" : "Download on msx.om (ZIP)"}</span>
                 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
               </a>
             </div>
