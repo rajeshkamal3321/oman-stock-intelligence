@@ -30,7 +30,7 @@ for c in index_json["companies"]:
 
 # Copy pure static assets (filings link directly to msx.om — no PDFs bundled in dist/)
 shutil.copy2(index_html, os.path.join(DIST, "index.html"))
-shutil.copytree(data_dir, os.path.join(DIST, "data"))
+shutil.copytree(data_dir, os.path.join(DIST, "data"), ignore=shutil.ignore_patterns("ai_profiles.json", ".*"))
 
 headers = """/*
   X-Content-Type-Options: nosniff

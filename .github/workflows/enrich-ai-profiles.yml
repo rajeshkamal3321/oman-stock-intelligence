@@ -1,0 +1,71 @@
+name: Enrich AI Company Overviews & Segments (Gemini)
+
+on:
+  schedule:
+    # Quarterly on the 2nd of Jan, Apr, Jul, Oct at 06:00 UTC (after annual/quarterly report season)
+    - cron: "0 6 2 1,4,7,10 *"
+  workflow_dispatch:
+    inputs:
+      tickers:
+        description: "Optional comma-separated tickers (e.g. OTEL,OQBI). Leave blank for all missing."
+        required: false
+        default: ""
+      model:
+        description: "Gemini model to use"
+        required: false
+        default: "gemini-4-hydrogen"
+
+permissions:
+  contents: write
+  deployments: write
+
+jobs:
+  enrich-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install AI & PDF dependencies
+        run: pip install -r requirements-ai.txt
+
+      - name: Enrich company overviews & business segments via Gemini API
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ -n "${{ inputs.tickers }}" ]; then
+            python3 scripts/enrich_overviews_ai.py --tickers "${{ inputs.tickers }}" --model "${{ inputs.model || 'gemini-4-hydrogen' }}"
+          else
+            python3 scripts/enrich_overviews_ai.py --only-missing --model "${{ inputs.model || 'gemini-4-hydrogen' }}"
+          fi
+
+      - name: Commit updated data/ai_profiles.json back to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ai_profiles.json
+          git diff --staged --quiet || git commit -m "chore: refresh AI-grounded MSX company overviews & segments"
+          git push
+
+      - name: Refresh all 115 company JSONs & build dist/
+        run: |
+          python3 scripts/sync_all_msx.py
+          npm run build
+
+      - name: Deploy updated dist/ to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=oman-stock-intelligence

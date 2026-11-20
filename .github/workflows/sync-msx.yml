@@ -1,6 +1,8 @@
 name: Sync All MSX Companies & Deploy to Cloudflare Pages
 
 on:
+  push:
+    branches: [main]
   schedule:
     # Daily at 11:30 UTC (15:30 Oman GST, after MSX market close), Sunday–Thursday
     - cron: "30 11 * * 0-4"
@@ -29,9 +31,11 @@ jobs:
           node-version: "20"
 
       - name: Install PDF text extraction dependency
+        if: github.event_name != 'push'
         run: pip install -r requirements.txt
 
       - name: Sync all MSX SAOG companies from msx.om & mcd.om
+        if: github.event_name != 'push'
         run: python3 scripts/sync_all_msx.py
 
       - name: Build lightweight static dist/ bundle

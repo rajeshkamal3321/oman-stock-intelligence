@@ -65,6 +65,14 @@ try:
 except Exception:
     FLAGSHIP_VERIFIED = {}
 
+# Load AI-grounded company overviews & business segment profiles (populated by enrich_overviews_ai.py)
+AI_PROFILES_PATH = os.path.join(DATA_DIR, "ai_profiles.json")
+try:
+    with open(AI_PROFILES_PATH, encoding="utf-8") as _apf:
+        AI_PROFILES = json.load(_apf)
+except Exception:
+    AI_PROFILES = {}
+
 FLAGSHIP_ORDER = ["BKMB", "BKSB", "NBOB", "BKDB", "OQGN", "OQEP", "ABRJ", "PHPC"]
 
 MARKET_NAMES = {
@@ -794,6 +802,11 @@ def build_company_json(rec, bench_map, synced_stamp):
     is_bank = (flag and flag["sectorGroup"] == "Banking") or ("bank" in sub_sector.lower())
     is_energy = (flag and flag["sectorGroup"] == "Energy & Utilities") or any(k in sub_sector.lower() for k in ["oil", "gas", "energy", "power", "drilling", "mining", "utilities"])
 
+    ai_prof = AI_PROFILES.get(sym) if not flag else None
+    segment_mode = "verified_pct"
+    overview_sources = []
+    overview_generated_at = None
+
     if flag:
         display_name = flag["displayName"]
         sector_group = flag["sectorGroup"]
@@ -803,6 +816,8 @@ def build_company_json(rec, bench_map, synced_stamp):
         description = flag["description"]
         segments = flag["segments"]
         segment_note = flag["segmentNote"]
+        segment_mode = "verified_pct"
+        overview_sources = [flag["website"]]
     else:
         display_name = clean_company_name(labels.get("CompanyNameLabel") or mcd.get("SecurityName") or msx_row.get("LongNameEn") or sym)
         if not display_name.upper().endswith("SAOG") and "FUND" not in display_name.upper() and "REIT" not in display_name.upper():
@@ -810,12 +825,23 @@ def build_company_json(rec, bench_map, synced_stamp):
         sector_group = "Banking" if is_bank else ("Energy & Utilities" if is_energy else mcd_sector)
         sector_label = f"{mcd_sector} • {sub_sector}" if sub_sector and sub_sector.lower() != mcd_sector.lower() else mcd_sector
         website = normalize_website(labels.get("WebsiteHyperLink") or labels.get("WebsiteHyperLink1"))
+        if not website and ai_prof and ai_prof.get("websiteOverride"):
+            website = normalize_website(ai_prof["websiteOverride"])
         hq = labels.get("HeadOfficeLabel") or labels.get("AddressLabel") or "Sultanate of Oman"
         if len(hq) > 75:
             hq = hq[:72].rstrip(" ,;-") + "..."
-        description = f"{display_name} ({sym}) is a publicly listed company on the Muscat Stock Exchange ({market_label}) operating in the {sector_label} sector. Established {founded_str}, with {shares_out_raw:,} issued shares (ISIN {isin}) and {participants:,} registered shareholders recorded on Muscat Clearing & Depository (mcd.om)."
-        segments = []
-        segment_note = "Segment breakdown available in annual filing"
+        if ai_prof and ai_prof.get("description"):
+            description = ai_prof["description"]
+            segments = ai_prof.get("segments") or []
+            segment_note = ai_prof.get("segmentNote") or "Core Business Lines"
+            segment_mode = ai_prof.get("segmentMode") or ("verified_pct" if segments and all(s.get("pct") is not None for s in segments) else "qualitative")
+            overview_sources = ai_prof.get("overviewSources") or ([website] if website else [])
+            overview_generated_at = ai_prof.get("generatedAt")
+        else:
+            description = f"{display_name} ({sym}) is a publicly listed company on the Muscat Stock Exchange ({market_label}) operating in the {sector_label} sector. Established {founded_str}, with {shares_out_raw:,} issued shares (ISIN {isin}) and {participants:,} registered shareholders recorded on Muscat Clearing & Depository (mcd.om)."
+            segments = []
+            segment_note = "Segment breakdown available in annual filing"
+            segment_mode = "qualitative"
 
     # ==========================================================================
     # OWNERSHIP & MAJOR INVESTORS (100% LIVE FROM MCD.OM)
@@ -1168,11 +1194,21 @@ def build_company_json(rec, bench_map, synced_stamp):
         if not quarterly_bars and q_cur.get("netProfit") is not None:
             quarterly_bars.append({"label": f"{q_lbl} Net Profit", "current": fmt_omr_large(q_cur["netProfit"]), "prior": "N/A", "currentOmr": q_cur["netProfit"], "yoyPct": 0.0})
 
-        highlights = [
-            f"Market Capitalization of {fmt_omr_large(mcap_omr)} across {fmt_shares(shares_out_raw)} issued shares at OMR {price:.3f}/sh ({market_label}, ISIN {isin}).",
-            f"{latest_yr_name} Financial Snapshot: {'Operating Income' if is_bank else 'Revenue'} of {fmt_omr_large(latest_ann.get('opInc') if is_bank else (latest_ann.get('revenue') or latest_ann.get('opInc')))} and Net Profit of {fmt_omr_large(np_ann)} (Total Assets: {fmt_omr_large(ast_latest)}).",
-            f"Ownership Registry (mcd.om): {participants:,} registered shareholders • Omani {omani_pct:.1f}% | GCC {gcc_pct:.1f}% | Foreign & Arab {other_non_omani:.1f}% ({len(major_holders)} disclosed 5%+ holders).",
-        ]
+        ai_biz_hl = (ai_prof.get("businessHighlights") or []) if ai_prof else []
+        highlights = []
+        if ai_biz_hl:
+            highlights.extend(ai_biz_hl[:2])
+        highlights.append(
+            f"{latest_yr_name} Financial Snapshot: {'Operating Income' if is_bank else 'Revenue'} of {fmt_omr_large(latest_ann.get('opInc') if is_bank else (latest_ann.get('revenue') or latest_ann.get('opInc')))} and Net Profit of {fmt_omr_large(np_ann)} (Total Assets: {fmt_omr_large(ast_latest)})."
+        )
+        if not ai_biz_hl:
+            highlights.insert(
+                0,
+                f"Market Capitalization of {fmt_omr_large(mcap_omr)} across {fmt_shares(shares_out_raw)} issued shares at OMR {price:.3f}/sh ({market_label}, ISIN {isin}).",
+            )
+        highlights.append(
+            f"Ownership Registry (mcd.om): {participants:,} registered shareholders • Omani {omani_pct:.1f}% | GCC {gcc_pct:.1f}% | Foreign & Arab {other_non_omani:.1f}% ({len(major_holders)} disclosed 5%+ holders)."
+        )
         dps = dps_latest
         latest_fy_label = f"{latest_yr_name} + 2026 Interim" if q_cur else latest_yr_name
 
@@ -1257,8 +1293,11 @@ def build_company_json(rec, bench_map, synced_stamp):
         "dpsOmr": dps,
         "latestFiscalYear": latest_fy_label,
         "description": description,
+        "overviewSources": overview_sources,
+        "overviewGeneratedAt": overview_generated_at,
         "highlights": highlights,
         "segments": segments,
+        "segmentMode": segment_mode,
         "segmentNote": segment_note,
         "series": {
             "dates": disp_dates,
