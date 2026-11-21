@@ -479,6 +479,11 @@
             <!-- Price Chart Canvas -->
             <div class="relative h-[330px] w-full min-w-0 overflow-hidden">
               <canvas id="priceChart"></canvas>
+              <div id="price-chart-empty" class="hidden absolute inset-0 flex flex-col items-center justify-center text-center px-6 rounded-xl bg-slate-900/50 border border-dashed border-slate-800">
+                <i data-lucide="bar-chart-2" class="w-7 h-7 text-slate-500 mb-2"></i>
+                <p id="price-chart-empty-text" class="text-xs sm:text-sm text-slate-300 font-medium">No daily share price history published on msx.om for this security.</p>
+                <p class="text-[11px] text-slate-500 mt-1">Suspended, rights-issue, or under-liquidation securities may have no active daily trading ticks.</p>
+              </div>
             </div>
           </div>
 
@@ -618,6 +623,11 @@
             </div>
             <div class="relative h-52 w-full min-w-0 overflow-hidden">
               <canvas id="financialsChart"></canvas>
+              <div id="fin-chart-empty" class="hidden absolute inset-0 flex flex-col items-center justify-center text-center px-5 rounded-xl bg-slate-900/50 border border-dashed border-slate-800">
+                <i data-lucide="file-bar-chart" class="w-6 h-6 text-slate-500 mb-2"></i>
+                <p id="fin-chart-empty-text" class="text-xs text-slate-300 font-medium">No multi-year annual IFRS statements available for this security.</p>
+                <p class="text-[11px] text-slate-500 mt-1">Open the Filings &amp; Audit Trail tab to inspect any available msx.om reports.</p>
+              </div>
             </div>
           </div>
 
@@ -1082,6 +1092,10 @@
       }
     }
 
+    function escapeHtml(str) {
+      return String(str ?? "").replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+    }
+
     function getInitials(name) {
       const cleaned = (name || "").replace(/\b(Sheikh|Eng\.|Dr\.|Mr\.|Ms\.|H\.E\.|Al Sayyid|Brigadier)\b/gi, "").trim();
       const parts = cleaned.split(/\s+/).filter(Boolean);
@@ -1223,12 +1237,14 @@
         const pct = Number(c.dayChangePct || 0);
         const isUp = pct >= 0;
         const dispP = currentCurrency === "USD" ? `$${(Number(c.price || 0) * OMR_TO_USD).toFixed(3)}` : Number(c.price || 0).toFixed(3);
+        const safeTicker = escapeHtml(c.ticker);
         return `
           <button
-            onclick="selectCompany('${c.ticker}')"
+            type="button"
+            data-ticker="${safeTicker}"
             class="ticker-pill ${isActive ? 'active' : 'bg-slate-900/90 text-slate-300 border-slate-800 hover:border-slate-700'} border px-3 py-1.5 rounded-xl text-xs font-mono flex items-center gap-2 transition shrink-0"
           >
-            <span class="font-bold">${c.ticker}</span>
+            <span class="font-bold">${safeTicker}</span>
             <span class="text-slate-300">${dispP}</span>
             <span class="${isUp ? 'text-emerald-400' : 'text-rose-400'}">${isUp ? '+' : ''}${pct.toFixed(2)}%</span>
           </button>
@@ -1312,18 +1328,20 @@
         const pct = Number(c.dayChangePct || 0);
         const isUp = pct >= 0;
         const mkt = c.market || "MSX";
+        const safeTicker = escapeHtml(c.ticker);
+        const safeName = escapeHtml(c.name);
         return `
-          <tr onclick="selectFromDirectory('${c.ticker}')" class="cursor-pointer transition ${isCurrent ? 'bg-indigo-500/15' : 'hover:bg-slate-800/60'}">
+          <tr data-ticker="${safeTicker}" class="dir-row cursor-pointer transition ${isCurrent ? 'bg-indigo-500/15' : 'hover:bg-slate-800/60'}">
             <td class="py-2.5 px-4">
               <div class="flex items-center gap-2">
-                <span class="font-mono font-bold text-indigo-400 w-12 shrink-0">${c.ticker}</span>
-                <span class="text-slate-100 font-medium truncate max-w-[260px] sm:max-w-[340px]" title="${c.name}">${c.name}</span>
+                <span class="font-mono font-bold text-indigo-400 w-12 shrink-0">${safeTicker}</span>
+                <span class="text-slate-100 font-medium truncate max-w-[260px] sm:max-w-[340px]" title="${safeName}">${safeName}</span>
                 ${c.isFlagship ? '<span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shrink-0">Flagship</span>' : ''}
               </div>
             </td>
-            <td class="py-2.5 px-3 text-slate-400 hidden md:table-cell">${c.sectorGroup || c.sector || '—'}</td>
+            <td class="py-2.5 px-3 text-slate-400 hidden md:table-cell">${escapeHtml(c.sectorGroup || c.sector || '—')}</td>
             <td class="py-2.5 px-3 hidden sm:table-cell">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-700/80 text-slate-300">${mkt}</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-700/80 text-slate-300">${escapeHtml(mkt)}</span>
             </td>
             <td class="py-2.5 px-3 text-right font-mono text-white font-semibold">${fmtPrice(c.price)}</td>
             <td class="py-2.5 px-3 text-right font-mono ${isUp ? 'text-emerald-400' : 'text-rose-400'}">${isUp ? '+' : ''}${pct.toFixed(2)}%</td>
@@ -1331,6 +1349,16 @@
           </tr>
         `;
       }).join("");
+    }
+
+    function resetDisclosureFilter() {
+      currentCategoryFilter = "all";
+      document.querySelectorAll(".news-filter-btn").forEach(b => {
+        const isAll = b.getAttribute("data-category") === "all";
+        b.classList.toggle("bg-indigo-600", isAll);
+        b.classList.toggle("text-white", isAll);
+        b.classList.toggle("bg-slate-900", !isAll);
+      });
     }
 
     window.selectFromDirectory = function(ticker) {
@@ -1343,6 +1371,7 @@
     // ============================================================================
     async function loadCompany(symbol) {
       const sym = symbol.toUpperCase().trim();
+      const prevTicker = currentTicker;
       const banner = document.getElementById("loading-bar");
       const refreshIcon = document.getElementById("refresh-icon");
       banner.classList.remove("hidden");
@@ -1356,6 +1385,9 @@
           return;
         }
         const data = await resp.json();
+        if (data.ticker !== prevTicker) {
+          resetDisclosureFilter();
+        }
         currentTicker = data.ticker;
         currentCompanyData = data;
 
@@ -1970,14 +2002,24 @@
     // 6. CHARTS (Exact Chart.js Types & Styling — Currency in OMR)
     // ============================================================================
     function renderPriceChart(company) {
-      if (typeof Chart === "undefined") return;
       const series = company.series || { dates: [], prices: [], sma50: [], sma200: [], benchmarkIndexed: [] };
-      const ctx = document.getElementById("priceChart").getContext("2d");
+      const canvas = document.getElementById("priceChart");
+      const emptyEl = document.getElementById("price-chart-empty");
+      const emptyTxt = document.getElementById("price-chart-empty-text");
       if (priceChartInstance) {
         priceChartInstance.destroy();
         priceChartInstance = null;
       }
-      if (!series.prices || series.prices.length === 0) return;
+      if (!series.prices || series.prices.length === 0) {
+        if (canvas) canvas.classList.add("invisible");
+        if (emptyTxt) emptyTxt.textContent = `No 1-year daily trading history published on msx.om for ${company.ticker} (${company.market || "MSX"}).`;
+        if (emptyEl) emptyEl.classList.remove("hidden");
+        return;
+      }
+      if (canvas) canvas.classList.remove("invisible");
+      if (emptyEl) emptyEl.classList.add("hidden");
+      if (typeof Chart === "undefined") return;
+      const ctx = canvas.getContext("2d");
       const showSMA = document.getElementById("toggle-sma").checked;
       const showSMA200 = document.getElementById("toggle-sma200").checked;
       const showBench = document.getElementById("toggle-benchmark").checked;
@@ -2165,16 +2207,26 @@
     }
 
     function renderFinancialsChart(company) {
-      if (typeof Chart === "undefined") return;
-      const ctx = document.getElementById("financialsChart").getContext("2d");
-      const palette = getChartPalette();
+      const canvas = document.getElementById("financialsChart");
+      const emptyEl = document.getElementById("fin-chart-empty");
+      const emptyTxt = document.getElementById("fin-chart-empty-text");
       if (financialsChartInstance) {
         financialsChartInstance.destroy();
         financialsChartInstance = null;
       }
 
       const f = company.financials || { years: [], primary: [], secondary: [], netIncome: [] };
-      if (!f.years || f.years.length === 0) return;
+      if (!f.years || f.years.length === 0) {
+        if (canvas) canvas.classList.add("invisible");
+        if (emptyTxt) emptyTxt.textContent = `No multi-year audited annual IFRS statements available on msx.om for ${company.ticker}.`;
+        if (emptyEl) emptyEl.classList.remove("hidden");
+        return;
+      }
+      if (canvas) canvas.classList.remove("invisible");
+      if (emptyEl) emptyEl.classList.add("hidden");
+      if (typeof Chart === "undefined") return;
+      const ctx = canvas.getContext("2d");
+      const palette = getChartPalette();
       const rate = fxRate();
       const cCode = currCode();
       const replUnit = (lbl) => String(lbl || "").replace(/OMR M/g, `${cCode} M`);
@@ -2360,27 +2412,71 @@
           return Number(b.marketCapOmr || 0) - Number(a.marketCapOmr || 0);
         });
 
+      searchDropdown.textContent = "";
       if (matches.length === 0) {
-        searchDropdown.innerHTML = `<div class="px-4 py-3 text-xs text-slate-400">No MSX company matching "${q}". Click "All MSX" to browse all ${watchlistData.length} listed companies.</div>`;
+        const emptyDiv = document.createElement("div");
+        emptyDiv.className = "px-4 py-3 text-xs text-slate-400";
+        emptyDiv.textContent = `No MSX company matching "${q}". Click "All MSX" to browse all ${watchlistData.length} listed companies.`;
+        searchDropdown.appendChild(emptyDiv);
       } else {
         const shown = matches.slice(0, 12);
         const extra = matches.length - shown.length;
-        searchDropdown.innerHTML = shown.map(c => `
-          <button onclick="selectCompany('${c.ticker}')" class="w-full text-left px-3.5 py-2.5 hover:bg-slate-800/90 flex items-center justify-between border-b border-slate-800/60 transition">
-            <div class="min-w-0 pr-2">
-              <div class="text-xs font-bold text-white font-mono truncate">${c.ticker} <span class="font-sans font-normal text-slate-300">— ${c.name}</span></div>
-              <div class="text-[11px] text-slate-500 truncate">${c.sectorGroup || c.sector} • ${c.market || "MSX"} • ISIN ${c.isin}</div>
-            </div>
-            <span class="text-[11px] font-mono text-indigo-400 shrink-0">${fmtPrice(c.price)} →</span>
-          </button>
-        `).join("") + (extra > 0 ? `
-          <button onclick="openDirectoryWithQuery('${q.replace(/'/g, "")}')" class="w-full text-center py-2 text-[11px] font-mono text-indigo-400 hover:bg-slate-800/80 transition">
-            +${extra} more matches — open full MSX Directory →
-          </button>
-        ` : "");
+        const frag = document.createDocumentFragment();
+        shown.forEach(c => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "w-full text-left px-3.5 py-2.5 hover:bg-slate-800/90 flex items-center justify-between border-b border-slate-800/60 transition";
+          btn.addEventListener("click", () => selectCompany(c.ticker));
+
+          const left = document.createElement("div");
+          left.className = "min-w-0 pr-2";
+
+          const titleRow = document.createElement("div");
+          titleRow.className = "text-xs font-bold text-white font-mono truncate";
+          titleRow.appendChild(document.createTextNode(c.ticker));
+          const nameSpan = document.createElement("span");
+          nameSpan.className = "font-sans font-normal text-slate-300";
+          nameSpan.textContent = ` — ${c.name || ""}`;
+          titleRow.appendChild(nameSpan);
+
+          const metaRow = document.createElement("div");
+          metaRow.className = "text-[11px] text-slate-500 truncate";
+          metaRow.textContent = `${c.sectorGroup || c.sector || ""} • ${c.market || "MSX"} • ISIN ${c.isin || "—"}`;
+
+          left.appendChild(titleRow);
+          left.appendChild(metaRow);
+
+          const priceSpan = document.createElement("span");
+          priceSpan.className = "text-[11px] font-mono text-indigo-400 shrink-0";
+          priceSpan.textContent = `${fmtPrice(c.price)} →`;
+
+          btn.appendChild(left);
+          btn.appendChild(priceSpan);
+          frag.appendChild(btn);
+        });
+
+        if (extra > 0) {
+          const moreBtn = document.createElement("button");
+          moreBtn.type = "button";
+          moreBtn.className = "w-full text-center py-2 text-[11px] font-mono text-indigo-400 hover:bg-slate-800/80 transition";
+          moreBtn.textContent = `+${extra} more matches — open full MSX Directory →`;
+          moreBtn.addEventListener("click", () => openDirectoryWithQuery(q));
+          frag.appendChild(moreBtn);
+        }
+        searchDropdown.appendChild(frag);
       }
       searchDropdown.classList.remove("hidden");
     }
+
+    document.getElementById("company-pills").addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-ticker]");
+      if (btn) selectCompany(btn.getAttribute("data-ticker"));
+    });
+
+    document.getElementById("dir-table-body").addEventListener("click", (e) => {
+      const row = e.target.closest("tr[data-ticker]");
+      if (row) selectFromDirectory(row.getAttribute("data-ticker"));
+    });
 
     window.openDirectoryWithQuery = function(q) {
       searchDropdown.classList.add("hidden");
