@@ -283,8 +283,9 @@
           <span class="hidden md:inline">Share</span>
         </button>
 
-        <button id="export-btn" title="Export Verified Company JSON (OMR)" class="p-2 rounded-lg bg-slate-900 border border-slate-700/80 text-slate-300 hover:text-white hover:border-slate-600 transition shrink-0">
-          <i data-lucide="download" class="w-4 h-4"></i>
+        <button id="export-btn" title="Download 1-Page PDF Summary" class="p-2 rounded-lg bg-slate-900 border border-slate-700/80 text-slate-300 hover:text-white hover:border-indigo-500 transition flex items-center gap-1.5 text-xs font-mono shrink-0">
+          <i data-lucide="file-down" id="export-icon" class="w-4 h-4"></i>
+          <span id="export-label" class="hidden md:inline">PDF</span>
         </button>
       </div>
     </div>
@@ -848,11 +849,17 @@
 
       <!-- Data Provenance & Direct Verification URLs -->
       <section class="glass-card rounded-2xl p-6">
-        <div class="mb-4">
-          <h3 class="text-base font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-2">
-            <i data-lucide="shield-alert" class="w-4 h-4 text-emerald-400"></i> Primary Source Verification Matrix
-          </h3>
-          <p class="text-xs text-slate-400 mt-0.5">Zero third-party financial aggregators used. Every data section links directly to msx.om, mcd.om, or the company's corporate website.</p>
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div>
+            <h3 class="text-base font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-emerald-400"></i> Primary Source Verification Matrix
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Zero third-party financial aggregators used. Every data section links directly to msx.om, mcd.om, or the company's corporate website.</p>
+          </div>
+          <button id="export-json-btn" type="button" title="Download Raw Company JSON (OMR)" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 text-slate-300 hover:text-white hover:border-indigo-500 transition flex items-center gap-1.5 text-xs font-mono shrink-0">
+            <i data-lucide="braces" class="w-3.5 h-3.5 text-indigo-400"></i>
+            <span>Export JSON</span>
+          </button>
         </div>
         <div class="overflow-x-auto rounded-xl border border-slate-800/90 bg-slate-900/50">
           <table class="w-full text-left border-collapse text-xs">
@@ -2527,15 +2534,933 @@
       loadCompany(currentTicker);
     });
 
-    document.getElementById("export-btn").addEventListener("click", () => {
+    // ============================================================================
+    // 9. 1-PAGE PROFESSIONAL PDF EQUITY SUMMARY GENERATOR (VECTOR jsPDF)
+    // ============================================================================
+    let jsPdfLoadPromise = null;
+    function ensureJsPdf() {
+      if (window.jspdf && typeof window.jspdf.jsPDF === "function") {
+        return Promise.resolve(window.jspdf.jsPDF);
+      }
+      if (jsPdfLoadPromise) return jsPdfLoadPromise;
+      const urls = [
+        "https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"
+      ];
+      jsPdfLoadPromise = new Promise((resolve, reject) => {
+        let idx = 0;
+        function tryNext() {
+          if (window.jspdf && typeof window.jspdf.jsPDF === "function") {
+            resolve(window.jspdf.jsPDF);
+            return;
+          }
+          if (idx >= urls.length) {
+            jsPdfLoadPromise = null;
+            reject(new Error("Could not load jsPDF library."));
+            return;
+          }
+          const sc = document.createElement("script");
+          sc.src = urls[idx++];
+          sc.async = true;
+          sc.onload = () => {
+            if (window.jspdf && typeof window.jspdf.jsPDF === "function") {
+              resolve(window.jspdf.jsPDF);
+            } else {
+              tryNext();
+            }
+          };
+          sc.onerror = () => tryNext();
+          document.head.appendChild(sc);
+        }
+        tryNext();
+      });
+      return jsPdfLoadPromise;
+    }
+
+    function pdfSafeText(str) {
+      let s = String(str ?? "");
+      s = s.replace(/\s*\([^)]*[\u0600-\u06FF][^)]*\)/g, "");
+      s = s.replace(/[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]+/g, "");
+      s = s
+        .replace(/[\u2014\u2013\u2212]/g, "-")
+        .replace(/\u2022/g, "|")
+        .replace(/\u2192/g, "->")
+        .replace(/[\u2018\u2019]/g, "'")
+        .replace(/[\u201C\u201D]/g, '"')
+        .replace(/\u2026/g, "...")
+        .replace(/\u00A0/g, " ")
+        .replace(/[^\x20-\x7E\xA0-\xFF]/g, "");
+      return s.replace(/\s+/g, " ").trim();
+    }
+
+    function truncText(doc, text, maxW) {
+      const clean = pdfSafeText(text);
+      if (!clean) return "";
+      if (doc.getTextWidth(clean) <= maxW) return clean;
+      let s = clean;
+      while (s.length > 3 && doc.getTextWidth(s + "...") > maxW) {
+        s = s.slice(0, -1);
+      }
+      return (s.trim() || "") + "...";
+    }
+
+    function fitLines(doc, text, maxW, maxLines) {
+      const clean = pdfSafeText(text);
+      if (!clean) return [];
+      const lines = doc.splitTextToSize(clean, maxW);
+      if (lines.length <= maxLines) return lines;
+      const sliced = lines.slice(0, maxLines);
+      let last = sliced[maxLines - 1] || "";
+      while (last.length > 3 && doc.getTextWidth(last + "...") > maxW) {
+        last = last.slice(0, -1);
+      }
+      sliced[maxLines - 1] = (last.trim() || "") + "...";
+      return sliced;
+    }
+
+    const PDF_SEG_COLORS = {
+      "bg-indigo-500": [79, 70, 229],
+      "bg-cyan-400": [8, 145, 178],
+      "bg-violet-400": [124, 58, 237],
+      "bg-emerald-400": [5, 150, 105],
+      "bg-emerald-500": [5, 150, 105],
+      "bg-amber-400": [217, 119, 6],
+      "bg-rose-400": [225, 29, 72]
+    };
+
+    const PDF_WHITE_BG_PLUGIN = {
+      id: "pdfWhiteBg",
+      beforeDraw(chart) {
+        const c = chart.ctx;
+        c.save();
+        c.fillStyle = "#ffffff";
+        c.fillRect(0, 0, chart.width, chart.height);
+        c.restore();
+      }
+    };
+
+    function renderPrintPriceChart(company) {
+      if (typeof Chart === "undefined") return null;
+      const series = company.series || { dates: [], prices: [], sma50: [], sma200: [] };
+      if (!series.prices || series.prices.length < 2) return null;
+
+      const canvas = document.createElement("canvas");
+      canvas.width = 1000;
+      canvas.height = 500;
+      const ctx = canvas.getContext("2d");
+
+      const rate = fxRate();
+      const cCode = currCode();
+      const sliceIdx = currentRange >= series.dates.length ? 0 : Math.max(0, series.dates.length - currentRange);
+      const labels = series.dates.slice(sliceIdx);
+      const prices = series.prices.slice(sliceIdx).map(v => Number((v * rate).toFixed(3)));
+      const sma50 = (series.sma50 || []).slice(sliceIdx).map(v => Number((v * rate).toFixed(3)));
+      const sma200 = (series.sma200 || []).slice(sliceIdx).map(v => Number((v * rate).toFixed(3)));
+
+      const isPos = prices[prices.length - 1] >= prices[0];
+      const mainColor = isPos ? "#059669" : "#e11d48";
+      const gradient = ctx.createLinearGradient(0, 0, 0, 440);
+      gradient.addColorStop(0, isPos ? "rgba(5, 150, 105, 0.22)" : "rgba(225, 29, 72, 0.22)");
+      gradient.addColorStop(1, "rgba(255, 255, 255, 0.0)");
+
+      const datasets = [
+        {
+          label: `${company.ticker} (${cCode})`,
+          data: prices,
+          borderColor: mainColor,
+          backgroundColor: gradient,
+          borderWidth: 3.5,
+          pointRadius: 0,
+          fill: true,
+          tension: 0.2
+        }
+      ];
+      if (sma50.some(v => v !== null && v !== undefined)) {
+        datasets.push({
+          label: "50D SMA",
+          data: sma50,
+          borderColor: "#4f46e5",
+          borderWidth: 2.5,
+          borderDash: [10, 6],
+          pointRadius: 0,
+          fill: false,
+          tension: 0.25
+        });
+      }
+      if (sma200.some(v => v !== null && v !== undefined)) {
+        datasets.push({
+          label: "200D SMA",
+          data: sma200,
+          borderColor: "#d97706",
+          borderWidth: 2.5,
+          borderDash: [14, 6],
+          pointRadius: 0,
+          fill: false,
+          tension: 0.25
+        });
+      }
+
+      let chart = null;
+      try {
+        chart = new Chart(ctx, {
+          type: "line",
+          data: { labels, datasets },
+          plugins: [PDF_WHITE_BG_PLUGIN],
+          options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            animation: false,
+            devicePixelRatio: 1,
+            layout: { padding: { top: 6, right: 6, bottom: 2, left: 4 } },
+            plugins: {
+              legend: {
+                display: true,
+                position: "top",
+                align: "end",
+                labels: {
+                  color: "#334155",
+                  usePointStyle: true,
+                  boxWidth: 14,
+                  font: { family: "sans-serif", size: 20, weight: "600" }
+                }
+              },
+              tooltip: { enabled: false }
+            },
+            scales: {
+              x: {
+                grid: { color: "rgba(203, 213, 225, 0.55)", drawBorder: false },
+                ticks: {
+                  color: "#475569",
+                  maxTicksLimit: 7,
+                  font: { family: "sans-serif", size: 19 }
+                }
+              },
+              y: {
+                position: "right",
+                grid: { color: "rgba(203, 213, 225, 0.55)", drawBorder: false },
+                ticks: {
+                  color: "#334155",
+                  maxTicksLimit: 6,
+                  font: { family: "monospace", size: 19 },
+                  callback: (val) => `${currPrefix()}${Number(val).toFixed(3)}`
+                }
+              }
+            }
+          }
+        });
+        return canvas.toDataURL("image/png");
+      } finally {
+        if (chart) chart.destroy();
+      }
+    }
+
+    function renderPrintFinancialsChart(company) {
+      if (typeof Chart === "undefined") return null;
+      const f = company.financials || { years: [], primary: [], secondary: [], netIncome: [] };
+      if (!f.years || f.years.length === 0) return null;
+
+      const canvas = document.createElement("canvas");
+      canvas.width = 960;
+      canvas.height = 420;
+      const ctx = canvas.getContext("2d");
+
+      const rate = fxRate();
+      const cCode = currCode();
+      const replUnit = (lbl) => String(lbl || "").replace(/OMR M/g, `${cCode} M`);
+
+      let chart = null;
+      try {
+        chart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: f.years,
+            datasets: [
+              {
+                label: replUnit(f.primaryLabel),
+                data: (f.primary || []).map(v => Number(((v || 0) * rate).toFixed(2))),
+                backgroundColor: "#4f46e5",
+                borderRadius: 6
+              },
+              {
+                label: replUnit(f.secondaryLabel),
+                data: (f.secondary || []).map(v => Number(((v || 0) * rate).toFixed(2))),
+                backgroundColor: "#0891b2",
+                borderRadius: 6
+              },
+              {
+                label: replUnit(f.tertiaryLabel),
+                data: (f.netIncome || []).map(v => Number(((v || 0) * rate).toFixed(2))),
+                backgroundColor: "#059669",
+                borderRadius: 6
+              }
+            ]
+          },
+          plugins: [PDF_WHITE_BG_PLUGIN],
+          options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            animation: false,
+            devicePixelRatio: 1,
+            layout: { padding: { top: 4, right: 8, bottom: 2, left: 4 } },
+            plugins: {
+              legend: {
+                display: true,
+                position: "top",
+                align: "end",
+                labels: {
+                  color: "#334155",
+                  usePointStyle: true,
+                  boxWidth: 14,
+                  font: { family: "sans-serif", size: 19, weight: "600" }
+                }
+              },
+              tooltip: { enabled: false }
+            },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { color: "#1e293b", font: { family: "sans-serif", size: 20, weight: "600" } }
+              },
+              y: {
+                grid: { color: "rgba(203, 213, 225, 0.55)", drawBorder: false },
+                ticks: {
+                  color: "#475569",
+                  maxTicksLimit: 6,
+                  font: { family: "monospace", size: 18 },
+                  callback: (v) => `${currPrefix()}${v}M`
+                }
+              }
+            }
+          }
+        });
+        return canvas.toDataURL("image/png");
+      } finally {
+        if (chart) chart.destroy();
+      }
+    }
+
+    async function generateCompanySummaryPdf(company) {
+      const JsPDFCtor = await ensureJsPdf();
+      const doc = new JsPDFCtor({ orientation: "portrait", unit: "mm", format: "a4", compress: true });
+      const cCode = currCode();
+      const rate = fxRate();
+      const todayIso = new Date().toISOString().slice(0, 10);
+
+      // ------------------------------------------------------------------------
+      // BAND 1: INSTITUTIONAL HEADER BANNER (y = 0..27 mm)
+      // ------------------------------------------------------------------------
+      doc.setFillColor(79, 70, 229);
+      doc.rect(0, 0, 210, 1.5, "F");
+      doc.setFillColor(15, 23, 42);
+      doc.rect(0, 1.5, 210, 25.5, "F");
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(7);
+      doc.setTextColor(165, 180, 252);
+      doc.text("OMAN STOCK INTELLIGENCE  |  EQUITY SUMMARY TEAR SHEET", 10, 6.2);
+
+      const nameStr = pdfSafeText(company.name || company.ticker);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(nameStr.length > 34 ? 11.5 : 13.5);
+      doc.setTextColor(255, 255, 255);
+      doc.text(truncText(doc, nameStr, 124), 10, 12.2);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7.8);
+      doc.setTextColor(203, 213, 225);
+      const idLine = `MSX: ${company.ticker}  |  ${company.sector || company.sectorGroup || "Equities"}  |  ${company.market || "MSX"}  |  ISIN: ${company.isin || "-"}`;
+      doc.text(truncText(doc, idLine, 124), 10, 17.5);
+
+      doc.setFontSize(7.2);
+      doc.setTextColor(199, 210, 254);
+      const fxLine = cCode === "USD"
+        ? `Currency: USD (CBO Fixed Peg: 1 OMR = $2.6008)  |  Snapshot: ${company.lastUpdated || todayIso}`
+        : `Currency: OMR (Omani Rial)  |  Snapshot: ${company.lastUpdated || todayIso}`;
+      doc.text(truncText(doc, fxLine, 124), 10, 22.8);
+
+      // Header Right Price Block
+      const pricesAll = (company.series && company.series.prices) ? company.series.prices : [];
+      const pNow = pricesAll.length ? pricesAll[pricesAll.length - 1] : Number(company.price || 0);
+      const p1Y = pricesAll.length ? pricesAll[0] : pNow;
+      const p6M = pricesAll.length ? pricesAll[Math.max(0, pricesAll.length - 126)] : pNow;
+      const p3M = pricesAll.length ? pricesAll[Math.max(0, pricesAll.length - 63)] : pNow;
+      const p1M = pricesAll.length ? pricesAll[Math.max(0, pricesAll.length - 21)] : pNow;
+      const calcRet = (a, b) => (b && b > 0 ? ((a - b) / b) * 100 : 0);
+      const ret1Y = calcRet(pNow, p1Y);
+      const ret6M = calcRet(pNow, p6M);
+      const ret3M = calcRet(pNow, p3M);
+      const ret1M = calcRet(pNow, p1M);
+      const is1YPos = ret1Y >= 0;
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(6.8);
+      doc.setTextColor(148, 163, 184);
+      doc.text(`MSX SHARE PRICE (${cCode})`, 200, 6.2, { align: "right" });
+
+      doc.setFontSize(15);
+      doc.setTextColor(255, 255, 255);
+      doc.text(pdfSafeText(fmtPrice(company.price)), 200, 12.2, { align: "right" });
+
+      const ret1YPill = `${is1YPos ? "+" : ""}${ret1Y.toFixed(2)}% (1Y)`;
+      doc.setFontSize(7.2);
+      const pillW = doc.getTextWidth(ret1YPill) + 5;
+      doc.setFillColor(is1YPos ? 16 : 244, is1YPos ? 185 : 63, is1YPos ? 129 : 94);
+      doc.roundedRect(200 - pillW, 13.7, pillW, 4.4, 1.2, 1.2, "F");
+      doc.setTextColor(255, 255, 255);
+      doc.text(ret1YPill, 200 - pillW / 2, 16.8, { align: "center" });
+
+      const dayPct = Number(company.dayChangePct || 0);
+      const isDayPos = dayPct >= 0;
+      doc.setTextColor(isDayPos ? 110 : 253, isDayPos ? 231 : 164, isDayPos ? 183 : 175);
+      doc.text(`1D: ${isDayPos ? "+" : ""}${dayPct.toFixed(2)}%`, 200 - pillW - 2.5, 16.8, { align: "right" });
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7.1);
+      doc.setTextColor(203, 213, 225);
+      const rangeMcapLine = `52W: ${fmtPrice(company.low52w)} - ${fmtPrice(company.high52w)}  |  MCap: ${fmtLarge(company.marketCapOmr)}`;
+      doc.text(truncText(doc, rangeMcapLine, 68), 200, 22.8, { align: "right" });
+
+      // ------------------------------------------------------------------------
+      // BAND 2: EXECUTIVE FACT STRIP (y = 29..36.5 mm)
+      // ------------------------------------------------------------------------
+      doc.setFillColor(241, 245, 249);
+      doc.setDrawColor(226, 232, 240);
+      doc.roundedRect(10, 29, 190, 7.5, 1.5, 1.5, "FD");
+
+      const facts = [
+        { label: "CEO / TOP EXEC", val: company.ceo || "Not disclosed", x: 12, w: 46 },
+        { label: "HEADQUARTERS", val: company.hq || "Sultanate of Oman", x: 59, w: 45 },
+        { label: "EST. / LISTED", val: `${company.founded || "-"}`, x: 105, w: 23 },
+        { label: "ISSUED SHARES", val: `${company.sharesOut || "-"}`, x: 129, w: 32 },
+        { label: "SHAREHOLDERS", val: `${company.shareholderCount || "-"} reg.`, x: 162, w: 36 }
+      ];
+      facts.forEach((fItem, fi) => {
+        if (fi > 0) {
+          doc.setDrawColor(203, 213, 225);
+          doc.line(fItem.x - 1.5, 30.2, fItem.x - 1.5, 35.3);
+        }
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(5.4);
+        doc.setTextColor(100, 116, 139);
+        doc.text(fItem.label, fItem.x, 31.7);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(7);
+        doc.setTextColor(15, 23, 42);
+        doc.text(truncText(doc, fItem.val, fItem.w), fItem.x, 35.0);
+      });
+
+      // ------------------------------------------------------------------------
+      // BAND 3: ABOUT COMPANY & SEGMENTS (LEFT) + 1Y SHARE PRICE CHART (RIGHT)
+      // ------------------------------------------------------------------------
+      // Left Box: y = 39..110, x = 10, w = 86
+      doc.setFillColor(255, 255, 255);
+      doc.setDrawColor(226, 232, 240);
+      doc.roundedRect(10, 39, 86, 71, 1.5, 1.5, "FD");
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(7.4);
+      doc.setTextColor(79, 70, 229);
+      doc.text("ABOUT THE COMPANY", 13, 43.2);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(6.9);
+      doc.setTextColor(51, 65, 85);
+      const descLines = fitLines(doc, company.description || "Company overview unavailable.", 80, 6);
+      let cy = 46.8;
+      descLines.forEach(ln => {
+        doc.text(ln, 13, cy);
+        cy += 3.0;
+      });
+
+      // Highlights (if space above y = 80)
+      const hlList = (company.highlights || []).slice(0, 2);
+      if (hlList.length > 0 && cy <= 72) {
+        cy += 1.0;
+        doc.setDrawColor(241, 245, 249);
+        doc.line(13, cy - 0.5, 93, cy - 0.5);
+        cy += 2.6;
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(6.2);
+        doc.setTextColor(100, 116, 139);
+        doc.text("KEY STRATEGIC & FINANCIAL HIGHLIGHTS", 13, cy);
+        cy += 2.8;
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(6.3);
+        doc.setTextColor(51, 65, 85);
+        for (const h of hlList) {
+          if (cy > 78.5) break;
+          const maxL = cy <= 73 ? 2 : 1;
+          const hLines = fitLines(doc, localizeOmrText(h), 77, maxL);
+          doc.setFillColor(79, 70, 229);
+          doc.circle(13.8, cy - 0.8, 0.55, "F");
+          hLines.forEach(hl => {
+            if (cy <= 80.5) {
+              doc.text(hl, 15.6, cy);
+              cy += 2.65;
+            }
+          });
+        }
+      }
+
+      // Business Segments Section anchored inside bottom of Left Box (y = 82..109)
+      const segTopY = Math.max(cy + 1.2, 81.5);
+      doc.setDrawColor(226, 232, 240);
+      doc.line(13, segTopY, 93, segTopY);
+      const segs = (company.segments || []).slice(0, 4);
+      const isVerifiedSegPct = segs.length > 0 && company.segmentMode !== "qualitative" && segs.every(s => s.pct !== null && s.pct !== undefined && !Number.isNaN(Number(s.pct)));
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(7.1);
+      doc.setTextColor(79, 70, 229);
+      doc.text(isVerifiedSegPct ? "BUSINESS SEGMENTS" : "CORE BUSINESS LINES", 13, segTopY + 3.8);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(5.7);
+      doc.setTextColor(100, 116, 139);
+      doc.text(truncText(doc, company.segmentNote || (isVerifiedSegPct ? "Audited Mix" : "Primary Filing"), 40), 93, segTopY + 3.8, { align: "right" });
+
+      let sy = segTopY + 7.2;
+      if (segs.length === 0) {
+        doc.setFont("helvetica", "italic");
+        doc.setFontSize(6.5);
+        doc.setTextColor(100, 116, 139);
+        doc.text("Segment breakdown not separately disclosed on msx.om.", 13, sy + 2);
+      } else if (isVerifiedSegPct) {
+        const step = Math.min(5.2, Math.max(4.1, (108.5 - sy) / segs.length));
+        segs.forEach(seg => {
+          const rgb = PDF_SEG_COLORS[seg.color] || [79, 70, 229];
+          const pctNum = Number(seg.pct || 0);
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(6.3);
+          doc.setTextColor(30, 41, 59);
+          doc.text(truncText(doc, seg.name, 66), 13, sy);
+          doc.setFont("helvetica", "bold");
+          doc.text(`${pctNum.toFixed(1)}%`, 93, sy, { align: "right" });
+
+          doc.setFillColor(226, 232, 240);
+          doc.roundedRect(13, sy + 1.1, 80, 1.6, 0.6, 0.6, "F");
+          doc.setFillColor(rgb[0], rgb[1], rgb[2]);
+          const fillW = Math.max(1.5, Math.min(80, 80 * pctNum / 100));
+          doc.roundedRect(13, sy + 1.1, fillW, 1.6, 0.6, 0.6, "F");
+          sy += step;
+        });
+      } else {
+        const step = Math.min(6.2, Math.max(4.8, (108.5 - sy) / segs.length));
+        segs.forEach(seg => {
+          const rgb = PDF_SEG_COLORS[seg.color] || [79, 70, 229];
+          doc.setFillColor(rgb[0], rgb[1], rgb[2]);
+          doc.circle(13.8, sy - 0.8, 0.7, "F");
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(6.4);
+          doc.setTextColor(30, 41, 59);
+          doc.text(truncText(doc, seg.name, 77), 15.8, sy);
+          if (seg.summary && step >= 5.1) {
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(5.7);
+            doc.setTextColor(100, 116, 139);
+            doc.text(truncText(doc, seg.summary, 77), 15.8, sy + 2.4);
+          }
+          sy += step;
+        });
+      }
+
+      // Right Box: 1Y Price Chart & Returns Strip (x = 100, y = 39, w = 100, h = 71)
+      doc.setFillColor(255, 255, 255);
+      doc.setDrawColor(226, 232, 240);
+      doc.roundedRect(100, 39, 100, 71, 1.5, 1.5, "FD");
+
+      const rangeTag = currentRange === 21 ? "1M" : currentRange === 63 ? "3M" : currentRange === 126 ? "6M" : "1Y";
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(7.4);
+      doc.setTextColor(79, 70, 229);
+      doc.text(`SHARE PRICE MOVEMENT (${rangeTag} - ${cCode})`, 103, 43.2);
+
+      const fullDates = (company.series && company.series.fullDates) ? company.series.fullDates : [];
+      const chartPeriodTxt = fullDates.length >= 2
+        ? `${fullDates[0]} to ${fullDates[fullDates.length - 1]}`
+        : `${pricesAll.length} trading days`;
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(5.9);
+      doc.setTextColor(100, 116, 139);
+      doc.text(pdfSafeText(chartPeriodTxt), 197, 43.2, { align: "right" });
+
+      const pricePng = renderPrintPriceChart(company);
+      if (pricePng) {
+        doc.addImage(pricePng, "PNG", 102, 44.8, 96, 48.5);
+      } else {
+        doc.setFillColor(248, 250, 252);
+        doc.setDrawColor(203, 213, 225);
+        doc.roundedRect(103, 46, 94, 46, 1.5, 1.5, "FD");
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(7.2);
+        doc.setTextColor(100, 116, 139);
+        doc.text(`No daily trading history published on msx.om for ${company.ticker}.`, 150, 69, { align: "center" });
+      }
+
+      // Return Summary Mini-Strip (y = 95.5..107)
+      const turnoverDisp = company.turnoverOmr !== undefined ? fmtLarge(company.turnoverOmr) : localizeOmrText(company.turnover || "-");
+      const retCells = [
+        { lbl: "1M RETURN", val: `${ret1M >= 0 ? "+" : ""}${ret1M.toFixed(2)}%`, pos: pricesAll.length >= 2 ? ret1M >= 0 : null },
+        { lbl: "3M RETURN", val: `${ret3M >= 0 ? "+" : ""}${ret3M.toFixed(2)}%`, pos: pricesAll.length >= 2 ? ret3M >= 0 : null },
+        { lbl: "6M RETURN", val: `${ret6M >= 0 ? "+" : ""}${ret6M.toFixed(2)}%`, pos: pricesAll.length >= 2 ? ret6M >= 0 : null },
+        { lbl: "1Y RETURN", val: `${ret1Y >= 0 ? "+" : ""}${ret1Y.toFixed(2)}%`, pos: pricesAll.length >= 2 ? ret1Y >= 0 : null },
+        { lbl: "VOL / TURNOVER", val: `${company.volatility || "-"} | ${turnoverDisp}`, pos: null }
+      ];
+      retCells.forEach((rc, i) => {
+        const bx = 103 + i * 19.0;
+        const bw = i === 4 ? 18.0 : 17.8;
+        doc.setFillColor(248, 250, 252);
+        doc.setDrawColor(226, 232, 240);
+        doc.roundedRect(bx, 95.5, bw, 11.5, 1.2, 1.2, "FD");
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(5.1);
+        doc.setTextColor(100, 116, 139);
+        doc.text(truncText(doc, rc.lbl, bw - 1.5), bx + 1.2, 99.0);
+        doc.setFontSize(i === 4 ? 5.9 : 7.3);
+        if (rc.pos === true) doc.setTextColor(5, 150, 105);
+        else if (rc.pos === false) doc.setTextColor(225, 29, 72);
+        else doc.setTextColor(15, 23, 42);
+        doc.text(truncText(doc, pricesAll.length >= 2 || i === 4 ? rc.val : "-", bw - 2.0), bx + 1.2, 104.2);
+      });
+
+      // ------------------------------------------------------------------------
+      // BAND 4: KEY VALUATION & FINANCIAL STATS GRID (4 x 3, y = 113..157 mm)
+      // ------------------------------------------------------------------------
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(7.6);
+      doc.setTextColor(79, 70, 229);
+      doc.text(`KEY VALUATION & SECTOR FINANCIAL STATS (${cCode})`, 10, 116.2);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(6.5);
+      doc.setTextColor(100, 116, 139);
+      doc.text(truncText(doc, `${company.latestFiscalYear || "Latest Filings"} | Primary MSX XBRL`, 75), 200, 116.2, { align: "right" });
+
+      const valCards = (company.valuation || []).slice(0, 12);
+      for (let i = 0; i < valCards.length; i++) {
+        const m = valCards[i];
+        const col = i % 4;
+        const row = Math.floor(i / 4);
+        const cx = 10 + col * 48;
+        const cyBox = 118.2 + row * 13.0;
+        doc.setFillColor(255, 255, 255);
+        doc.setDrawColor(226, 232, 240);
+        doc.roundedRect(cx, cyBox, 46, 11.8, 1.3, 1.3, "FD");
+
+        // Status indicator dot
+        if (m.status === "positive") doc.setFillColor(16, 185, 129);
+        else if (m.status === "negative") doc.setFillColor(244, 63, 94);
+        else doc.setFillColor(99, 102, 241);
+        doc.circle(cx + 43.3, cyBox + 2.8, 0.75, "F");
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(5.9);
+        doc.setTextColor(100, 116, 139);
+        doc.text(truncText(doc, m.label, 39), cx + 2.2, cyBox + 3.4);
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(8.8);
+        doc.setTextColor(15, 23, 42);
+        doc.text(truncText(doc, localizeOmrText(m.value), 41.5), cx + 2.2, cyBox + 7.4);
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(5.6);
+        doc.setTextColor(100, 116, 139);
+        doc.text(truncText(doc, localizeOmrText(m.sub), 41.5), cx + 2.2, cyBox + 10.5);
+      }
+
+      // ------------------------------------------------------------------------
+      // BAND 5: ANNUAL FINANCIAL CHART (LEFT) + MOMENTUM & OWNERSHIP (RIGHT)
+      // ------------------------------------------------------------------------
+      const isBank = company.sectorGroup === "Banking";
+      doc.setFillColor(255, 255, 255);
+      doc.setDrawColor(226, 232, 240);
+      doc.roundedRect(10, 159.5, 108, 56, 1.5, 1.5, "FD");
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(7.2);
+      doc.setTextColor(79, 70, 229);
+      doc.text(
+        isBank ? `ANNUAL INCOME & NET PROFIT (${cCode} M)` : `ANNUAL REVENUE, EBITDA & NET PROFIT (${cCode} M)`,
+        13,
+        163.7
+      );
+      const fYrs = (company.financials && company.financials.years) ? company.financials.years : [];
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(6.0);
+      doc.setTextColor(100, 116, 139);
+      doc.text(fYrs.length > 0 ? `${fYrs[0]} - ${fYrs[fYrs.length - 1]}` : "No Annual XBRL", 115, 163.7, { align: "right" });
+
+      const finPng = renderPrintFinancialsChart(company);
+      if (finPng) {
+        doc.addImage(finPng, "PNG", 11.5, 165.2, 105, 48.5);
+      } else {
+        doc.setFillColor(248, 250, 252);
+        doc.setDrawColor(203, 213, 225);
+        doc.roundedRect(13, 166.5, 102, 46, 1.5, 1.5, "FD");
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(7);
+        doc.setTextColor(100, 116, 139);
+        doc.text("No multi-year annual IFRS chart data available.", 64, 189.5, { align: "center" });
+      }
+
+      // Right Top: 9M 2026 Interim Momentum (x = 121, y = 159.5, w = 79, h = 25.5)
+      doc.setFillColor(255, 255, 255);
+      doc.setDrawColor(226, 232, 240);
+      doc.roundedRect(121, 159.5, 79, 25.5, 1.5, 1.5, "FD");
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(6.9);
+      doc.setTextColor(79, 70, 229);
+      doc.text("INTERIM PERFORMANCE (9M 2026 YOY)", 123.5, 163.5);
+
+      const qBars = (company.quarterlyMomentum && company.quarterlyMomentum.bars) ? company.quarterlyMomentum.bars.slice(0, 3) : [];
+      if (qBars.length === 0) {
+        doc.setFont("helvetica", "italic");
+        doc.setFontSize(6.3);
+        doc.setTextColor(100, 116, 139);
+        doc.text("9M 2026 interim comparison not disclosed.", 123.5, 173);
+      } else {
+        let qy = 167.2;
+        const qStep = Math.min(6.0, 17.2 / qBars.length);
+        qBars.forEach(qb => {
+          const isQPos = Number(qb.yoyPct) >= 0;
+          const curStr = qb.currentOmr !== undefined ? fmtLarge(qb.currentOmr) : localizeOmrText(qb.current);
+          const yoyStr = `${isQPos ? "+" : ""}${qb.yoyPct}%`;
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(6.0);
+          doc.setTextColor(51, 65, 85);
+          doc.text(truncText(doc, qb.label.replace(/^9M 2026\s*/i, ""), 35), 123.5, qy);
+
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(isQPos ? 5 : 225, isQPos ? 150 : 29, isQPos ? 105 : 72);
+          doc.text(yoyStr, 197.5, qy, { align: "right" });
+          const yoyW = doc.getTextWidth(yoyStr);
+          doc.setTextColor(15, 23, 42);
+          doc.text(truncText(doc, curStr, 25), 197.5 - yoyW - 2.0, qy, { align: "right" });
+
+          const bw = Math.min(74, Math.max(8, (Math.abs(Number(qb.yoyPct)) * 2.2 + 26) * 0.74));
+          doc.setFillColor(226, 232, 240);
+          doc.roundedRect(123.5, qy + 1.0, 74, 1.3, 0.5, 0.5, "F");
+          doc.setFillColor(isQPos ? 16 : 244, isQPos ? 185 : 63, isQPos ? 129 : 94);
+          doc.roundedRect(123.5, qy + 1.0, bw, 1.3, 0.5, 0.5, "F");
+          qy += qStep;
+        });
+      }
+
+      // Right Bottom: Ownership & Major Holders (x = 121, y = 187, w = 79, h = 28.5)
+      doc.setFillColor(255, 255, 255);
+      doc.setDrawColor(226, 232, 240);
+      doc.roundedRect(121, 187, 79, 28.5, 1.5, 1.5, "FD");
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(6.9);
+      doc.setTextColor(79, 70, 229);
+      doc.text("OWNERSHIP & MAJOR HOLDERS (MCD.OM)", 123.5, 191.0);
+
+      const own = company.ownership || { breakdown: [], majorInvestors: [], publicFloatPct: 0 };
+      const bd = own.breakdown || [];
+      const pct0 = Number((bd[0] || {}).pct || 0);
+      const pct1 = Number((bd[1] || {}).pct || 0);
+      const pct2 = Number((bd[2] || {}).pct || 0);
+      const totNat = Math.max(1, pct0 + pct1 + pct2);
+      const w0 = 74 * (pct0 / totNat);
+      const w1 = 74 * (pct1 / totNat);
+      const w2 = Math.max(0, 74 - w0 - w1);
+
+      // Stacked horizontal nationality bar
+      let bx = 123.5;
+      if (w0 > 0) { doc.setFillColor(79, 70, 229); doc.rect(bx, 192.6, w0, 2.3, "F"); bx += w0; }
+      if (w1 > 0) { doc.setFillColor(8, 145, 178); doc.rect(bx, 192.6, w1, 2.3, "F"); bx += w1; }
+      if (w2 > 0) { doc.setFillColor(5, 150, 105); doc.rect(bx, 192.6, w2, 2.3, "F"); }
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(5.7);
+      doc.setTextColor(71, 85, 105);
+      doc.text(`Omani ${pct0.toFixed(1)}%  |  GCC ${pct1.toFixed(1)}%  |  Foreign/Arab ${pct2.toFixed(1)}%`, 123.5, 197.5);
+
+      const topMajors = (own.majorInvestors || []).slice(0, 3);
+      let my = 201.3;
+      if (topMajors.length === 0) {
+        doc.setFont("helvetica", "italic");
+        doc.setFontSize(5.8);
+        doc.setTextColor(100, 116, 139);
+        doc.text("No single shareholder >= 5% disclosed on mcd.om", 123.5, my);
+        my += 3.8;
+      } else {
+        topMajors.forEach((h, hIdx) => {
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(5.9);
+          doc.setTextColor(30, 41, 59);
+          const holderLbl = pdfSafeText(h.name) || `Major Shareholder #${hIdx + 1} (see mcd.om)`;
+          doc.text(truncText(doc, holderLbl, 59), 123.5, my);
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(79, 70, 229);
+          doc.text(pdfSafeText(h.stake), 197.5, my, { align: "right" });
+          my += 3.5;
+        });
+      }
+      doc.setFont("helvetica", "italic");
+      doc.setFontSize(5.7);
+      doc.setTextColor(100, 116, 139);
+      doc.text(`Public Float (<5%): ${Number(own.publicFloatPct || 0).toFixed(2)}%`, 123.5, Math.min(my, 213.6));
+
+      // ------------------------------------------------------------------------
+      // BAND 6: MULTI-YEAR AUDITED & INTERIM FINANCIAL SUMMARY TABLE (y = 218.5..277)
+      // ------------------------------------------------------------------------
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(7.5);
+      doc.setTextColor(79, 70, 229);
+      doc.text(`MULTI-YEAR AUDITED & INTERIM FINANCIAL SUMMARY (${cCode})`, 10, 222.0);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(6.2);
+      doc.setTextColor(100, 116, 139);
+      doc.text(`Amounts in ${cCode} Millions | DPS in ${cCode}`, 200, 222.0, { align: "right" });
+
+      const allRows = (company.financials && company.financials.tableRows) ? company.financials.tableRows : [];
+      const tableRows = allRows.slice(-6);
+      const tblY = 224.0;
+      const tblCols = isBank
+        ? [
+            { hdr: "Period", w: 17, align: "left", fn: r => r.period },
+            { hdr: "Op. Inc", w: 22, align: "right", fn: r => fmtMillions(r.primaryMetric) },
+            { hdr: "NII", w: 22, align: "right", fn: r => fmtMillions(r.secondaryMetric) },
+            { hdr: "Net Profit", w: 21, align: "right", fn: r => fmtMillions(r.netProfit) },
+            { hdr: "Div/Share", w: 18, align: "right", fn: r => fmtDps(r.dps) },
+            { hdr: "Net Loans", w: 23, align: "right", fn: r => fmtMillions(r.loans) },
+            { hdr: "Deposits", w: 23, align: "right", fn: r => fmtMillions(r.deposits) },
+            { hdr: "Assets", w: 23, align: "right", fn: r => fmtMillions(r.assets) },
+            { hdr: "Equity", w: 21, align: "right", fn: r => fmtMillions(r.equity) }
+          ]
+        : [
+            { hdr: "Period", w: 16, align: "left", fn: r => r.period },
+            { hdr: "Revenue", w: 20, align: "right", fn: r => fmtMillions(r.primaryMetric) },
+            { hdr: "EBITDA", w: 20, align: "right", fn: r => fmtMillions(r.secondaryMetric) },
+            { hdr: "Net Profit", w: 19, align: "right", fn: r => fmtMillions(r.netProfit) },
+            { hdr: "Div/Share", w: 18, align: "right", fn: r => fmtDps(r.dps) },
+            { hdr: "Op. CF", w: 20, align: "right", fn: r => fmtMillions(r.ocf) },
+            { hdr: "CapEx", w: 18, align: "right", fn: r => fmtMillions(r.capex) },
+            { hdr: "Assets", w: 21, align: "right", fn: r => fmtMillions(r.assets) },
+            { hdr: "Debt", w: 19, align: "right", fn: r => fmtMillions(r.debt) },
+            { hdr: "Equity", w: 19, align: "right", fn: r => fmtMillions(r.equity) }
+          ];
+
+      // Table Header
+      doc.setFillColor(15, 23, 42);
+      doc.rect(10, tblY, 190, 5.6, "F");
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(6.1);
+      doc.setTextColor(255, 255, 255);
+      let colX = 10;
+      tblCols.forEach(c => {
+        if (c.align === "right") doc.text(c.hdr, colX + c.w - 1.5, tblY + 3.9, { align: "right" });
+        else doc.text(c.hdr, colX + 2.0, tblY + 3.9);
+        colX += c.w;
+      });
+
+      let ry = tblY + 5.6;
+      if (tableRows.length === 0) {
+        doc.setFillColor(248, 250, 252);
+        doc.setDrawColor(226, 232, 240);
+        doc.rect(10, ry, 190, 8.0, "FD");
+        doc.setFont("helvetica", "italic");
+        doc.setFontSize(6.8);
+        doc.setTextColor(100, 116, 139);
+        doc.text("No multi-year XBRL annual or interim rows published yet for this security.", 105, ry + 5.2, { align: "center" });
+      } else {
+        const rowH = Math.min(6.4, Math.max(5.2, 46.0 / tableRows.length));
+        tableRows.forEach((r, idx) => {
+          const isInterim = /9M|6M|Q[1-4]/i.test(r.period || "");
+          if (isInterim) doc.setFillColor(238, 242, 255);
+          else if (idx % 2 === 1) doc.setFillColor(248, 250, 252);
+          else doc.setFillColor(255, 255, 255);
+          doc.rect(10, ry, 190, rowH, "F");
+          doc.setDrawColor(226, 232, 240);
+          doc.line(10, ry + rowH, 200, ry + rowH);
+
+          let rx = 10;
+          tblCols.forEach((c, ci) => {
+            const val = pdfSafeText(c.fn(r));
+            if (ci === 0) {
+              doc.setFont("helvetica", "bold");
+              doc.setTextColor(15, 23, 42);
+            } else if (c.hdr === "Net Profit") {
+              doc.setFont("helvetica", "bold");
+              doc.setTextColor(Number(r.netProfit || 0) >= 0 ? 5 : 225, Number(r.netProfit || 0) >= 0 ? 150 : 29, Number(r.netProfit || 0) >= 0 ? 105 : 72);
+            } else if (c.hdr === "Div/Share") {
+              doc.setFont("helvetica", "bold");
+              doc.setTextColor(8, 145, 178);
+            } else {
+              doc.setFont("helvetica", "normal");
+              doc.setTextColor(51, 65, 85);
+            }
+            doc.setFontSize(6.2);
+            if (c.align === "right") doc.text(truncText(doc, val, c.w - 2.2), rx + c.w - 1.5, ry + rowH * 0.68, { align: "right" });
+            else doc.text(truncText(doc, val, c.w - 2.5), rx + 2.0, ry + rowH * 0.68);
+            rx += c.w;
+          });
+          ry += rowH;
+        });
+      }
+
+      // ------------------------------------------------------------------------
+      // BAND 7: FOOTER & PROVENANCE DISCLAIMER (y = 281..293 mm)
+      // ------------------------------------------------------------------------
+      doc.setDrawColor(203, 213, 225);
+      doc.line(10, 281.5, 200, 281.5);
+
+      const webHost = company.website ? company.website.replace(/^https?:\/\//i, "").replace(/\/.*$/, "") : "";
+      const srcStr = `Primary Sources: msx.om (Quotes, 1Y Prices, XBRL Filings)  |  mcd.om (Shareholders & Ownership)${webHost ? `  |  ${webHost}` : ""}`;
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(6.1);
+      doc.setTextColor(71, 85, 105);
+      doc.text(truncText(doc, srcStr, 152), 10, 285.5);
+
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(51, 65, 85);
+      doc.text(`Generated: ${todayIso}  |  Page 1 of 1`, 200, 285.5, { align: "right" });
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(5.7);
+      doc.setTextColor(100, 116, 139);
+      doc.text(
+        "Oman Stock Intelligence - Independent equity analytics sourced exclusively from public disclosures. Not affiliated with or endorsed by MSX or MCD. Informational purposes only.",
+        10,
+        289.2
+      );
+
+      // Save strictly as 1-page A4 PDF
+      doc.save(`${company.ticker}_Oman_Stock_Intelligence_${cCode}_${todayIso}.pdf`);
+    }
+
+    function downloadCompanyJson() {
       if (!currentCompanyData) return;
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentCompanyData, null, 2));
       const a = document.createElement("a");
       a.setAttribute("href", dataStr);
-      a.setAttribute("download", `${currentCompanyData.ticker}_MSX_OMR_verified.json`);
+      a.setAttribute("download", `${currentCompanyData.ticker}_MSX_OMR_summary.json`);
       document.body.appendChild(a);
       a.click();
       a.remove();
+    }
+
+    document.getElementById("export-json-btn").addEventListener("click", downloadCompanyJson);
+
+    document.getElementById("export-btn").addEventListener("click", async () => {
+      if (!currentCompanyData) return;
+      const btn = document.getElementById("export-btn");
+      const lbl = document.getElementById("export-label");
+      const origLbl = lbl ? lbl.textContent : "PDF";
+      btn.disabled = true;
+      btn.classList.add("opacity-70", "cursor-wait");
+      if (lbl) lbl.textContent = "PDF...";
+      try {
+        await generateCompanySummaryPdf(currentCompanyData);
+      } catch (err) {
+        console.error("PDF generation failed:", err);
+        alert("Unable to generate PDF summary right now. Please check your connection or use Export JSON on the Filings tab.");
+      } finally {
+        btn.disabled = false;
+        btn.classList.remove("opacity-70", "cursor-wait");
+        if (lbl) lbl.textContent = origLbl;
+      }
     });
 
     // Share / QR Modal
