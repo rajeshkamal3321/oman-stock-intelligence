@@ -372,41 +372,41 @@
     <div id="tab-overview" class="space-y-6">
 
       <!-- TOP GRID: DESCRIPTION & 1-YEAR SHARE PRICE CHART -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
 
         <!-- LEFT 4 COLS: COMPANY DESCRIPTION & BUSINESS SEGMENTS -->
         <div class="lg:col-span-4 flex flex-col gap-6 min-w-0">
           <div class="glass-card rounded-2xl p-5 flex-1 flex flex-col justify-between">
             <div>
-              <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center justify-between mb-2.5">
                 <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
                   <i data-lucide="building-2" class="w-4 h-4 text-indigo-400"></i> Company Overview
                 </h3>
                 <span id="exchange-badge" class="text-[11px] font-mono text-slate-400">msx.om</span>
               </div>
-              <p id="company-description" class="text-sm text-slate-300 leading-relaxed max-h-56 overflow-y-auto pr-1">
+              <p id="company-description" class="text-xs sm:text-[13px] text-slate-300 leading-relaxed max-h-40 overflow-y-auto pr-1">
                 <!-- Populated from JSON -->
               </p>
-              <div id="overview-provenance" class="hidden mt-2 text-[11px] font-mono text-slate-500 flex flex-wrap items-center gap-1.5">
+              <div id="overview-provenance" class="hidden mt-1.5 text-[11px] font-mono text-slate-500 flex flex-wrap items-center gap-1.5">
                 <!-- Primary source attribution -->
               </div>
 
               <!-- Core Pillars / Financial Highlights -->
-              <div class="mt-4 pt-4 border-t border-slate-800/80">
-                <h4 id="highlights-heading" class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5">Key Financial &amp; Strategic Highlights (OMR)</h4>
-                <ul id="company-highlights" class="space-y-2 text-xs text-slate-300">
+              <div class="mt-3.5 pt-3.5 border-t border-slate-800/80">
+                <h4 id="highlights-heading" class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Key Financial &amp; Strategic Highlights (OMR)</h4>
+                <ul id="company-highlights" class="space-y-1.5 text-xs text-slate-300">
                   <!-- Populated from JSON -->
                 </ul>
               </div>
             </div>
 
             <!-- Revenue / Income Mix by Segment or Core Business Lines -->
-            <div id="segment-section" class="mt-5 pt-4 border-t border-slate-800/80">
-              <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-between gap-2">
+            <div id="segment-section" class="mt-4 pt-3.5 border-t border-slate-800/80">
+              <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5 flex items-center justify-between gap-2">
                 <span id="segment-heading">Business Segment Breakdown</span>
                 <span id="segment-fy-note" class="text-[11px] text-slate-500 font-mono text-right">FY2025 Audited</span>
               </h4>
-              <div id="segment-bars" class="space-y-2.5">
+              <div id="segment-bars" class="space-y-2 max-h-44 overflow-y-auto pr-1">
                 <!-- Populated by JS -->
               </div>
             </div>
@@ -415,14 +415,14 @@
 
         <!-- RIGHT 8 COLS: 1-YEAR SHARE PRICE MOVEMENT -->
         <div class="lg:col-span-8 glass-card rounded-2xl p-5 flex flex-col justify-between min-w-0">
-          <div>
+          <div class="flex-1 flex flex-col">
             <!-- Chart Header & Controls -->
             <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
               <div>
                 <h3 id="price-chart-title" class="text-sm font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
                   <i data-lucide="trending-up" class="w-4 h-4 text-indigo-400"></i> Share Price Movement (Last 1 Year — OMR)
                 </h3>
-                <p id="chart-subtitle" class="text-xs text-slate-400 mt-0.5">Daily closing prices from msx.om with 50D / 200D SMA &amp; MSX Flagship benchmark</p>
+                <p id="chart-subtitle" class="text-xs text-slate-400 mt-0.5">Daily closing prices &amp; trading volume from msx.om with 50D / 200D SMA &amp; MSX 30 Index</p>
               </div>
 
               <div class="flex flex-wrap items-center gap-2">
@@ -437,7 +437,7 @@
                 </label>
                 <label class="inline-flex items-center gap-1.5 text-xs text-slate-300 bg-slate-900 border border-slate-800 px-2.5 py-1 rounded-lg cursor-pointer hover:border-slate-700">
                   <input type="checkbox" id="toggle-benchmark" class="accent-cyan-400 rounded" />
-                  <span>vs MSX Flagship 8</span>
+                  <span>vs MSX 30 Index</span>
                 </label>
 
                 <!-- Timeframe Buttons -->
@@ -450,8 +450,8 @@
               </div>
             </div>
 
-            <!-- Price Chart Canvas -->
-            <div class="relative h-[330px] w-full min-w-0 overflow-hidden">
+            <!-- Price Chart Canvas (flex-1 fills full available height of the card) -->
+            <div class="relative flex-1 min-h-[340px] w-full min-w-0 overflow-hidden">
               <canvas id="priceChart"></canvas>
               <div id="price-chart-empty" class="hidden absolute inset-0 flex flex-col items-center justify-center text-center px-6 rounded-xl bg-slate-900/50 border border-dashed border-slate-800">
                 <i data-lucide="bar-chart-2" class="w-7 h-7 text-slate-500 mb-2"></i>
@@ -1706,12 +1706,18 @@
         </div>
       `).join("");
 
+      const totShares = Number(own.totalShares || company.sharesOutRaw || 0);
+      const calcShares = (explicitShares, pctVal) => {
+        const sNum = Number(explicitShares || 0);
+        if (sNum > 0) return sNum;
+        return totShares > 0 ? Math.round((totShares * Number(pctVal || 0)) / 100) : 0;
+      };
       const foreignItem = own.breakdown[2] || {};
       const natRows = [
-        { name: "Omani", pct: own.breakdown[0].pct, shares: own.breakdown[0].shares, limit: own.breakdown[0].limitPct },
-        { name: "GCC (Gulf)", pct: own.breakdown[1].pct, shares: own.breakdown[1].shares, limit: own.breakdown[1].limitPct },
-        { name: "Arab (Non-GCC)", pct: foreignItem.arabPct ?? 0, shares: null, limit: foreignItem.limitPct },
-        { name: "Foreign (Non-Arab)", pct: foreignItem.foreignerPct ?? 0, shares: null, limit: foreignItem.limitPct },
+        { name: "Omani", pct: own.breakdown[0].pct, shares: calcShares(own.breakdown[0].shares, own.breakdown[0].pct), limit: own.breakdown[0].limitPct },
+        { name: "GCC (Gulf)", pct: own.breakdown[1].pct, shares: calcShares(own.breakdown[1].shares, own.breakdown[1].pct), limit: own.breakdown[1].limitPct },
+        { name: "Arab (Non-GCC)", pct: foreignItem.arabPct ?? 0, shares: calcShares(foreignItem.arabShares, foreignItem.arabPct ?? 0), limit: foreignItem.limitPct },
+        { name: "Foreign (Non-Arab)", pct: foreignItem.foreignerPct ?? 0, shares: calcShares(foreignItem.foreignerShares, foreignItem.foreignerPct ?? 0), limit: foreignItem.limitPct },
       ];
       document.getElementById("gov-nat-table-body").innerHTML = natRows.map(r => `
         <tr class="hover:bg-slate-800/40">
@@ -2010,6 +2016,7 @@
       const sliceIdx = currentRange >= series.dates.length ? 0 : Math.max(0, series.dates.length - currentRange);
       const labels = series.dates.slice(sliceIdx);
       const prices = series.prices.slice(sliceIdx).map(v => Number((v * rate).toFixed(3)));
+      const volumes = (series.volumes || []).slice(sliceIdx).map(v => Number(v || 0));
       const sma = (series.sma50 || []).slice(sliceIdx).map(v => Number((v * rate).toFixed(3)));
       const sma200 = (series.sma200 || []).slice(sliceIdx).map(v => Number((v * rate).toFixed(3)));
       const bench = (series.benchmarkIndexed || []).slice(sliceIdx).map(v => Number((v * rate).toFixed(3)));
@@ -2026,60 +2033,93 @@
         gradient.addColorStop(1, "rgba(244, 63, 94, 0.0)");
       }
 
+      const volColors = prices.map((p, idx) => {
+        const prev = idx > 0 ? prices[idx - 1] : p;
+        return p >= prev ? "rgba(16, 185, 129, 0.30)" : "rgba(244, 63, 94, 0.30)";
+      });
+
       const datasets = [
         {
+          type: "line",
           label: `${company.ticker} Close (${cCode})`,
           data: prices,
+          yAxisID: "y",
           borderColor: mainColor,
           backgroundColor: gradient,
           borderWidth: 2.2,
           pointRadius: 0,
           pointHoverRadius: 5,
           fill: true,
-          tension: 0.2
+          tension: 0.2,
+          order: 1
         }
       ];
 
+      if (volumes.some(v => v > 0)) {
+        datasets.push({
+          type: "bar",
+          label: "Volume (Shares)",
+          data: volumes,
+          yAxisID: "yVol",
+          backgroundColor: volColors,
+          borderWidth: 0,
+          borderRadius: 2,
+          barPercentage: 0.85,
+          categoryPercentage: 0.9,
+          order: 10
+        });
+      }
+
       if (showSMA) {
         datasets.push({
+          type: "line",
           label: `50-Day SMA (${cCode})`,
           data: sma,
+          yAxisID: "y",
           borderColor: palette.smaColor,
           borderWidth: 1.6,
           borderDash: [5, 5],
           pointRadius: 0,
           fill: false,
-          tension: 0.25
+          tension: 0.25,
+          order: 2
         });
       }
 
       if (showSMA200) {
         datasets.push({
+          type: "line",
           label: `200-Day SMA (${cCode})`,
           data: sma200,
+          yAxisID: "y",
           borderColor: palette.sma200Color,
           borderWidth: 1.8,
           borderDash: [8, 4],
           pointRadius: 0,
           fill: false,
-          tension: 0.25
+          tension: 0.25,
+          order: 3
         });
       }
 
       if (showBench && bench.length > 0) {
         datasets.push({
-          label: `MSX Flagship 8 (Indexed ${cCode})`,
+          type: "line",
+          label: `MSX 30 Index (Indexed ${cCode})`,
           data: bench,
+          yAxisID: "y",
           borderColor: palette.benchColor,
           borderWidth: 1.6,
           borderDash: [2, 3],
           pointRadius: 0,
           fill: false,
-          tension: 0.25
+          tension: 0.25,
+          order: 4
         });
       }
 
       if (priceChartInstance) priceChartInstance.destroy();
+      const maxVol = Math.max(1, ...volumes);
 
       priceChartInstance = new Chart(ctx, {
         type: "line",
@@ -2109,7 +2149,14 @@
               padding: 10,
               bodyFont: { family: "'JetBrains Mono', Consolas, monospace", size: 12 },
               callbacks: {
-                label: (ctx) => `${ctx.dataset.label}: ${currPrefix()}${ctx.parsed.y.toFixed(3)}`
+                label: (ctx) => {
+                  if (ctx.dataset.yAxisID === "yVol") {
+                    const v = Number(ctx.parsed.y || 0);
+                    const fmtV = v >= 1e6 ? `${(v / 1e6).toFixed(2)}M` : v >= 1e3 ? `${(v / 1e3).toFixed(1)}K` : v.toLocaleString("en-US");
+                    return `Volume: ${fmtV} shares`;
+                  }
+                  return `${ctx.dataset.label}: ${currPrefix()}${ctx.parsed.y.toFixed(3)}`;
+                }
               }
             }
           },
@@ -2130,6 +2177,13 @@
                 font: { family: "'JetBrains Mono', Consolas, monospace", size: 11 },
                 callback: (val) => `${currPrefix()}${Number(val).toFixed(3)}`
               }
+            },
+            yVol: {
+              position: "left",
+              display: false,
+              min: 0,
+              max: maxVol * 4.2,
+              grid: { display: false }
             }
           }
         }
@@ -2626,6 +2680,7 @@
       const sliceIdx = currentRange >= series.dates.length ? 0 : Math.max(0, series.dates.length - currentRange);
       const labels = series.dates.slice(sliceIdx);
       const prices = series.prices.slice(sliceIdx).map(v => Number((v * rate).toFixed(3)));
+      const volumes = (series.volumes || []).slice(sliceIdx).map(v => Number(v || 0));
       const sma50 = (series.sma50 || []).slice(sliceIdx).map(v => Number((v * rate).toFixed(3)));
       const sma200 = (series.sma200 || []).slice(sliceIdx).map(v => Number((v * rate).toFixed(3)));
 
@@ -2637,41 +2692,62 @@
 
       const datasets = [
         {
+          type: "line",
           label: `${company.ticker} (${cCode})`,
           data: prices,
+          yAxisID: "y",
           borderColor: mainColor,
           backgroundColor: gradient,
           borderWidth: 3.5,
           pointRadius: 0,
           fill: true,
-          tension: 0.2
+          tension: 0.2,
+          order: 1
         }
       ];
+      if (volumes.some(v => v > 0)) {
+        datasets.push({
+          type: "bar",
+          label: "Volume",
+          data: volumes,
+          yAxisID: "yVol",
+          backgroundColor: prices.map((p, idx) => (p >= (idx > 0 ? prices[idx - 1] : p) ? "rgba(5, 150, 105, 0.26)" : "rgba(225, 29, 72, 0.26)")),
+          borderWidth: 0,
+          order: 10
+        });
+      }
       if (sma50.some(v => v !== null && v !== undefined)) {
         datasets.push({
+          type: "line",
           label: "50D SMA",
           data: sma50,
+          yAxisID: "y",
           borderColor: "#4f46e5",
           borderWidth: 2.5,
           borderDash: [10, 6],
           pointRadius: 0,
           fill: false,
-          tension: 0.25
+          tension: 0.25,
+          order: 2
         });
       }
       if (sma200.some(v => v !== null && v !== undefined)) {
         datasets.push({
+          type: "line",
           label: "200D SMA",
           data: sma200,
+          yAxisID: "y",
           borderColor: "#d97706",
           borderWidth: 2.5,
           borderDash: [14, 6],
           pointRadius: 0,
           fill: false,
-          tension: 0.25
+          tension: 0.25,
+          order: 3
         });
       }
 
+      const maxVolPrint = Math.max(1, ...volumes);
       let chart = null;
       try {
         chart = new Chart(ctx, {
@@ -2716,6 +2792,13 @@
                   font: { family: "monospace", size: 19 },
                   callback: (val) => `${currPrefix()}${Number(val).toFixed(3)}`
                 }
+              },
+              yVol: {
+                position: "left",
+                display: false,
+                min: 0,
+                max: maxVolPrint * 4.2,
+                grid: { display: false }
               }
             }
           }

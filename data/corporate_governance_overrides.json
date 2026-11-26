@@ -1,0 +1,620 @@
+{
+  "OMIF": {
+    "boardSourceLabel": "OMIFCO IPO Prospectus (msx.om) & omifco.com",
+    "boardSourceUrl": "https://www.msx.om/MSMDOCS/downloads/en_1781432968028_omifco-prospectus-en.pdf",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "OMIFCO IPO Prospectus (msx.om) & omifco.com",
+    "managementSourceUrl": "https://www.msx.om/MSMDOCS/downloads/en_1781432968028_omifco-prospectus-en.pdf",
+    "managementDisclosedOnWebsite": true,
+    "board": [
+      {"name": "Sunder Singh Yadav", "role": "Chairman", "independence": "Non-Executive / Non-Independent"},
+      {"name": "Sabrina Fadhil Mahmood Al Bakri", "role": "Deputy Chairman", "independence": "Non-Executive / Non-Independent (OQ CFO)"},
+      {"name": "Saleh Abdullah Saleh Al Musalhi", "role": "Board Member", "independence": "Independent Director"},
+      {"name": "Luc Marcj Maene", "role": "Board Member", "independence": "Independent Director"},
+      {"name": "Dr. Raid Mohammed Saleh Al Rubaiy", "role": "Board Member", "independence": "Independent Director"},
+      {"name": "Dileep Nanubhai Sanghani", "role": "Board Member", "independence": "Non-Executive / Non-Independent (IFFCO)"},
+      {"name": "Kiritkumar Jashbhai Patel", "role": "Board Member", "independence": "Non-Executive / Non-Independent (IFFCO)"},
+      {"name": "Manish Kumar", "role": "Board Member", "independence": "Non-Executive / Non-Independent (KRIBHCO)"},
+      {"name": "Aida Hamood Ali Al Jabri", "role": "Board Member", "independence": "Non-Executive / Non-Independent"}
+    ],
+    "management": [
+      {"name": "Dr. Ahmed Said Al Marhoobi", "title": "Chief Executive Officer"},
+      {"name": "Abdullah Humaid Al-Hashami", "title": "Chief Financial Officer"},
+      {"name": "Iftikhar Ali Khan", "title": "Director of Operations (COO)"},
+      {"name": "Zaki Musallam Al-Maawali", "title": "General Manager – Technical Services"},
+      {"name": "Mohammed Said Al Masroori", "title": "General Manager – HSSEQ"},
+      {"name": "Khalid Sulaiman Al Farsi", "title": "General Manager – Corporate Support"},
+      {"name": "Said Salim Al Salmi", "title": "General Manager – People & Culture"},
+      {"name": "Talal Saif Al Kiyumi", "title": "General Manager – Maintenance"},
+      {"name": "Said Hamood Al Asmi", "title": "General Manager – Production"},
+      {"name": "Harish Garg", "title": "Board Secretary"},
+      {"name": "Majid Al Jabri", "title": "Internal Auditor"},
+      {"name": "Ahmed Abdawani", "title": "Investor Relations Officer"}
+    ]
+  },
+  "OQBI": {
+    "boardSourceLabel": "OQ Base Industries IPO Prospectus (msx.om) & oqbi.om",
+    "boardSourceUrl": "https://www.msx.om/MSMDOCS/downloads/en_1731945198529_OQBi-IPO-English-Prospectus-.pdf",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "OQ Base Industries IPO Prospectus (msx.om) & oqbi.om",
+    "managementSourceUrl": "https://www.msx.om/MSMDOCS/downloads/en_1731945198529_OQBi-IPO-English-Prospectus-.pdf",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Ali Al Lawati", "independence": "Non-Executive / Non-Independent"},
+    "executives": [
+      {"name": "Ihsan Al Jandal", "title": "Chief Operating Officer"},
+      {"name": "Ahmed Al Baraami", "title": "Chief Financial Officer"},
+      {"name": "Ahmed Muqaibal", "title": "Chief People & Technology Officer"},
+      {"name": "Umaima Al Wahaibi", "title": "General Counsel & Board Secretary"}
+    ]
+  },
+  "ASCO": {
+    "boardSourceLabel": "Asyad Shipping Prospectus (msx.om) & asyadshipping.om",
+    "boardSourceUrl": "https://www.msx.om/MSMDOCS/downloads/en_1792991530536_2026.10.25%20-%20Voyage%20II%20-%20EN%20Prospectus%20%28clean%29%20Final.pdf",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Asyad Shipping Prospectus (msx.om) & asyadshipping.om",
+    "managementSourceUrl": "https://www.msx.om/MSMDOCS/downloads/en_1792991530536_2026.10.25%20-%20Voyage%20II%20-%20EN%20Prospectus%20%28clean%29%20Final.pdf",
+    "managementDisclosedOnWebsite": true,
+    "executives": [
+      {"name": "Franck Kayser", "title": "Chief Operating Officer"},
+      {"name": "Imad Al Khudhri", "title": "Chief Commercial Officer"},
+      {"name": "Ahmed Al-Shukaili", "title": "Senior Vice President of Finance (CFO)"}
+    ]
+  },
+  "OTEL": {
+    "boardSourceLabel": "Omantel Corporate Website & FY2025 Corporate Governance Report",
+    "boardSourceUrl": "https://www.omantel.om/about-us/meet-our-team/",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Omantel Corporate Website — Management Team",
+    "managementSourceUrl": "https://www.omantel.om/about-us/meet-our-team/",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Mulham bin Basheer Al-Jarf", "independence": "Non-Executive / Non-Independent"},
+    "executives": [
+      {"name": "Eng. Aladdin Abdullah Baitfadhil", "title": "Chief Executive Officer"},
+      {"name": "Ghassan Khamis Al Hashar", "title": "Chief Financial Officer"},
+      {"name": "Eng. Samy Ahmed Al Ghassany", "title": "Chief Commercial & Operating Officer"},
+      {"name": "Dr. Ghalib Al Hosni", "title": "Chief People Officer"},
+      {"name": "Ali Hussein", "title": "Chief Strategy & Innovation Officer"},
+      {"name": "Hamza Moosa Baqer", "title": "Chief Audit Executive"}
+    ]
+  },
+  "OAB": {
+    "boardSourceLabel": "Oman Arab Bank Corporate Website — Board of Directors",
+    "boardSourceUrl": "https://www.oman-arabbank.com/home/about-us/board-of-directors/",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Oman Arab Bank Corporate Website — Senior Management",
+    "managementSourceUrl": "https://www.oman-arabbank.com/senior-management-ceo/",
+    "managementDisclosedOnWebsite": true,
+    "executives": [
+      {"name": "CB Ganesh", "title": "Deputy Chief Executive Officer"},
+      {"name": "Ahmed El Damaty", "title": "Chief Financial Officer"},
+      {"name": "Asma Al Zadjali", "title": "Chief Banking Operations Officer (COO)"},
+      {"name": "Sulaiman Al Hinai", "title": "Chief Wholesale Banking Officer"},
+      {"name": "Zahra Abdulamir", "title": "Chief Risk Officer"},
+      {"name": "Mansoor Al Raisi", "title": "Chief Compliance Officer"},
+      {"name": "Tariq Al Zadjali", "title": "Chief Technology Officer"},
+      {"name": "Ali Al Mamari", "title": "Chief of Legal Affairs & Recovery"}
+    ]
+  },
+  "GECS": {
+    "boardSourceLabel": "Galfar Corporate Website & FY2025 Corporate Governance Report",
+    "boardSourceUrl": "https://galfar.com/oman/galfar/board-of-directors/",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Galfar Corporate Website — Leadership Team",
+    "managementSourceUrl": "https://galfar.com/oman/galfar/our-team/",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Eng. Majid Salim Said Al Fannah Al Araimi", "independence": "Non-Executive / Non-Independent"},
+    "executives": [
+      {"name": "Dr. Hamoud Rashid Al Tobi", "title": "Chief Executive Officer"},
+      {"name": "Mohammed Humaid Al Yahyaei", "title": "Chief Financial Officer"},
+      {"name": "Eng. Elyas Rouhban", "title": "Chief Operating Officer"},
+      {"name": "Salim Mohammed Al Harthy", "title": "Chief Human Resources Officer"},
+      {"name": "Eng. Mohammed Khalfan Al Ruzaiqi", "title": "Operations Director – Energy & Industrial Unit"},
+      {"name": "Eng. Balaraaman Radhakrishnan", "title": "Operations Director – Infrastructure Unit"}
+    ]
+  },
+  "GECP": {
+    "boardSourceLabel": "Galfar Corporate Website & FY2025 Corporate Governance Report",
+    "boardSourceUrl": "https://galfar.com/oman/galfar/board-of-directors/",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Galfar Corporate Website — Leadership Team",
+    "managementSourceUrl": "https://galfar.com/oman/galfar/our-team/",
+    "managementDisclosedOnWebsite": true,
+    "board": [
+      {"name": "Eng. Majid Salim Said Al Fannah Al Araimi", "role": "Chairman", "independence": "Non-Executive / Non-Independent"},
+      {"name": "Eng. Mohiuddin Mohamed Ali", "role": "Deputy Chairman", "independence": "Non-Executive / Non-Independent"},
+      {"name": "Asim Salim Al Ghailani", "role": "Board Member", "independence": "Independent Director"}
+    ],
+    "executives": [
+      {"name": "Dr. Hamoud Rashid Al Tobi", "title": "Chief Executive Officer"},
+      {"name": "Mohammed Humaid Al Yahyaei", "title": "Chief Financial Officer"},
+      {"name": "Eng. Elyas Rouhban", "title": "Chief Operating Officer"},
+      {"name": "Salim Mohammed Al Harthy", "title": "Chief Human Resources Officer"}
+    ]
+  },
+  "OOMS": {
+    "boardSourceLabel": "Oman Oil Marketing Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "https://www.oomco.com/about-us/board-of-directors",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Oman Oil Marketing Corporate Website — Management Team",
+    "managementSourceUrl": "https://www.oomco.com/about-us/management-team",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Abdulaziz Saud Al Raisi", "independence": "Independent Director"},
+    "executives": [
+      {"name": "Musaab Faris Thabit Bingaradi", "title": "Chief Financial Officer"},
+      {"name": "Issa Nasser Al Saadi", "title": "Acting Chief Financial Officer"},
+      {"name": "Mohamed Hassan Al Mujaini", "title": "Chief Operations Support Officer"},
+      {"name": "Hussain Jama Bait Ishaq", "title": "Chief Retail Officer"},
+      {"name": "Jaber Mansoor Al Wahaibi", "title": "Chief Growth Officer"}
+    ]
+  },
+  "OOMP": {
+    "boardSourceLabel": "Oman Oil Marketing Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "https://www.oomco.com/about-us/board-of-directors",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Oman Oil Marketing Corporate Website — Management Team",
+    "managementSourceUrl": "https://www.oomco.com/about-us/management-team",
+    "managementDisclosedOnWebsite": true,
+    "board": [
+      {"name": "Abdulaziz Saud Al Raisi", "role": "Chairman", "independence": "Independent Director"}
+    ],
+    "executives": [
+      {"name": "Tarik Mohammed Al Junaidi", "title": "Chief Executive Officer"},
+      {"name": "Issa Nasser Al Saadi", "title": "Acting Chief Financial Officer"},
+      {"name": "Mohamed Hassan Al Mujaini", "title": "Chief Operations Support Officer"}
+    ]
+  },
+  "SFMI": {
+    "boardSourceLabel": "Salalah Mills Corporate Website — Board of Directors",
+    "boardSourceUrl": "https://www.salalahmills.com/",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Salalah Mills Corporate Website — Executive Management",
+    "managementSourceUrl": "https://www.salalahmills.com/",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Sheikh Ahmed bin Abdullah Al Rawas", "independence": "Non-Executive Director"},
+    "executives": [
+      {"name": "Ravi Chandradeo Tripathi", "title": "Chief Financial Officer"},
+      {"name": "Eng. Ahmed Amer Al Shanfari", "title": "Chief Operating Officer"},
+      {"name": "Sourabh S. Sood", "title": "General Manager – Salalah Grains International"},
+      {"name": "Lucas Paul Joseph", "title": "General Manager – Food Development Company"},
+      {"name": "Dr. Mohammed Salim Said Al Amri", "title": "General Manager – Distribution Company"}
+    ]
+  },
+  "SPFI": {
+    "boardSourceLabel": "A'Saffa Foods Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "https://www.asaffa.com/",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "A'Saffa Foods Corporate Website — Senior Management Team",
+    "managementSourceUrl": "https://www.asaffa.com/",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Eng. Ali Hilal Ali Al Kuwari", "independence": "Non-Executive / Non-Independent"},
+    "executives": [
+      {"name": "Yasir Abdullah Rashid Al Salmani", "title": "Deputy Chief Financial Officer"},
+      {"name": "Hamdoon Abdullah Said Al Suqri", "title": "Chief Commercial Officer"}
+    ]
+  },
+  "OUIC": {
+    "boardSourceLabel": "Oman United Insurance Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "https://www.omanutd.com/team_members.php",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Oman United Insurance Corporate Website — Executive Managers",
+    "managementSourceUrl": "https://www.omanutd.com/team_members.php",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Saud Bin Ahmed Al Nahari", "independence": "Independent Director"},
+    "executives": [
+      {"name": "Sayyid Nassir bin Salim Al Busaidi", "title": "Chief Management Executive"},
+      {"name": "R. Muthukumar", "title": "Chief Executive Officer"},
+      {"name": "N. Sivakumar", "title": "Chief Operating Officer & Deputy CEO"},
+      {"name": "Sayyida Maisura Abdullah Al Busaidi", "title": "General Manager – Administration & HR"},
+      {"name": "Yahya Khamis Muftah Al Kharusi", "title": "General Manager – Claims"},
+      {"name": "Sayyid Bashar Jabr Al Busaidi", "title": "General Manager – Branches, Agencies & Marketing"}
+    ]
+  },
+  "VOES": {
+    "boardSourceLabel": "Voltamp Energy Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "https://voltampoman.com/leadership-team/",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Voltamp Energy Corporate Website — Leadership Team",
+    "managementSourceUrl": "https://voltampoman.com/leadership-team/",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Sayyid Aymen bin Hamad Al-Busaidi", "independence": "Independent Director"},
+    "executives": [
+      {"name": "Abdullah Ahmed Al Omar", "title": "General Manager – Corporate Affairs"},
+      {"name": "Ahmed Al Kharusi", "title": "General Manager – VTO"},
+      {"name": "Yousuf Ibrahim Al Balushi", "title": "General Manager – VT"},
+      {"name": "Praveen Agashe", "title": "General Manager – VPS"},
+      {"name": "Amin Rashid Al Shohoumi", "title": "General Manager – Procurement & Shared Services"}
+    ]
+  },
+  "ORIC": {
+    "boardSourceLabel": "Oman Reinsurance Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "https://www.omanre.com/",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Oman Reinsurance Corporate Website — Executive Management",
+    "managementSourceUrl": "https://www.omanre.com/",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Dr. Juma Bin Ali Al Juma", "independence": "Independent Director"},
+    "executives": [
+      {"name": "Khaled Nouiri", "title": "Chief Operating Officer"},
+      {"name": "Mark Buisseret", "title": "Chief Financial Officer"},
+      {"name": "Stephan Ott", "title": "Head of Finance"}
+    ]
+  },
+  "OQIC": {
+    "boardSourceLabel": "Oman Qatar Insurance Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "https://www.oqic.com/",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Oman Qatar Insurance Corporate Website — Management",
+    "managementSourceUrl": "https://www.oqic.com/",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Salem Khalaf Al Mannai", "independence": "Non-Executive / Non-Independent"},
+    "executives": [
+      {"name": "Mohammed Jawad", "title": "Chief Financial Officer"},
+      {"name": "Pabitra Sarkar", "title": "Financial Controller – Finance & Accounting"}
+    ]
+  },
+  "NAPI": {
+    "boardSourceLabel": "NAPCO Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "http://www.napcooman.com",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "NAPCO Corporate Website & FY2025 CG Report",
+    "managementSourceUrl": "http://www.napcooman.com",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Dr. Zakia Hassan Al-Naseeb", "independence": "Non-Executive Director"},
+    "executives": [
+      {"name": "Jalila Al Harthy", "title": "Deputy Chief Executive Officer"},
+      {"name": "Raees Ahmed", "title": "Chief Financial Officer"},
+      {"name": "Sutanay Parida", "title": "Chief Operating Officer"}
+    ]
+  },
+  "CMII": {
+    "boardSourceLabel": "CMI Oman Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "http://cmioman.com",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "CMI Oman Corporate Website & FY2025 CG Report",
+    "managementSourceUrl": "http://cmioman.com",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Khalid Abdullah Mohammed Al Jabri", "independence": "Non-Executive Director"},
+    "executives": [
+      {"name": "Talal Naser Qasem Oqlah", "title": "General Manager"},
+      {"name": "Naroth Valappil Santhosh", "title": "Acting Finance Manager"}
+    ]
+  },
+  "DFIN": {
+    "boardSourceLabel": "Dhofar Foods & Investment Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "https://www.dhofarfoods.om",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Dhofar Foods & Investment Corporate Website",
+    "managementSourceUrl": "https://www.dhofarfoods.om",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Said Ahmed Saad Safrar", "independence": "Non-Executive / Non-Independent"},
+    "executives": [
+      {"name": "Mohamad Mazen Hassouna", "title": "Chief Financial Officer"}
+    ]
+  },
+  "NGCI": {
+    "boardSourceLabel": "National Gas Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "https://www.nationalgasco.net",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "National Gas Corporate Website — Management Team",
+    "managementSourceUrl": "https://www.nationalgasco.net",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Sheikh Abdulla Suleiman Hamed Al Harthy", "independence": "Independent Director"},
+    "executives": [
+      {"name": "Mukesh Darji", "title": "Head of Finance"},
+      {"name": "Lahiru Gawarammana", "title": "Deputy General Manager (Sales)"}
+    ]
+  },
+  "OPCI": {
+    "boardSourceLabel": "Oman Packaging Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "http://www.omanipackaging.com",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Oman Packaging Corporate Website & FY2025 CG Report",
+    "managementSourceUrl": "http://www.omanipackaging.com",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Sheikh Bakhit Said Salim Al Shanfari", "independence": "Independent Director"},
+    "executives": [
+      {"name": "H. Ramakrishnan", "title": "General Manager"},
+      {"name": "Ishaq Mohammad Hilal Al Hashami", "title": "Deputy General Manager (Administration & HR)"}
+    ]
+  },
+  "MCTI": {
+    "boardSourceLabel": "Muscat Insurance Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "http://www.muscatinsurance.com",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Muscat Insurance Corporate Website & FY2025 CG Report",
+    "managementSourceUrl": "http://www.muscatinsurance.com",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Mohammed Amer Mohammed El Mettwaly Satour", "independence": "Non-Executive Director"},
+    "executives": [
+      {"name": "Aleena Merin Uthup", "title": "Deputy Chief Financial Officer"}
+    ]
+  },
+  "MFCI": {
+    "boardSourceLabel": "Muscat Finance Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "http://www.muscatfinance.com",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Muscat Finance Corporate Website",
+    "managementSourceUrl": "http://www.muscatfinance.com",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Faisal Mohamed Al Yousef", "independence": "Non-Executive Director"},
+    "executives": [
+      {"name": "Nitin Verma", "title": "Chief Risk Officer"}
+    ]
+  },
+  "AMAT": {
+    "boardSourceLabel": "Al Madina Takaful Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "https://www.almadinatakaful.com",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Al Madina Takaful Corporate Website & FY2025 CG Report",
+    "managementSourceUrl": "https://www.almadinatakaful.com",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "H.E. Dr. Mohammed Ali Al Barwani", "independence": "Non-Executive / Non-Independent"},
+    "executives": [
+      {"name": "Shakaib Mahmood", "title": "Deputy Chief Executive Officer"}
+    ]
+  },
+  "FSCI": {
+    "boardSourceLabel": "Financial Services Co. Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "http://www.fscoman.net",
+    "boardDisclosedOnWebsite": true,
+    "managementSourceLabel": "Financial Services Co. Corporate Website",
+    "managementSourceUrl": "http://www.fscoman.net",
+    "managementDisclosedOnWebsite": true,
+    "chairman": {"name": "Omar bin Ahmed bin Abdullah Mahfoodh Al-Sheikh", "independence": "Non-Executive Director"},
+    "executives": [
+      {"name": "Salim Al Hadi", "title": "General Manager"}
+    ]
+  },
+  "AACT": {
+    "chairman": {"name": "Hussain Ali Habib Sajwani", "independence": "Non-Executive / Non-Independent"}
+  },
+  "AFAI": {
+    "chairman": {"name": "Haythem Mahmood Macki", "independence": "Independent Director"}
+  },
+  "BKNZ": {
+    "chairman": {"name": "Sheikh Khalid Abdullah Ali Al Khalili", "independence": "Independent Director"}
+  },
+  "DBIH": {
+    "chairman": {"name": "Sheikh Salah Helal Al Mawali", "independence": "Non-Executive / Non-Independent"}
+  },
+  "DIDI": {
+    "chairman": {"name": "Sheikh Khalid Mustahail Al Mashani", "independence": "Non-Executive / Non-Independent"}
+  },
+  "DTCS": {
+    "chairman": {"name": "Fatma Yousuf Alawi Al Ibrahim", "independence": "Independent Director"},
+    "executives": [
+      {"name": "Rajith Januka Galbadage", "title": "Director of Finance"}
+    ]
+  },
+  "GFIC": {
+    "chairman": {"name": "Hassan bin Ehsan bin Naseeb Al-Nasib", "independence": "Non-Executive / Non-Independent"}
+  },
+  "GICI": {
+    "chairman": {"name": "Yousuf Ahmed Alawi Al Ibrahim", "independence": "Independent Director"}
+  },
+  "GMPI": {
+    "chairman": {"name": "Khamis Mubarak Al Kiyumi", "independence": "Independent Director"}
+  },
+  "HECI": {
+    "chairman": {"name": "Ali bin Mohammed Juma Al Lawati", "independence": "Independent Director"},
+    "executives": [
+      {"name": "Balaji Mohan Varadhan", "title": "Acting Chief Financial Officer"}
+    ]
+  },
+  "HMCI": {
+    "chairman": {"name": "H.H. Sayyid Mohammed Thuwainy Shihab Al Said", "independence": "Independent Director"},
+    "executives": [
+      {"name": "Karim Bizid", "title": "General Manager"},
+      {"name": "Mahmoud Saqer", "title": "General Manager"}
+    ]
+  },
+  "LIVA": {
+    "chairman": {"name": "Sheikh Khalid Abdullah Al Khalili", "independence": "Non-Executive Director"}
+  },
+  "MCDE": {
+    "chairman": {"name": "Balwinder Singh Panesar", "independence": "Non-Executive / Non-Independent"}
+  },
+  "MHAS": {
+    "chairman": {"name": "Dr. Saif Salim Saif Al-Harthi", "independence": "Independent Director"}
+  },
+  "MSPW": {
+    "chairman": {"name": "Abdulwahhab Al Hinai", "independence": "Non-Executive / Non-Independent"}
+  },
+  "MTMI": {
+    "chairman": {"name": "Mukhtar M. Hasan", "independence": "Independent Director"}
+  },
+  "NBII": {
+    "chairman": {"name": "Nooh Bin Mohammed Al Zidjaly", "independence": "Independent Director"}
+  },
+  "NMWI": {
+    "chairman": {"name": "Al Sayyid Khalid bin Hamad bin Hamoud Al Busaidi", "independence": "Non-Executive / Non-Independent"},
+    "executives": [
+      {"name": "Samir Al Balushi", "title": "General Manager"},
+      {"name": "Iqbal Pathan", "title": "Finance Manager"},
+      {"name": "Hesham Aly", "title": "Head of Operations"},
+      {"name": "Abdullah Al Busaidi", "title": "Head of Sales & Marketing"}
+    ]
+  },
+  "OCAI": {
+    "boardSourceLabel": "Oman Cables Industry Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "http://www.omancables.com",
+    "boardDisclosedOnWebsite": true,
+    "chairman": {"name": "Cinzia Farise", "independence": "Non-Executive / Non-Independent (Prysmian)"}
+  },
+  "OCHL": {
+    "chairman": {"name": "Sheikh Said Mohamed Ahmed Alharthy", "independence": "Non-Executive Director"}
+  },
+  "OETI": {
+    "chairman": {"name": "Hassan Ehsan Naseeb Al-Naseeb", "independence": "Non-Executive / Non-Independent"},
+    "executives": [
+      {"name": "Mohamed Ali Habayeb", "title": "Financial Controller"}
+    ]
+  },
+  "OFCI": {
+    "chairman": {"name": "Haidar Al Balushi", "independence": "Independent Director"}
+  },
+  "OMCI": {
+    "chairman": {"name": "Abdul Kader Darwish Al Balushi", "independence": "Independent Director"}
+  },
+  "ONES": {
+    "chairman": {"name": "Sheikh Aimen Ahmed Sultan Al Hosni", "independence": "Independent Director"}
+  },
+  "ORDS": {
+    "boardSourceLabel": "Ooredoo Oman Corporate Website & FY2025 CG Report",
+    "boardSourceUrl": "http://www.ooredoo.om",
+    "boardDisclosedOnWebsite": true,
+    "chairman": {"name": "Sheikh Nasser bin Hamad bin Nasser Al Thani", "independence": "Non-Executive / Non-Independent"}
+  },
+  "SHPS": {
+    "chairman": {"name": "Miklos Almasy", "independence": "Non-Executive / Non-Independent"}
+  },
+  "SMNP": {
+    "chairman": {"name": "Dr. Abdullah Al Yahyaey", "independence": "Non-Executive Director"}
+  },
+  "TAOI": {
+    "chairman": {"name": "Sulaiman Al Harthi", "independence": "Independent Director"}
+  },
+  "UBAR": {
+    "chairman": {"name": "H.H. Sayyid Fahar Bin Fatik Al Said", "independence": "Independent Director"}
+  },
+  "UFCI": {
+    "chairman": {"name": "Abdullah Salim Rashid Al Khayari", "independence": "Independent Director"}
+  },
+  "RCRI": {
+    "board": [
+      {"name": "Ali Abdullah Al Zadjali", "role": "Chairman", "independence": "Independent Director"},
+      {"name": "Khalid Masoud Ansari", "role": "Deputy Chairman", "independence": "Non-Executive / Non-Independent"}
+    ],
+    "executives": [
+      {"name": "Salim Abdul Kadir", "title": "Chief Executive Officer"},
+      {"name": "Raashid Ali", "title": "Chief Financial Officer"}
+    ]
+  },
+  "SOMP": {
+    "board": [
+      {"name": "Ali Al Janabi", "role": "Chairman", "independence": "Non-Executive / Non-Independent"},
+      {"name": "Ghalib Al Busaidi", "role": "Deputy Chairman", "independence": "Independent Director"}
+    ],
+    "executives": [
+      {"name": "Dr. Mohammed Mahmood Al Balushi", "title": "Chief Executive Officer"}
+    ]
+  },
+  "RIUH": {
+    "board": [
+      {"name": "H.H. Sayyid Fahar Bin Fatik Al Said", "role": "Chairman", "independence": "Independent Director"},
+      {"name": "Salim Saleem Salim Al Busaidi", "role": "Deputy Chairman", "independence": "Non-Executive Director"}
+    ],
+    "executives": [
+      {"name": "Ravindra Kumar Srivastava", "title": "Chief Executive Officer"}
+    ]
+  },
+  "AFIC": {
+    "managementSourceLabel": "Arabia Falcon Insurance Corporate Website",
+    "managementSourceUrl": "https://www.afic.om/",
+    "managementDisclosedOnWebsite": true,
+    "executives": [
+      {"name": "Ahmad Al Tayeb", "title": "Chief Financial Officer"},
+      {"name": "Mujtaba Shaban", "title": "Chief Operating Officer"}
+    ]
+  },
+  "AJSS": {
+    "executives": [
+      {"name": "Nader Tayab", "title": "General Manager"},
+      {"name": "Ghulam Hussain", "title": "Finance Manager"}
+    ]
+  },
+  "AMCI": {
+    "executives": [
+      {"name": "Vikas Shukla", "title": "Finance Manager & Board Secretary"}
+    ]
+  },
+  "AOFS": {
+    "executives": [
+      {"name": "Salim Abdullah Al Awadi", "title": "Deputy Chief Executive Officer"}
+    ]
+  },
+  "ATMI": {
+    "executives": [
+      {"name": "Bejoy John", "title": "Chief Financial Officer"},
+      {"name": "Milind Kulkarni", "title": "Chief Operating Officer"},
+      {"name": "Virendra Kumar Sharma", "title": "Asst. General Manager – Merchant Bar Mill"}
+    ]
+  },
+  "BATP": {
+    "executives": [
+      {"name": "Faraz Kothari", "title": "Chief Financial Officer"}
+    ]
+  },
+  "BWPC": {
+    "executives": [
+      {"name": "Adnan Hussain", "title": "Finance Manager"}
+    ]
+  },
+  "DICS": {
+    "executives": [
+      {"name": "Omar bin Ahmed bin Abdullah Al-Shaikh", "title": "Deputy Chief Executive Officer"}
+    ]
+  },
+  "NDTI": {
+    "executives": [
+      {"name": "Deepak Jain", "title": "Chief Financial Officer"}
+    ]
+  },
+  "NFCI": {
+    "managementSourceLabel": "National Finance Corporate Website — Management Team",
+    "managementSourceUrl": "https://www.nationalfinance.co.om/",
+    "managementDisclosedOnWebsite": true,
+    "executives": [
+      {"name": "Rakesh Makkar", "title": "Deputy Chief Executive Officer"},
+      {"name": "Brian Mulholland", "title": "Chief Financial Officer"}
+    ]
+  },
+  "OEFI": {
+    "executives": [
+      {"name": "Suman Chattopadhyay", "title": "Chief Financial Officer"}
+    ]
+  },
+  "ORCI": {
+    "executives": [
+      {"name": "Faizan Hamid", "title": "Acting Chief Financial Officer"}
+    ]
+  },
+  "RCCI": {
+    "executives": [
+      {"name": "Raashid Ali", "title": "Chief Financial Officer"}
+    ]
+  },
+  "SHRQ": {
+    "executives": [
+      {"name": "Abdul Rehman Amin Muhammad", "title": "Chief Financial Officer"}
+    ]
+  },
+  "SIHC": {
+    "executives": [
+      {"name": "Rajesh Venkiteshwaran", "title": "General Manager"},
+      {"name": "N.C. Karthik Ramesh", "title": "Vice President – Investments"},
+      {"name": "Srinivaasrajagopal", "title": "Finance Manager"}
+    ]
+  },
+  "SSPW": {
+    "executives": [
+      {"name": "Tariq Bashir", "title": "Chief Financial Officer & Company Secretary"}
+    ]
+  },
+  "SUWP": {
+    "executives": [
+      {"name": "Preetam Saraf", "title": "Acting Chief Executive Officer & Chief Financial Officer"}
+    ]
+  },
+  "TFCI": {
+    "executives": [
+      {"name": "Muhammad Kashif Yaqoob", "title": "Deputy Chief Executive Officer"},
+      {"name": "Moosa Al Lawati", "title": "Head of Finance"}
+    ]
+  },
+  "AAIC": {
+    "executives": [
+      {"name": "Ahmed Ibrahim", "title": "Assistant Finance Manager"}
+    ]
+  }
+}

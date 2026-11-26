@@ -81,6 +81,14 @@ try:
 except Exception:
     IPO_PROSPECTUS_FIN = {}
 
+# Load verified corporate-website & MSX Corporate Governance Report Board/Management profiles
+CORP_GOV_PATH = os.path.join(DATA_DIR, "corporate_governance_overrides.json")
+try:
+    with open(CORP_GOV_PATH, encoding="utf-8") as _cgf:
+        CORP_GOV_OVERRIDES = json.load(_cgf)
+except Exception:
+    CORP_GOV_OVERRIDES = {}
+
 FLAGSHIP_ORDER = ["BKMB", "BKSB", "NBOB", "BKDB", "OQGN", "OQEP", "ABRJ", "PHPC"]
 
 MARKET_NAMES = {
@@ -334,9 +342,29 @@ BS_PATTERNS = {
     "islamicFin": [r"^Islamic\s+financing\s+receivables\b"],
     "deposits": [r"^Deposits\s+from\s+customers\b"],
     "islamicDep": [r"^Islamic\s+customers?\s+deposit"],
-    "cash": [r"^Cash\s+and\s+bank\s+balances\b", r"^Cash\s+and\s+cash\s+equivalents\b"],
-    "borrowingsNC": [r"^Borrowings,\s*non-current\b", r"^Non-current\s+borrowings\b", r"^Term\s+loans,\s*non-current\b"],
-    "borrowingsC": [r"^Borrowings,\s*current\b", r"^Current\s+borrowings\b", r"^Short\s+term\s+borrowings\b"],
+    "cash": [
+        r"^Cash\s+and\s+bank\s+balances\b",
+        r"^Cash\s+and\s+cash\s+equivalents\b",
+        r"^Total\s+cash\s+and\s+bank\s+balances\b",
+        r"^Total\s+cash\s+and\s+cash\s+equivalents\b",
+        r"^Balances\s+with\s+banks\b",
+    ],
+    "borrowingsNC": [
+        r"^Borrowings,\s*non-current\b",
+        r"^Non-current\s+borrowings\b",
+        r"^Term\s+loans,\s*non-current\b",
+        r"^Long[\s-]+term\s+(?:borrowings|loans)\b",
+        r"^Bank\s+borrowings,\s*non-current\b",
+    ],
+    "borrowingsC": [
+        r"^Borrowings,\s*current\b",
+        r"^Current\s+borrowings\b",
+        r"^Short[\s-]+term\s+(?:borrowings|loans)\b",
+        r"^Bank\s+borrowings,\s*current\b",
+        r"^Bank\s+overdrafts?\b",
+    ],
+    "leaseNC": [r"^Non-current\s+lease\s+liabilities\b", r"^Lease\s+liabilities,\s*non-current\b"],
+    "leaseC": [r"^Current\s+lease\s+liabilities\b", r"^Lease\s+liabilities,\s*current\b"],
     "nav": [r"^Net\s+assets\s+per\s+share\b"],
 }
 
@@ -387,13 +415,26 @@ def parse_filing_zip_in_memory(zip_url, referer, paid_up_cap_omr, is_interim=Fal
         bs_bytes = find_pdf("2_")
         is_bytes = find_pdf("3_")
         cf_bytes = find_pdf("4_")
+        fi_bytes = find_pdf("11_")
 
-        bs = parse_xbrl_statement_text(extract_pdf_text_bytes(bs_bytes, 2), BS_PATTERNS, False) if bs_bytes else {}
-        inc = parse_xbrl_statement_text(extract_pdf_text_bytes(is_bytes, 2), IS_PATTERNS, is_interim) if is_bytes else {}
-        cf = parse_xbrl_statement_text(extract_pdf_text_bytes(cf_bytes, 2), CF_PATTERNS, False) if cf_bytes else {}
+        bs_text = extract_pdf_text_bytes(bs_bytes, 4) if bs_bytes else ""
+        is_text = extract_pdf_text_bytes(is_bytes, 3) if is_bytes else ""
+        cf_text = extract_pdf_text_bytes(cf_bytes, 3) if cf_bytes else ""
+        fi_text = extract_pdf_text_bytes(fi_bytes, 1) if fi_bytes else ""
 
-        # Auto-calibrate unit multiplier (1x vs 1000x) using MCD paid-up capital vs BS Share Capital
+        bs = parse_xbrl_statement_text(bs_text, BS_PATTERNS, False) if bs_text else {}
+        inc = parse_xbrl_statement_text(is_text, IS_PATTERNS, is_interim) if is_text else {}
+        cf = parse_xbrl_statement_text(cf_text, CF_PATTERNS, False) if cf_text else {}
+
+        # Auto-calibrate unit multiplier (1x vs 1000x) using 11_FilingInformation, statement headers, and MCD paid-up capital
         mult = bs.get("_unitMult", 1.0)
+        if re.search(r"Level\s+of\s+rounding\s+off\s+for\s+monetary\s+values\s+Thousands", fi_text, re.I):
+            mult = 1000.0
+        elif re.search(r"Level\s+of\s+rounding\s+off\s+for\s+monetary\s+values\s+Millions", fi_text, re.I):
+            mult = 1e6
+        elif inc.get("_unitMult", 1.0) == 1000.0 or cf.get("_unitMult", 1.0) == 1000.0:
+            mult = 1000.0
+
         sc_pair = bs.get("shareCapital")
         if sc_pair and sc_pair[0] and paid_up_cap_omr and paid_up_cap_omr > 100000:
             ratio = paid_up_cap_omr / abs(sc_pair[0])
@@ -401,8 +442,13 @@ def parse_filing_zip_in_memory(zip_url, referer, paid_up_cap_omr, is_interim=Fal
                 mult = 1000.0
             elif 0.5 <= ratio <= 2.0:
                 mult = 1.0
-        elif inc.get("_unitMult", 1.0) == 1000.0:
-            mult = 1000.0
+        elif mult == 1.0 and paid_up_cap_omr and paid_up_cap_omr >= 1000000:
+            # Fallback check: if Total Assets or Total Equity is ~1000x smaller than Paid-Up Capital, statement is in OMR Thousands
+            ast_raw = (bs.get("totalAssets") or (None, None))[0]
+            eq_raw = (bs.get("totalEquity") or bs.get("attrEquity") or (None, None))[0]
+            ref_raw = ast_raw if (ast_raw and ast_raw > 0) else (abs(eq_raw) if eq_raw else None)
+            if ref_raw and (paid_up_cap_omr / ref_raw) > 50:
+                mult = 1000.0
 
         def scale(d, k, idx=0):
             pair = d.get(k)
@@ -423,6 +469,9 @@ def parse_filing_zip_in_memory(zip_url, referer, paid_up_cap_omr, is_interim=Fal
             isl_inc = scale(inc, "islamicNetInc", idx) or 0.0
             b_nc = scale(bs, "borrowingsNC", idx) or 0.0
             b_c = scale(bs, "borrowingsC", idx) or 0.0
+            l_nc = scale(bs, "leaseNC", idx) or 0.0
+            l_c = scale(bs, "leaseC", idx) or 0.0
+            tot_debt = b_nc + b_c + l_nc + l_c
             op_p = scale(inc, "opProfit", idx)
             da_v = abs(scale(cf, "da", idx) or scale(inc, "da", idx) or 0.0)
             ebitda = round(op_p + da_v, 2) if op_p is not None else None
@@ -450,7 +499,7 @@ def parse_filing_zip_in_memory(zip_url, referer, paid_up_cap_omr, is_interim=Fal
                 "loans": round(loans_c + isl_fin, 2) if loans_c is not None else None,
                 "deposits": round(dep_c + isl_dep, 2) if dep_c is not None else None,
                 "cash": scale(bs, "cash", idx),
-                "debt": round(b_nc + b_c, 2) if (b_nc or b_c) else 0.0,
+                "debt": round(tot_debt, 2) if tot_debt else 0.0,
                 "nav": scale(bs, "nav", idx),
                 "ocf": scale(cf, "ocf", idx),
                 "capex": capex,
@@ -862,10 +911,15 @@ def build_company_json(rec, bench_map, synced_stamp):
     if omani_pct == 0 and gcc_pct == 0 and other_non_omani == 0:
         omani_pct = 100.0
 
+    omani_sh = int(round(parse_float(nat.get("omaniCurrSe"), 0))) or int(round(shares_out_raw * omani_pct / 100.0))
+    gcc_sh = int(round(parse_float(nat.get("gulfCurrSe"), 0))) or int(round(shares_out_raw * gcc_pct / 100.0))
+    arab_sh = int(round(parse_float(nat.get("arabCurrSe"), 0))) or int(round(shares_out_raw * arab_pct / 100.0))
+    foreign_sh = int(round(parse_float(nat.get("foreignerCurrSe"), 0))) or int(round(shares_out_raw * foreign_pct / 100.0))
+
     nationality_breakdown = [
-        {"label": "Omani Investors", "pct": omani_pct, "shares": int(round(parse_float(nat.get("omaniCurrSe"), 0))), "limitPct": parse_float(nat.get("omaniMax"), 100.0), "color": "#6366f1"},
-        {"label": "GCC Investors", "pct": gcc_pct, "shares": int(round(parse_float(nat.get("gulfCurrSe"), 0))), "limitPct": parse_float(nat.get("gulfMax"), 100.0), "color": "#06b6d4"},
-        {"label": "Foreign & Arab Investors", "pct": other_non_omani, "arabPct": arab_pct, "foreignerPct": foreign_pct, "shares": int(round(parse_float(nat.get("arabCurrSe"), 0) + parse_float(nat.get("foreignerCurrSe"), 0))), "limitPct": parse_float(nat.get("foreignerMax"), 100.0), "color": "#10b981"},
+        {"label": "Omani Investors", "pct": omani_pct, "shares": omani_sh, "limitPct": parse_float(nat.get("omaniMax"), 100.0), "color": "#6366f1"},
+        {"label": "GCC Investors", "pct": gcc_pct, "shares": gcc_sh, "limitPct": parse_float(nat.get("gulfMax"), 100.0), "color": "#06b6d4"},
+        {"label": "Foreign & Arab Investors", "pct": other_non_omani, "arabPct": arab_pct, "foreignerPct": foreign_pct, "arabShares": arab_sh, "foreignerShares": foreign_sh, "shares": arab_sh + foreign_sh, "limitPct": parse_float(nat.get("foreignerMax"), 100.0), "color": "#10b981"},
     ]
 
     majors_sorted = sorted(rec["majorsRaw"], key=lambda x: parse_float(x.get("OwnershipPercentage"), 0.0), reverse=True)
@@ -926,41 +980,71 @@ def build_company_json(rec, bench_map, synced_stamp):
 
         if not board_list and chair_name:
             board_list.append({"name": chair_name, "role": "Chairman", "independence": "Non-Executive Director"})
-        if dep_name and not any(b["role"] == "Deputy Chairman" for b in board_list):
+        elif chair_name and chair_name != "-" and not any("chair" in b["role"].lower() and "deputy" not in b["role"].lower() and "vice" not in b["role"].lower() for b in board_list):
+            board_list.insert(0, {"name": chair_name, "role": "Chairman", "independence": "Non-Executive Director"})
+        if dep_name and dep_name != "-" and not any(b["role"] == "Deputy Chairman" for b in board_list):
             board_list.insert(1 if board_list else 0, {"name": dep_name, "role": "Deputy Chairman", "independence": "Non-Executive Director"})
 
+        # Apply verified Corporate Website / Prospectus / MSX Corporate Governance Report overrides
+        cg_ov = CORP_GOV_OVERRIDES.get(sym) or {}
+        if cg_ov.get("board"):
+            board_list = [dict(b) for b in cg_ov["board"]]
+        elif cg_ov.get("chairman") and not any("chair" in b["role"].lower() and "deputy" not in b["role"].lower() and "vice" not in b["role"].lower() for b in board_list):
+            ch_entry = cg_ov["chairman"]
+            ch_name = ch_entry["name"] if isinstance(ch_entry, dict) else str(ch_entry)
+            ch_ind = ch_entry.get("independence", "Non-Executive Director") if isinstance(ch_entry, dict) else "Non-Executive Director"
+            # Upgrade matching member or prepend
+            upgraded = False
+            for b in board_list:
+                if ch_name.lower() in b["name"].lower() or b["name"].lower() in ch_name.lower():
+                    b["role"] = "Chairman"
+                    upgraded = True
+                    break
+            if not upgraded:
+                board_list.insert(0, {"name": ch_name, "role": "Chairman", "independence": ch_ind})
+
         # Sort Chairman first, Deputy second
-        board_list.sort(key=lambda b: 0 if b["role"] == "Chairman" else (1 if b["role"] == "Deputy Chairman" else 2))
+        board_list.sort(key=lambda b: 0 if ("chair" in b["role"].lower() and "deputy" not in b["role"].lower() and "vice" not in b["role"].lower()) else (1 if ("deputy" in b["role"].lower() or "vice" in b["role"].lower()) else 2))
 
         mgmt_list = []
-        if ceo_raw and ceo_raw != "-":
-            # Handle "Name - Title" format common on MSX
-            if " - " in ceo_raw:
-                cn, ct = ceo_raw.split(" - ", 1)
-                mgmt_list.append({"name": cn.strip(), "title": ct.strip()})
-                ceo_name = cn.strip()
-            else:
-                mgmt_list.append({"name": ceo_raw, "title": "Chief Executive Officer / President"})
-                ceo_name = ceo_raw
+        if cg_ov.get("management"):
+            mgmt_list = [dict(m) for m in cg_ov["management"]]
+            ceo_name = mgmt_list[0]["name"] if mgmt_list else (ceo_raw if ceo_raw and ceo_raw != "-" else "Not disclosed on msx.om")
         else:
-            ceo_name = "Not disclosed on msx.om"
-        if sec_name and sec_name != "-":
-            mgmt_list.append({"name": sec_name, "title": "Board Secretary"})
-        if int_aud and int_aud != "-":
-            mgmt_list.append({"name": int_aud, "title": "Internal Auditor"})
-        if leg_adv and leg_adv != "-":
-            mgmt_list.append({"name": leg_adv, "title": "Legal Advisor"})
-        if ir_name and ir_name != "-":
-            mgmt_list.append({"name": ir_name, "title": "Investor Relations Officer"})
+            if ceo_raw and ceo_raw != "-":
+                # Handle "Name - Title" format common on MSX
+                if " - " in ceo_raw:
+                    cn, ct = ceo_raw.split(" - ", 1)
+                    mgmt_list.append({"name": cn.strip(), "title": ct.strip()})
+                    ceo_name = cn.strip()
+                else:
+                    mgmt_list.append({"name": ceo_raw, "title": "Chief Executive Officer / President"})
+                    ceo_name = ceo_raw
+            else:
+                ceo_name = "Not disclosed on msx.om"
+            if cg_ov.get("executives"):
+                seen_m = {m["name"].lower() for m in mgmt_list}
+                for ex_item in cg_ov["executives"]:
+                    if ex_item.get("name") and ex_item["name"].lower() not in seen_m:
+                        mgmt_list.append({"name": ex_item["name"], "title": ex_item["title"]})
+                        seen_m.add(ex_item["name"].lower())
+            if sec_name and sec_name != "-":
+                mgmt_list.append({"name": sec_name, "title": "Board Secretary"})
+            if int_aud and int_aud != "-":
+                mgmt_list.append({"name": int_aud, "title": "Internal Auditor"})
+            if leg_adv and leg_adv != "-":
+                mgmt_list.append({"name": leg_adv, "title": "Legal Advisor"})
+            if ir_name and ir_name != "-":
+                mgmt_list.append({"name": ir_name, "title": "Investor Relations Officer"})
 
         gov = {
-            "boardSourceLabel": f"msx.om Corporate Registry ({sym})",
-            "boardSourceUrl": f"https://www.msx.om/snapshot.aspx?s={sym}",
-            "boardDisclosedOnWebsite": False,
+            "boardSourceLabel": cg_ov.get("boardSourceLabel") or f"msx.om Corporate Registry ({sym})",
+            "boardSourceUrl": cg_ov.get("boardSourceUrl") or f"https://www.msx.om/snapshot.aspx?s={sym}",
+            "boardDisclosedOnWebsite": bool(cg_ov.get("boardDisclosedOnWebsite", False)),
             "boardFallbackUrl": f"https://www.msx.om/snapshot.aspx?s={sym}",
-            "managementSourceLabel": f"msx.om Corporate Registry ({sym})",
-            "managementSourceUrl": f"https://www.msx.om/snapshot.aspx?s={sym}",
-            "managementDisclosedOnWebsite": False,
+            "managementSourceLabel": cg_ov.get("managementSourceLabel") or f"msx.om Corporate Registry ({sym})",
+            "managementSourceUrl": cg_ov.get("managementSourceUrl") or f"https://www.msx.om/snapshot.aspx?s={sym}",
+            "managementDisclosedOnWebsite": bool(cg_ov.get("managementDisclosedOnWebsite", False)),
             "board": board_list,
             "management": mgmt_list,
         }
@@ -982,21 +1066,25 @@ def build_company_json(rec, bench_map, synced_stamp):
         np_yoy_9m = ((q3["netProfit"] - q3["netProfitPrior"]) / abs(q3["netProfitPrior"]) * 100) if q3["netProfitPrior"] else 0.0
 
         if is_bank:
+            fy24 = ann_list[-2] if len(ann_list) >= 2 else {}
+            opinc_yoy_fy = ((fy25["opInc"] - fy24["opInc"]) / abs(fy24["opInc"]) * 100) if fy24.get("opInc") else None
+            nii_yoy_fy = ((fy25["nii"] - fy24["nii"]) / abs(fy24["nii"]) * 100) if fy24.get("nii") else None
+            net_margin_fy = (fy25["netProfit"] / fy25["opInc"] * 100) if fy25.get("opInc") else None
             ldr_q3 = (q3["loans"] / q3["deposits"] * 100) if q3["deposits"] > 0 else 0.0
             cir_fy25 = (fy25["opEx"] / fy25["opInc"] * 100) if fy25["opInc"] > 0 else 0.0
             opinc_yoy_9m = ((q3["opInc"] - q3["opIncPrior"]) / abs(q3["opIncPrior"]) * 100) if q3["opIncPrior"] else 0.0
             valuation_cards = [
                 {"label": "Market Cap", "value": fmt_omr_large(mcap_omr), "sub": f"Shares: {fmt_shares(shares_out_raw)}", "status": "positive"},
                 {"label": "P/E Ratio (FY25)", "value": f"{pe_fy25:.2f}x" if pe_fy25 else "N/A", "sub": f"FY25 EPS: OMR {fy25['eps']:.3f}", "status": "neutral"},
-                {"label": "Price / Book (Q3 26)", "value": f"{pb_ratio:.2f}x" if pb_ratio else "N/A", "sub": f"NAV/Sh: OMR {nav_latest:.3f}", "status": "neutral"},
-                {"label": "Net Interest & Islamic Inc", "value": fmt_omr_large(fy25["nii"]), "sub": f"9M 26: {fmt_omr_large(q3['nii'])}", "status": "positive"},
-                {"label": "Operating Income (FY25)", "value": fmt_omr_large(fy25["opInc"]), "sub": f"9M 26: {fmt_omr_large(q3['opInc'])} ({opinc_yoy_9m:+.1f}%)", "status": "positive"},
-                {"label": "Net Profit (FY25)", "value": fmt_omr_large(fy25["netProfit"]), "sub": f"9M 26: {fmt_omr_large(q3['netProfit'])} ({np_yoy_9m:+.1f}%)", "status": "positive"},
+                {"label": "Price / Book (Q3 26)", "value": f"{pb_ratio:.2f}x" if pb_ratio else "N/A", "sub": f"Book Value/Sh: OMR {nav_latest:.3f}", "status": "neutral"},
+                {"label": "Net Interest & Islamic Inc", "value": fmt_omr_large(fy25["nii"]), "sub": f"YoY Growth: {nii_yoy_fy:+.1f}%" if nii_yoy_fy is not None else f"9M 26: {fmt_omr_large(q3['nii'])}", "status": "positive"},
+                {"label": "Operating Income (FY25)", "value": fmt_omr_large(fy25["opInc"]), "sub": f"YoY Growth: {opinc_yoy_fy:+.1f}%" if opinc_yoy_fy is not None else f"9M 26: {fmt_omr_large(q3['opInc'])}", "status": "positive"},
+                {"label": "Net Profit (FY25)", "value": fmt_omr_large(fy25["netProfit"]), "sub": f"Net Margin: {net_margin_fy:.1f}%" if net_margin_fy is not None else f"9M 26: {fmt_omr_large(q3['netProfit'])}", "status": "positive"},
                 {"label": "Net Loans & Financing", "value": fmt_omr_large(q3["loans"]), "sub": f"Q3 26 (FY25: {fmt_omr_large(fy25['loans'])})", "status": "positive"},
                 {"label": "Customer Deposits", "value": fmt_omr_large(q3["deposits"]), "sub": f"Q3 26 (FY25: {fmt_omr_large(fy25['deposits'])})", "status": "positive"},
                 {"label": "Total Assets (Q3 26)", "value": fmt_omr_large(q3["assets"]), "sub": f"Equity: {fmt_omr_large(q3['totalEquity'])}", "status": "positive"},
                 {"label": "Loan-to-Deposit Ratio", "value": f"{ldr_q3:.1f}%", "sub": f"Cost/Inc (FY25): {cir_fy25:.1f}%", "status": "neutral"},
-                {"label": "Return on Equity (FY25)", "value": f"{roe_fy25:.1f}%" if roe_fy25 else "N/A", "sub": f"ROA: {roa_fy25:.2f}% • CAR: {flag.get('car','N/A')}", "status": "positive"},
+                {"label": "Return on Equity (FY25)", "value": f"{roe_fy25:.1f}%" if roe_fy25 else "N/A", "sub": f"Book Value/Sh: OMR {nav_latest:.3f} • ROA: {roa_fy25:.2f}%", "status": "positive"},
                 {"label": "Cash Dividend Yield", "value": f"{div_yield_pct:.2f}%", "sub": f"DPS: OMR {dps:.4f}", "status": "positive"},
             ]
             fin_chart = {
@@ -1026,26 +1114,31 @@ def build_company_json(rec, bench_map, synced_stamp):
                 f"Q3 2026 Balance Sheet Scale: {fmt_omr_large(q3['assets'])} Total Assets, {fmt_omr_large(q3['loans'])} Net Loans & Islamic Financing, and {fmt_omr_large(q3['deposits'])} Customer Deposits ({np_yoy_9m:+.1f}% 9M Net Profit YoY).",
             ]
         else:
+            fy24 = ann_list[-2] if len(ann_list) >= 2 else {}
+            rev_yoy_fy = ((fy25["revenue"] - fy24["revenue"]) / abs(fy24["revenue"]) * 100) if fy24.get("revenue") else None
             net_debt_q3 = q3["debt"] - q3["cash"]
             ev_omr = mcap_omr + net_debt_q3
             ev_ebitda = (ev_omr / fy25["ebitda"]) if fy25["ebitda"] > 0 else None
             ebitda_margin = (fy25["ebitda"] / fy25["revenue"] * 100) if fy25["revenue"] > 0 else 0.0
             net_margin = (fy25["netProfit"] / fy25["revenue"] * 100) if fy25["revenue"] > 0 else 0.0
             fcf_fy25 = fy25["ocf"] - fy25["capex"]
+            ocf_conv = (fy25["ocf"] / fy25["ebitda"] * 100) if fy25.get("ebitda") and fy25["ebitda"] > 0 else None
+            capex_pct_rev = (fy25["capex"] / fy25["revenue"] * 100) if fy25.get("revenue") and fy25["revenue"] > 0 else None
+            fcf_conv = (fcf_fy25 / fy25["ebitda"] * 100) if fy25.get("ebitda") and fy25["ebitda"] > 0 else None
             rev_yoy_9m = ((q3["revenue"] - q3["revenuePrior"]) / abs(q3["revenuePrior"]) * 100) if q3["revenuePrior"] else 0.0
             ebitda_yoy_9m = ((q3["ebitda"] - q3["ebitdaPrior"]) / abs(q3["ebitdaPrior"]) * 100) if q3["ebitdaPrior"] else 0.0
             valuation_cards = [
                 {"label": "Market Cap", "value": fmt_omr_large(mcap_omr), "sub": f"Shares: {fmt_shares(shares_out_raw)}", "status": "positive"},
-                {"label": "Enterprise Value", "value": fmt_omr_large(ev_omr), "sub": f"Net Debt (Q3 26): {fmt_omr_large(net_debt_q3)}", "status": "neutral"},
+                {"label": "Enterprise Value", "value": fmt_omr_large(ev_omr), "sub": f"Net Debt: {fmt_omr_large(net_debt_q3)}", "status": "neutral"},
                 {"label": "P/E Ratio (FY25)", "value": f"{pe_fy25:.2f}x" if pe_fy25 else "N/A", "sub": f"FY25 EPS: OMR {fy25['eps']:.3f}", "status": "neutral"},
                 {"label": "EV / EBITDA (FY25)", "value": f"{ev_ebitda:.2f}x" if ev_ebitda else "N/A", "sub": f"P/B (Q3 26): {pb_ratio:.2f}x", "status": "neutral"},
-                {"label": "Revenue (FY25)", "value": fmt_omr_large(fy25["revenue"]), "sub": f"9M 26: {fmt_omr_large(q3['revenue'])} ({rev_yoy_9m:+.1f}%)", "status": "positive"},
+                {"label": "Revenue (FY25)", "value": fmt_omr_large(fy25["revenue"]), "sub": f"YoY Growth: {rev_yoy_fy:+.1f}%" if rev_yoy_fy is not None else f"9M 26: {fmt_omr_large(q3['revenue'])}", "status": "positive"},
                 {"label": "EBITDA (FY25)", "value": fmt_omr_large(fy25["ebitda"]), "sub": f"EBITDA Margin: {ebitda_margin:.1f}%", "status": "positive"},
-                {"label": "Net Profit (FY25)", "value": fmt_omr_large(fy25["netProfit"]), "sub": f"9M 26: {fmt_omr_large(q3['netProfit'])} ({np_yoy_9m:+.1f}%)", "status": "positive"},
-                {"label": "Operating Cash Flow", "value": fmt_omr_large(fy25["ocf"]), "sub": f"9M 26 OCF: {fmt_omr_large(q3['ocf'])}", "status": "positive"},
-                {"label": "CapEx (FY25)", "value": fmt_omr_large(fy25["capex"]), "sub": f"9M 26 CapEx: {fmt_omr_large(q3['capex'])}", "status": "neutral"},
-                {"label": "Free Cash Flow (FY25)", "value": fmt_omr_large(fcf_fy25), "sub": f"Net Margin: {net_margin:.1f}%", "status": "positive" if fcf_fy25 >= 0 else "negative"},
-                {"label": "Return on Equity (FY25)", "value": f"{roe_fy25:.1f}%" if roe_fy25 else "N/A", "sub": f"ROA: {roa_fy25:.1f}% • NAV: OMR {nav_latest:.3f}", "status": "positive"},
+                {"label": "Net Profit (FY25)", "value": fmt_omr_large(fy25["netProfit"]), "sub": f"Net Margin: {net_margin:.1f}%", "status": "positive"},
+                {"label": "Operating Cash Flow", "value": fmt_omr_large(fy25["ocf"]), "sub": f"OCF / EBITDA: {ocf_conv:.1f}%" if ocf_conv is not None else f"9M 26 OCF: {fmt_omr_large(q3['ocf'])}", "status": "positive"},
+                {"label": "CapEx (FY25)", "value": fmt_omr_large(fy25["capex"]), "sub": f"% of Revenue: {capex_pct_rev:.1f}%" if capex_pct_rev is not None else f"9M 26 CapEx: {fmt_omr_large(q3['capex'])}", "status": "neutral"},
+                {"label": "Free Cash Flow (FY25)", "value": fmt_omr_large(fcf_fy25), "sub": f"FCF / EBITDA: {fcf_conv:.1f}%" if fcf_conv is not None else f"Net Margin: {net_margin:.1f}%", "status": "positive" if fcf_fy25 >= 0 else "negative"},
+                {"label": "Return on Equity (FY25)", "value": f"{roe_fy25:.1f}%" if roe_fy25 else "N/A", "sub": f"Book Value/Sh: OMR {nav_latest:.3f}", "status": "positive"},
                 {"label": "Cash Dividend Yield", "value": f"{div_yield_pct:.2f}%", "sub": f"DPS: OMR {dps:.4f}", "status": "positive"},
             ]
             fin_chart = {
@@ -1098,8 +1191,12 @@ def build_company_json(rec, bench_map, synced_stamp):
         if q_pri.get("netProfit") is None and fp_pp is not None:
             q_pri["netProfit"] = fp_pp
 
-        # Derive per-year DPS from explicit DPS or Cash Dividend Paid / Issued Shares
-        def calc_dps(period_dict):
+        # Derive per-year DPS for fiscal year `y` from explicit DPS or dividends announced for `y`
+        # (In Oman, annual dividends for FY(T) are approved at the March/April T+1 AGM and paid in T+1,
+        # unless the company pays semi-annual interim + final dividends within the same year).
+        def get_div_paid_dps(period_dict):
+            if not period_dict:
+                return None
             if period_dict.get("dps") is not None:
                 return period_dict["dps"]
             dp = period_dict.get("divPaid")
@@ -1109,10 +1206,37 @@ def build_company_json(rec, bench_map, synced_stamp):
                     return round(val, 4)
             return None
 
+        dps_by_period = {}
+        for idx_y, y in enumerate(yr_keys):
+            p_cur = pf[y]
+            if p_cur.get("dps") is not None:
+                dps_by_period[y] = p_cur["dps"]
+                continue
+            # Check if dividends for fiscal year y were paid in the following period (y+1 or 9M 2026)
+            next_p = pf.get("Q26_CUR") if (y == "FY2025" and pf.get("Q26_CUR")) else (pf.get(yr_keys[idx_y + 1]) if idx_y + 1 < len(yr_keys) else None)
+            cur_dp = get_div_paid_dps(p_cur)
+            nxt_dp = get_div_paid_dps(next_p) if next_p else None
+            # For FY2025, if 9M 2026 has cash dividends paid (March/April 2026 AGM payout for FY2025) and FY2025 wasn't a semi-annual payer where 9M 2026 is smaller than H1+H2
+            if y == "FY2025" and nxt_dp is not None and (cur_dp is None or nxt_dp >= cur_dp * 0.75):
+                dps_by_period[y] = nxt_dp
+            elif cur_dp is not None:
+                dps_by_period[y] = cur_dp
+            else:
+                dps_by_period[y] = nxt_dp
+
+        # 9M 2026 interim row: only show a 9M 2026 DPS if an interim dividend for 2026 was explicitly set (not the FY2025 final dividend paid in March/April 2026)
+        q26_dps = q_cur.get("dps")
+        if q26_dps is None:
+            q_dp = get_div_paid_dps(q_cur)
+            # If q_dp was already attributed as the FY2025 annual dividend paid in March/April 2026, do not double-count it as a 9M 2026 interim dividend
+            if q_dp is not None and dps_by_period.get("FY2025") != q_dp:
+                q26_dps = q_dp
+
         # Dividend Yield strictly from last full audited fiscal year (never interim periods)
-        dps_latest = calc_dps(latest_ann) or 0.0
+        dps_latest = dps_by_period.get(latest_yr_name) or 0.0
         div_yield_pct = (dps_latest / price * 100) if price > 0 and dps_latest > 0 else 0.0
         np_ann = latest_ann.get("netProfit")
+        prior_ann = pf[yr_keys[-2]] if len(yr_keys) >= 2 else {}
         eq_latest = q_cur.get("equity") or latest_ann.get("equity")
         ast_latest = q_cur.get("assets") or latest_ann.get("assets")
         nav_latest = q_cur.get("nav") or latest_ann.get("nav") or ((eq_latest / shares_out_raw) if (eq_latest and shares_out_raw) else None)
@@ -1126,19 +1250,24 @@ def build_company_json(rec, bench_map, synced_stamp):
             dep_v = q_cur.get("deposits") or latest_ann.get("deposits")
             ldr_v = (loans_v / dep_v * 100) if (loans_v and dep_v and dep_v > 0) else None
             opinc_v = latest_ann.get("opInc") or latest_ann.get("revenue")
+            prior_opinc_v = prior_ann.get("opInc") or prior_ann.get("revenue")
+            opinc_yoy = ((opinc_v - prior_opinc_v) / abs(prior_opinc_v) * 100) if (opinc_v is not None and prior_opinc_v) else None
             nii_v = latest_ann.get("nii")
+            prior_nii_v = prior_ann.get("nii")
+            nii_yoy = ((nii_v - prior_nii_v) / abs(prior_nii_v) * 100) if (nii_v is not None and prior_nii_v) else None
+            net_margin_b = (np_ann / opinc_v * 100) if (np_ann is not None and opinc_v and opinc_v > 0) else None
             valuation_cards = [
                 {"label": "Market Cap", "value": fmt_omr_large(mcap_omr), "sub": f"Shares: {fmt_shares(shares_out_raw)}", "status": "positive"},
                 {"label": f"P/E Ratio ({latest_yr_name})", "value": f"{pe_val:.2f}x" if pe_val else "N/A", "sub": f"EPS: OMR {latest_ann['eps']:.3f}" if latest_ann.get("eps") is not None else "EPS: N/A", "status": "neutral"},
-                {"label": "Price / Book", "value": f"{pb_val:.2f}x" if pb_val else "N/A", "sub": f"NAV/Sh: OMR {nav_latest:.3f}" if nav_latest else "NAV: N/A", "status": "neutral"},
-                {"label": f"Net Int & Islamic ({latest_yr_name})", "value": fmt_omr_large(nii_v), "sub": f"2026 Int: {fmt_omr_large(q_cur.get('nii'))}", "status": "positive"},
-                {"label": f"Operating Income ({latest_yr_name})", "value": fmt_omr_large(opinc_v), "sub": f"2026 Int: {fmt_omr_large(q_cur.get('opInc'))}", "status": "positive"},
-                {"label": f"Net Profit ({latest_yr_name})", "value": fmt_omr_large(np_ann), "sub": f"9M 26: {fmt_omr_large(q_cur.get('netProfit'))}", "status": "positive" if (np_ann or 0) >= 0 else "negative"},
+                {"label": "Price / Book", "value": f"{pb_val:.2f}x" if pb_val else "N/A", "sub": f"Book Value/Sh: OMR {nav_latest:.3f}" if nav_latest else "Book Value/Sh: N/A", "status": "neutral"},
+                {"label": f"Net Int & Islamic ({latest_yr_name})", "value": fmt_omr_large(nii_v), "sub": f"YoY Growth: {nii_yoy:+.1f}%" if nii_yoy is not None else f"2026 Int: {fmt_omr_large(q_cur.get('nii'))}", "status": "positive"},
+                {"label": f"Operating Income ({latest_yr_name})", "value": fmt_omr_large(opinc_v), "sub": f"YoY Growth: {opinc_yoy:+.1f}%" if opinc_yoy is not None else f"2026 Int: {fmt_omr_large(q_cur.get('opInc'))}", "status": "positive"},
+                {"label": f"Net Profit ({latest_yr_name})", "value": fmt_omr_large(np_ann), "sub": f"Net Margin: {net_margin_b:.1f}%" if net_margin_b is not None else f"9M 26: {fmt_omr_large(q_cur.get('netProfit'))}", "status": "positive" if (np_ann or 0) >= 0 else "negative"},
                 {"label": "Net Loans & Financing", "value": fmt_omr_large(loans_v), "sub": "Latest Balance Sheet", "status": "positive"},
                 {"label": "Customer Deposits", "value": fmt_omr_large(dep_v), "sub": "Latest Balance Sheet", "status": "positive"},
                 {"label": "Total Assets", "value": fmt_omr_large(ast_latest), "sub": f"Equity: {fmt_omr_large(eq_latest)}", "status": "positive"},
                 {"label": "Loan-to-Deposit Ratio", "value": f"{ldr_v:.1f}%" if ldr_v else "N/A", "sub": f"Paid-Up: {fmt_omr_large(paid_up_cap)}", "status": "neutral"},
-                {"label": f"Return on Equity ({latest_yr_name})", "value": f"{roe_val:.1f}%" if roe_val is not None else "N/A", "sub": f"ROA: {roa_val:.2f}%" if roa_val is not None else "ROA: N/A", "status": "positive"},
+                {"label": f"Return on Equity ({latest_yr_name})", "value": f"{roe_val:.1f}%" if roe_val is not None else "N/A", "sub": f"Book Value/Sh: OMR {nav_latest:.3f}" if nav_latest else (f"ROA: {roa_val:.2f}%" if roa_val is not None else "ROA: N/A"), "status": "positive"},
                 {"label": f"Cash Dividend Yield ({latest_yr_name})", "value": f"{div_yield_pct:.2f}%" if dps_latest > 0 else "N/A", "sub": f"{latest_yr_name} DPS: OMR {dps_latest:.4f}" if dps_latest > 0 else f"No {latest_yr_name} cash div", "status": "positive"},
             ]
             fin_chart = {
@@ -1151,15 +1280,22 @@ def build_company_json(rec, bench_map, synced_stamp):
                 "secondary": [round((pf[y].get("nii") or 0) / 1e6, 2) for y in yr_keys],
                 "netIncome": [round((pf[y].get("netProfit") or 0) / 1e6, 2) for y in yr_keys],
                 "tableRows": [
-                    {"period": y, "primaryMetric": pf[y].get("opInc") or pf[y].get("revenue"), "secondaryMetric": pf[y].get("nii"), "netProfit": pf[y].get("netProfit"), "dps": calc_dps(pf[y]), "assets": pf[y].get("assets"), "loans": pf[y].get("loans"), "deposits": pf[y].get("deposits"), "equity": pf[y].get("equity")}
+                    {"period": y, "primaryMetric": pf[y].get("opInc") or pf[y].get("revenue"), "secondaryMetric": pf[y].get("nii"), "netProfit": pf[y].get("netProfit"), "dps": dps_by_period.get(y), "assets": pf[y].get("assets"), "loans": pf[y].get("loans"), "deposits": pf[y].get("deposits"), "equity": pf[y].get("equity")}
                     for y in yr_keys
-                ] + ([{"period": "9M 2026", "primaryMetric": q_cur.get("opInc") or q_cur.get("revenue"), "secondaryMetric": q_cur.get("nii"), "netProfit": q_cur.get("netProfit"), "dps": calc_dps(q_cur), "assets": q_cur.get("assets"), "loans": q_cur.get("loans"), "deposits": q_cur.get("deposits"), "equity": q_cur.get("equity")}] if q_cur else []),
+                ] + ([{"period": "9M 2026", "primaryMetric": q_cur.get("opInc") or q_cur.get("revenue"), "secondaryMetric": q_cur.get("nii"), "netProfit": q_cur.get("netProfit"), "dps": q26_dps, "assets": q_cur.get("assets"), "loans": q_cur.get("loans"), "deposits": q_cur.get("deposits"), "equity": q_cur.get("equity")}] if q_cur else []),
             }
         else:
             rev_v = latest_ann.get("revenue") or latest_ann.get("opInc")
+            prior_rev_v = prior_ann.get("revenue") or prior_ann.get("opInc")
+            rev_yoy_fy = ((rev_v - prior_rev_v) / abs(prior_rev_v) * 100) if (rev_v is not None and prior_rev_v) else None
             ebitda_v = latest_ann.get("ebitda") or latest_ann.get("opProfit")
-            debt_v = q_cur.get("debt") if q_cur.get("debt") is not None else (latest_ann.get("debt") or 0.0)
-            cash_v = q_cur.get("cash") if q_cur.get("cash") is not None else (latest_ann.get("cash") or 0.0)
+            # Prefer positive debt or positive cash across Q3 2026 and latest audited annual so 0.0 default in interim doesn't wipe out audited debt/cash
+            q_debt = q_cur.get("debt")
+            a_debt = latest_ann.get("debt")
+            debt_v = q_debt if (q_debt is not None and q_debt > 0) else (a_debt if a_debt is not None else 0.0)
+            q_cash = q_cur.get("cash")
+            a_cash = latest_ann.get("cash")
+            cash_v = q_cash if (q_cash is not None and q_cash > 0) else (a_cash if a_cash is not None else 0.0)
             net_debt = debt_v - cash_v
             ev_v = mcap_omr + net_debt if mcap_omr > 0 else None
             ev_eb = (ev_v / ebitda_v) if (ev_v and ebitda_v and ebitda_v > 0) else None
@@ -1168,19 +1304,28 @@ def build_company_json(rec, bench_map, synced_stamp):
             fcf_v = (ocf_v - capex_v) if (ocf_v is not None and capex_v is not None) else None
             eb_margin = (ebitda_v / rev_v * 100) if (ebitda_v and rev_v and rev_v > 0) else None
             net_margin = (np_ann / rev_v * 100) if (np_ann is not None and rev_v and rev_v > 0) else None
+            ocf_conv = (ocf_v / ebitda_v * 100) if (ocf_v is not None and ebitda_v and ebitda_v > 0) else None
+            capex_pct_rev = (capex_v / rev_v * 100) if (capex_v is not None and rev_v and rev_v > 0) else None
+            fcf_conv = (fcf_v / ebitda_v * 100) if (fcf_v is not None and ebitda_v and ebitda_v > 0) else None
+
+            # Use 9M YoY revenue growth as fallback if prior full year revenue is not available
+            q_rev_c = q_cur.get("revenue") or q_cur.get("opInc")
+            q_rev_p = q_pri.get("revenue") or q_pri.get("opInc")
+            rev_yoy_9m = ((q_rev_c - q_rev_p) / abs(q_rev_p) * 100) if (q_rev_c is not None and q_rev_p) else None
+            rev_sub_str = f"YoY Growth: {rev_yoy_fy:+.1f}%" if rev_yoy_fy is not None else (f"9M YoY Growth: {rev_yoy_9m:+.1f}%" if rev_yoy_9m is not None else "YoY Growth: N/A")
 
             valuation_cards = [
                 {"label": "Market Cap", "value": fmt_omr_large(mcap_omr), "sub": f"Shares: {fmt_shares(shares_out_raw)}", "status": "positive"},
                 {"label": "Enterprise Value", "value": fmt_omr_large(ev_v), "sub": f"Net Debt: {fmt_omr_large(net_debt)}", "status": "neutral"},
                 {"label": f"P/E Ratio ({latest_yr_name})", "value": f"{pe_val:.2f}x" if pe_val else "N/A", "sub": f"EPS: OMR {latest_ann['eps']:.3f}" if latest_ann.get("eps") is not None else "EPS: N/A", "status": "neutral"},
                 {"label": f"EV / EBITDA ({latest_yr_name})", "value": f"{ev_eb:.2f}x" if ev_eb else "N/A", "sub": f"P/B: {pb_val:.2f}x" if pb_val else "P/B: N/A", "status": "neutral"},
-                {"label": f"Revenue ({latest_yr_name})", "value": fmt_omr_large(rev_v), "sub": f"9M 26: {fmt_omr_large(q_cur.get('revenue') or q_cur.get('opInc'))}", "status": "positive"},
+                {"label": f"Revenue ({latest_yr_name})", "value": fmt_omr_large(rev_v), "sub": rev_sub_str, "status": "positive"},
                 {"label": f"EBITDA ({latest_yr_name})", "value": fmt_omr_large(ebitda_v), "sub": f"Margin: {eb_margin:.1f}%" if eb_margin is not None else "Operating Proxy", "status": "positive"},
-                {"label": f"Net Profit ({latest_yr_name})", "value": fmt_omr_large(np_ann), "sub": f"9M 26: {fmt_omr_large(q_cur.get('netProfit'))}", "status": "positive" if (np_ann or 0) >= 0 else "negative"},
-                {"label": f"Operating Cash Flow ({latest_yr_name})", "value": fmt_omr_large(ocf_v), "sub": f"9M 26 OCF: {fmt_omr_large(q_cur.get('ocf'))}", "status": "positive" if (ocf_v or 0) >= 0 else "negative"},
-                {"label": f"CapEx ({latest_yr_name})", "value": fmt_omr_large(capex_v), "sub": f"9M 26 CapEx: {fmt_omr_large(q_cur.get('capex'))}", "status": "neutral"},
-                {"label": f"Free Cash Flow ({latest_yr_name})", "value": fmt_omr_large(fcf_v), "sub": f"Net Margin: {net_margin:.1f}%" if net_margin is not None else f"Assets: {fmt_omr_large(ast_latest)}", "status": "positive" if (fcf_v or 0) >= 0 else "negative"},
-                {"label": f"Return on Equity ({latest_yr_name})", "value": f"{roe_val:.1f}%" if roe_val is not None else "N/A", "sub": f"NAV: OMR {nav_latest:.3f}" if nav_latest else f"Equity: {fmt_omr_large(eq_latest)}", "status": "positive" if (roe_val or 0) >= 0 else "negative"},
+                {"label": f"Net Profit ({latest_yr_name})", "value": fmt_omr_large(np_ann), "sub": f"Net Margin: {net_margin:.1f}%" if net_margin is not None else f"ROE: {roe_val:.1f}%" if roe_val is not None else "Net Margin: N/A", "status": "positive" if (np_ann or 0) >= 0 else "negative"},
+                {"label": f"Operating Cash Flow ({latest_yr_name})", "value": fmt_omr_large(ocf_v), "sub": f"OCF / EBITDA: {ocf_conv:.1f}%" if ocf_conv is not None else "OCF / EBITDA: N/A", "status": "positive" if (ocf_v or 0) >= 0 else "negative"},
+                {"label": f"CapEx ({latest_yr_name})", "value": fmt_omr_large(capex_v), "sub": f"% of Revenue: {capex_pct_rev:.1f}%" if capex_pct_rev is not None else "% of Revenue: N/A", "status": "neutral"},
+                {"label": f"Free Cash Flow ({latest_yr_name})", "value": fmt_omr_large(fcf_v), "sub": f"FCF / EBITDA: {fcf_conv:.1f}%" if fcf_conv is not None else "FCF / EBITDA: N/A", "status": "positive" if (fcf_v or 0) >= 0 else "negative"},
+                {"label": f"Return on Equity ({latest_yr_name})", "value": f"{roe_val:.1f}%" if roe_val is not None else "N/A", "sub": f"Book Value/Sh: OMR {nav_latest:.3f}" if nav_latest else f"Equity: {fmt_omr_large(eq_latest)}", "status": "positive" if (roe_val or 0) >= 0 else "negative"},
                 {"label": f"Cash Dividend Yield ({latest_yr_name})", "value": f"{div_yield_pct:.2f}%" if dps_latest > 0 else "N/A", "sub": f"{latest_yr_name} DPS: OMR {dps_latest:.4f}" if dps_latest > 0 else f"No {latest_yr_name} cash div", "status": "positive"},
             ]
             fin_chart = {
@@ -1193,9 +1338,9 @@ def build_company_json(rec, bench_map, synced_stamp):
                 "secondary": [round((pf[y].get("ebitda") or pf[y].get("opProfit") or 0) / 1e6, 2) for y in yr_keys],
                 "netIncome": [round((pf[y].get("netProfit") or 0) / 1e6, 2) for y in yr_keys],
                 "tableRows": [
-                    {"period": y, "primaryMetric": pf[y].get("revenue") or pf[y].get("opInc"), "secondaryMetric": pf[y].get("ebitda") or pf[y].get("opProfit"), "netProfit": pf[y].get("netProfit"), "dps": calc_dps(pf[y]), "ocf": pf[y].get("ocf"), "capex": pf[y].get("capex"), "assets": pf[y].get("assets"), "debt": pf[y].get("debt"), "equity": pf[y].get("equity")}
+                    {"period": y, "primaryMetric": pf[y].get("revenue") or pf[y].get("opInc"), "secondaryMetric": pf[y].get("ebitda") or pf[y].get("opProfit"), "netProfit": pf[y].get("netProfit"), "dps": dps_by_period.get(y), "ocf": pf[y].get("ocf"), "capex": pf[y].get("capex"), "assets": pf[y].get("assets"), "debt": pf[y].get("debt"), "equity": pf[y].get("equity")}
                     for y in yr_keys
-                ] + ([{"period": "9M 2026", "primaryMetric": q_cur.get("revenue") or q_cur.get("opInc"), "secondaryMetric": q_cur.get("ebitda") or q_cur.get("opProfit"), "netProfit": q_cur.get("netProfit"), "dps": calc_dps(q_cur), "ocf": q_cur.get("ocf"), "capex": q_cur.get("capex"), "assets": q_cur.get("assets"), "debt": q_cur.get("debt"), "equity": q_cur.get("equity")}] if q_cur else []),
+                ] + ([{"period": "9M 2026", "primaryMetric": q_cur.get("revenue") or q_cur.get("opInc"), "secondaryMetric": q_cur.get("ebitda") or q_cur.get("opProfit"), "netProfit": q_cur.get("netProfit"), "dps": q26_dps, "ocf": q_cur.get("ocf"), "capex": q_cur.get("capex"), "assets": q_cur.get("assets"), "debt": q_cur.get("debt"), "equity": q_cur.get("equity")}] if q_cur else []),
             }
 
         # Build 9M 2026 Momentum bars dynamically where current & prior exist
@@ -1331,7 +1476,7 @@ def build_company_json(rec, bench_map, synced_stamp):
             "sma50": sma50,
             "sma200": sma200,
             "benchmarkIndexed": bench_indexed,
-            "benchmarkLabel": "MSX Market Benchmark (Indexed)",
+            "benchmarkLabel": "MSX 30 Index (Indexed)",
         },
         "valuation": valuation_cards,
         "ownership": {
@@ -1413,18 +1558,26 @@ def main():
             except Exception as e:
                 print(f"    [WARN] Worker exception: {e}")
 
-    # Build equal-weighted MSX Flagship benchmark from the 8 flagship series
+    # Build MSX 30 Index benchmark from the top 30 liquid MSX SAOG constituents by Market Cap
+    def get_mcap_est(s):
+        r = records.get(s)
+        if not r:
+            return 0.0
+        sh = parse_float(r["mcdInfo"].get("TotalNoOfShares"), 0.0)
+        p = parse_float(r["quote"].get("LTP") or r["labels"].get("LTPLabel"), 0.0)
+        return sh * p
+
+    top30_syms = sorted(records.keys(), key=get_mcap_est, reverse=True)[:30]
     all_dates = set()
-    flag_hist = {}
-    for s in FLAGSHIP_ORDER:
-        if s in records:
-            _, fd, pr, _, _, _ = parse_hist_series(records[s]["histRaw"])
-            if pr:
-                flag_hist[s] = (fd, pr)
-                all_dates.update(fd)
+    msx30_hist = {}
+    for s in top30_syms:
+        _, fd, pr, _, _, _ = parse_hist_series(records[s]["histRaw"])
+        if len(pr) >= 15:
+            msx30_hist[s] = (fd, pr)
+            all_dates.update(fd)
     common_dates = sorted(all_dates)
     norm_by_d = {d: [] for d in common_dates}
-    for s, (fd, pr) in flag_hist.items():
+    for s, (fd, pr) in msx30_hist.items():
         p0 = pr[0]
         pm = dict(zip(fd, pr))
         last_p = p0

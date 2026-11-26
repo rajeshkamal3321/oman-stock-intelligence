@@ -92,7 +92,7 @@ for scope, pkg, fn in font_files:
 
 # Copy pure static assets (filings link directly to msx.om — no PDFs bundled in dist/)
 shutil.copy2(index_html, os.path.join(DIST, "index.html"))
-shutil.copytree(data_dir, os.path.join(DIST, "data"), ignore=shutil.ignore_patterns("ai_profiles.json", "ipo_prospectus_financials.json", ".*"))
+shutil.copytree(data_dir, os.path.join(DIST, "data"), ignore=shutil.ignore_patterns("ai_profiles.json", "ipo_prospectus_financials.json", "corporate_governance_overrides.json", ".*"))
 
 headers = """/*
   X-Content-Type-Options: nosniff
