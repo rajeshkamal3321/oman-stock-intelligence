@@ -89,6 +89,15 @@ try:
 except Exception:
     CORP_GOV_OVERRIDES = {}
 
+# Load Arabic-to-English major shareholder name translations (mcd.om)
+SHAREHOLDER_TRANS_PATH = os.path.join(DATA_DIR, "shareholder_translations.json")
+try:
+    with open(SHAREHOLDER_TRANS_PATH, encoding="utf-8") as _stf:
+        _raw_st = json.load(_stf)
+        SHAREHOLDER_TRANSLATIONS = {re.sub(r"\s+", " ", k).strip(): v for k, v in _raw_st.items()}
+except Exception:
+    SHAREHOLDER_TRANSLATIONS = {}
+
 FLAGSHIP_ORDER = ["BKMB", "BKSB", "NBOB", "BKDB", "OQGN", "OQEP", "ABRJ", "PHPC"]
 
 MARKET_NAMES = {
@@ -1554,7 +1563,11 @@ def build_company_json(rec, bench_map, synced_stamp):
     total_major_pct = 0.0
     for h in majors_sorted:
         raw_name = (h.get("InvestorName") or "").strip()
-        disp_name = ARABIC_HOLDER_ENGLISH.get(raw_name, raw_name)
+        disp_name = ARABIC_HOLDER_ENGLISH.get(raw_name)
+        if not disp_name:
+            norm_key = re.sub(r"\s+", " ", raw_name).strip()
+            en_tr = SHAREHOLDER_TRANSLATIONS.get(norm_key)
+            disp_name = f"{en_tr} ({raw_name})" if en_tr else raw_name
         pct_val = round(parse_float(h.get("OwnershipPercentage"), 0.0), 2)
         sh_owned = int(round(parse_float(h.get("TotalSharesOwned"), 0)))
         total_major_pct += pct_val

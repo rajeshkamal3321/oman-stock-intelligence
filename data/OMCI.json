@@ -1,1 +1,480 @@
-{"ticker":"OMCI","exchange":"MSX","market":"Under_Monitoring Market","isin":"OM0000002689","currency":"OMR","currencySymbol":"OMR ","name":"OMAN CERAMIC (Under Liquidation ) SAOG","sectorGroup":"Industrials","sector":"Industrials • Constructions Materials Support","ceo":"Mr. Pawan Kumar Jain (CEO-In charge","hq":"Sohar Industrial Estate","employees":"163 (71 Omani)","founded":"Sep 19, 1999","listedDate":"Jan 21, 2002","auditor":"BDO Jawad Habib LLC","website":"http://www.omanceramics.com","msxUrl":"https://www.msx.om/snapshot.aspx?s=OMCI","price":0.0,"prevClose":0.418,"openPrice":0.0,"dayHigh":0.0,"dayLow":0.0,"dayChange":0.0,"dayChangePct":0.0,"volume":"0","volumeRaw":0,"turnover":"OMR 0.000","turnoverOmr":0.0,"low52w":0.4,"high52w":0.44,"volatility":"N/A","sharesOutRaw":1892196,"sharesOut":"1.89M","paidUpCapital":"OMR 1.89M","faceValue":"OMR 1.000","shareholderCount":"125","marketCapOmr":0.0,"marketCapFmt":"OMR 0.000","dividendYieldPct":0.0,"dpsOmr":0.0,"latestFiscalYear":"Latest","description":"Oman Ceramic Company SAOG is currently Under Liquidation on the MSX Under_Monitoring Market following Extraordinary General Meeting resolutions passed in May 2023, and carries zero active market capitalization. Originally founded in September 1999 and listed in January 2002 at Sohar Industrial Estate (OMR 1.89 million paid-up capital across 1.89 million shares and 125 registered shareholders, including the Social Protection Fund), the company historically manufactured ceramic sanitaryware and building-material products in Oman. Commercial manufacturing operations have ceased as the company progresses through formal legal liquidation and asset wind-down.","overviewSources":["https://www.msx.om/snapshot.aspx?s=OMCI"],"overviewGeneratedAt":"2026-11-20","highlights":["Placed Under Liquidation on the MSX Under_Monitoring Market following May 2023 Extraordinary General Meeting resolutions.","Historically manufactured ceramic sanitaryware and construction materials at Sohar Industrial Estate (founded 1999) with OMR 1.89 million paid-up capital.","Latest Financial Snapshot: Revenue of N/A and Net Profit of N/A (Total Assets: N/A).","Ownership Registry (mcd.om): 125 registered shareholders • Omani 96.1% | GCC 0.2% | Foreign & Arab 3.7% (4 disclosed 5%+ holders)."],"segments":[{"name":"Historical Ceramic Sanitaryware & Building Materials","pct":null,"summary":"Formerly manufactured ceramic sanitaryware and construction products at Sohar Industrial Estate, Oman (operations ceased; under liquidation).","color":"bg-indigo-500"}],"segmentMode":"qualitative","segmentNote":"Historical Business Activity (Under Liquidation — No Active Operating Segments)","series":{"dates":["Nov 20, '16","Dec 07, '16","Dec 13, '16","Dec 21, '16","Sep 19, '17","Oct 30, '17","Nov 13, '17","Nov 15, '17","Nov 19, '17"],"fullDates":["2016-11-20","2016-12-07","2016-12-13","2016-12-21","2017-09-19","2017-10-30","2017-11-13","2017-11-15","2017-11-19"],"prices":[0.4,0.42,0.42,0.44,0.42,0.42,0.418,0.42,0.42],"volumes":[1298,102,898,102,100,147550,50275,100,100],"sma50":[0.458,0.455,0.453,0.452,0.45,0.448,0.447,0.445,0.444],"sma200":[0.588,0.588,0.588,0.588,0.588,0.588,0.589,0.589,0.589],"benchmarkIndexed":[0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4],"benchmarkLabel":"MSX 30 Index (Indexed)"},"valuation":[{"label":"Market Cap","value":"OMR 0.000","sub":"Shares: 1.89M","status":"positive"},{"label":"Enterprise Value","value":"N/A","sub":"Net Debt: OMR 0.000","status":"neutral"},{"label":"P/E Ratio (Latest)","value":"N/A","sub":"EPS: N/A","status":"neutral"},{"label":"EV / EBITDA (Latest)","value":"N/A","sub":"P/B: N/A","status":"neutral"},{"label":"Revenue (Latest)","value":"N/A","sub":"YoY Growth: N/A","status":"positive"},{"label":"EBITDA (Latest)","value":"N/A","sub":"Operating Proxy","status":"positive"},{"label":"Net Profit (Latest)","value":"N/A","sub":"Net Margin: N/A","status":"positive"},{"label":"Operating Cash Flow (Latest)","value":"N/A","sub":"OCF / EBITDA: N/A","status":"positive"},{"label":"CapEx (Latest)","value":"N/A","sub":"% of Revenue: N/A","status":"neutral"},{"label":"Free Cash Flow (Latest)","value":"N/A","sub":"FCF / EBITDA: N/A","status":"positive"},{"label":"Return on Equity (Latest)","value":"N/A","sub":"Equity: N/A","status":"positive"},{"label":"Cash Dividend Yield (Latest)","value":"N/A","sub":"No Latest cash div","status":"positive"}],"ownership":{"breakdown":[{"label":"Omani Investors","pct":96.08,"shares":1818022,"limitPct":100.0,"color":"#6366f1"},{"label":"GCC Investors","pct":0.23,"shares":4352,"limitPct":100.0,"color":"#06b6d4"},{"label":"Foreign & Arab Investors","pct":3.69,"arabPct":0.0,"foreignerPct":3.69,"arabShares":0,"foreignerShares":69822,"shares":69822,"limitPct":100.0,"color":"#10b981"}],"majorInvestors":[{"name":"الشرق الاوسط للاستثمار ش.م.م","rawMcdName":"الشرق الاوسط للاستثمار ش.م.م","stakePct":40.46,"stake":"40.46%","shares":765632,"sharesFmt":"765,632","valueOmr":0.0,"value":"OMR 0.000"},{"name":"SOCIAL PROTECTION FUND","rawMcdName":"SOCIAL PROTECTION FUND","stakePct":15.11,"stake":"15.11%","shares":286000,"sharesFmt":"286,000","valueOmr":0.0,"value":"OMR 0.000"},{"name":"راجن جوسف بول","rawMcdName":"راجن جوسف بول","stakePct":6.0,"stake":"6.00%","shares":113621,"sharesFmt":"113,621","valueOmr":0.0,"value":"OMR 0.000"},{"name":"Suhail Salim Abdullah Al Mukhaini Bahwan (سهيل سالم عبدالله المخيني بهوان)","rawMcdName":"سهيل سالم عبدالله المخينى بهوان","stakePct":5.46,"stake":"5.46%","shares":103338,"sharesFmt":"103,338","valueOmr":0.0,"value":"OMR 0.000"}],"majorTotalPct":67.03,"publicFloatPct":32.97,"totalShares":1892196,"totalSharesFmt":"1,892,196","shareholderCount":125,"paidUpCapitalOmr":1892196.0,"faceValueOmr":1.0,"sourceUrls":{"majorInvestors":"https://www.mcd.om/en/Default/Statistic/MajorInvestors5OrMore","nationalityOwnership":"https://www.mcd.om/en/Default/Statistic/InvestorOwnership","listedInstruments":"https://www.mcd.om/en/Default/Statistic/ListedInstrumentsInfo"},"note":"Total Issued Shares: 1,892,196 • Registered Shareholders: 125 • Omani: 96.08% | GCC: 0.23% | Arab: 0.00% | Foreign: 3.69% (Source: mcd.om)."},"financials":{"unit":"OMR M","primaryLabel":"Revenue (OMR M)","secondaryLabel":"EBITDA (OMR M)","tertiaryLabel":"Net Profit (OMR M)","years":[],"primary":[],"secondary":[],"netIncome":[],"tableRows":[]},"statements":{"template":"corporate","templateLabel":"Corporate IFRS","periods":[],"annualizeNote":null,"incomeStatement":[],"balanceSheet":[],"cashFlow":[],"keyStats":[]},"quarterlyMomentum":{"period":"9M 2026 (Ended 30 Sep 2026)","bars":[],"sourceUrl":"https://www.msx.om/snapshot.aspx?s=OMCI"},"governance":{"boardSourceLabel":"msx.om Corporate Registry (OMCI)","boardSourceUrl":"https://www.msx.om/snapshot.aspx?s=OMCI","boardDisclosedOnWebsite":false,"boardFallbackUrl":"https://www.msx.om/snapshot.aspx?s=OMCI","managementSourceLabel":"msx.om Corporate Registry (OMCI)","managementSourceUrl":"https://www.msx.om/snapshot.aspx?s=OMCI","managementDisclosedOnWebsite":false,"board":[{"name":"Mr. Saleh Nasser Al Riyami","role":"Chairman","independence":"Non-Executive Director"},{"name":"Mr. Abdul Kader Darwish Al Balushi","role":"Board Member","independence":"Independent Director"},{"name":"Mr. Ravinder Soin","role":"Board Member","independence":"Non-Executive / Non-Independent (Middle East Investment)"},{"name":"Mr. Yasser Mohammed Kheir","role":"Board Member","independence":"Independent Director"},{"name":"Mr. Dharmendra Pal Singh Kapoor","role":"Board Member","independence":"Independent Director"}],"management":[{"name":"Mr. Pawan Kumar Jain (CEO-In charge","title":"Chief Executive Officer / President"},{"name":"Mr. Pawan Kumar Jain(Chief Financial Officer)","title":"Board Secretary"},{"name":"Grant Thornton","title":"Internal Auditor"},{"name":"Rajab Al Khathiri","title":"Legal Advisor"}]},"filings":[],"disclosures":[{"title":"Announcement of the Extra Ordinary General Meeting resolutions","source":"Muscat Stock Exchange (msx.om)","date":"May 17, 2023 04:21 PM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-17052023-53.pdf","category":"Governance","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on May 17, 2023 04:21 PM. File: OMCI-17052023-53.pdf"},{"title":"Notice For Extra Ordinary General Meeting","source":"Muscat Stock Exchange (msx.om)","date":"May 17, 2023 09:17 AM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-17052023-29.pdf","category":"Governance","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on May 17, 2023 09:17 AM. File: OMCI-17052023-29.pdf"},{"title":"Disclosure of the non-convening of the Extraordinary General Meeting","source":"Muscat Stock Exchange (msx.om)","date":"May 16, 2023 07:39 PM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/OCC Disclosure 16May23.pdf","category":"Governance","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on May 16, 2023 07:39 PM. File: OCC Disclosure 16May23.pdf"},{"title":"Resolutions of the Extraordinary General Meeting","source":"Muscat Stock Exchange (msx.om)","date":"Nov 03, 2021 07:59 AM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-02112021-21.pdf","category":"Governance","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on Nov 03, 2021 07:59 AM. File: OMCI-02112021-21.pdf"},{"title":"Disclosure of the non-convening of the extraordinary general meeting","source":"Muscat Stock Exchange (msx.om)","date":"Nov 01, 2021 09:39 AM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-01112021-23.pdf","category":"Governance","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on Nov 01, 2021 09:39 AM. File: OMCI-01112021-23.pdf"},{"title":"Notice For  Extra Ordinary General Meeting","source":"Muscat Stock Exchange (msx.om)","date":"Oct 13, 2021 02:32 PM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-13102021-10.pdf","category":"Governance","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on Oct 13, 2021 02:32 PM. File: OMCI-13102021-10.pdf"},{"title":"Resolutions approved at the Extraordinary General Meeting of Oman Ceramic SAOG","source":"Muscat Stock Exchange (msx.om)","date":"Sep 06, 2021 07:41 AM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-05092021-57.pdf","category":"Governance","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on Sep 06, 2021 07:41 AM. File: OMCI-05092021-57.pdf"},{"title":"Disclosure of non convening of Extra Ordinary General Meeting","source":"Muscat Stock Exchange (msx.om)","date":"Sep 04, 2021 07:48 PM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-02092021-58.pdf","category":"Governance","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on Sep 04, 2021 07:48 PM. File: OMCI-02092021-58.pdf"},{"title":"Meeting of the Board of Directors on 5th August 2021 to recommend the liquidation of the company","source":"Muscat Stock Exchange (msx.om)","date":"Aug 08, 2021 08:51 AM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-08082021-58.pdf","category":"Governance","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on Aug 08, 2021 08:51 AM. File: OMCI-08082021-58.pdf"}],"verificationUrls":{"msxProfile":"https://www.msx.om/snapshot.aspx?s=OMCI","msxHistoricalPrices":"https://www.msx.om/company-chart-data.aspx?s=OMCI","msxDisclosures":"https://www.msx.om/snapshot.aspx?s=OMCI#news","msxFinancialReports":"https://www.msx.om/snapshot.aspx?s=OMCI","mcdListedInfo":"https://www.mcd.om/en/Default/Statistic/ListedInstrumentsInfo","mcdMajorInvestors":"https://www.mcd.om/en/Default/Statistic/MajorInvestors5OrMore","mcdNationalityOwnership":"https://www.mcd.om/en/Default/Statistic/InvestorOwnership","corporateWebsite":"http://www.omanceramics.com","boardOfDirectors":"https://www.msx.om/snapshot.aspx?s=OMCI","executiveManagement":"https://www.msx.om/snapshot.aspx?s=OMCI"},"lastUpdated":"2026-11-26 16:15 UTC","dataSource":"msx.om & mcd.om (OMCI:MSX)"}
+{
+  "ticker": "OMCI",
+  "exchange": "MSX",
+  "market": "Under_Monitoring Market",
+  "isin": "OM0000002689",
+  "currency": "OMR",
+  "currencySymbol": "OMR ",
+  "name": "OMAN CERAMIC (Under Liquidation ) SAOG",
+  "sectorGroup": "Industrials",
+  "sector": "Industrials • Constructions Materials Support",
+  "ceo": "Mr. Pawan Kumar Jain (CEO-In charge",
+  "hq": "Sohar Industrial Estate",
+  "employees": "163 (71 Omani)",
+  "founded": "Sep 19, 1999",
+  "listedDate": "Jan 21, 2002",
+  "auditor": "BDO Jawad Habib LLC",
+  "website": "http://www.omanceramics.com",
+  "msxUrl": "https://www.msx.om/snapshot.aspx?s=OMCI",
+  "price": 0.0,
+  "prevClose": 0.418,
+  "openPrice": 0.0,
+  "dayHigh": 0.0,
+  "dayLow": 0.0,
+  "dayChange": 0.0,
+  "dayChangePct": 0.0,
+  "volume": "0",
+  "volumeRaw": 0,
+  "turnover": "OMR 0.000",
+  "turnoverOmr": 0.0,
+  "low52w": 0.4,
+  "high52w": 0.44,
+  "volatility": "N/A",
+  "sharesOutRaw": 1892196,
+  "sharesOut": "1.89M",
+  "paidUpCapital": "OMR 1.89M",
+  "faceValue": "OMR 1.000",
+  "shareholderCount": "125",
+  "marketCapOmr": 0.0,
+  "marketCapFmt": "OMR 0.000",
+  "dividendYieldPct": 0.0,
+  "dpsOmr": 0.0,
+  "latestFiscalYear": "Latest",
+  "description": "Oman Ceramic Company SAOG is currently Under Liquidation on the MSX Under_Monitoring Market following Extraordinary General Meeting resolutions passed in May 2023, and carries zero active market capitalization. Originally founded in September 1999 and listed in January 2002 at Sohar Industrial Estate (OMR 1.89 million paid-up capital across 1.89 million shares and 125 registered shareholders, including the Social Protection Fund), the company historically manufactured ceramic sanitaryware and building-material products in Oman. Commercial manufacturing operations have ceased as the company progresses through formal legal liquidation and asset wind-down.",
+  "overviewSources": [
+    "https://www.msx.om/snapshot.aspx?s=OMCI"
+  ],
+  "overviewGeneratedAt": "2026-11-20",
+  "highlights": [
+    "Placed Under Liquidation on the MSX Under_Monitoring Market following May 2023 Extraordinary General Meeting resolutions.",
+    "Historically manufactured ceramic sanitaryware and construction materials at Sohar Industrial Estate (founded 1999) with OMR 1.89 million paid-up capital.",
+    "Latest Financial Snapshot: Revenue of N/A and Net Profit of N/A (Total Assets: N/A).",
+    "Ownership Registry (mcd.om): 125 registered shareholders • Omani 96.1% | GCC 0.2% | Foreign & Arab 3.7% (4 disclosed 5%+ holders)."
+  ],
+  "segments": [
+    {
+      "name": "Historical Ceramic Sanitaryware & Building Materials",
+      "pct": null,
+      "summary": "Formerly manufactured ceramic sanitaryware and construction products at Sohar Industrial Estate, Oman (operations ceased; under liquidation).",
+      "color": "bg-indigo-500"
+    }
+  ],
+  "segmentMode": "qualitative",
+  "segmentNote": "Historical Business Activity (Under Liquidation — No Active Operating Segments)",
+  "series": {
+    "dates": [
+      "Nov 20, '16",
+      "Dec 07, '16",
+      "Dec 13, '16",
+      "Dec 21, '16",
+      "Sep 19, '17",
+      "Oct 30, '17",
+      "Nov 13, '17",
+      "Nov 15, '17",
+      "Nov 19, '17"
+    ],
+    "fullDates": [
+      "2016-11-20",
+      "2016-12-07",
+      "2016-12-13",
+      "2016-12-21",
+      "2017-09-19",
+      "2017-10-30",
+      "2017-11-13",
+      "2017-11-15",
+      "2017-11-19"
+    ],
+    "prices": [
+      0.4,
+      0.42,
+      0.42,
+      0.44,
+      0.42,
+      0.42,
+      0.418,
+      0.42,
+      0.42
+    ],
+    "volumes": [
+      1298,
+      102,
+      898,
+      102,
+      100,
+      147550,
+      50275,
+      100,
+      100
+    ],
+    "sma50": [
+      0.458,
+      0.455,
+      0.453,
+      0.452,
+      0.45,
+      0.448,
+      0.447,
+      0.445,
+      0.444
+    ],
+    "sma200": [
+      0.588,
+      0.588,
+      0.588,
+      0.588,
+      0.588,
+      0.588,
+      0.589,
+      0.589,
+      0.589
+    ],
+    "benchmarkIndexed": [
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.4
+    ],
+    "benchmarkLabel": "MSX 30 Index (Indexed)"
+  },
+  "valuation": [
+    {
+      "label": "Market Cap",
+      "value": "OMR 0.000",
+      "sub": "Shares: 1.89M",
+      "status": "positive"
+    },
+    {
+      "label": "Enterprise Value",
+      "value": "N/A",
+      "sub": "Net Debt: OMR 0.000",
+      "status": "neutral"
+    },
+    {
+      "label": "P/E Ratio (Latest)",
+      "value": "N/A",
+      "sub": "EPS: N/A",
+      "status": "neutral"
+    },
+    {
+      "label": "EV / EBITDA (Latest)",
+      "value": "N/A",
+      "sub": "P/B: N/A",
+      "status": "neutral"
+    },
+    {
+      "label": "Revenue (Latest)",
+      "value": "N/A",
+      "sub": "YoY Growth: N/A",
+      "status": "positive"
+    },
+    {
+      "label": "EBITDA (Latest)",
+      "value": "N/A",
+      "sub": "Operating Proxy",
+      "status": "positive"
+    },
+    {
+      "label": "Net Profit (Latest)",
+      "value": "N/A",
+      "sub": "Net Margin: N/A",
+      "status": "positive"
+    },
+    {
+      "label": "Operating Cash Flow (Latest)",
+      "value": "N/A",
+      "sub": "OCF / EBITDA: N/A",
+      "status": "positive"
+    },
+    {
+      "label": "CapEx (Latest)",
+      "value": "N/A",
+      "sub": "% of Revenue: N/A",
+      "status": "neutral"
+    },
+    {
+      "label": "Free Cash Flow (Latest)",
+      "value": "N/A",
+      "sub": "FCF / EBITDA: N/A",
+      "status": "positive"
+    },
+    {
+      "label": "Return on Equity (Latest)",
+      "value": "N/A",
+      "sub": "Equity: N/A",
+      "status": "positive"
+    },
+    {
+      "label": "Cash Dividend Yield (Latest)",
+      "value": "N/A",
+      "sub": "No Latest cash div",
+      "status": "positive"
+    }
+  ],
+  "ownership": {
+    "breakdown": [
+      {
+        "label": "Omani Investors",
+        "pct": 96.08,
+        "shares": 1818022,
+        "limitPct": 100.0,
+        "color": "#6366f1"
+      },
+      {
+        "label": "GCC Investors",
+        "pct": 0.23,
+        "shares": 4352,
+        "limitPct": 100.0,
+        "color": "#06b6d4"
+      },
+      {
+        "label": "Foreign & Arab Investors",
+        "pct": 3.69,
+        "arabPct": 0.0,
+        "foreignerPct": 3.69,
+        "arabShares": 0,
+        "foreignerShares": 69822,
+        "shares": 69822,
+        "limitPct": 100.0,
+        "color": "#10b981"
+      }
+    ],
+    "majorInvestors": [
+      {
+        "name": "Middle East Investment LLC (الشرق الاوسط للاستثمار ش.م.م)",
+        "rawMcdName": "الشرق الاوسط للاستثمار ش.م.م",
+        "stakePct": 40.46,
+        "stake": "40.46%",
+        "shares": 765632,
+        "sharesFmt": "765,632",
+        "valueOmr": 0.0,
+        "value": "OMR 0.000"
+      },
+      {
+        "name": "SOCIAL PROTECTION FUND",
+        "rawMcdName": "SOCIAL PROTECTION FUND",
+        "stakePct": 15.11,
+        "stake": "15.11%",
+        "shares": 286000,
+        "sharesFmt": "286,000",
+        "valueOmr": 0.0,
+        "value": "OMR 0.000"
+      },
+      {
+        "name": "Rajan Joseph Paul (راجن جوسف بول)",
+        "rawMcdName": "راجن جوسف بول",
+        "stakePct": 6.0,
+        "stake": "6.00%",
+        "shares": 113621,
+        "sharesFmt": "113,621",
+        "valueOmr": 0.0,
+        "value": "OMR 0.000"
+      },
+      {
+        "name": "Suhail Salim Abdullah Al Mukhaini Bahwan (سهيل سالم عبدالله المخيني بهوان)",
+        "rawMcdName": "سهيل سالم عبدالله المخينى بهوان",
+        "stakePct": 5.46,
+        "stake": "5.46%",
+        "shares": 103338,
+        "sharesFmt": "103,338",
+        "valueOmr": 0.0,
+        "value": "OMR 0.000"
+      }
+    ],
+    "majorTotalPct": 67.03,
+    "publicFloatPct": 32.97,
+    "totalShares": 1892196,
+    "totalSharesFmt": "1,892,196",
+    "shareholderCount": 125,
+    "paidUpCapitalOmr": 1892196.0,
+    "faceValueOmr": 1.0,
+    "sourceUrls": {
+      "majorInvestors": "https://www.mcd.om/en/Default/Statistic/MajorInvestors5OrMore",
+      "nationalityOwnership": "https://www.mcd.om/en/Default/Statistic/InvestorOwnership",
+      "listedInstruments": "https://www.mcd.om/en/Default/Statistic/ListedInstrumentsInfo"
+    },
+    "note": "Total Issued Shares: 1,892,196 • Registered Shareholders: 125 • Omani: 96.08% | GCC: 0.23% | Arab: 0.00% | Foreign: 3.69% (Source: mcd.om)."
+  },
+  "financials": {
+    "unit": "OMR M",
+    "primaryLabel": "Revenue (OMR M)",
+    "secondaryLabel": "EBITDA (OMR M)",
+    "tertiaryLabel": "Net Profit (OMR M)",
+    "years": [],
+    "primary": [],
+    "secondary": [],
+    "netIncome": [],
+    "tableRows": []
+  },
+  "statements": {
+    "template": "corporate",
+    "templateLabel": "Corporate IFRS",
+    "periods": [],
+    "annualizeNote": null,
+    "incomeStatement": [],
+    "balanceSheet": [],
+    "cashFlow": [],
+    "keyStats": []
+  },
+  "quarterlyMomentum": {
+    "period": "9M 2026 (Ended 30 Sep 2026)",
+    "bars": [],
+    "sourceUrl": "https://www.msx.om/snapshot.aspx?s=OMCI"
+  },
+  "governance": {
+    "boardSourceLabel": "msx.om Corporate Registry (OMCI)",
+    "boardSourceUrl": "https://www.msx.om/snapshot.aspx?s=OMCI",
+    "boardDisclosedOnWebsite": false,
+    "boardFallbackUrl": "https://www.msx.om/snapshot.aspx?s=OMCI",
+    "managementSourceLabel": "msx.om Corporate Registry (OMCI)",
+    "managementSourceUrl": "https://www.msx.om/snapshot.aspx?s=OMCI",
+    "managementDisclosedOnWebsite": false,
+    "board": [
+      {
+        "name": "Mr. Saleh Nasser Al Riyami",
+        "role": "Chairman",
+        "independence": "Non-Executive Director"
+      },
+      {
+        "name": "Mr. Abdul Kader Darwish Al Balushi",
+        "role": "Board Member",
+        "independence": "Independent Director"
+      },
+      {
+        "name": "Mr. Ravinder Soin",
+        "role": "Board Member",
+        "independence": "Non-Executive / Non-Independent (Middle East Investment)"
+      },
+      {
+        "name": "Mr. Yasser Mohammed Kheir",
+        "role": "Board Member",
+        "independence": "Independent Director"
+      },
+      {
+        "name": "Mr. Dharmendra Pal Singh Kapoor",
+        "role": "Board Member",
+        "independence": "Independent Director"
+      }
+    ],
+    "management": [
+      {
+        "name": "Mr. Pawan Kumar Jain (CEO-In charge",
+        "title": "Chief Executive Officer / President"
+      },
+      {
+        "name": "Mr. Pawan Kumar Jain(Chief Financial Officer)",
+        "title": "Board Secretary"
+      },
+      {
+        "name": "Grant Thornton",
+        "title": "Internal Auditor"
+      },
+      {
+        "name": "Rajab Al Khathiri",
+        "title": "Legal Advisor"
+      }
+    ]
+  },
+  "filings": [],
+  "disclosures": [
+    {
+      "title": "Announcement of the Extra Ordinary General Meeting resolutions",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "May 17, 2023 04:21 PM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-17052023-53.pdf",
+      "category": "Governance",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on May 17, 2023 04:21 PM. File: OMCI-17052023-53.pdf"
+    },
+    {
+      "title": "Notice For Extra Ordinary General Meeting",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "May 17, 2023 09:17 AM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-17052023-29.pdf",
+      "category": "Governance",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on May 17, 2023 09:17 AM. File: OMCI-17052023-29.pdf"
+    },
+    {
+      "title": "Disclosure of the non-convening of the Extraordinary General Meeting",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "May 16, 2023 07:39 PM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/OCC Disclosure 16May23.pdf",
+      "category": "Governance",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on May 16, 2023 07:39 PM. File: OCC Disclosure 16May23.pdf"
+    },
+    {
+      "title": "Resolutions of the Extraordinary General Meeting",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Nov 03, 2021 07:59 AM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-02112021-21.pdf",
+      "category": "Governance",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on Nov 03, 2021 07:59 AM. File: OMCI-02112021-21.pdf"
+    },
+    {
+      "title": "Disclosure of the non-convening of the extraordinary general meeting",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Nov 01, 2021 09:39 AM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-01112021-23.pdf",
+      "category": "Governance",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on Nov 01, 2021 09:39 AM. File: OMCI-01112021-23.pdf"
+    },
+    {
+      "title": "Notice For  Extra Ordinary General Meeting",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Oct 13, 2021 02:32 PM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-13102021-10.pdf",
+      "category": "Governance",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on Oct 13, 2021 02:32 PM. File: OMCI-13102021-10.pdf"
+    },
+    {
+      "title": "Resolutions approved at the Extraordinary General Meeting of Oman Ceramic SAOG",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Sep 06, 2021 07:41 AM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-05092021-57.pdf",
+      "category": "Governance",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on Sep 06, 2021 07:41 AM. File: OMCI-05092021-57.pdf"
+    },
+    {
+      "title": "Disclosure of non convening of Extra Ordinary General Meeting",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Sep 04, 2021 07:48 PM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-02092021-58.pdf",
+      "category": "Governance",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on Sep 04, 2021 07:48 PM. File: OMCI-02092021-58.pdf"
+    },
+    {
+      "title": "Meeting of the Board of Directors on 5th August 2021 to recommend the liquidation of the company",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Aug 08, 2021 08:51 AM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/OMCI-08082021-58.pdf",
+      "category": "Governance",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by OMAN CERAMIC (Under Liquidation ) SAOG (OMCI) on Aug 08, 2021 08:51 AM. File: OMCI-08082021-58.pdf"
+    }
+  ],
+  "verificationUrls": {
+    "msxProfile": "https://www.msx.om/snapshot.aspx?s=OMCI",
+    "msxHistoricalPrices": "https://www.msx.om/company-chart-data.aspx?s=OMCI",
+    "msxDisclosures": "https://www.msx.om/snapshot.aspx?s=OMCI#news",
+    "msxFinancialReports": "https://www.msx.om/snapshot.aspx?s=OMCI",
+    "mcdListedInfo": "https://www.mcd.om/en/Default/Statistic/ListedInstrumentsInfo",
+    "mcdMajorInvestors": "https://www.mcd.om/en/Default/Statistic/MajorInvestors5OrMore",
+    "mcdNationalityOwnership": "https://www.mcd.om/en/Default/Statistic/InvestorOwnership",
+    "corporateWebsite": "http://www.omanceramics.com",
+    "boardOfDirectors": "https://www.msx.om/snapshot.aspx?s=OMCI",
+    "executiveManagement": "https://www.msx.om/snapshot.aspx?s=OMCI"
+  },
+  "lastUpdated": "2026-11-26 16:15 UTC",
+  "dataSource": "msx.om & mcd.om (OMCI:MSX)"
+}

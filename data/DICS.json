@@ -1,1 +1,1376 @@
-{"ticker":"DICS","exchange":"MSX","market":"Parallel Market","isin":"OM0000001095","currency":"OMR","currencySymbol":"OMR ","name":"Dhofar Insurance SAOG","sectorGroup":"Financials","sector":"Financials • Insurance","ceo":"SUNIL KOHLI","hq":"Ruwi","employees":"313 (266 Omani)","founded":"Sep 05, 1989","listedDate":"Jan 21, 2002","auditor":"KPMG OMAN","website":"http://www.dhofarinsurance.com","msxUrl":"https://www.msx.om/snapshot.aspx?s=DICS","price":0.34,"prevClose":0.34,"openPrice":0.0,"dayHigh":0.0,"dayLow":0.0,"dayChange":0.0,"dayChangePct":0.0,"volume":"0","volumeRaw":0,"turnover":"OMR 0.000","turnoverOmr":0.0,"low52w":0.2,"high52w":0.371,"volatility":"59.3%","sharesOutRaw":116350989,"sharesOut":"116.35M","paidUpCapital":"OMR 14.00M","faceValue":"OMR 0.120","shareholderCount":"331","marketCapOmr":39559336.26,"marketCapFmt":"OMR 39.56M","dividendYieldPct":5.15,"dpsOmr":0.0175,"latestFiscalYear":"FY2025 + 2026 Interim","description":"Dhofar Insurance Company SAOG, incorporated on 5 September 1989 with paid-up capital of OMR 14 million, is the largest insurance company in the Sultanate of Oman by gross written premium. The company writes all classes of general and life insurance—including motor, oil and petrochemical, industrial, engineering, workmen's compensation, home contents, personal accident, and borrowers' life—through a nationwide branch footprint and digital e-services portal. Dhofar Insurance also manages a substantial investment portfolio that cushions underwriting cycles and supports long-term policyholder and shareholder returns.","overviewSources":["https://dhofarinsurance.com/company-profile","https://www.msx.om/MSMDOCS/FinancialReports/DICS_2026_Q3%20%28Un-Audited%29_e.zip"],"overviewGeneratedAt":"2026-11-20","highlights":["Maintained Oman's #1 market share at 19.1% in 9M 2026, growing Gross Written Premiums 2% year-on-year to OMR 84.38 million.","Nine-month 2026 net profit after tax surged 40% year-on-year to OMR 4.75 million as net investment income jumped 56% to OMR 5.53 million, offsetting claims from the March 2026 'Al Masarat' weather depression.","FY2025 Financial Snapshot: Revenue of N/A and Net Profit of N/A (Total Assets: OMR 161.41M).","Ownership Registry (mcd.om): 331 registered shareholders • Omani 92.8% | GCC 6.9% | Foreign & Arab 0.3% (4 disclosed 5%+ holders)."],"segments":[{"name":"Motor & Retail General Insurance","pct":null,"summary":"Personal motor, home contents, and personal accident insurance distributed via nationwide branches and online e-services.","color":"bg-indigo-500"},{"name":"Commercial, Industrial & Energy Insurance","pct":null,"summary":"Corporate risk underwriting across oil and petrochemical, industrial, engineering, liability, and workmen's compensation classes.","color":"bg-cyan-400"},{"name":"Life Insurance","pct":null,"summary":"Borrowers' life and personal protection insurance products serving retail and institutional clients.","color":"bg-violet-400"},{"name":"Investment Portfolio","pct":null,"summary":"Diversified financial asset portfolio generating OMR 5.53 million in net investment income during 9M 2026.","color":"bg-emerald-400"}],"segmentMode":"qualitative","segmentNote":"Core Underwriting & Investment Lines (Segment % not disclosed in 9M 2026 FS)","series":{"dates":["Nov 04, '25","Nov 11, '25","Nov 17, '25","Nov 18, '25","Nov 25, '25","Nov 30, '25","Dec 01, '25","Dec 08, '25","Dec 10, '25","Dec 15, '25","Dec 24, '25","Dec 29, '25","Dec 31, '25","Jan 08, '26","Jan 11, '26","Jan 12, '26","Jan 13, '26","Jan 14, '26","Jan 22, '26","Jan 25, '26","Feb 04, '26","Feb 05, '26","Feb 08, '26","Feb 10, '26","Feb 11, '26","Feb 12, '26","Feb 15, '26","Feb 16, '26","Feb 17, '26","Feb 22, '26","Feb 26, '26","Mar 09, '26","Mar 10, '26","Mar 12, '26","Mar 15, '26","Mar 16, '26","Mar 17, '26","Mar 24, '26","Mar 25, '26","Mar 26, '26","Mar 30, '26","Apr 02, '26","Apr 06, '26","Apr 07, '26","Apr 08, '26","Apr 12, '26","Apr 16, '26","Apr 27, '26","Apr 29, '26","Apr 30, '26","May 13, '26","May 21, '26","May 25, '26","Jun 07, '26","Jun 14, '26","Jun 15, '26","Jun 24, '26","Jul 13, '26","Jul 15, '26","Jul 27, '26","Jul 28, '26","Jul 29, '26","Aug 05, '26","Aug 20, '26","Aug 24, '26","Sep 16, '26","Sep 21, '26","Oct 07, '26","Nov 03, '26","Nov 04, '26","Nov 05, '26"],"fullDates":["2025-11-04","2025-11-11","2025-11-17","2025-11-18","2025-11-25","2025-11-30","2025-12-01","2025-12-08","2025-12-10","2025-12-15","2025-12-24","2025-12-29","2025-12-31","2026-01-08","2026-01-11","2026-01-12","2026-01-13","2026-01-14","2026-01-22","2026-01-25","2026-02-04","2026-02-05","2026-02-08","2026-02-10","2026-02-11","2026-02-12","2026-02-15","2026-02-16","2026-02-17","2026-02-22","2026-02-26","2026-03-09","2026-03-10","2026-03-12","2026-03-15","2026-03-16","2026-03-17","2026-03-24","2026-03-25","2026-03-26","2026-03-30","2026-04-02","2026-04-06","2026-04-07","2026-04-08","2026-04-12","2026-04-16","2026-04-27","2026-04-29","2026-04-30","2026-05-13","2026-05-21","2026-05-25","2026-06-07","2026-06-14","2026-06-15","2026-06-24","2026-07-13","2026-07-15","2026-07-27","2026-07-28","2026-07-29","2026-08-05","2026-08-20","2026-08-24","2026-09-16","2026-09-21","2026-10-07","2026-11-03","2026-11-04","2026-11-05"],"prices":[0.202,0.2,0.22,0.22,0.22,0.216,0.22,0.23,0.23,0.239,0.235,0.216,0.237,0.235,0.241,0.23,0.242,0.251,0.266,0.266,0.255,0.251,0.251,0.251,0.252,0.251,0.251,0.25,0.25,0.24,0.264,0.264,0.266,0.285,0.285,0.29,0.295,0.295,0.3,0.295,0.295,0.275,0.28,0.28,0.29,0.28,0.308,0.32,0.338,0.371,0.338,0.34,0.345,0.34,0.34,0.34,0.34,0.34,0.34,0.34,0.34,0.34,0.34,0.34,0.34,0.34,0.34,0.34,0.34,0.34,0.34],"volumes":[10490,35218,4000,982,11258,60805,3060,1125,751490,1375,100,500,5000,1000,13125,6000,72466,117320,408,3000,7000,19948,25790,2000,7500,16140,23000,7800,5782,6591,14830,6300,187434,70000,12518,59382,18341,35000,31000,26768,1000,4166,281931,10000,1000,408,19500,7000,120,22651,2500,10500,400,2500,4000,9000,1376,32747,22416,25907,20000,52592,300,10000,2342,2762,1900,990,2762,16759,13411],"sma50":[0.205,0.205,0.205,0.205,0.206,0.206,0.206,0.206,0.206,0.206,0.207,0.207,0.207,0.207,0.208,0.208,0.209,0.21,0.211,0.213,0.214,0.215,0.216,0.217,0.218,0.219,0.22,0.221,0.222,0.223,0.224,0.226,0.227,0.229,0.23,0.232,0.234,0.236,0.238,0.24,0.241,0.243,0.244,0.246,0.248,0.249,0.251,0.254,0.256,0.26,0.263,0.265,0.268,0.27,0.273,0.275,0.278,0.28,0.282,0.284,0.286,0.289,0.291,0.293,0.295,0.297,0.299,0.301,0.302,0.304,0.305],"sma200":[0.203,0.203,0.204,0.204,0.204,0.204,0.204,0.204,0.204,0.205,0.205,0.205,0.205,0.205,0.206,0.206,0.206,0.207,0.207,0.208,0.208,0.208,0.209,0.209,0.209,0.21,0.21,0.21,0.21,0.211,0.211,0.211,0.212,0.212,0.213,0.213,0.214,0.214,0.215,0.215,0.216,0.216,0.217,0.217,0.217,0.218,0.218,0.219,0.22,0.221,0.221,0.222,0.223,0.223,0.224,0.225,0.225,0.226,0.227,0.227,0.228,0.229,0.229,0.23,0.231,0.231,0.232,0.233,0.233,0.234,0.235],"benchmarkIndexed":[0.202,0.202,0.202,0.202,0.203,0.204,0.204,0.212,0.213,0.214,0.214,0.214,0.214,0.223,0.226,0.228,0.228,0.23,0.23,0.23,0.237,0.239,0.242,0.249,0.253,0.256,0.255,0.259,0.259,0.257,0.261,0.262,0.263,0.263,0.262,0.261,0.263,0.27,0.272,0.27,0.274,0.278,0.277,0.277,0.276,0.273,0.277,0.271,0.274,0.277,0.277,0.265,0.269,0.265,0.255,0.255,0.252,0.259,0.259,0.249,0.252,0.253,0.255,0.26,0.26,0.264,0.264,0.273,0.254,0.255,0.257],"benchmarkLabel":"MSX 30 Index (Indexed)"},"valuation":[{"label":"Market Cap","value":"OMR 39.56M","sub":"Shares: 116.35M","status":"positive"},{"label":"Enterprise Value","value":"OMR 29.84M","sub":"Net Debt: -OMR 9.72M","status":"neutral"},{"label":"P/E Ratio (FY2025)","value":"N/A","sub":"EPS: N/A","status":"neutral"},{"label":"EV / EBITDA (FY2025)","value":"N/A","sub":"P/B: 0.77x","status":"neutral"},{"label":"Revenue (FY2025)","value":"N/A","sub":"YoY Growth: N/A","status":"positive"},{"label":"EBITDA (FY2025)","value":"N/A","sub":"Operating Proxy","status":"positive"},{"label":"Net Profit (FY2025)","value":"N/A","sub":"Net Margin: N/A","status":"positive"},{"label":"Operating Cash Flow (FY2025)","value":"OMR 13.41M","sub":"OCF / EBITDA: N/A","status":"positive"},{"label":"CapEx (FY2025)","value":"OMR 824.1K","sub":"% of Revenue: N/A","status":"neutral"},{"label":"Free Cash Flow (FY2025)","value":"OMR 12.58M","sub":"FCF / EBITDA: N/A","status":"positive"},{"label":"Return on Equity (FY2025)","value":"N/A","sub":"Book Value/Sh: OMR 0.444","status":"positive"},{"label":"Cash Dividend Yield (FY2025)","value":"5.15%","sub":"FY2025 DPS: OMR 0.0175","status":"positive"}],"ownership":{"breakdown":[{"label":"Omani Investors","pct":92.81,"shares":107985353,"limitPct":100.0,"color":"#6366f1"},{"label":"GCC Investors","pct":6.87,"shares":7993313,"limitPct":100.0,"color":"#06b6d4"},{"label":"Foreign & Arab Investors","pct":0.32,"arabPct":0.13,"foreignerPct":0.19,"arabShares":151256,"foreignerShares":221067,"shares":372323,"limitPct":100.0,"color":"#10b981"}],"majorInvestors":[{"name":"Dhofar International Development & Investment Co (SAOG)","rawMcdName":"Dhofar International Development & Investment Co (SAOG)","stakePct":50.28,"stake":"50.28%","shares":58502937,"sharesFmt":"58,502,937","valueOmr":19890998.58,"value":"OMR 19.89M"},{"name":"ABDUL ALIM MUSTAHIL NASEEB RAKHIYOOT","rawMcdName":"ABDUL ALIM MUSTAHIL NASEEB RAKHIYOOT","stakePct":12.95,"stake":"12.95%","shares":15062797,"sharesFmt":"15,062,797","valueOmr":5121350.98,"value":"OMR 5.12M"},{"name":"TRUST INTERNATIONAL INSURANCE AND REINSURANCE CO.B.S.C.(CLOSED) TRUST RE","rawMcdName":"TRUST INTERNATIONAL INSURANCE AND REINSURANCE CO.B.S.C.(CLOSED) TRUST RE","stakePct":6.31,"stake":"6.31%","shares":7338125,"sharesFmt":"7,338,125","valueOmr":2494962.5,"value":"OMR 2.49M"},{"name":"شركه مسقط اوفر سيز ش.م.م","rawMcdName":"شركه مسقط اوفر سيز ش.م.م","stakePct":5.21,"stake":"5.21%","shares":6058178,"sharesFmt":"6,058,178","valueOmr":2059780.52,"value":"OMR 2.06M"}],"majorTotalPct":74.75,"publicFloatPct":25.25,"totalShares":116350989,"totalSharesFmt":"116,350,989","shareholderCount":331,"paidUpCapitalOmr":14000000.23499862,"faceValueOmr":0.12032558,"sourceUrls":{"majorInvestors":"https://www.mcd.om/en/Default/Statistic/MajorInvestors5OrMore","nationalityOwnership":"https://www.mcd.om/en/Default/Statistic/InvestorOwnership","listedInstruments":"https://www.mcd.om/en/Default/Statistic/ListedInstrumentsInfo"},"note":"Total Issued Shares: 116,350,989 • Registered Shareholders: 331 • Omani: 92.81% | GCC: 6.87% | Arab: 0.13% | Foreign: 0.19% (Source: mcd.om)."},"financials":{"unit":"OMR M","primaryLabel":"Revenue (OMR M)","secondaryLabel":"EBITDA (OMR M)","tertiaryLabel":"Net Profit (OMR M)","years":["FY2024","FY2025"],"primary":[0.0,0.0],"secondary":[0.0,0.0],"netIncome":[0.0,0.0],"tableRows":[{"period":"FY2024","primaryMetric":null,"secondaryMetric":null,"netProfit":null,"dps":0.0141,"ocf":7633462.0,"capex":469972.0,"assets":141999435.0,"debt":0.0,"equity":141999435.0},{"period":"FY2025","primaryMetric":null,"secondaryMetric":null,"netProfit":null,"dps":0.0175,"ocf":13407500.0,"capex":824109.0,"assets":151443383.0,"debt":0.0,"equity":151443383.0},{"period":"9M 2026","primaryMetric":null,"secondaryMetric":null,"netProfit":4751396.0,"dps":null,"ocf":2658564.0,"capex":504393.0,"assets":161408494.0,"debt":0.0,"equity":161408494.0}]},"statements":{"template":"insurance","templateLabel":"Insurance IFRS","periods":[{"key":"FY2024","label":"FY2024","isYtd":false,"annualizeFactor":1.0},{"key":"FY2025","label":"FY2025","isYtd":false,"annualizeFactor":1.0},{"key":"Q26_CUR","label":"9M 2026","isYtd":true,"annualizeFactor":1.3333}],"annualizeNote":"† Annualised YTD: For the partial-year 9M 2026 column, flow-to-stock ratios marked with † (e.g. Debt / EBITDA, Net Debt / EBITDA, ROE, ROA, NIM, Asset Turnover) annualise the YTD income-statement flow (9M × 4/3) against period-end balance sheet stock. YoY growth compares 9M 2026 against the prior-year interim period.","incomeStatement":[{"key":"sec_bot","label":"Profitability & Per Share","rowType":"section"},{"key":"netProfit","label":"Net Profit for the Period","fmt":"currency","style":"total","values":{"FY2024":null,"FY2025":null,"Q26_CUR":4751396.0}},{"key":"eps","label":"Basic EPS (OMR / Share)","fmt":"perShare","style":"normal","values":{"FY2024":null,"FY2025":null,"Q26_CUR":0.0408}},{"key":"dps","label":"Cash Dividend per Share (OMR)","fmt":"perShare","style":"normal","values":{"FY2024":0.0141,"FY2025":0.0175,"Q26_CUR":null}}],"balanceSheet":[{"key":"sec_assets","label":"Assets","rowType":"section"},{"key":"cash","label":"Cash & Bank Balances","fmt":"currency","style":"normal","values":{"FY2024":9011347.0,"FY2025":4045557.0,"Q26_CUR":9723768.0}},{"key":"ppe","label":"Property & Equipment","fmt":"currency","style":"normal","values":{"FY2024":1788991.0,"FY2025":1813462.0,"Q26_CUR":1763602.0}},{"key":"assets","label":"Total Assets","fmt":"currency","style":"total","values":{"FY2024":141999435.0,"FY2025":151443383.0,"Q26_CUR":161408494.0}},{"key":"sec_liab","label":"Liabilities","rowType":"section"},{"key":"insuranceLiabilities","label":"Insurance Contract Liabilities","fmt":"currency","style":"subtotal","values":{"FY2024":90679373.0,"FY2025":97092961.0,"Q26_CUR":104404334.0}},{"key":"debt","label":"Total Debt & Lease Liabilities","fmt":"currency","style":"normal","values":{"FY2024":0.0,"FY2025":0.0,"Q26_CUR":0.0}},{"key":"liabilities","label":"Total Liabilities","fmt":"currency","style":"total","values":{"FY2024":98196840.0,"FY2025":103433417.0,"Q26_CUR":109780236.0}},{"key":"sec_eq","label":"Shareholders' Equity","rowType":"section"},{"key":"shareCapital","label":"Share Capital","fmt":"currency","style":"normal","values":{"FY2024":13000000.0,"FY2025":14000000.0,"Q26_CUR":14000000.0}},{"key":"reserves","label":"Legal & Other Reserves","fmt":"currency","style":"normal","values":{"FY2024":2435970.0,"FY2025":2971698.0,"Q26_CUR":3446792.0}},{"key":"retainedEarnings","label":"Retained Earnings","fmt":"currency","style":"normal","values":{"FY2024":13240669.0,"FY2025":15438341.0,"Q26_CUR":16928043.0}},{"key":"equity","label":"Equity Attributable to Shareholders","fmt":"currency","style":"subtotal","values":{"FY2024":141999435.0,"FY2025":151443383.0,"Q26_CUR":161408494.0}},{"key":"totalEquity","label":"Total Equity","fmt":"currency","style":"total","values":{"FY2024":141999435.0,"FY2025":151443383.0,"Q26_CUR":161408494.0}},{"key":"nav","label":"Book Value / NAV per Share (OMR)","fmt":"perShare","style":"normal","values":{"FY2024":0.388,"FY2025":0.413,"Q26_CUR":0.444}}],"cashFlow":[{"key":"sec_op","label":"Operating Activities","rowType":"section"},{"key":"taxPaid","label":"Income Taxes Paid","fmt":"currency","style":"normal","values":{"FY2024":-767614.0,"FY2025":-802808.0,"Q26_CUR":-741716.0}},{"key":"ocf","label":"Net Cash from Operating Activities (OCF)","fmt":"currency","style":"total","values":{"FY2024":7633462.0,"FY2025":13407500.0,"Q26_CUR":2658564.0}},{"key":"sec_inv","label":"Investing Activities","rowType":"section"},{"key":"capex","label":"Capital Expenditure (CapEx)","fmt":"currency","style":"normal","values":{"FY2024":469972.0,"FY2025":824109.0,"Q26_CUR":504393.0}},{"key":"investing","label":"Net Cash from Investing Activities","fmt":"currency","style":"subtotal","values":{"FY2024":-12629705.0,"FY2025":-16657001.0,"Q26_CUR":5055789.0}},{"key":"fcf","label":"Free Cash Flow (OCF − CapEx)","fmt":"currency","style":"total","values":{"FY2024":7163490.0,"FY2025":12583391.0,"Q26_CUR":2154171.0}},{"key":"sec_fin","label":"Financing Activities","rowType":"section"},{"key":"divPaid","label":"Cash Dividends Paid","fmt":"currency","style":"normal","values":{"FY2024":1637473.0,"FY2025":1691289.0,"Q26_CUR":2036142.0}}],"keyStats":[{"key":"ks_growth","label":"Growth (YoY)","rowType":"section"},{"key":"npGrowth","label":"Net Profit Growth (YoY)","fmt":"pct","style":"subtotal","values":{"FY2024":null,"FY2025":null,"Q26_CUR":39.8}},{"key":"ks_solv","label":"Capital, Solvency & Returns","rowType":"section"},{"key":"roe","label":"Return on Equity (ROE)","fmt":"pct","style":"subtotal","values":{"FY2024":null,"FY2025":null,"Q26_CUR":3.9},"annualizedYtd":true},{"key":"roa","label":"Return on Assets (ROA)","fmt":"pct","style":"normal","values":{"FY2024":null,"FY2025":null,"Q26_CUR":3.9},"annualizedYtd":true},{"key":"eqToAssets","label":"Equity / Total Assets","fmt":"pct","style":"normal","values":{"FY2024":100.0,"FY2025":100.0,"Q26_CUR":100.0}},{"key":"debtToEquity","label":"Debt / Equity","fmt":"multiple","style":"normal","values":{"FY2024":0.0,"FY2025":0.0,"Q26_CUR":0.0}},{"key":"debtToCap","label":"Debt / Capitalization","fmt":"pct","style":"normal","values":{"FY2024":0.0,"FY2025":0.0,"Q26_CUR":0.0}}]},"quarterlyMomentum":{"period":"9M 2026 (Ended 30 Sep 2026)","bars":[{"label":"9M 2026 Net Profit","current":"OMR 4.75M","prior":"OMR 3.40M","currentOmr":4751396.0,"priorOmr":3397611.0,"yoyPct":39.8}],"sourceUrl":"https://www.msx.om/MSMDOCS/FinancialReports/DICS_2026_Q3%20%28Un-Audited%29_e.zip"},"governance":{"boardSourceLabel":"msx.om Corporate Registry (DICS)","boardSourceUrl":"https://www.msx.om/snapshot.aspx?s=DICS","boardDisclosedOnWebsite":false,"boardFallbackUrl":"https://www.msx.om/snapshot.aspx?s=DICS","managementSourceLabel":"msx.om Corporate Registry (DICS)","managementSourceUrl":"https://www.msx.om/snapshot.aspx?s=DICS","managementDisclosedOnWebsite":false,"board":[{"name":"Mr. Tahir Salim Abdullah Al Amri","role":"Chairman","independence":"Non-Executive Director"},{"name":"Mr. Tariq bin Abdul Hafidh Slaim Al Aujaili","role":"Deputy Chairman","independence":"Non-Executive Director"}],"management":[{"name":"SUNIL KOHLI","title":"Chief Executive Officer / President"},{"name":"Omar bin Ahmed bin Abdullah Al-Shaikh","title":"Deputy Chief Executive Officer"},{"name":"Mr. Aditya Ravikrishnan","title":"Board Secretary"},{"name":"Mr.Mukesh Ajit Jawaharani","title":"Internal Auditor"},{"name":"Mr. Ibrahim Jubair","title":"Legal Advisor"},{"name":"Younis Salim Al salti","title":"Investor Relations Officer"}]},"filings":[{"filingType":"Latest-2026-Quarterly","period":"Q3 (Un-Audited)","year":"2026","uploadDate":"2026-10-29","title":"Unaudited financial statements for Quarter 3 ended on 2026-09-30","sourceUrl":"https://www.msx.om/MSMDOCS/FinancialReports/DICS_2026_Q3%20%28Un-Audited%29_e.zip"},{"filingType":"FY2025-Annual","period":"Yearly (Audited)","year":"2025","uploadDate":"2026-03-08","title":"Audited financial statements for the year ended on 2025-12-31","sourceUrl":"https://www.msx.om/MSMDOCS/FinancialReports/DICS_2025_Yearly%20%28Audited%29_e.zip"},{"filingType":"FY2023-Annual","period":"Yearly (Audited)","year":"2023","uploadDate":"2024-03-01","title":"audited financial statements for the year ended 31 December 2023","sourceUrl":"https://www.msx.om/MSMDOCS/FinancialReports/DICS_2023_Yearly%20%28Audited%29_e.zip"}],"disclosures":[{"title":"Announcing the Resolutions of Board Meeting","source":"Muscat Stock Exchange (msx.om)","date":"Oct 31, 2026 10:04 PM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-29102026-9.pdf","category":"Governance","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Oct 31, 2026 10:04 PM. File: DICS-29102026-9.pdf"},{"title":"Initial Unaudited Preliminary Financials for the Period ended on 30 Sep 2026","source":"Muscat Stock Exchange (msx.om)","date":"Oct 17, 2026 08:02 PM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-15102026-36.pdf","category":"Financials","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Oct 17, 2026 08:02 PM. File: DICS-15102026-36.pdf"},{"title":"Link of MSX Discussion session – H1","source":"Muscat Stock Exchange (msx.om)","date":"Aug 15, 2026 09:00 PM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-13082026-57.pdf","category":"Corporate","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Aug 15, 2026 09:00 PM. File: DICS-13082026-57.pdf"},{"title":"MSX Discussion session – H1","source":"Muscat Stock Exchange (msx.om)","date":"Aug 11, 2026 09:10 AM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-10082026-14.pdf","category":"Corporate","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Aug 11, 2026 09:10 AM. File: DICS-10082026-14.pdf"},{"title":"Initial Unaudited Preliminary Financials for the Period ended on 30 Jun 2026","source":"Muscat Stock Exchange (msx.om)","date":"Jul 15, 2026 04:20 PM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-15072026-42.pdf","category":"Financials","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Jul 15, 2026 04:20 PM. File: DICS-15072026-42.pdf"},{"title":"Initial Unaudited Preliminary Financials for the Period ended on 31 Mar 2026","source":"Muscat Stock Exchange (msx.om)","date":"Apr 16, 2026 08:38 AM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-15042026-7.pdf","category":"Financials","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Apr 16, 2026 08:38 AM. File: DICS-15042026-7.pdf"},{"title":"Link of MSX Discussion session – Annual","source":"Muscat Stock Exchange (msx.om)","date":"Mar 26, 2026 02:36 PM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-26032026-6.pdf","category":"Corporate","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Mar 26, 2026 02:36 PM. File: DICS-26032026-6.pdf"},{"title":"Announcement of the Annual General Meeting resolutions","source":"Muscat Stock Exchange (msx.om)","date":"Mar 25, 2026 06:16 PM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-25032026-36.pdf","category":"Governance","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Mar 25, 2026 06:16 PM. File: DICS-25032026-36.pdf"},{"title":"List of board nominees","source":"Muscat Stock Exchange (msx.om)","date":"Mar 18, 2026 09:51 PM","link":"https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-18032026-12.pdf","category":"Governance","sentiment":"Neutral","summary":"MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Mar 18, 2026 09:51 PM. File: DICS-18032026-12.pdf"}],"verificationUrls":{"msxProfile":"https://www.msx.om/snapshot.aspx?s=DICS","msxHistoricalPrices":"https://www.msx.om/company-chart-data.aspx?s=DICS","msxDisclosures":"https://www.msx.om/snapshot.aspx?s=DICS#news","msxFinancialReports":"https://www.msx.om/MSMDOCS/FinancialReports/DICS_2026_Q3%20%28Un-Audited%29_e.zip","mcdListedInfo":"https://www.mcd.om/en/Default/Statistic/ListedInstrumentsInfo","mcdMajorInvestors":"https://www.mcd.om/en/Default/Statistic/MajorInvestors5OrMore","mcdNationalityOwnership":"https://www.mcd.om/en/Default/Statistic/InvestorOwnership","corporateWebsite":"http://www.dhofarinsurance.com","boardOfDirectors":"https://www.msx.om/snapshot.aspx?s=DICS","executiveManagement":"https://www.msx.om/snapshot.aspx?s=DICS"},"lastUpdated":"2026-11-26 16:15 UTC","dataSource":"msx.om & mcd.om (DICS:MSX)"}
+{
+  "ticker": "DICS",
+  "exchange": "MSX",
+  "market": "Parallel Market",
+  "isin": "OM0000001095",
+  "currency": "OMR",
+  "currencySymbol": "OMR ",
+  "name": "Dhofar Insurance SAOG",
+  "sectorGroup": "Financials",
+  "sector": "Financials • Insurance",
+  "ceo": "SUNIL KOHLI",
+  "hq": "Ruwi",
+  "employees": "313 (266 Omani)",
+  "founded": "Sep 05, 1989",
+  "listedDate": "Jan 21, 2002",
+  "auditor": "KPMG OMAN",
+  "website": "http://www.dhofarinsurance.com",
+  "msxUrl": "https://www.msx.om/snapshot.aspx?s=DICS",
+  "price": 0.34,
+  "prevClose": 0.34,
+  "openPrice": 0.0,
+  "dayHigh": 0.0,
+  "dayLow": 0.0,
+  "dayChange": 0.0,
+  "dayChangePct": 0.0,
+  "volume": "0",
+  "volumeRaw": 0,
+  "turnover": "OMR 0.000",
+  "turnoverOmr": 0.0,
+  "low52w": 0.2,
+  "high52w": 0.371,
+  "volatility": "59.3%",
+  "sharesOutRaw": 116350989,
+  "sharesOut": "116.35M",
+  "paidUpCapital": "OMR 14.00M",
+  "faceValue": "OMR 0.120",
+  "shareholderCount": "331",
+  "marketCapOmr": 39559336.26,
+  "marketCapFmt": "OMR 39.56M",
+  "dividendYieldPct": 5.15,
+  "dpsOmr": 0.0175,
+  "latestFiscalYear": "FY2025 + 2026 Interim",
+  "description": "Dhofar Insurance Company SAOG, incorporated on 5 September 1989 with paid-up capital of OMR 14 million, is the largest insurance company in the Sultanate of Oman by gross written premium. The company writes all classes of general and life insurance—including motor, oil and petrochemical, industrial, engineering, workmen's compensation, home contents, personal accident, and borrowers' life—through a nationwide branch footprint and digital e-services portal. Dhofar Insurance also manages a substantial investment portfolio that cushions underwriting cycles and supports long-term policyholder and shareholder returns.",
+  "overviewSources": [
+    "https://dhofarinsurance.com/company-profile",
+    "https://www.msx.om/MSMDOCS/FinancialReports/DICS_2026_Q3%20%28Un-Audited%29_e.zip"
+  ],
+  "overviewGeneratedAt": "2026-11-20",
+  "highlights": [
+    "Maintained Oman's #1 market share at 19.1% in 9M 2026, growing Gross Written Premiums 2% year-on-year to OMR 84.38 million.",
+    "Nine-month 2026 net profit after tax surged 40% year-on-year to OMR 4.75 million as net investment income jumped 56% to OMR 5.53 million, offsetting claims from the March 2026 'Al Masarat' weather depression.",
+    "FY2025 Financial Snapshot: Revenue of N/A and Net Profit of N/A (Total Assets: OMR 161.41M).",
+    "Ownership Registry (mcd.om): 331 registered shareholders • Omani 92.8% | GCC 6.9% | Foreign & Arab 0.3% (4 disclosed 5%+ holders)."
+  ],
+  "segments": [
+    {
+      "name": "Motor & Retail General Insurance",
+      "pct": null,
+      "summary": "Personal motor, home contents, and personal accident insurance distributed via nationwide branches and online e-services.",
+      "color": "bg-indigo-500"
+    },
+    {
+      "name": "Commercial, Industrial & Energy Insurance",
+      "pct": null,
+      "summary": "Corporate risk underwriting across oil and petrochemical, industrial, engineering, liability, and workmen's compensation classes.",
+      "color": "bg-cyan-400"
+    },
+    {
+      "name": "Life Insurance",
+      "pct": null,
+      "summary": "Borrowers' life and personal protection insurance products serving retail and institutional clients.",
+      "color": "bg-violet-400"
+    },
+    {
+      "name": "Investment Portfolio",
+      "pct": null,
+      "summary": "Diversified financial asset portfolio generating OMR 5.53 million in net investment income during 9M 2026.",
+      "color": "bg-emerald-400"
+    }
+  ],
+  "segmentMode": "qualitative",
+  "segmentNote": "Core Underwriting & Investment Lines (Segment % not disclosed in 9M 2026 FS)",
+  "series": {
+    "dates": [
+      "Nov 04, '25",
+      "Nov 11, '25",
+      "Nov 17, '25",
+      "Nov 18, '25",
+      "Nov 25, '25",
+      "Nov 30, '25",
+      "Dec 01, '25",
+      "Dec 08, '25",
+      "Dec 10, '25",
+      "Dec 15, '25",
+      "Dec 24, '25",
+      "Dec 29, '25",
+      "Dec 31, '25",
+      "Jan 08, '26",
+      "Jan 11, '26",
+      "Jan 12, '26",
+      "Jan 13, '26",
+      "Jan 14, '26",
+      "Jan 22, '26",
+      "Jan 25, '26",
+      "Feb 04, '26",
+      "Feb 05, '26",
+      "Feb 08, '26",
+      "Feb 10, '26",
+      "Feb 11, '26",
+      "Feb 12, '26",
+      "Feb 15, '26",
+      "Feb 16, '26",
+      "Feb 17, '26",
+      "Feb 22, '26",
+      "Feb 26, '26",
+      "Mar 09, '26",
+      "Mar 10, '26",
+      "Mar 12, '26",
+      "Mar 15, '26",
+      "Mar 16, '26",
+      "Mar 17, '26",
+      "Mar 24, '26",
+      "Mar 25, '26",
+      "Mar 26, '26",
+      "Mar 30, '26",
+      "Apr 02, '26",
+      "Apr 06, '26",
+      "Apr 07, '26",
+      "Apr 08, '26",
+      "Apr 12, '26",
+      "Apr 16, '26",
+      "Apr 27, '26",
+      "Apr 29, '26",
+      "Apr 30, '26",
+      "May 13, '26",
+      "May 21, '26",
+      "May 25, '26",
+      "Jun 07, '26",
+      "Jun 14, '26",
+      "Jun 15, '26",
+      "Jun 24, '26",
+      "Jul 13, '26",
+      "Jul 15, '26",
+      "Jul 27, '26",
+      "Jul 28, '26",
+      "Jul 29, '26",
+      "Aug 05, '26",
+      "Aug 20, '26",
+      "Aug 24, '26",
+      "Sep 16, '26",
+      "Sep 21, '26",
+      "Oct 07, '26",
+      "Nov 03, '26",
+      "Nov 04, '26",
+      "Nov 05, '26"
+    ],
+    "fullDates": [
+      "2025-11-04",
+      "2025-11-11",
+      "2025-11-17",
+      "2025-11-18",
+      "2025-11-25",
+      "2025-11-30",
+      "2025-12-01",
+      "2025-12-08",
+      "2025-12-10",
+      "2025-12-15",
+      "2025-12-24",
+      "2025-12-29",
+      "2025-12-31",
+      "2026-01-08",
+      "2026-01-11",
+      "2026-01-12",
+      "2026-01-13",
+      "2026-01-14",
+      "2026-01-22",
+      "2026-01-25",
+      "2026-02-04",
+      "2026-02-05",
+      "2026-02-08",
+      "2026-02-10",
+      "2026-02-11",
+      "2026-02-12",
+      "2026-02-15",
+      "2026-02-16",
+      "2026-02-17",
+      "2026-02-22",
+      "2026-02-26",
+      "2026-03-09",
+      "2026-03-10",
+      "2026-03-12",
+      "2026-03-15",
+      "2026-03-16",
+      "2026-03-17",
+      "2026-03-24",
+      "2026-03-25",
+      "2026-03-26",
+      "2026-03-30",
+      "2026-04-02",
+      "2026-04-06",
+      "2026-04-07",
+      "2026-04-08",
+      "2026-04-12",
+      "2026-04-16",
+      "2026-04-27",
+      "2026-04-29",
+      "2026-04-30",
+      "2026-05-13",
+      "2026-05-21",
+      "2026-05-25",
+      "2026-06-07",
+      "2026-06-14",
+      "2026-06-15",
+      "2026-06-24",
+      "2026-07-13",
+      "2026-07-15",
+      "2026-07-27",
+      "2026-07-28",
+      "2026-07-29",
+      "2026-08-05",
+      "2026-08-20",
+      "2026-08-24",
+      "2026-09-16",
+      "2026-09-21",
+      "2026-10-07",
+      "2026-11-03",
+      "2026-11-04",
+      "2026-11-05"
+    ],
+    "prices": [
+      0.202,
+      0.2,
+      0.22,
+      0.22,
+      0.22,
+      0.216,
+      0.22,
+      0.23,
+      0.23,
+      0.239,
+      0.235,
+      0.216,
+      0.237,
+      0.235,
+      0.241,
+      0.23,
+      0.242,
+      0.251,
+      0.266,
+      0.266,
+      0.255,
+      0.251,
+      0.251,
+      0.251,
+      0.252,
+      0.251,
+      0.251,
+      0.25,
+      0.25,
+      0.24,
+      0.264,
+      0.264,
+      0.266,
+      0.285,
+      0.285,
+      0.29,
+      0.295,
+      0.295,
+      0.3,
+      0.295,
+      0.295,
+      0.275,
+      0.28,
+      0.28,
+      0.29,
+      0.28,
+      0.308,
+      0.32,
+      0.338,
+      0.371,
+      0.338,
+      0.34,
+      0.345,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34,
+      0.34
+    ],
+    "volumes": [
+      10490,
+      35218,
+      4000,
+      982,
+      11258,
+      60805,
+      3060,
+      1125,
+      751490,
+      1375,
+      100,
+      500,
+      5000,
+      1000,
+      13125,
+      6000,
+      72466,
+      117320,
+      408,
+      3000,
+      7000,
+      19948,
+      25790,
+      2000,
+      7500,
+      16140,
+      23000,
+      7800,
+      5782,
+      6591,
+      14830,
+      6300,
+      187434,
+      70000,
+      12518,
+      59382,
+      18341,
+      35000,
+      31000,
+      26768,
+      1000,
+      4166,
+      281931,
+      10000,
+      1000,
+      408,
+      19500,
+      7000,
+      120,
+      22651,
+      2500,
+      10500,
+      400,
+      2500,
+      4000,
+      9000,
+      1376,
+      32747,
+      22416,
+      25907,
+      20000,
+      52592,
+      300,
+      10000,
+      2342,
+      2762,
+      1900,
+      990,
+      2762,
+      16759,
+      13411
+    ],
+    "sma50": [
+      0.205,
+      0.205,
+      0.205,
+      0.205,
+      0.206,
+      0.206,
+      0.206,
+      0.206,
+      0.206,
+      0.206,
+      0.207,
+      0.207,
+      0.207,
+      0.207,
+      0.208,
+      0.208,
+      0.209,
+      0.21,
+      0.211,
+      0.213,
+      0.214,
+      0.215,
+      0.216,
+      0.217,
+      0.218,
+      0.219,
+      0.22,
+      0.221,
+      0.222,
+      0.223,
+      0.224,
+      0.226,
+      0.227,
+      0.229,
+      0.23,
+      0.232,
+      0.234,
+      0.236,
+      0.238,
+      0.24,
+      0.241,
+      0.243,
+      0.244,
+      0.246,
+      0.248,
+      0.249,
+      0.251,
+      0.254,
+      0.256,
+      0.26,
+      0.263,
+      0.265,
+      0.268,
+      0.27,
+      0.273,
+      0.275,
+      0.278,
+      0.28,
+      0.282,
+      0.284,
+      0.286,
+      0.289,
+      0.291,
+      0.293,
+      0.295,
+      0.297,
+      0.299,
+      0.301,
+      0.302,
+      0.304,
+      0.305
+    ],
+    "sma200": [
+      0.203,
+      0.203,
+      0.204,
+      0.204,
+      0.204,
+      0.204,
+      0.204,
+      0.204,
+      0.204,
+      0.205,
+      0.205,
+      0.205,
+      0.205,
+      0.205,
+      0.206,
+      0.206,
+      0.206,
+      0.207,
+      0.207,
+      0.208,
+      0.208,
+      0.208,
+      0.209,
+      0.209,
+      0.209,
+      0.21,
+      0.21,
+      0.21,
+      0.21,
+      0.211,
+      0.211,
+      0.211,
+      0.212,
+      0.212,
+      0.213,
+      0.213,
+      0.214,
+      0.214,
+      0.215,
+      0.215,
+      0.216,
+      0.216,
+      0.217,
+      0.217,
+      0.217,
+      0.218,
+      0.218,
+      0.219,
+      0.22,
+      0.221,
+      0.221,
+      0.222,
+      0.223,
+      0.223,
+      0.224,
+      0.225,
+      0.225,
+      0.226,
+      0.227,
+      0.227,
+      0.228,
+      0.229,
+      0.229,
+      0.23,
+      0.231,
+      0.231,
+      0.232,
+      0.233,
+      0.233,
+      0.234,
+      0.235
+    ],
+    "benchmarkIndexed": [
+      0.202,
+      0.202,
+      0.202,
+      0.202,
+      0.203,
+      0.204,
+      0.204,
+      0.212,
+      0.213,
+      0.214,
+      0.214,
+      0.214,
+      0.214,
+      0.223,
+      0.226,
+      0.228,
+      0.228,
+      0.23,
+      0.23,
+      0.23,
+      0.237,
+      0.239,
+      0.242,
+      0.249,
+      0.253,
+      0.256,
+      0.255,
+      0.259,
+      0.259,
+      0.257,
+      0.261,
+      0.262,
+      0.263,
+      0.263,
+      0.262,
+      0.261,
+      0.263,
+      0.27,
+      0.272,
+      0.27,
+      0.274,
+      0.278,
+      0.277,
+      0.277,
+      0.276,
+      0.273,
+      0.277,
+      0.271,
+      0.274,
+      0.277,
+      0.277,
+      0.265,
+      0.269,
+      0.265,
+      0.255,
+      0.255,
+      0.252,
+      0.259,
+      0.259,
+      0.249,
+      0.252,
+      0.253,
+      0.255,
+      0.26,
+      0.26,
+      0.264,
+      0.264,
+      0.273,
+      0.254,
+      0.255,
+      0.257
+    ],
+    "benchmarkLabel": "MSX 30 Index (Indexed)"
+  },
+  "valuation": [
+    {
+      "label": "Market Cap",
+      "value": "OMR 39.56M",
+      "sub": "Shares: 116.35M",
+      "status": "positive"
+    },
+    {
+      "label": "Enterprise Value",
+      "value": "OMR 29.84M",
+      "sub": "Net Debt: -OMR 9.72M",
+      "status": "neutral"
+    },
+    {
+      "label": "P/E Ratio (FY2025)",
+      "value": "N/A",
+      "sub": "EPS: N/A",
+      "status": "neutral"
+    },
+    {
+      "label": "EV / EBITDA (FY2025)",
+      "value": "N/A",
+      "sub": "P/B: 0.77x",
+      "status": "neutral"
+    },
+    {
+      "label": "Revenue (FY2025)",
+      "value": "N/A",
+      "sub": "YoY Growth: N/A",
+      "status": "positive"
+    },
+    {
+      "label": "EBITDA (FY2025)",
+      "value": "N/A",
+      "sub": "Operating Proxy",
+      "status": "positive"
+    },
+    {
+      "label": "Net Profit (FY2025)",
+      "value": "N/A",
+      "sub": "Net Margin: N/A",
+      "status": "positive"
+    },
+    {
+      "label": "Operating Cash Flow (FY2025)",
+      "value": "OMR 13.41M",
+      "sub": "OCF / EBITDA: N/A",
+      "status": "positive"
+    },
+    {
+      "label": "CapEx (FY2025)",
+      "value": "OMR 824.1K",
+      "sub": "% of Revenue: N/A",
+      "status": "neutral"
+    },
+    {
+      "label": "Free Cash Flow (FY2025)",
+      "value": "OMR 12.58M",
+      "sub": "FCF / EBITDA: N/A",
+      "status": "positive"
+    },
+    {
+      "label": "Return on Equity (FY2025)",
+      "value": "N/A",
+      "sub": "Book Value/Sh: OMR 0.444",
+      "status": "positive"
+    },
+    {
+      "label": "Cash Dividend Yield (FY2025)",
+      "value": "5.15%",
+      "sub": "FY2025 DPS: OMR 0.0175",
+      "status": "positive"
+    }
+  ],
+  "ownership": {
+    "breakdown": [
+      {
+        "label": "Omani Investors",
+        "pct": 92.81,
+        "shares": 107985353,
+        "limitPct": 100.0,
+        "color": "#6366f1"
+      },
+      {
+        "label": "GCC Investors",
+        "pct": 6.87,
+        "shares": 7993313,
+        "limitPct": 100.0,
+        "color": "#06b6d4"
+      },
+      {
+        "label": "Foreign & Arab Investors",
+        "pct": 0.32,
+        "arabPct": 0.13,
+        "foreignerPct": 0.19,
+        "arabShares": 151256,
+        "foreignerShares": 221067,
+        "shares": 372323,
+        "limitPct": 100.0,
+        "color": "#10b981"
+      }
+    ],
+    "majorInvestors": [
+      {
+        "name": "Dhofar International Development & Investment Co (SAOG)",
+        "rawMcdName": "Dhofar International Development & Investment Co (SAOG)",
+        "stakePct": 50.28,
+        "stake": "50.28%",
+        "shares": 58502937,
+        "sharesFmt": "58,502,937",
+        "valueOmr": 19890998.58,
+        "value": "OMR 19.89M"
+      },
+      {
+        "name": "ABDUL ALIM MUSTAHIL NASEEB RAKHIYOOT",
+        "rawMcdName": "ABDUL ALIM MUSTAHIL NASEEB RAKHIYOOT",
+        "stakePct": 12.95,
+        "stake": "12.95%",
+        "shares": 15062797,
+        "sharesFmt": "15,062,797",
+        "valueOmr": 5121350.98,
+        "value": "OMR 5.12M"
+      },
+      {
+        "name": "TRUST INTERNATIONAL INSURANCE AND REINSURANCE CO.B.S.C.(CLOSED) TRUST RE",
+        "rawMcdName": "TRUST INTERNATIONAL INSURANCE AND REINSURANCE CO.B.S.C.(CLOSED) TRUST RE",
+        "stakePct": 6.31,
+        "stake": "6.31%",
+        "shares": 7338125,
+        "sharesFmt": "7,338,125",
+        "valueOmr": 2494962.5,
+        "value": "OMR 2.49M"
+      },
+      {
+        "name": "Muscat Overseas Company LLC (شركه مسقط اوفر سيز ش.م.م)",
+        "rawMcdName": "شركه مسقط اوفر سيز ش.م.م",
+        "stakePct": 5.21,
+        "stake": "5.21%",
+        "shares": 6058178,
+        "sharesFmt": "6,058,178",
+        "valueOmr": 2059780.52,
+        "value": "OMR 2.06M"
+      }
+    ],
+    "majorTotalPct": 74.75,
+    "publicFloatPct": 25.25,
+    "totalShares": 116350989,
+    "totalSharesFmt": "116,350,989",
+    "shareholderCount": 331,
+    "paidUpCapitalOmr": 14000000.23499862,
+    "faceValueOmr": 0.12032558,
+    "sourceUrls": {
+      "majorInvestors": "https://www.mcd.om/en/Default/Statistic/MajorInvestors5OrMore",
+      "nationalityOwnership": "https://www.mcd.om/en/Default/Statistic/InvestorOwnership",
+      "listedInstruments": "https://www.mcd.om/en/Default/Statistic/ListedInstrumentsInfo"
+    },
+    "note": "Total Issued Shares: 116,350,989 • Registered Shareholders: 331 • Omani: 92.81% | GCC: 6.87% | Arab: 0.13% | Foreign: 0.19% (Source: mcd.om)."
+  },
+  "financials": {
+    "unit": "OMR M",
+    "primaryLabel": "Revenue (OMR M)",
+    "secondaryLabel": "EBITDA (OMR M)",
+    "tertiaryLabel": "Net Profit (OMR M)",
+    "years": [
+      "FY2024",
+      "FY2025"
+    ],
+    "primary": [
+      0.0,
+      0.0
+    ],
+    "secondary": [
+      0.0,
+      0.0
+    ],
+    "netIncome": [
+      0.0,
+      0.0
+    ],
+    "tableRows": [
+      {
+        "period": "FY2024",
+        "primaryMetric": null,
+        "secondaryMetric": null,
+        "netProfit": null,
+        "dps": 0.0141,
+        "ocf": 7633462.0,
+        "capex": 469972.0,
+        "assets": 141999435.0,
+        "debt": 0.0,
+        "equity": 141999435.0
+      },
+      {
+        "period": "FY2025",
+        "primaryMetric": null,
+        "secondaryMetric": null,
+        "netProfit": null,
+        "dps": 0.0175,
+        "ocf": 13407500.0,
+        "capex": 824109.0,
+        "assets": 151443383.0,
+        "debt": 0.0,
+        "equity": 151443383.0
+      },
+      {
+        "period": "9M 2026",
+        "primaryMetric": null,
+        "secondaryMetric": null,
+        "netProfit": 4751396.0,
+        "dps": null,
+        "ocf": 2658564.0,
+        "capex": 504393.0,
+        "assets": 161408494.0,
+        "debt": 0.0,
+        "equity": 161408494.0
+      }
+    ]
+  },
+  "statements": {
+    "template": "insurance",
+    "templateLabel": "Insurance IFRS",
+    "periods": [
+      {
+        "key": "FY2024",
+        "label": "FY2024",
+        "isYtd": false,
+        "annualizeFactor": 1.0
+      },
+      {
+        "key": "FY2025",
+        "label": "FY2025",
+        "isYtd": false,
+        "annualizeFactor": 1.0
+      },
+      {
+        "key": "Q26_CUR",
+        "label": "9M 2026",
+        "isYtd": true,
+        "annualizeFactor": 1.3333
+      }
+    ],
+    "annualizeNote": "† Annualised YTD: For the partial-year 9M 2026 column, flow-to-stock ratios marked with † (e.g. Debt / EBITDA, Net Debt / EBITDA, ROE, ROA, NIM, Asset Turnover) annualise the YTD income-statement flow (9M × 4/3) against period-end balance sheet stock. YoY growth compares 9M 2026 against the prior-year interim period.",
+    "incomeStatement": [
+      {
+        "key": "sec_bot",
+        "label": "Profitability & Per Share",
+        "rowType": "section"
+      },
+      {
+        "key": "netProfit",
+        "label": "Net Profit for the Period",
+        "fmt": "currency",
+        "style": "total",
+        "values": {
+          "FY2024": null,
+          "FY2025": null,
+          "Q26_CUR": 4751396.0
+        }
+      },
+      {
+        "key": "eps",
+        "label": "Basic EPS (OMR / Share)",
+        "fmt": "perShare",
+        "style": "normal",
+        "values": {
+          "FY2024": null,
+          "FY2025": null,
+          "Q26_CUR": 0.0408
+        }
+      },
+      {
+        "key": "dps",
+        "label": "Cash Dividend per Share (OMR)",
+        "fmt": "perShare",
+        "style": "normal",
+        "values": {
+          "FY2024": 0.0141,
+          "FY2025": 0.0175,
+          "Q26_CUR": null
+        }
+      }
+    ],
+    "balanceSheet": [
+      {
+        "key": "sec_assets",
+        "label": "Assets",
+        "rowType": "section"
+      },
+      {
+        "key": "cash",
+        "label": "Cash & Bank Balances",
+        "fmt": "currency",
+        "style": "normal",
+        "values": {
+          "FY2024": 9011347.0,
+          "FY2025": 4045557.0,
+          "Q26_CUR": 9723768.0
+        }
+      },
+      {
+        "key": "ppe",
+        "label": "Property & Equipment",
+        "fmt": "currency",
+        "style": "normal",
+        "values": {
+          "FY2024": 1788991.0,
+          "FY2025": 1813462.0,
+          "Q26_CUR": 1763602.0
+        }
+      },
+      {
+        "key": "assets",
+        "label": "Total Assets",
+        "fmt": "currency",
+        "style": "total",
+        "values": {
+          "FY2024": 141999435.0,
+          "FY2025": 151443383.0,
+          "Q26_CUR": 161408494.0
+        }
+      },
+      {
+        "key": "sec_liab",
+        "label": "Liabilities",
+        "rowType": "section"
+      },
+      {
+        "key": "insuranceLiabilities",
+        "label": "Insurance Contract Liabilities",
+        "fmt": "currency",
+        "style": "subtotal",
+        "values": {
+          "FY2024": 90679373.0,
+          "FY2025": 97092961.0,
+          "Q26_CUR": 104404334.0
+        }
+      },
+      {
+        "key": "debt",
+        "label": "Total Debt & Lease Liabilities",
+        "fmt": "currency",
+        "style": "normal",
+        "values": {
+          "FY2024": 0.0,
+          "FY2025": 0.0,
+          "Q26_CUR": 0.0
+        }
+      },
+      {
+        "key": "liabilities",
+        "label": "Total Liabilities",
+        "fmt": "currency",
+        "style": "total",
+        "values": {
+          "FY2024": 98196840.0,
+          "FY2025": 103433417.0,
+          "Q26_CUR": 109780236.0
+        }
+      },
+      {
+        "key": "sec_eq",
+        "label": "Shareholders' Equity",
+        "rowType": "section"
+      },
+      {
+        "key": "shareCapital",
+        "label": "Share Capital",
+        "fmt": "currency",
+        "style": "normal",
+        "values": {
+          "FY2024": 13000000.0,
+          "FY2025": 14000000.0,
+          "Q26_CUR": 14000000.0
+        }
+      },
+      {
+        "key": "reserves",
+        "label": "Legal & Other Reserves",
+        "fmt": "currency",
+        "style": "normal",
+        "values": {
+          "FY2024": 2435970.0,
+          "FY2025": 2971698.0,
+          "Q26_CUR": 3446792.0
+        }
+      },
+      {
+        "key": "retainedEarnings",
+        "label": "Retained Earnings",
+        "fmt": "currency",
+        "style": "normal",
+        "values": {
+          "FY2024": 13240669.0,
+          "FY2025": 15438341.0,
+          "Q26_CUR": 16928043.0
+        }
+      },
+      {
+        "key": "equity",
+        "label": "Equity Attributable to Shareholders",
+        "fmt": "currency",
+        "style": "subtotal",
+        "values": {
+          "FY2024": 141999435.0,
+          "FY2025": 151443383.0,
+          "Q26_CUR": 161408494.0
+        }
+      },
+      {
+        "key": "totalEquity",
+        "label": "Total Equity",
+        "fmt": "currency",
+        "style": "total",
+        "values": {
+          "FY2024": 141999435.0,
+          "FY2025": 151443383.0,
+          "Q26_CUR": 161408494.0
+        }
+      },
+      {
+        "key": "nav",
+        "label": "Book Value / NAV per Share (OMR)",
+        "fmt": "perShare",
+        "style": "normal",
+        "values": {
+          "FY2024": 0.388,
+          "FY2025": 0.413,
+          "Q26_CUR": 0.444
+        }
+      }
+    ],
+    "cashFlow": [
+      {
+        "key": "sec_op",
+        "label": "Operating Activities",
+        "rowType": "section"
+      },
+      {
+        "key": "taxPaid",
+        "label": "Income Taxes Paid",
+        "fmt": "currency",
+        "style": "normal",
+        "values": {
+          "FY2024": -767614.0,
+          "FY2025": -802808.0,
+          "Q26_CUR": -741716.0
+        }
+      },
+      {
+        "key": "ocf",
+        "label": "Net Cash from Operating Activities (OCF)",
+        "fmt": "currency",
+        "style": "total",
+        "values": {
+          "FY2024": 7633462.0,
+          "FY2025": 13407500.0,
+          "Q26_CUR": 2658564.0
+        }
+      },
+      {
+        "key": "sec_inv",
+        "label": "Investing Activities",
+        "rowType": "section"
+      },
+      {
+        "key": "capex",
+        "label": "Capital Expenditure (CapEx)",
+        "fmt": "currency",
+        "style": "normal",
+        "values": {
+          "FY2024": 469972.0,
+          "FY2025": 824109.0,
+          "Q26_CUR": 504393.0
+        }
+      },
+      {
+        "key": "investing",
+        "label": "Net Cash from Investing Activities",
+        "fmt": "currency",
+        "style": "subtotal",
+        "values": {
+          "FY2024": -12629705.0,
+          "FY2025": -16657001.0,
+          "Q26_CUR": 5055789.0
+        }
+      },
+      {
+        "key": "fcf",
+        "label": "Free Cash Flow (OCF − CapEx)",
+        "fmt": "currency",
+        "style": "total",
+        "values": {
+          "FY2024": 7163490.0,
+          "FY2025": 12583391.0,
+          "Q26_CUR": 2154171.0
+        }
+      },
+      {
+        "key": "sec_fin",
+        "label": "Financing Activities",
+        "rowType": "section"
+      },
+      {
+        "key": "divPaid",
+        "label": "Cash Dividends Paid",
+        "fmt": "currency",
+        "style": "normal",
+        "values": {
+          "FY2024": 1637473.0,
+          "FY2025": 1691289.0,
+          "Q26_CUR": 2036142.0
+        }
+      }
+    ],
+    "keyStats": [
+      {
+        "key": "ks_growth",
+        "label": "Growth (YoY)",
+        "rowType": "section"
+      },
+      {
+        "key": "npGrowth",
+        "label": "Net Profit Growth (YoY)",
+        "fmt": "pct",
+        "style": "subtotal",
+        "values": {
+          "FY2024": null,
+          "FY2025": null,
+          "Q26_CUR": 39.8
+        }
+      },
+      {
+        "key": "ks_solv",
+        "label": "Capital, Solvency & Returns",
+        "rowType": "section"
+      },
+      {
+        "key": "roe",
+        "label": "Return on Equity (ROE)",
+        "fmt": "pct",
+        "style": "subtotal",
+        "values": {
+          "FY2024": null,
+          "FY2025": null,
+          "Q26_CUR": 3.9
+        },
+        "annualizedYtd": true
+      },
+      {
+        "key": "roa",
+        "label": "Return on Assets (ROA)",
+        "fmt": "pct",
+        "style": "normal",
+        "values": {
+          "FY2024": null,
+          "FY2025": null,
+          "Q26_CUR": 3.9
+        },
+        "annualizedYtd": true
+      },
+      {
+        "key": "eqToAssets",
+        "label": "Equity / Total Assets",
+        "fmt": "pct",
+        "style": "normal",
+        "values": {
+          "FY2024": 100.0,
+          "FY2025": 100.0,
+          "Q26_CUR": 100.0
+        }
+      },
+      {
+        "key": "debtToEquity",
+        "label": "Debt / Equity",
+        "fmt": "multiple",
+        "style": "normal",
+        "values": {
+          "FY2024": 0.0,
+          "FY2025": 0.0,
+          "Q26_CUR": 0.0
+        }
+      },
+      {
+        "key": "debtToCap",
+        "label": "Debt / Capitalization",
+        "fmt": "pct",
+        "style": "normal",
+        "values": {
+          "FY2024": 0.0,
+          "FY2025": 0.0,
+          "Q26_CUR": 0.0
+        }
+      }
+    ]
+  },
+  "quarterlyMomentum": {
+    "period": "9M 2026 (Ended 30 Sep 2026)",
+    "bars": [
+      {
+        "label": "9M 2026 Net Profit",
+        "current": "OMR 4.75M",
+        "prior": "OMR 3.40M",
+        "currentOmr": 4751396.0,
+        "priorOmr": 3397611.0,
+        "yoyPct": 39.8
+      }
+    ],
+    "sourceUrl": "https://www.msx.om/MSMDOCS/FinancialReports/DICS_2026_Q3%20%28Un-Audited%29_e.zip"
+  },
+  "governance": {
+    "boardSourceLabel": "msx.om Corporate Registry (DICS)",
+    "boardSourceUrl": "https://www.msx.om/snapshot.aspx?s=DICS",
+    "boardDisclosedOnWebsite": false,
+    "boardFallbackUrl": "https://www.msx.om/snapshot.aspx?s=DICS",
+    "managementSourceLabel": "msx.om Corporate Registry (DICS)",
+    "managementSourceUrl": "https://www.msx.om/snapshot.aspx?s=DICS",
+    "managementDisclosedOnWebsite": false,
+    "board": [
+      {
+        "name": "Mr. Tahir Salim Abdullah Al Amri",
+        "role": "Chairman",
+        "independence": "Non-Executive Director"
+      },
+      {
+        "name": "Mr. Tariq bin Abdul Hafidh Slaim Al Aujaili",
+        "role": "Deputy Chairman",
+        "independence": "Non-Executive Director"
+      }
+    ],
+    "management": [
+      {
+        "name": "SUNIL KOHLI",
+        "title": "Chief Executive Officer / President"
+      },
+      {
+        "name": "Omar bin Ahmed bin Abdullah Al-Shaikh",
+        "title": "Deputy Chief Executive Officer"
+      },
+      {
+        "name": "Mr. Aditya Ravikrishnan",
+        "title": "Board Secretary"
+      },
+      {
+        "name": "Mr.Mukesh Ajit Jawaharani",
+        "title": "Internal Auditor"
+      },
+      {
+        "name": "Mr. Ibrahim Jubair",
+        "title": "Legal Advisor"
+      },
+      {
+        "name": "Younis Salim Al salti",
+        "title": "Investor Relations Officer"
+      }
+    ]
+  },
+  "filings": [
+    {
+      "filingType": "Latest-2026-Quarterly",
+      "period": "Q3 (Un-Audited)",
+      "year": "2026",
+      "uploadDate": "2026-10-29",
+      "title": "Unaudited financial statements for Quarter 3 ended on 2026-09-30",
+      "sourceUrl": "https://www.msx.om/MSMDOCS/FinancialReports/DICS_2026_Q3%20%28Un-Audited%29_e.zip"
+    },
+    {
+      "filingType": "FY2025-Annual",
+      "period": "Yearly (Audited)",
+      "year": "2025",
+      "uploadDate": "2026-03-08",
+      "title": "Audited financial statements for the year ended on 2025-12-31",
+      "sourceUrl": "https://www.msx.om/MSMDOCS/FinancialReports/DICS_2025_Yearly%20%28Audited%29_e.zip"
+    },
+    {
+      "filingType": "FY2023-Annual",
+      "period": "Yearly (Audited)",
+      "year": "2023",
+      "uploadDate": "2024-03-01",
+      "title": "audited financial statements for the year ended 31 December 2023",
+      "sourceUrl": "https://www.msx.om/MSMDOCS/FinancialReports/DICS_2023_Yearly%20%28Audited%29_e.zip"
+    }
+  ],
+  "disclosures": [
+    {
+      "title": "Announcing the Resolutions of Board Meeting",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Oct 31, 2026 10:04 PM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-29102026-9.pdf",
+      "category": "Governance",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Oct 31, 2026 10:04 PM. File: DICS-29102026-9.pdf"
+    },
+    {
+      "title": "Initial Unaudited Preliminary Financials for the Period ended on 30 Sep 2026",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Oct 17, 2026 08:02 PM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-15102026-36.pdf",
+      "category": "Financials",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Oct 17, 2026 08:02 PM. File: DICS-15102026-36.pdf"
+    },
+    {
+      "title": "Link of MSX Discussion session – H1",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Aug 15, 2026 09:00 PM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-13082026-57.pdf",
+      "category": "Corporate",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Aug 15, 2026 09:00 PM. File: DICS-13082026-57.pdf"
+    },
+    {
+      "title": "MSX Discussion session – H1",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Aug 11, 2026 09:10 AM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-10082026-14.pdf",
+      "category": "Corporate",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Aug 11, 2026 09:10 AM. File: DICS-10082026-14.pdf"
+    },
+    {
+      "title": "Initial Unaudited Preliminary Financials for the Period ended on 30 Jun 2026",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Jul 15, 2026 04:20 PM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-15072026-42.pdf",
+      "category": "Financials",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Jul 15, 2026 04:20 PM. File: DICS-15072026-42.pdf"
+    },
+    {
+      "title": "Initial Unaudited Preliminary Financials for the Period ended on 31 Mar 2026",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Apr 16, 2026 08:38 AM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-15042026-7.pdf",
+      "category": "Financials",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Apr 16, 2026 08:38 AM. File: DICS-15042026-7.pdf"
+    },
+    {
+      "title": "Link of MSX Discussion session – Annual",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Mar 26, 2026 02:36 PM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-26032026-6.pdf",
+      "category": "Corporate",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Mar 26, 2026 02:36 PM. File: DICS-26032026-6.pdf"
+    },
+    {
+      "title": "Announcement of the Annual General Meeting resolutions",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Mar 25, 2026 06:16 PM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-25032026-36.pdf",
+      "category": "Governance",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Mar 25, 2026 06:16 PM. File: DICS-25032026-36.pdf"
+    },
+    {
+      "title": "List of board nominees",
+      "source": "Muscat Stock Exchange (msx.om)",
+      "date": "Mar 18, 2026 09:51 PM",
+      "link": "https://www.msx.om/MSMDocs/Images/NewsDocs/DICS-18032026-12.pdf",
+      "category": "Governance",
+      "sentiment": "Neutral",
+      "summary": "MSX regulatory disclosure filed by Dhofar Insurance SAOG (DICS) on Mar 18, 2026 09:51 PM. File: DICS-18032026-12.pdf"
+    }
+  ],
+  "verificationUrls": {
+    "msxProfile": "https://www.msx.om/snapshot.aspx?s=DICS",
+    "msxHistoricalPrices": "https://www.msx.om/company-chart-data.aspx?s=DICS",
+    "msxDisclosures": "https://www.msx.om/snapshot.aspx?s=DICS#news",
+    "msxFinancialReports": "https://www.msx.om/MSMDOCS/FinancialReports/DICS_2026_Q3%20%28Un-Audited%29_e.zip",
+    "mcdListedInfo": "https://www.mcd.om/en/Default/Statistic/ListedInstrumentsInfo",
+    "mcdMajorInvestors": "https://www.mcd.om/en/Default/Statistic/MajorInvestors5OrMore",
+    "mcdNationalityOwnership": "https://www.mcd.om/en/Default/Statistic/InvestorOwnership",
+    "corporateWebsite": "http://www.dhofarinsurance.com",
+    "boardOfDirectors": "https://www.msx.om/snapshot.aspx?s=DICS",
+    "executiveManagement": "https://www.msx.om/snapshot.aspx?s=DICS"
+  },
+  "lastUpdated": "2026-11-26 16:15 UTC",
+  "dataSource": "msx.om & mcd.om (DICS:MSX)"
+}
