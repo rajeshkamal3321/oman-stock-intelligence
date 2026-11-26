@@ -643,7 +643,60 @@ def parse_upload_date(dstr):
         return ""
 
 
-def parse_hist_series(raw_pts):
+# Known MSX stock splits (effectiveDate = first trading day at post-split price, factor = new shares / old shares)
+STOCK_SPLITS = {
+    "VOES": [{"effectiveDate": "2026-06-08", "factor": 10.0}],
+}
+
+
+def adjust_series_for_splits(all_days, all_prices, all_vols, sym=None):
+    """Backward-adjust historical prices (divide) and volumes (multiply) for known and persistent-step MSX stock splits."""
+    prices = list(all_prices)
+    vols = list(all_vols)
+
+    # 1. Apply explicit known splits (most recent to oldest)
+    applied_dates = set()
+    for sp in sorted(STOCK_SPLITS.get(sym or "", []), key=lambda x: x["effectiveDate"], reverse=True):
+        eff = sp["effectiveDate"]
+        fac = float(sp["factor"])
+        if fac <= 0 or fac == 1.0:
+            continue
+        applied_dates.add(eff)
+        for i, d in enumerate(all_days):
+            if d < eff:
+                prices[i] = round(prices[i] / fac, 4)
+                vols[i] = int(round(vols[i] * fac))
+
+    # 2. Automatic persistent-step split detector for future unlisted MSX splits (2x, 3x, 4x, 5x, 10x)
+    #    Requires 5 stable sessions before & after so illiquid single-print ticks are never falsely adjusted.
+    n = len(prices)
+    if n >= 12:
+        std_factors = (2.0, 3.0, 4.0, 5.0, 10.0)
+        for i in range(5, n - 5):
+            if all_days[i] in applied_dates:
+                continue
+            pre_win = sorted(prices[i - 5:i])
+            post_win = sorted(prices[i:i + 5])
+            pre_med = pre_win[2]
+            post_med = post_win[2]
+            if pre_med <= 0 or post_med <= 0:
+                continue
+            ratio = pre_med / post_med
+            matched_fac = next((f for f in std_factors if abs(ratio - f) / f <= 0.10), None)
+            if not matched_fac:
+                continue
+            # Confirm stability before and after the step (not an illiquid spike)
+            pre_stable = all(abs(x - pre_med) / pre_med <= 0.25 for x in pre_win)
+            post_stable = all(abs(x - post_med) / post_med <= 0.25 for x in post_win)
+            if pre_stable and post_stable:
+                for j in range(i):
+                    prices[j] = round(prices[j] / matched_fac, 4)
+                    vols[j] = int(round(vols[j] * matched_fac))
+
+    return [round(p, 3) for p in prices], vols
+
+
+def parse_hist_series(raw_pts, sym=None):
     by_day = {}
     for pt in raw_pts or []:
         d_raw = str(pt.get("Date") or "").strip()
@@ -664,6 +717,7 @@ def parse_hist_series(raw_pts):
 
     all_prices = [by_day[d][0] for d in all_days]
     all_vols = [by_day[d][1] for d in all_days]
+    all_prices, all_vols = adjust_series_for_splits(all_days, all_prices, all_vols, sym=sym)
     sma50_all, sma200_all = [], []
     for i in range(len(all_prices)):
         w50 = all_prices[max(0, i - 49):i + 1]
@@ -1015,6 +1069,22 @@ def build_statements_payload(sym, sector_label, is_bank, flag, parsed_fin, prosp
             d["nav"] = round(d["equity"] / shares_out_raw, 4)
         if d.get("eps") is None and d.get("netProfit") is not None and shares_out_raw and shares_out_raw > 0:
             d["eps"] = round(d["netProfit"] / shares_out_raw, 4)
+        # Adjust pre-split per-share EPS & NAV for known stock splits (only when XBRL value is on pre-split share count)
+        if sym in STOCK_SPLITS and k.startswith("FY") and shares_out_raw and shares_out_raw > 0:
+            yr_num = int(k[2:])
+            cum_fac = 1.0
+            for sp in STOCK_SPLITS[sym]:
+                if yr_num < int(sp["effectiveDate"][:4]):
+                    cum_fac *= float(sp["factor"])
+            if cum_fac > 1.0:
+                if d.get("eps") is not None and d.get("netProfit"):
+                    exp_eps = d["netProfit"] / shares_out_raw
+                    if exp_eps != 0 and abs((d["eps"] / exp_eps) - cum_fac) / cum_fac < 0.35:
+                        d["eps"] = round(d["eps"] / cum_fac, 4)
+                if d.get("nav") is not None and d.get("equity"):
+                    exp_nav = d["equity"] / shares_out_raw
+                    if exp_nav != 0 and abs((d["nav"] / exp_nav) - cum_fac) / cum_fac < 0.35:
+                        d["nav"] = round(d["nav"] / cum_fac, 4)
 
     # 2. Select last 4 audited fiscal years + latest YTD interim period
     all_yrs = [
@@ -1440,7 +1510,7 @@ def build_company_json(rec, bench_map, synced_stamp):
     filings = rec["filings"]
     flag = FLAGSHIP_VERIFIED.get(sym)
 
-    disp_dates, full_dates, prices, vols, sma50, sma200 = parse_hist_series(rec["histRaw"])
+    disp_dates, full_dates, prices, vols, sma50, sma200 = parse_hist_series(rec["histRaw"], sym=sym)
     price = round(parse_float(quote.get("LTP") or labels.get("LTPLabel"), prices[-1] if prices else 0.0), 3)
     prev_close = round(parse_float(quote.get("PrevClose") or labels.get("PrevCloseLabel"), price), 3)
     open_price = round(parse_float(quote.get("OpenPrice") or labels.get("OpenLabel"), price), 3)
