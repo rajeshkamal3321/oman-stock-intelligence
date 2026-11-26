@@ -140,11 +140,47 @@
     html.light #company-logo,
     html.light .range-btn.active,
     html.light .tab-btn.active,
+    html.light .fin-subtab-btn.active,
     html.light .currency-btn.active,
     html.light .news-filter-btn.bg-indigo-600,
     html.light #copy-lan-btn,
     html.light .avatar-badge {
       color: #ffffff !important;
+    }
+
+    .fin-subtab-btn.active {
+      background: #4f46e5;
+      color: #ffffff;
+      border-color: rgba(99, 102, 241, 0.7);
+      box-shadow: 0 2px 10px rgba(79, 70, 229, 0.28);
+    }
+    .fin-sticky-col {
+      position: sticky;
+      left: 0;
+      z-index: 10;
+      background-color: #0b1120;
+    }
+    .fin-row-subtotal .fin-sticky-col {
+      background-color: #0f172a;
+    }
+    .fin-row-total .fin-sticky-col {
+      background-color: #131c33;
+    }
+    .fin-row-section .fin-sticky-col {
+      background-color: #0f172a;
+    }
+    html.light .fin-sticky-col {
+      background-color: #ffffff !important;
+    }
+    html.light .fin-row-subtotal .fin-sticky-col,
+    html.light .fin-row-section .fin-sticky-col {
+      background-color: #f1f5f9 !important;
+    }
+    html.light .fin-row-total .fin-sticky-col {
+      background-color: #e0e7ff !important;
+    }
+    html.light .fin-ytd-cell {
+      background-color: rgba(79, 70, 229, 0.06) !important;
     }
 
     html.light .text-indigo-400,
@@ -336,10 +372,14 @@
 
     <!-- VIEW NAVIGATION TABS -->
     <div class="flex flex-wrap items-center justify-between gap-3">
-      <div class="inline-flex items-center gap-1.5 p-1 rounded-xl glass-card" role="tablist">
+      <div class="inline-flex flex-wrap items-center gap-1.5 p-1 rounded-xl glass-card" role="tablist">
         <button data-tab="overview" class="tab-btn active px-4 py-2 rounded-lg text-xs sm:text-sm font-medium border border-transparent text-slate-300 hover:text-white transition flex items-center gap-2">
           <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-          <span>Overview &amp; Financials</span>
+          <span>Overview</span>
+        </button>
+        <button data-tab="financials" class="tab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-medium border border-transparent text-slate-300 hover:text-white transition flex items-center gap-2">
+          <i data-lucide="table-2" class="w-4 h-4"></i>
+          <span>Financials</span>
         </button>
         <button data-tab="governance" class="tab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-medium border border-transparent text-slate-300 hover:text-white transition flex items-center gap-2">
           <i data-lucide="shield-check" class="w-4 h-4"></i>
@@ -652,7 +692,78 @@
     </div>
 
     <!-- ================================================================== -->
-    <!-- TAB 2: GOVERNANCE & OWNERSHIP (MCD + CORPORATE WEBSITES)           -->
+    <!-- TAB 2: FINANCIAL STATEMENTS & SECTOR-ADAPTED KEY STATS             -->
+    <!-- ================================================================== -->
+    <div id="tab-financials" class="hidden space-y-6">
+      <section class="glass-card rounded-2xl p-5 sm:p-6">
+        <!-- Header Row -->
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+          <div>
+            <div class="flex flex-wrap items-center gap-2.5">
+              <h3 id="fin-tab-title" class="text-base font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+                <i data-lucide="table-2" class="w-4 h-4 text-indigo-400"></i> Financial Statements &amp; Key Stats (OMR)
+              </h3>
+              <span id="fin-template-badge" class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">Corporate IFRS</span>
+            </div>
+            <p id="fin-tab-subtitle" class="text-xs text-slate-400 mt-1">
+              Last 4 audited fiscal years and latest interim YTD results extracted from MSX XBRL financial statement filings.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="fin-tab-unit" class="text-[11px] font-mono text-slate-400 bg-slate-900 border border-slate-800 px-2.5 py-1.5 rounded-lg">
+              Unit: OMR Millions • Per-Share in OMR
+            </span>
+            <button id="export-fin-csv-btn" type="button" title="Export active statement table to CSV" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 text-slate-300 hover:text-white hover:border-indigo-500 transition flex items-center gap-1.5 text-xs font-mono">
+              <i data-lucide="download" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Export CSV</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Sub-Tabs -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-800/80">
+          <div class="inline-flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-slate-900/80 border border-slate-800/90" role="tablist">
+            <button data-fin-subtab="income" class="fin-subtab-btn active px-3.5 py-1.5 rounded-lg text-xs font-medium border border-transparent text-slate-300 hover:text-white transition flex items-center gap-1.5">
+              <i data-lucide="trending-up" class="w-3.5 h-3.5"></i>
+              <span>Income Statement (P&amp;L)</span>
+            </button>
+            <button data-fin-subtab="balance" class="fin-subtab-btn px-3.5 py-1.5 rounded-lg text-xs font-medium border border-transparent text-slate-300 hover:text-white transition flex items-center gap-1.5">
+              <i data-lucide="scale" class="w-3.5 h-3.5"></i>
+              <span>Balance Sheet</span>
+            </button>
+            <button data-fin-subtab="cashflow" class="fin-subtab-btn px-3.5 py-1.5 rounded-lg text-xs font-medium border border-transparent text-slate-300 hover:text-white transition flex items-center gap-1.5">
+              <i data-lucide="banknote" class="w-3.5 h-3.5"></i>
+              <span>Cash Flow Statement</span>
+            </button>
+            <button data-fin-subtab="ratios" class="fin-subtab-btn px-3.5 py-1.5 rounded-lg text-xs font-medium border border-transparent text-slate-300 hover:text-white transition flex items-center gap-1.5">
+              <i data-lucide="percent" class="w-3.5 h-3.5"></i>
+              <span>Key Stats &amp; Ratios</span>
+            </button>
+          </div>
+          <span id="fin-period-summary" class="text-[11px] font-mono text-slate-400">—</span>
+        </div>
+
+        <!-- Statement Table Container -->
+        <div class="overflow-x-auto rounded-xl border border-slate-800/90 bg-slate-950/60">
+          <table class="w-full text-left border-collapse text-xs sm:text-[13px]">
+            <thead id="fin-stmt-head">
+              <!-- Populated by JS -->
+            </thead>
+            <tbody id="fin-stmt-body" class="divide-y divide-slate-800/60">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Footnotes (Annualisation Note + Source Note) -->
+        <div id="fin-stmt-footnotes" class="mt-4 space-y-1.5 text-[11px] font-mono text-slate-400">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- TAB 3: GOVERNANCE & OWNERSHIP (MCD + CORPORATE WEBSITES)           -->
     <!-- ================================================================== -->
     <div id="tab-governance" class="hidden space-y-6">
 
@@ -962,6 +1073,7 @@
     let currentRange = 999; // 21 (1M), 63 (3M), 126 (6M), 999 (1Y)
     let currentCategoryFilter = "all";
     let currentTab = "overview";
+    let currentFinSubTab = "income"; // "income" | "balance" | "cashflow" | "ratios"
     let themeMode = "system";
     let currentCurrency = "OMR"; // "OMR" | "USD"
     let dirSectorFilter = "All";
@@ -1166,7 +1278,7 @@
     // ============================================================================
     window.switchTab = function(tabName) {
       currentTab = tabName;
-      ["overview", "governance", "filings"].forEach(t => {
+      ["overview", "financials", "governance", "filings"].forEach(t => {
         const panel = document.getElementById(`tab-${t}`);
         if (panel) panel.classList.toggle("hidden", t !== tabName);
       });
@@ -1176,7 +1288,20 @@
       if (currentCompanyData && tabName === "governance") {
         renderGovOwnershipChart(currentCompanyData);
       }
+      if (currentCompanyData && tabName === "financials") {
+        renderFinancialsTab(currentCompanyData);
+      }
       safeCreateIcons();
+    };
+
+    window.switchFinSubTab = function(subTab) {
+      currentFinSubTab = subTab;
+      document.querySelectorAll(".fin-subtab-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-fin-subtab") === subTab);
+      });
+      if (currentCompanyData) {
+        renderFinancialsTab(currentCompanyData);
+      }
     };
 
     // ============================================================================
@@ -1664,11 +1789,185 @@
       renderFinancialsChart(company);
       renderDisclosures(company);
 
-      // Render Governance & Ownership Tab + Filings Tab
+      // Render Financials Tab, Governance & Ownership Tab, and Filings Tab
+      renderFinancialsTab(company);
       renderGovernanceTab(company);
       renderFilingsTab(company);
 
       safeCreateIcons();
+    }
+
+    // ============================================================================
+    // 3B. FINANCIAL STATEMENTS & KEY STATS TAB RENDERER
+    // ============================================================================
+    function fmtStmtValue(val, fmt) {
+      if (val === null || val === undefined || Number.isNaN(Number(val))) {
+        return { text: "—", isNeg: false };
+      }
+      const num = Number(val);
+      const isNeg = num < 0;
+      if (fmt === "currency") {
+        const scaled = (num * fxRate()) / 1e6;
+        const absStr = Math.abs(scaled).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return { text: isNeg ? `(${absStr})` : absStr, isNeg };
+      }
+      if (fmt === "perShare") {
+        const scaled = num * fxRate();
+        const absStr = Math.abs(scaled).toFixed(4);
+        return { text: isNeg ? `(${absStr})` : absStr, isNeg };
+      }
+      if (fmt === "pct") {
+        return { text: `${num.toFixed(1)}%`, isNeg };
+      }
+      if (fmt === "multiple") {
+        return { text: `${num.toFixed(2)}x`, isNeg };
+      }
+      return { text: String(num), isNeg };
+    }
+
+    function getActiveFinRows(stmts) {
+      if (!stmts) return [];
+      if (currentFinSubTab === "balance") return stmts.balanceSheet || [];
+      if (currentFinSubTab === "cashflow") return stmts.cashFlow || [];
+      if (currentFinSubTab === "ratios") return stmts.keyStats || [];
+      return stmts.incomeStatement || [];
+    }
+
+    function renderFinancialsTab(company) {
+      const stmts = company.statements;
+      const cCode = currCode();
+      const headEl = document.getElementById("fin-stmt-head");
+      const bodyEl = document.getElementById("fin-stmt-body");
+      const footEl = document.getElementById("fin-stmt-footnotes");
+
+      document.getElementById("fin-tab-title").innerHTML = `<i data-lucide="table-2" class="w-4 h-4 text-indigo-400"></i> Financial Statements &amp; Key Stats (${cCode})`;
+      document.getElementById("fin-tab-subtitle").textContent = currentCurrency === "USD"
+        ? "Last 4 audited fiscal years and latest YTD interim results from MSX XBRL filings, converted to USD at the CBO fixed peg (1 OMR = $2.6008)."
+        : "Last 4 audited fiscal years and latest YTD interim results extracted directly from MSX XBRL financial statement filings in OMR.";
+      document.getElementById("fin-tab-unit").textContent = currentFinSubTab === "ratios"
+        ? `Ratios & Margins (%, x) • Currency: ${cCode}`
+        : `Unit: ${cCode} Millions • Per-Share in ${cCode}`;
+
+      if (!stmts || !Array.isArray(stmts.periods) || stmts.periods.length === 0) {
+        document.getElementById("fin-template-badge").textContent = "IFRS";
+        document.getElementById("fin-period-summary").textContent = "No XBRL periods available";
+        headEl.innerHTML = "";
+        bodyEl.innerHTML = `<tr><td class="py-10 px-4 text-center text-xs text-slate-400">No multi-year XBRL financial statements are currently published on msx.om for ${company.ticker}.</td></tr>`;
+        footEl.innerHTML = "";
+        return;
+      }
+
+      const tplBadge = document.getElementById("fin-template-badge");
+      tplBadge.textContent = stmts.templateLabel || "Corporate IFRS";
+      const periods = stmts.periods;
+      const annCount = periods.filter(p => !p.isYtd).length;
+      const ytdObj = periods.find(p => p.isYtd);
+      document.getElementById("fin-period-summary").textContent = ytdObj
+        ? `${annCount} Audited FY + ${ytdObj.label} Interim`
+        : `${annCount} Audited Fiscal Years`;
+
+      headEl.innerHTML = `
+        <tr class="border-b border-slate-800 text-slate-400 bg-slate-900/95">
+          <th class="fin-sticky-col py-3 px-4 font-semibold text-left min-w-[240px] border-r border-slate-800/80">Line Item</th>
+          ${periods.map(p => `
+            <th class="py-3 px-4 font-semibold text-right font-mono whitespace-nowrap ${p.isYtd ? "fin-ytd-cell bg-indigo-500/10 text-indigo-300 border-l border-indigo-500/30" : ""}">
+              ${p.label}${p.isYtd ? ' <span class="ml-1 text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300">YTD</span>' : ""}
+            </th>
+          `).join("")}
+        </tr>
+      `;
+
+      const rows = getActiveFinRows(stmts);
+      if (rows.length === 0) {
+        bodyEl.innerHTML = `<tr><td colspan="${periods.length + 1}" class="py-10 px-4 text-center text-xs text-slate-400">No line items available in this statement for ${company.ticker}.</td></tr>`;
+      } else {
+        bodyEl.innerHTML = rows.map(r => {
+          if (r.rowType === "section") {
+            return `
+              <tr class="fin-row-section bg-slate-900/75 border-t border-slate-800">
+                <td colspan="${periods.length + 1}" class="fin-sticky-col py-2 px-4 text-[11px] font-bold uppercase tracking-wider text-indigo-400">
+                  ${r.label}
+                </td>
+              </tr>
+            `;
+          }
+          const isTotal = r.style === "total";
+          const isSubtotal = r.style === "subtotal";
+          const rowCls = isTotal
+            ? "fin-row-total bg-indigo-500/10 border-t border-b border-indigo-500/30 font-semibold text-white"
+            : isSubtotal
+              ? "fin-row-subtotal bg-slate-900/50 font-semibold text-slate-100"
+              : "hover:bg-slate-800/35 text-slate-300 transition";
+          const lblText = (r.fmt === "perShare")
+            ? r.label.replace(/OMR/g, cCode)
+            : r.label;
+          const dagger = r.annualizedYtd ? ' <span class="text-amber-400 font-mono text-[11px]" title="YTD column annualised">†</span>' : "";
+          const padCls = (!isTotal && !isSubtotal) ? "pl-6 pr-4" : "px-4";
+
+          return `
+            <tr class="${rowCls}">
+              <td class="fin-sticky-col py-2.5 ${padCls} border-r border-slate-800/60 whitespace-nowrap">${lblText}${dagger}</td>
+              ${periods.map(p => {
+                const rawVal = (r.values || {})[p.key];
+                const { text, isNeg } = fmtStmtValue(rawVal, r.fmt);
+                let valColor = "";
+                if (text === "—") {
+                  valColor = "text-slate-600";
+                } else if (isNeg && (r.fmt === "currency" || r.fmt === "pct" || r.fmt === "perShare")) {
+                  valColor = "text-rose-400";
+                } else if (r.fmt === "pct" && /growth/i.test(r.key) && Number(rawVal) > 0) {
+                  valColor = "text-emerald-400";
+                } else if (isTotal) {
+                  valColor = "text-white";
+                }
+                const ytdCls = p.isYtd ? "fin-ytd-cell bg-indigo-500/5 border-l border-indigo-500/20" : "";
+                return `<td class="py-2.5 px-4 text-right font-mono tabular-nums whitespace-nowrap ${ytdCls} ${valColor}">${text}</td>`;
+              }).join("")}
+            </tr>
+          `;
+        }).join("");
+      }
+
+      const notes = [];
+      if (currentFinSubTab === "ratios" && stmts.annualizeNote) {
+        notes.push(`<div class="p-3 rounded-lg bg-amber-500/10 border border-amber-500/25 text-amber-300 leading-relaxed">${stmts.annualizeNote}</div>`);
+      }
+      notes.push(`<div class="text-slate-500">Source: MSX XBRL financial statement filings (msx.om)${currentCurrency === "USD" ? " • Converted at CBO fixed peg (1 OMR = $2.6008)" : ""}. Negative figures in parentheses.</div>`);
+      footEl.innerHTML = notes.join("");
+    }
+
+    function downloadFinancialsCsv() {
+      if (!currentCompanyData || !currentCompanyData.statements) return;
+      const stmts = currentCompanyData.statements;
+      const periods = stmts.periods || [];
+      const rows = getActiveFinRows(stmts);
+      const cCode = currCode();
+      const subNames = { income: "Income_Statement", balance: "Balance_Sheet", cashflow: "Cash_Flow", ratios: "Key_Stats" };
+      const lines = [];
+      lines.push(["Line Item", ...periods.map(p => p.label)].map(x => `"${String(x).replace(/"/g, '""')}"`).join(","));
+      rows.forEach(r => {
+        if (r.rowType === "section") {
+          lines.push(`"${String(r.label).replace(/"/g, '""')}",${periods.map(() => "").join(",")}`);
+          return;
+        }
+        const lbl = (r.fmt === "perShare" ? r.label.replace(/OMR/g, cCode) : r.label) + (r.annualizedYtd ? " [Annualised YTD]" : "");
+        const cells = periods.map(p => {
+          const rawVal = (r.values || {})[p.key];
+          if (rawVal === null || rawVal === undefined) return "";
+          const { text } = fmtStmtValue(rawVal, r.fmt);
+          return text === "—" ? "" : text;
+        });
+        lines.push([lbl, ...cells].map(x => `"${String(x).replace(/"/g, '""')}"`).join(","));
+      });
+      const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${currentCompanyData.ticker}_${subNames[currentFinSubTab] || "Financials"}_${cCode}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
     }
 
     // ============================================================================
@@ -3487,6 +3786,10 @@
     }
 
     document.getElementById("export-json-btn").addEventListener("click", downloadCompanyJson);
+    document.getElementById("export-fin-csv-btn").addEventListener("click", downloadFinancialsCsv);
+    document.querySelectorAll(".fin-subtab-btn").forEach(btn => {
+      btn.addEventListener("click", () => switchFinSubTab(btn.getAttribute("data-fin-subtab")));
+    });
 
     document.getElementById("export-btn").addEventListener("click", async () => {
       if (!currentCompanyData) return;

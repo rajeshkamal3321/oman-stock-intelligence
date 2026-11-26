@@ -366,17 +366,61 @@ BS_PATTERNS = {
     "leaseNC": [r"^Non-current\s+lease\s+liabilities\b", r"^Lease\s+liabilities,\s*non-current\b"],
     "leaseC": [r"^Current\s+lease\s+liabilities\b", r"^Lease\s+liabilities,\s*current\b"],
     "nav": [r"^Net\s+assets\s+per\s+share\b"],
+    "receivables": [r"^Trade\s+and\s+other\s+(?:current\s+)?receivables\b", r"^Trade\s+receivables\b", r"^Accounts\s+receivable\b"],
+    "inventories": [r"^Inventories\b", r"^Current\s+inventories\b"],
+    "totalCurrentAssets": [r"^Total\s+current\s+assets\b"],
+    "ppe": [r"^Property,\s*plant\s+and\s+equipment\b", r"^Property\s+and\s+equipment\b"],
+    "rouAssets": [r"^Right[\s-]+of[\s-]+use\s+assets?\b"],
+    "intangibles": [r"^Intangible\s+assets\b", r"^Goodwill\s+and\s+intangible\s+assets\b"],
+    "totalNonCurrentAssets": [r"^Total\s+non-current\s+assets\b"],
+    "payables": [r"^Trade\s+and\s+other\s+(?:current\s+)?payables\b", r"^Trade\s+payables\b", r"^Accounts\s+payable\b"],
+    "totalCurrentLiabilities": [r"^Total\s+current\s+liabilities\b"],
+    "totalNonCurrentLiabilities": [r"^Total\s+non-current\s+liabilities\b"],
+    "retainedEarnings": [r"^Retained\s+earnings\b", r"^Accumulated\s+(?:profits?|losses?)\b"],
+    "reserves": [r"^Legal\s+reserve\b", r"^Other\s+reserves\b", r"^Statutory\s+reserve\b"],
+    "tier1Securities": [r"^Perpetual\s+Tier\s*1\b", r"^Subordinated\s+(?:debt|liabilities|sukuk)\b"],
+    "dueFromBanks": [r"^Due\s+from\s+banks\b", r"^Placements?\s+with\s+banks\b"],
+    "investmentSecurities": [r"^Investment\s+securities\b", r"^Financial\s+investments?\b", r"^Investments?\s+at\s+fair\s+value\b"],
+    "dueToBanks": [r"^Due\s+to\s+banks\b", r"^Deposits\s+from\s+banks\b"],
+    "debtSecurities": [r"^Debt\s+securities\s+issued\b", r"^Euro\s+medium\s+term\s+notes\b", r"^Bonds\s+and\s+sukuk\b"],
+    "insuranceLiabilities": [r"^Insurance\s+contract\s+liabilities\b", r"^Gross\s+insurance\s+contract\s+liabilities\b"],
 }
 
 IS_PATTERNS = {
     "revenue": [r"^Revenue\b", r"^Total\s+revenue\b", r"^Insurance\s+revenue\b", r"^Gross\s+written\s+premium", r"^Rental\s+income\b"],
+    "costOfSales": [r"^Cost\s+of\s+sales\b", r"^Cost\s+of\s+revenues?\b", r"^Direct\s+costs?\b"],
     "grossProfit": [r"^Gross\s+profit\b"],
+    "otherOpInc": [r"^Other\s+(?:operating\s+)?income\b"],
+    "sgaExpenses": [
+        r"^General\s+and\s+administrative\s+expenses\b",
+        r"^Administrative\s+and\s+general\s+expenses\b",
+        r"^Selling(?:,\s*general)?\s+and\s+(?:administrative|distribution)\s+expenses\b",
+    ],
     "opProfit": [r"^Profit\s*\(loss\)\s+from\s+operating\s+activities\b", r"^Operating\s+profit\b"],
     "opInc": [r"^Total\s+operating\s+income\b", r"^Total\s+income\b"],
+    "interestIncome": [r"^Interest\s+income\b"],
+    "interestExpense": [r"^Interest\s+expense\b"],
     "nii": [r"^Net\s+interest\s+income\b"],
+    "islamicIncome": [r"^Income\s+from\s+Islamic\s+financing\b"],
+    "islamicExpense": [r"^Distribution\s+to\s+depositors\b", r"^Profit\s+paid\s+on\s+Islamic\s+deposits\b"],
     "islamicNetInc": [r"^Net\s+income\s+from\s+islamic\s+financing\b"],
+    "feeCommission": [r"^Net\s+fee\s+and\s+commission\s+income\b", r"^Commission\s+and\s+fee\s+income\b", r"^Fee\s+and\s+commission\s+income\b"],
+    "investmentIncome": [r"^Net\s+investment\s+income\b", r"^Investment\s+income\b"],
+    "staffExpenses": [r"^Staff\s+(?:costs?|expenses?)\b", r"^Employee\s+(?:costs?|benefits?\s+expense)\b"],
     "opEx": [r"^Total\s+operating\s+expenses\b"],
     "da": [r"^Depreciation(?:,\s*depletion)?\s+and\s+amortis?ation"],
+    "financeIncome": [r"^Finance\s+income\b"],
+    "financeCosts": [r"^Finance\s+costs?\b", r"^Finance\s+charges?\b"],
+    "impairment": [
+        r"^(?:Net\s+)?[Ii]mpairment\s+(?:losses?|charges?)\b",
+        r"^Credit\s+loss\s+expense\b",
+        r"^Allowance\s+for\s+credit\s+losses\b",
+        r"^Expected\s+credit\s+loss",
+    ],
+    "insuranceServiceExp": [r"^Insurance\s+service\s+expenses?\b"],
+    "insuranceServiceResult": [r"^Insurance\s+service\s+result\b"],
+    "profitBeforeTax": [r"^Profit\s*\(loss\)\s+before\s+tax\b", r"^Profit\s+before\s+(?:income\s+)?tax\b"],
+    "taxExpense": [r"^Income\s+tax\s+(?:expense|credit|benefit)\b", r"^Tax\s+expense\b", r"^Taxation\b"],
     "netProfit": [
         r"^Profit\s*\(loss\)\s+for\s+(?:the\s+)?period\b",
         r"^Profit\s*\(loss\)\s+from\s+continuing\s+operations\b",
@@ -388,11 +432,25 @@ IS_PATTERNS = {
 }
 
 CF_PATTERNS = {
+    "pbtCf": [r"^Profit\s*\(loss\)\s+before\s+tax\b", r"^Profit\s+before\s+tax\b"],
+    "ocfBeforeWc": [
+        r"^Operating\s+profit\s+before\s+working\s+capital\b",
+        r"^Cash\s+(?:flows?\s+)?generated\s+from\s+operations\s+before\s+working\s+capital\b",
+    ],
+    "taxPaid": [r"^Income\s+taxes?\s+paid\b", r"^Tax(?:es)?\s+paid\b"],
+    "interestPaid": [r"^Interest\s+paid\b", r"^Finance\s+costs?\s+paid\b"],
     "ocf": [r"^Net\s+cash\s+flows?\s+from\s*\(used\s+in\)\s+operating\s+activities\b"],
     "capex": [r"^Purchase\s+of\s+property,\s*plant\s+and\s+equipment\b", r"^Additions?\s+to\s+property,\s*plant\s+and\s+equipment\b"],
     "investing": [r"^Net\s+cash\s+flows?\s+from\s*\(used\s+in\)\s+investing\s+activities\b"],
     "da": [r"^Adjustments?\s+for\s+depreciation(?:[/\s]+and)?[/\s]+amortis?ation\b"],
+    "debtProceeds": [r"^Proceeds\s+from\s+borrowings\b", r"^Proceeds\s+from\s+(?:term\s+)?loans\b"],
+    "debtRepaid": [r"^Repayments?\s+of\s+borrowings\b", r"^Repayments?\s+of\s+(?:term\s+)?loans\b"],
     "divPaid": [r"^Cash\s+dividends?\s+paid\b", r"^Dividends?\s+paid\s+to\s+equity\s+holders\b", r"^Dividends?\s+paid\b"],
+    "financing": [r"^Net\s+cash\s+flows?\s+from\s*\(used\s+in\)\s+financing\s+activities\b"],
+    "netChangeCash": [
+        r"^Net\s+(?:increase|change)\s*\(decrease\)\s+in\s+cash\s+and\s+cash\s+equivalents\b",
+        r"^Net\s+change\s+in\s+cash\b",
+    ],
 }
 
 
@@ -482,28 +540,86 @@ def parse_filing_zip_in_memory(zip_url, referer, paid_up_cap_omr, is_interim=Fal
             if div_paid is not None:
                 div_paid = abs(div_paid)
 
+            ocf_v = scale(cf, "ocf", idx)
+            fcf_v = round(ocf_v - capex, 2) if (ocf_v is not None and capex is not None) else None
+            cash_v = scale(bs, "cash", idx)
+            net_debt_v = round(tot_debt - cash_v, 2) if cash_v is not None else None
+
             return {
                 "revenue": scale(inc, "revenue", idx),
-                "opInc": scale(inc, "opInc", idx),
-                "nii": round(nii_c + isl_inc, 2) if nii_c is not None else None,
+                "costOfSales": scale(inc, "costOfSales", idx),
                 "grossProfit": scale(inc, "grossProfit", idx),
+                "otherOpInc": scale(inc, "otherOpInc", idx),
+                "sgaExpenses": scale(inc, "sgaExpenses", idx),
+                "opInc": scale(inc, "opInc", idx),
+                "interestIncome": scale(inc, "interestIncome", idx),
+                "interestExpense": scale(inc, "interestExpense", idx),
+                "nii": round(nii_c + isl_inc, 2) if nii_c is not None else None,
+                "islamicIncome": scale(inc, "islamicIncome", idx),
+                "islamicExpense": scale(inc, "islamicExpense", idx),
+                "islamicNetInc": scale(inc, "islamicNetInc", idx),
+                "feeCommission": scale(inc, "feeCommission", idx),
+                "investmentIncome": scale(inc, "investmentIncome", idx),
+                "staffExpenses": scale(inc, "staffExpenses", idx),
                 "opProfit": op_p,
                 "ebitda": ebitda,
+                "da": round(da_v, 2) if da_v > 0 else None,
                 "opEx": scale(inc, "opEx", idx),
+                "financeIncome": scale(inc, "financeIncome", idx),
+                "financeCosts": scale(inc, "financeCosts", idx),
+                "impairment": scale(inc, "impairment", idx),
+                "insuranceServiceExp": scale(inc, "insuranceServiceExp", idx),
+                "insuranceServiceResult": scale(inc, "insuranceServiceResult", idx),
+                "profitBeforeTax": scale(inc, "profitBeforeTax", idx),
+                "taxExpense": scale(inc, "taxExpense", idx),
                 "netProfit": scale(inc, "netProfit", idx),
                 "eps": scale(inc, "eps", idx),
+                "shareCapital": scale(bs, "shareCapital", idx),
                 "assets": scale(bs, "totalAssets", idx),
                 "equity": scale(bs, "attrEquity", idx) or scale(bs, "totalEquity", idx),
                 "totalEquity": scale(bs, "totalEquity", idx),
                 "liabilities": scale(bs, "totalLiabilities", idx),
                 "loans": round(loans_c + isl_fin, 2) if loans_c is not None else None,
                 "deposits": round(dep_c + isl_dep, 2) if dep_c is not None else None,
-                "cash": scale(bs, "cash", idx),
+                "cash": cash_v,
+                "receivables": scale(bs, "receivables", idx),
+                "inventories": scale(bs, "inventories", idx),
+                "totalCurrentAssets": scale(bs, "totalCurrentAssets", idx),
+                "ppe": scale(bs, "ppe", idx),
+                "rouAssets": scale(bs, "rouAssets", idx),
+                "intangibles": scale(bs, "intangibles", idx),
+                "totalNonCurrentAssets": scale(bs, "totalNonCurrentAssets", idx),
+                "payables": scale(bs, "payables", idx),
+                "borrowingsC": scale(bs, "borrowingsC", idx),
+                "leaseC": scale(bs, "leaseC", idx),
+                "totalCurrentLiabilities": scale(bs, "totalCurrentLiabilities", idx),
+                "borrowingsNC": scale(bs, "borrowingsNC", idx),
+                "leaseNC": scale(bs, "leaseNC", idx),
+                "totalNonCurrentLiabilities": scale(bs, "totalNonCurrentLiabilities", idx),
+                "retainedEarnings": scale(bs, "retainedEarnings", idx),
+                "reserves": scale(bs, "reserves", idx),
+                "tier1Securities": scale(bs, "tier1Securities", idx),
+                "dueFromBanks": scale(bs, "dueFromBanks", idx),
+                "investmentSecurities": scale(bs, "investmentSecurities", idx),
+                "dueToBanks": scale(bs, "dueToBanks", idx),
+                "debtSecurities": scale(bs, "debtSecurities", idx),
+                "insuranceLiabilities": scale(bs, "insuranceLiabilities", idx),
                 "debt": round(tot_debt, 2) if tot_debt else 0.0,
+                "netDebt": net_debt_v,
                 "nav": scale(bs, "nav", idx),
-                "ocf": scale(cf, "ocf", idx),
+                "pbtCf": scale(cf, "pbtCf", idx),
+                "ocfBeforeWc": scale(cf, "ocfBeforeWc", idx),
+                "taxPaid": scale(cf, "taxPaid", idx),
+                "interestPaid": scale(cf, "interestPaid", idx),
+                "ocf": ocf_v,
                 "capex": capex,
+                "fcf": fcf_v,
+                "investing": scale(cf, "investing", idx),
+                "debtProceeds": scale(cf, "debtProceeds", idx),
+                "debtRepaid": scale(cf, "debtRepaid", idx),
                 "divPaid": div_paid,
+                "financing": scale(cf, "financing", idx),
+                "netChangeCash": scale(cf, "netChangeCash", idx),
             }
 
         return {"current": build_period(0), "prior": build_period(1), "mult": mult}
@@ -748,33 +864,32 @@ def fetch_one_company(sym, mcd_info, majors_raw, xsrf, mcd_cookies, msx_row, fin
                 "sourceUrl": f"https://www.msx.om/MSMDOCS/FinancialReports/{enc}",
             })
 
-    # Parse XBRL PDFs in memory for non-flagship companies (flagship 8 already have hand-verified audited numbers!)
+    # Parse XBRL PDFs in memory for ALL companies (including flagship 8, so every company gets full P&L, BS, CF line items)
     parsed_fin = {}
-    if sym not in FLAGSHIP_VERIFIED:
-        if rep_fy25:
-            u25 = f"https://www.msx.om/MSMDOCS/FinancialReports/{urllib.parse.quote(rep_fy25['FileNameEn'])}"
-            res25 = parse_filing_zip_in_memory(u25, snap_url, paid_up_cap, is_interim=False)
-            if res25:
-                parsed_fin["FY2025"] = res25["current"]
-                parsed_fin["FY2024"] = res25["prior"]
-        if rep_fy23:
-            yr_tag = rep_fy23.get("ReportYear", "2023")
-            u23 = f"https://www.msx.om/MSMDOCS/FinancialReports/{urllib.parse.quote(rep_fy23['FileNameEn'])}"
-            res23 = parse_filing_zip_in_memory(u23, snap_url, paid_up_cap, is_interim=False)
-            if res23:
-                if yr_tag == "2023":
-                    parsed_fin["FY2023"] = res23["current"]
-                    parsed_fin["FY2022"] = res23["prior"]
-                elif yr_tag == "2024" and "FY2024" not in parsed_fin:
-                    parsed_fin["FY2024"] = res23["current"]
-                    parsed_fin["FY2023"] = res23["prior"]
-        if rep_q26:
-            uq = f"https://www.msx.om/MSMDOCS/FinancialReports/{urllib.parse.quote(rep_q26['FileNameEn'])}"
-            resq = parse_filing_zip_in_memory(uq, snap_url, paid_up_cap, is_interim=True)
-            if resq:
-                parsed_fin["Q26_CUR"] = resq["current"]
-                parsed_fin["Q26_PRI"] = resq["prior"]
-                parsed_fin["Q26_LABEL"] = rep_q26.get("NameEn", "2026 Interim")
+    if rep_fy25:
+        u25 = f"https://www.msx.om/MSMDOCS/FinancialReports/{urllib.parse.quote(rep_fy25['FileNameEn'])}"
+        res25 = parse_filing_zip_in_memory(u25, snap_url, paid_up_cap, is_interim=False)
+        if res25:
+            parsed_fin["FY2025"] = res25["current"]
+            parsed_fin["FY2024"] = res25["prior"]
+    if rep_fy23:
+        yr_tag = rep_fy23.get("ReportYear", "2023")
+        u23 = f"https://www.msx.om/MSMDOCS/FinancialReports/{urllib.parse.quote(rep_fy23['FileNameEn'])}"
+        res23 = parse_filing_zip_in_memory(u23, snap_url, paid_up_cap, is_interim=False)
+        if res23:
+            if yr_tag == "2023":
+                parsed_fin["FY2023"] = res23["current"]
+                parsed_fin["FY2022"] = res23["prior"]
+            elif yr_tag == "2024" and "FY2024" not in parsed_fin:
+                parsed_fin["FY2024"] = res23["current"]
+                parsed_fin["FY2023"] = res23["prior"]
+    if rep_q26:
+        uq = f"https://www.msx.om/MSMDOCS/FinancialReports/{urllib.parse.quote(rep_q26['FileNameEn'])}"
+        resq = parse_filing_zip_in_memory(uq, snap_url, paid_up_cap, is_interim=True)
+        if resq:
+            parsed_fin["Q26_CUR"] = resq["current"]
+            parsed_fin["Q26_PRI"] = resq["prior"]
+            parsed_fin["Q26_LABEL"] = rep_q26.get("NameEn", "2026 Interim")
 
     return {
         "sym": sym,
@@ -790,6 +905,518 @@ def fetch_one_company(sym, mcd_info, majors_raw, xsrf, mcd_cookies, msx_row, fin
         "newsRaw": news_raw,
         "filings": chosen_filings,
         "parsedFin": parsed_fin,
+    }
+
+
+def normalize_ytd_label(raw_name):
+    """Map MSX interim filing names (e.g. 'Third Quarter', 'First Quarter') to ('9M 2026', 4/3) etc."""
+    s = (raw_name or "").lower()
+    if any(k in s for k in ("q1", "first", "3m", "three month")):
+        return "Q1 2026", 4.0, "Q1 × 4"
+    if any(k in s for k in ("q2", "second", "half", "h1", "6m", "six month")):
+        return "H1 2026", 2.0, "H1 × 2"
+    if any(k in s for k in ("q3", "third", "9m", "nine month")):
+        return "9M 2026", 4.0 / 3.0, "9M × 4/3"
+    return "2026 YTD", 1.0, None
+
+
+def build_statements_payload(sym, sector_label, is_bank, flag, parsed_fin, prosp_cfg, fin_pref, shares_out_raw, dps_by_period=None, q26_dps=None):
+    """Build structured 4-year + latest YTD Income Statement, Balance Sheet, Cash Flow, and Sector-Adapted Key Stats."""
+    if is_bank:
+        template = "banking"
+        template_label = "Banking IFRS"
+    elif "insurance" in (sector_label or "").lower() or "takaful" in (sector_label or "").lower():
+        template = "insurance"
+        template_label = "Insurance IFRS"
+    else:
+        template = "corporate"
+        template_label = "Corporate IFRS"
+
+    # 1. Assemble unified period_map from XBRL parsed_fin + IPO prospectus backfill + Flagship verified overrides
+    period_map = {}
+    for k, v in (parsed_fin or {}).items():
+        if isinstance(v, dict):
+            period_map[k] = dict(v)
+
+    for py, pdata in ((prosp_cfg or {}).get("annuals") or {}).items():
+        if py not in period_map or pdata.get("override"):
+            base = dict(period_map.get(py) or {})
+            for fk, fv in pdata.items():
+                if fk != "override" and fv is not None:
+                    base[fk] = fv
+            period_map[py] = base
+        else:
+            for fk, fv in pdata.items():
+                if fk != "override" and fv is not None and period_map[py].get(fk) is None:
+                    period_map[py][fk] = fv
+
+    if flag:
+        for a in flag.get("annuals") or []:
+            yr = a["year"]
+            base = dict(period_map.get(yr) or {})
+            for fk, fv in a.items():
+                if fk != "year" and fv is not None:
+                    base[fk] = fv
+            period_map[yr] = base
+        q3 = flag.get("q3_2026")
+        if q3:
+            q_cur_b = dict(period_map.get("Q26_CUR") or {})
+            for fk, fv in q3.items():
+                if not fk.endswith("Prior") and fv is not None:
+                    q_cur_b[fk] = fv
+            period_map["Q26_CUR"] = q_cur_b
+            q_pri_b = dict(period_map.get("Q26_PRI") or {})
+            for fk in ("revenue", "ebitda", "opInc", "nii", "netProfit"):
+                if q3.get(fk + "Prior") is not None:
+                    q_pri_b[fk] = q3[fk + "Prior"]
+            period_map["Q26_PRI"] = q_pri_b
+
+    # Pull Q3 2026 Net Profit from Companies-Fin-Pref if XBRL interim parser didn't have it
+    if fin_pref:
+        fp_cp = parse_float(fin_pref.get("Net_Profit_CP"), None)
+        fp_pp = parse_float(fin_pref.get("Net_Profit_PP"), None)
+        if fp_cp is not None:
+            period_map.setdefault("Q26_CUR", {})
+            if period_map["Q26_CUR"].get("netProfit") is None:
+                period_map["Q26_CUR"]["netProfit"] = fp_cp
+        if fp_pp is not None:
+            period_map.setdefault("Q26_PRI", {})
+            if period_map["Q26_PRI"].get("netProfit") is None:
+                period_map["Q26_PRI"]["netProfit"] = fp_pp
+
+    # Attach DPS per period and derive consistent subtotals (fcf, netDebt, ebit, ebitda, grossProfit)
+    for k, d in period_map.items():
+        if not isinstance(d, dict):
+            continue
+        if dps_by_period and k in dps_by_period and d.get("dps") is None:
+            d["dps"] = dps_by_period[k]
+        if k == "Q26_CUR" and q26_dps is not None and d.get("dps") is None:
+            d["dps"] = q26_dps
+        if d.get("fcf") is None and d.get("ocf") is not None and d.get("capex") is not None:
+            d["fcf"] = round(d["ocf"] - abs(d["capex"]), 2)
+        if d.get("netDebt") is None and d.get("debt") is not None and d.get("cash") is not None:
+            d["netDebt"] = round(d["debt"] - d["cash"], 2)
+        if d.get("opProfit") is None and d.get("ebitda") is not None and d.get("da") is not None:
+            d["opProfit"] = round(d["ebitda"] - abs(d["da"]), 2)
+        if d.get("ebitda") is None and d.get("opProfit") is not None and d.get("da") is not None:
+            d["ebitda"] = round(d["opProfit"] + abs(d["da"]), 2)
+        if d.get("grossProfit") is None and d.get("revenue") is not None and d.get("costOfSales") is not None:
+            d["grossProfit"] = round(d["revenue"] - abs(d["costOfSales"]), 2)
+        if d.get("nav") is None and d.get("equity") is not None and shares_out_raw and shares_out_raw > 0:
+            d["nav"] = round(d["equity"] / shares_out_raw, 4)
+        if d.get("eps") is None and d.get("netProfit") is not None and shares_out_raw and shares_out_raw > 0:
+            d["eps"] = round(d["netProfit"] / shares_out_raw, 4)
+
+    # 2. Select last 4 audited fiscal years + latest YTD interim period
+    all_yrs = [
+        y for y in ["FY2021", "FY2022", "FY2023", "FY2024", "FY2025", "FY2026"]
+        if y in period_map and any(period_map[y].get(k) is not None for k in ("revenue", "opInc", "netProfit", "assets", "equity"))
+    ]
+    sel_yrs = all_yrs[-4:]
+    periods = [{"key": y, "label": y, "isYtd": False, "annualizeFactor": 1.0} for y in sel_yrs]
+
+    q_cur = period_map.get("Q26_CUR") or {}
+    q_pri = period_map.get("Q26_PRI") or {}
+    has_ytd = any(q_cur.get(k) is not None for k in ("revenue", "opInc", "netProfit", "assets", "equity"))
+    ytd_label, ytd_factor, ytd_formula = (None, 1.0, None)
+    if has_ytd:
+        raw_q_lbl = (parsed_fin or {}).get("Q26_LABEL") or ("9M 2026" if flag else "2026 YTD")
+        ytd_label, ytd_factor, ytd_formula = normalize_ytd_label(raw_q_lbl)
+        periods.append({
+            "key": "Q26_CUR",
+            "label": ytd_label,
+            "isYtd": True,
+            "annualizeFactor": round(ytd_factor, 4),
+        })
+
+    def clean_num(v, decimals=2, limit=None):
+        if v is None or isinstance(v, bool):
+            return None
+        try:
+            fv = float(v)
+        except (TypeError, ValueError):
+            return None
+        if math.isnan(fv) or math.isinf(fv):
+            return None
+        if limit is not None and abs(fv) > limit:
+            return None
+        return round(fv, decimals)
+
+    def make_field_rows(spec_list):
+        """Convert [(key, label, fmt, style), ...] into pruned rows with section headers."""
+        raw_rows = []
+        for item in spec_list:
+            if item[0] == "__section__":
+                raw_rows.append({"key": item[1], "label": item[2], "rowType": "section"})
+                continue
+            fkey, flabel, ffmt, fstyle = item
+            vals = {}
+            any_val = False
+            for p in periods:
+                d = period_map.get(p["key"]) or {}
+                dec = 4 if ffmt == "perShare" else 2
+                v = clean_num(d.get(fkey), dec)
+                vals[p["key"]] = v
+                if v is not None:
+                    any_val = True
+            if any_val:
+                raw_rows.append({
+                    "key": fkey,
+                    "label": flabel,
+                    "fmt": ffmt,
+                    "style": fstyle,
+                    "values": vals,
+                })
+        # Prune section headers that have no data rows immediately following them
+        pruned = []
+        for idx, r in enumerate(raw_rows):
+            if r.get("rowType") == "section":
+                nxt = raw_rows[idx + 1] if idx + 1 < len(raw_rows) else None
+                if nxt and nxt.get("rowType") != "section":
+                    pruned.append(r)
+            else:
+                pruned.append(r)
+        return pruned
+
+    # 3. Build Sector-Adapted Income Statement, Balance Sheet, Cash Flow
+    if template == "banking":
+        is_spec = [
+            ("__section__", "sec_rev", "Operating Income"),
+            ("interestIncome", "Interest Income", "currency", "normal"),
+            ("interestExpense", "Interest Expense", "currency", "normal"),
+            ("nii", "Net Interest & Islamic Income", "currency", "subtotal"),
+            ("islamicIncome", "Income from Islamic Financing", "currency", "normal"),
+            ("islamicExpense", "Distribution to Islamic Depositors", "currency", "normal"),
+            ("feeCommission", "Net Fee & Commission Income", "currency", "normal"),
+            ("investmentIncome", "Investment & Other Income", "currency", "normal"),
+            ("opInc", "Total Operating Income", "currency", "total"),
+            ("__section__", "sec_exp", "Operating Expenses & Provisions"),
+            ("staffExpenses", "Staff Costs", "currency", "normal"),
+            ("da", "Depreciation & Amortisation", "currency", "normal"),
+            ("opEx", "Total Operating Expenses", "currency", "subtotal"),
+            ("impairment", "Net Impairment / Credit Loss Provisions", "currency", "normal"),
+            ("__section__", "sec_bot", "Profitability & Per Share"),
+            ("profitBeforeTax", "Profit Before Tax", "currency", "subtotal"),
+            ("taxExpense", "Income Tax Expense", "currency", "normal"),
+            ("netProfit", "Net Profit for the Period", "currency", "total"),
+            ("eps", "Basic EPS (OMR / Share)", "perShare", "normal"),
+            ("dps", "Cash Dividend per Share (OMR)", "perShare", "normal"),
+        ]
+        bs_spec = [
+            ("__section__", "sec_assets", "Assets"),
+            ("cash", "Cash & Balances with Central Bank", "currency", "normal"),
+            ("dueFromBanks", "Due from Banks & Placements", "currency", "normal"),
+            ("loans", "Net Loans, Advances & Islamic Financing", "currency", "subtotal"),
+            ("investmentSecurities", "Investment Securities", "currency", "normal"),
+            ("ppe", "Property, Equipment & Other Assets", "currency", "normal"),
+            ("assets", "Total Assets", "currency", "total"),
+            ("__section__", "sec_liab", "Liabilities"),
+            ("dueToBanks", "Due to Banks & Borrowings", "currency", "normal"),
+            ("deposits", "Customer Deposits & Islamic Deposits", "currency", "subtotal"),
+            ("debtSecurities", "Debt Securities / Bonds & Sukuk", "currency", "normal"),
+            ("liabilities", "Total Liabilities", "currency", "total"),
+            ("__section__", "sec_eq", "Shareholders' Equity"),
+            ("shareCapital", "Share Capital", "currency", "normal"),
+            ("reserves", "Legal & Other Reserves", "currency", "normal"),
+            ("retainedEarnings", "Retained Earnings", "currency", "normal"),
+            ("tier1Securities", "Perpetual Tier 1 / Subordinated Securities", "currency", "normal"),
+            ("equity", "Equity Attributable to Shareholders", "currency", "subtotal"),
+            ("totalEquity", "Total Equity", "currency", "total"),
+            ("nav", "Book Value / NAV per Share (OMR)", "perShare", "normal"),
+        ]
+    elif template == "insurance":
+        is_spec = [
+            ("__section__", "sec_rev", "Insurance & Underwriting"),
+            ("revenue", "Insurance Revenue / Gross Premiums", "currency", "subtotal"),
+            ("insuranceServiceExp", "Insurance Service Expenses", "currency", "normal"),
+            ("insuranceServiceResult", "Insurance Service Result", "currency", "subtotal"),
+            ("investmentIncome", "Net Investment Income", "currency", "normal"),
+            ("otherOpInc", "Other Operating Income", "currency", "normal"),
+            ("opEx", "Operating & Administrative Expenses", "currency", "normal"),
+            ("opProfit", "Operating Profit (EBIT)", "currency", "subtotal"),
+            ("__section__", "sec_bot", "Profitability & Per Share"),
+            ("financeCosts", "Finance Costs", "currency", "normal"),
+            ("profitBeforeTax", "Profit Before Tax", "currency", "subtotal"),
+            ("taxExpense", "Income Tax Expense", "currency", "normal"),
+            ("netProfit", "Net Profit for the Period", "currency", "total"),
+            ("eps", "Basic EPS (OMR / Share)", "perShare", "normal"),
+            ("dps", "Cash Dividend per Share (OMR)", "perShare", "normal"),
+        ]
+        bs_spec = [
+            ("__section__", "sec_assets", "Assets"),
+            ("cash", "Cash & Bank Balances", "currency", "normal"),
+            ("investmentSecurities", "Financial Investments", "currency", "normal"),
+            ("receivables", "Insurance & Other Receivables", "currency", "normal"),
+            ("ppe", "Property & Equipment", "currency", "normal"),
+            ("assets", "Total Assets", "currency", "total"),
+            ("__section__", "sec_liab", "Liabilities"),
+            ("insuranceLiabilities", "Insurance Contract Liabilities", "currency", "subtotal"),
+            ("payables", "Payables & Other Liabilities", "currency", "normal"),
+            ("debt", "Total Debt & Lease Liabilities", "currency", "normal"),
+            ("liabilities", "Total Liabilities", "currency", "total"),
+            ("__section__", "sec_eq", "Shareholders' Equity"),
+            ("shareCapital", "Share Capital", "currency", "normal"),
+            ("reserves", "Legal & Other Reserves", "currency", "normal"),
+            ("retainedEarnings", "Retained Earnings", "currency", "normal"),
+            ("equity", "Equity Attributable to Shareholders", "currency", "subtotal"),
+            ("totalEquity", "Total Equity", "currency", "total"),
+            ("nav", "Book Value / NAV per Share (OMR)", "perShare", "normal"),
+        ]
+    else:
+        is_spec = [
+            ("__section__", "sec_rev", "Revenue & Operating Profit"),
+            ("revenue", "Revenue", "currency", "subtotal"),
+            ("costOfSales", "Cost of Sales", "currency", "normal"),
+            ("grossProfit", "Gross Profit", "currency", "subtotal"),
+            ("otherOpInc", "Other Operating Income", "currency", "normal"),
+            ("sgaExpenses", "General & Administrative Expenses", "currency", "normal"),
+            ("opEx", "Total Operating Expenses", "currency", "normal"),
+            ("da", "Depreciation & Amortisation", "currency", "normal"),
+            ("ebitda", "EBITDA", "currency", "subtotal"),
+            ("opProfit", "Operating Profit (EBIT)", "currency", "subtotal"),
+            ("__section__", "sec_fin", "Finance & Pre-Tax"),
+            ("financeIncome", "Finance Income", "currency", "normal"),
+            ("financeCosts", "Finance Costs", "currency", "normal"),
+            ("impairment", "Impairment / Provisions", "currency", "normal"),
+            ("profitBeforeTax", "Profit Before Tax", "currency", "subtotal"),
+            ("taxExpense", "Income Tax Expense", "currency", "normal"),
+            ("__section__", "sec_bot", "Net Profit & Per Share"),
+            ("netProfit", "Net Profit for the Period", "currency", "total"),
+            ("eps", "Basic EPS (OMR / Share)", "perShare", "normal"),
+            ("dps", "Cash Dividend per Share (OMR)", "perShare", "normal"),
+        ]
+        bs_spec = [
+            ("__section__", "sec_ca", "Current Assets"),
+            ("cash", "Cash & Bank Balances", "currency", "normal"),
+            ("receivables", "Trade & Other Receivables", "currency", "normal"),
+            ("inventories", "Inventories", "currency", "normal"),
+            ("totalCurrentAssets", "Total Current Assets", "currency", "subtotal"),
+            ("__section__", "sec_nca", "Non-Current Assets"),
+            ("ppe", "Property, Plant & Equipment", "currency", "normal"),
+            ("rouAssets", "Right-of-Use Assets", "currency", "normal"),
+            ("intangibles", "Intangible Assets & Goodwill", "currency", "normal"),
+            ("investmentSecurities", "Investments & Financial Assets", "currency", "normal"),
+            ("totalNonCurrentAssets", "Total Non-Current Assets", "currency", "subtotal"),
+            ("assets", "Total Assets", "currency", "total"),
+            ("__section__", "sec_cl", "Current Liabilities"),
+            ("payables", "Trade & Other Payables", "currency", "normal"),
+            ("borrowingsC", "Short-Term Borrowings", "currency", "normal"),
+            ("leaseC", "Current Lease Liabilities", "currency", "normal"),
+            ("totalCurrentLiabilities", "Total Current Liabilities", "currency", "subtotal"),
+            ("__section__", "sec_ncl", "Non-Current Liabilities"),
+            ("borrowingsNC", "Long-Term Borrowings", "currency", "normal"),
+            ("leaseNC", "Non-Current Lease Liabilities", "currency", "normal"),
+            ("totalNonCurrentLiabilities", "Total Non-Current Liabilities", "currency", "subtotal"),
+            ("liabilities", "Total Liabilities", "currency", "total"),
+            ("__section__", "sec_eq", "Shareholders' Equity & Debt Summary"),
+            ("shareCapital", "Share Capital", "currency", "normal"),
+            ("reserves", "Legal & Other Reserves", "currency", "normal"),
+            ("retainedEarnings", "Retained Earnings", "currency", "normal"),
+            ("equity", "Equity Attributable to Shareholders", "currency", "subtotal"),
+            ("totalEquity", "Total Equity", "currency", "total"),
+            ("debt", "Total Debt (Borrowings + Leases)", "currency", "normal"),
+            ("netDebt", "Net Debt (Total Debt − Cash)", "currency", "normal"),
+            ("nav", "Book Value / NAV per Share (OMR)", "perShare", "normal"),
+        ]
+
+    cf_spec = [
+        ("__section__", "sec_op", "Operating Activities"),
+        ("pbtCf", "Profit Before Tax", "currency", "normal"),
+        ("da", "Depreciation & Amortisation", "currency", "normal"),
+        ("ocfBeforeWc", "Operating Cash Flow Before Working Capital", "currency", "normal"),
+        ("taxPaid", "Income Taxes Paid", "currency", "normal"),
+        ("interestPaid", "Interest / Finance Costs Paid", "currency", "normal"),
+        ("ocf", "Net Cash from Operating Activities (OCF)", "currency", "total"),
+        ("__section__", "sec_inv", "Investing Activities"),
+        ("capex", "Capital Expenditure (CapEx)", "currency", "normal"),
+        ("investing", "Net Cash from Investing Activities", "currency", "subtotal"),
+        ("fcf", "Free Cash Flow (OCF − CapEx)", "currency", "total"),
+        ("__section__", "sec_fin", "Financing Activities"),
+        ("debtProceeds", "Proceeds from Borrowings", "currency", "normal"),
+        ("debtRepaid", "Repayments of Borrowings", "currency", "normal"),
+        ("divPaid", "Cash Dividends Paid", "currency", "normal"),
+        ("financing", "Net Cash from Financing Activities", "currency", "subtotal"),
+        ("netChangeCash", "Net Change in Cash & Equivalents", "currency", "total"),
+    ]
+
+    income_rows = make_field_rows(is_spec)
+    balance_rows = make_field_rows(bs_spec)
+    cashflow_rows = make_field_rows(cf_spec)
+
+    # 4. Compute Sector-Adapted Key Stats & Ratios (with annualised YTD flow-to-stock ratios)
+    def get_prior(idx):
+        p = periods[idx]
+        if p["isYtd"]:
+            return q_pri
+        if idx > 0:
+            return period_map.get(periods[idx - 1]["key"]) or {}
+        # Check if there is an earlier annual year before sel_yrs[0] (e.g. FY2021 for FY2022 growth)
+        if all_yrs and sel_yrs and sel_yrs[0] in all_yrs:
+            pos = all_yrs.index(sel_yrs[0])
+            if pos > 0:
+                return period_map.get(all_yrs[pos - 1]) or {}
+        return {}
+
+    def pct_growth(cur_v, pri_v):
+        if cur_v is None or pri_v is None or pri_v == 0:
+            return None
+        return clean_num((cur_v - pri_v) / abs(pri_v) * 100.0, 1, limit=999.0)
+
+    def pct_ratio(num, den, require_pos_den=True):
+        if num is None or den is None or den == 0:
+            return None
+        if require_pos_den and den <= 0:
+            return None
+        return clean_num((num / den) * 100.0, 1, limit=999.0)
+
+    def mult_ratio(num, den, require_pos_den=True):
+        if num is None or den is None or den == 0:
+            return None
+        if require_pos_den and den <= 0:
+            return None
+        return clean_num(num / den, 2, limit=200.0)
+
+    def build_stat_rows(ratio_defs):
+        raw_rows = []
+        for item in ratio_defs:
+            if item[0] == "__section__":
+                raw_rows.append({"key": item[1], "label": item[2], "rowType": "section"})
+                continue
+            rkey, rlabel, rfmt, rstyle, ann_ytd, fn = item
+            vals = {}
+            any_val = False
+            for idx, p in enumerate(periods):
+                d = period_map.get(p["key"]) or {}
+                pri = get_prior(idx)
+                af = p["annualizeFactor"] if (ann_ytd and p["isYtd"]) else 1.0
+                v = fn(d, pri, af, p["isYtd"])
+                vals[p["key"]] = v
+                if v is not None:
+                    any_val = True
+            if any_val:
+                row_obj = {
+                    "key": rkey,
+                    "label": rlabel,
+                    "fmt": rfmt,
+                    "style": rstyle,
+                    "values": vals,
+                }
+                if ann_ytd and has_ytd and ytd_factor > 1.0:
+                    row_obj["annualizedYtd"] = True
+                raw_rows.append(row_obj)
+        pruned = []
+        for idx, r in enumerate(raw_rows):
+            if r.get("rowType") == "section":
+                nxt = raw_rows[idx + 1] if idx + 1 < len(raw_rows) else None
+                if nxt and nxt.get("rowType") != "section":
+                    pruned.append(r)
+            else:
+                pruned.append(r)
+        return pruned
+
+    def payout_ratio(d, pri, af, is_ytd):
+        if is_ytd:
+            return None
+        np_v = d.get("netProfit")
+        if np_v is None or np_v <= 0:
+            return None
+        if d.get("dps") is not None and shares_out_raw and shares_out_raw > 0:
+            return pct_ratio(d["dps"] * shares_out_raw, np_v)
+        if d.get("divPaid") is not None:
+            return pct_ratio(abs(d["divPaid"]), np_v)
+        return None
+
+    if template == "banking":
+        ratio_defs = [
+            ("__section__", "ks_growth", "Growth (YoY)"),
+            ("opincGrowth", "Operating Income Growth (YoY)", "pct", "normal", False, lambda d, pri, af, y: pct_growth(d.get("opInc"), pri.get("opInc"))),
+            ("niiGrowth", "Net Interest & Islamic Growth (YoY)", "pct", "normal", False, lambda d, pri, af, y: pct_growth(d.get("nii"), pri.get("nii"))),
+            ("npGrowth", "Net Profit Growth (YoY)", "pct", "subtotal", False, lambda d, pri, af, y: pct_growth(d.get("netProfit"), pri.get("netProfit"))),
+            ("loansGrowth", "Net Loans & Financing Growth (YoY)", "pct", "normal", False, lambda d, pri, af, y: None if y else pct_growth(d.get("loans"), pri.get("loans"))),
+            ("depGrowth", "Customer Deposits Growth (YoY)", "pct", "normal", False, lambda d, pri, af, y: None if y else pct_growth(d.get("deposits"), pri.get("deposits"))),
+            ("__section__", "ks_eff", "Efficiency & Margins"),
+            ("cir", "Cost-to-Income Ratio (CIR)", "pct", "subtotal", False, lambda d, pri, af, y: pct_ratio(abs(d["opEx"]) if d.get("opEx") is not None else None, d.get("opInc"))),
+            ("nimAssets", "Net Interest Margin (NII / Assets)", "pct", "normal", True, lambda d, pri, af, y: pct_ratio(d["nii"] * af if d.get("nii") is not None else None, d.get("assets"))),
+            ("nonIntShare", "Non-Interest Income Share", "pct", "normal", False, lambda d, pri, af, y: pct_ratio((d["opInc"] - d["nii"]) if (d.get("opInc") is not None and d.get("nii") is not None) else None, d.get("opInc"))),
+            ("preProvMargin", "Pre-Provision Profit Margin", "pct", "normal", False, lambda d, pri, af, y: pct_ratio((d["opInc"] - abs(d["opEx"])) if (d.get("opInc") is not None and d.get("opEx") is not None) else None, d.get("opInc"))),
+            ("netMargin", "Net Profit Margin (Net Profit / Op. Inc)", "pct", "subtotal", False, lambda d, pri, af, y: pct_ratio(d.get("netProfit"), d.get("opInc"))),
+            ("__section__", "ks_bs", "Balance Sheet & Capital"),
+            ("ldr", "Loan-to-Deposit Ratio (LDR)", "pct", "subtotal", False, lambda d, pri, af, y: pct_ratio(d.get("loans"), d.get("deposits"))),
+            ("loansToAssets", "Net Loans / Total Assets", "pct", "normal", False, lambda d, pri, af, y: pct_ratio(d.get("loans"), d.get("assets"))),
+            ("eqToAssets", "Equity / Total Assets", "pct", "normal", False, lambda d, pri, af, y: pct_ratio(d.get("totalEquity") or d.get("equity"), d.get("assets"))),
+            ("__section__", "ks_ret", "Returns & Payout"),
+            ("roe", "Return on Equity (ROE)", "pct", "subtotal", True, lambda d, pri, af, y: pct_ratio(d["netProfit"] * af if d.get("netProfit") is not None else None, d.get("equity"))),
+            ("roa", "Return on Assets (ROA)", "pct", "normal", True, lambda d, pri, af, y: pct_ratio(d["netProfit"] * af if d.get("netProfit") is not None else None, d.get("assets"))),
+            ("payout", "Dividend Payout Ratio", "pct", "normal", False, payout_ratio),
+        ]
+    elif template == "insurance":
+        ratio_defs = [
+            ("__section__", "ks_growth", "Growth (YoY)"),
+            ("revGrowth", "Insurance Revenue Growth (YoY)", "pct", "normal", False, lambda d, pri, af, y: pct_growth(d.get("revenue"), pri.get("revenue"))),
+            ("npGrowth", "Net Profit Growth (YoY)", "pct", "subtotal", False, lambda d, pri, af, y: pct_growth(d.get("netProfit"), pri.get("netProfit"))),
+            ("__section__", "ks_margin", "Underwriting & Profitability"),
+            ("insMargin", "Insurance Service Margin", "pct", "normal", False, lambda d, pri, af, y: pct_ratio(d.get("insuranceServiceResult"), d.get("revenue"))),
+            ("ebitMargin", "Operating (EBIT) Margin", "pct", "normal", False, lambda d, pri, af, y: pct_ratio(d.get("opProfit"), d.get("revenue"))),
+            ("netMargin", "Net Profit Margin", "pct", "subtotal", False, lambda d, pri, af, y: pct_ratio(d.get("netProfit"), d.get("revenue"))),
+            ("invIncShare", "Investment Income / Revenue", "pct", "normal", False, lambda d, pri, af, y: pct_ratio(d.get("investmentIncome"), d.get("revenue"))),
+            ("__section__", "ks_solv", "Capital, Solvency & Returns"),
+            ("roe", "Return on Equity (ROE)", "pct", "subtotal", True, lambda d, pri, af, y: pct_ratio(d["netProfit"] * af if d.get("netProfit") is not None else None, d.get("equity"))),
+            ("roa", "Return on Assets (ROA)", "pct", "normal", True, lambda d, pri, af, y: pct_ratio(d["netProfit"] * af if d.get("netProfit") is not None else None, d.get("assets"))),
+            ("eqToAssets", "Equity / Total Assets", "pct", "normal", False, lambda d, pri, af, y: pct_ratio(d.get("totalEquity") or d.get("equity"), d.get("assets"))),
+            ("debtToEquity", "Debt / Equity", "multiple", "normal", False, lambda d, pri, af, y: mult_ratio(d.get("debt"), d.get("totalEquity") or d.get("equity"))),
+            ("debtToCap", "Debt / Capitalization", "pct", "normal", False, lambda d, pri, af, y: pct_ratio(d.get("debt"), (d["debt"] + (d.get("totalEquity") or d.get("equity"))) if (d.get("debt") is not None and (d.get("totalEquity") or d.get("equity"))) else None)),
+            ("payout", "Dividend Payout Ratio", "pct", "normal", False, payout_ratio),
+        ]
+    else:
+        ratio_defs = [
+            ("__section__", "ks_growth", "Growth (YoY)"),
+            ("revGrowth", "Revenue Growth (YoY)", "pct", "subtotal", False, lambda d, pri, af, y: pct_growth(d.get("revenue"), pri.get("revenue"))),
+            ("gpGrowth", "Gross Profit Growth (YoY)", "pct", "normal", False, lambda d, pri, af, y: pct_growth(d.get("grossProfit"), pri.get("grossProfit"))),
+            ("ebitdaGrowth", "EBITDA Growth (YoY)", "pct", "normal", False, lambda d, pri, af, y: pct_growth(d.get("ebitda"), pri.get("ebitda"))),
+            ("ebitGrowth", "EBIT Growth (YoY)", "pct", "normal", False, lambda d, pri, af, y: pct_growth(d.get("opProfit"), pri.get("opProfit"))),
+            ("npGrowth", "Net Profit Growth (YoY)", "pct", "subtotal", False, lambda d, pri, af, y: pct_growth(d.get("netProfit"), pri.get("netProfit"))),
+            ("__section__", "ks_margin", "Margins & Profitability"),
+            ("grossMargin", "Gross Margin", "pct", "normal", False, lambda d, pri, af, y: pct_ratio(d.get("grossProfit"), d.get("revenue"))),
+            ("ebitdaMargin", "EBITDA Margin", "pct", "subtotal", False, lambda d, pri, af, y: pct_ratio(d.get("ebitda"), d.get("revenue"))),
+            ("ebitMargin", "EBIT Margin", "pct", "normal", False, lambda d, pri, af, y: pct_ratio(d.get("opProfit"), d.get("revenue"))),
+            ("netMargin", "Net Profit Margin", "pct", "subtotal", False, lambda d, pri, af, y: pct_ratio(d.get("netProfit"), d.get("revenue"))),
+            ("roe", "Return on Equity (ROE)", "pct", "normal", True, lambda d, pri, af, y: pct_ratio(d["netProfit"] * af if d.get("netProfit") is not None else None, d.get("equity"))),
+            ("roa", "Return on Assets (ROA)", "pct", "normal", True, lambda d, pri, af, y: pct_ratio(d["netProfit"] * af if d.get("netProfit") is not None else None, d.get("assets"))),
+            ("__section__", "ks_cf", "Cash Conversion & CapEx"),
+            ("ocfToEbitda", "OCF / EBITDA", "pct", "normal", False, lambda d, pri, af, y: pct_ratio(d.get("ocf"), d.get("ebitda"))),
+            ("fcfToEbitda", "FCF / EBITDA", "pct", "normal", False, lambda d, pri, af, y: pct_ratio(d.get("fcf"), d.get("ebitda"))),
+            ("fcfMargin", "FCF Margin (FCF / Revenue)", "pct", "normal", False, lambda d, pri, af, y: pct_ratio(d.get("fcf"), d.get("revenue"))),
+            ("capexToRev", "CapEx / Revenue", "pct", "normal", False, lambda d, pri, af, y: pct_ratio(abs(d["capex"]) if d.get("capex") is not None else None, d.get("revenue"))),
+            ("__section__", "ks_lev", "Leverage, Coverage & Liquidity"),
+            ("debtToEbitda", "Debt / EBITDA", "multiple", "subtotal", True, lambda d, pri, af, y: mult_ratio(d.get("debt"), d["ebitda"] * af if d.get("ebitda") is not None else None)),
+            ("netDebtToEbitda", "Net Debt / EBITDA", "multiple", "subtotal", True, lambda d, pri, af, y: mult_ratio(d.get("netDebt"), d["ebitda"] * af if d.get("ebitda") is not None else None)),
+            ("debtToEquity", "Debt / Equity", "multiple", "normal", False, lambda d, pri, af, y: mult_ratio(d.get("debt"), d.get("totalEquity") or d.get("equity"))),
+            ("debtToCap", "Debt / Capitalization", "pct", "normal", False, lambda d, pri, af, y: pct_ratio(d.get("debt"), (d["debt"] + (d.get("totalEquity") or d.get("equity"))) if (d.get("debt") is not None and (d.get("totalEquity") or d.get("equity"))) else None)),
+            ("intCov", "Interest Coverage (EBIT / Finance Costs)", "multiple", "normal", False, lambda d, pri, af, y: mult_ratio(d.get("opProfit"), abs(d["financeCosts"]) if d.get("financeCosts") else None)),
+            ("currentRatio", "Current Ratio", "multiple", "normal", False, lambda d, pri, af, y: mult_ratio(d.get("totalCurrentAssets"), d.get("totalCurrentLiabilities"))),
+            ("assetTurnover", "Asset Turnover (Revenue / Assets)", "multiple", "normal", True, lambda d, pri, af, y: mult_ratio(d["revenue"] * af if d.get("revenue") is not None else None, d.get("assets"))),
+            ("payout", "Dividend Payout Ratio", "pct", "normal", False, payout_ratio),
+        ]
+
+    key_stats_rows = build_stat_rows(ratio_defs)
+
+    ann_note = None
+    if has_ytd and ytd_factor > 1.0 and ytd_formula:
+        ann_note = (
+            f"† Annualised YTD: For the partial-year {ytd_label} column, flow-to-stock ratios marked with † "
+            f"(e.g. Debt / EBITDA, Net Debt / EBITDA, ROE, ROA, NIM, Asset Turnover) annualise the YTD income-statement flow "
+            f"({ytd_formula}) against period-end balance sheet stock. YoY growth compares {ytd_label} against the prior-year interim period."
+        )
+
+    return {
+        "template": template,
+        "templateLabel": template_label,
+        "periods": periods,
+        "annualizeNote": ann_note,
+        "incomeStatement": income_rows,
+        "balanceSheet": balance_rows,
+        "cashFlow": cashflow_rows,
+        "keyStats": key_stats_rows,
     }
 
 
@@ -1419,6 +2046,20 @@ def build_company_json(rec, bench_map, synced_stamp):
         "executiveManagement": gov["managementSourceUrl"],
     }
 
+    # Build full multi-period financial statements & sector-adapted Key Stats payload
+    statements_payload = build_statements_payload(
+        sym=sym,
+        sector_label=sector_label,
+        is_bank=is_bank,
+        flag=flag,
+        parsed_fin=rec.get("parsedFin") or {},
+        prosp_cfg=IPO_PROSPECTUS_FIN.get(sym) or {},
+        fin_pref=fin_pref,
+        shares_out_raw=shares_out_raw,
+        dps_by_period=dps_by_period if not flag else None,
+        q26_dps=q26_dps if not flag else None,
+    )
+
     company_obj = {
         "ticker": sym,
         "exchange": "MSX",
@@ -1497,6 +2138,7 @@ def build_company_json(rec, bench_map, synced_stamp):
             "note": f"Total Issued Shares: {shares_out_raw:,} • Registered Shareholders: {participants:,} • Omani: {omani_pct:.2f}% | GCC: {gcc_pct:.2f}% | Arab: {arab_pct:.2f}% | Foreign: {foreign_pct:.2f}% (Source: mcd.om).",
         },
         "financials": fin_chart,
+        "statements": statements_payload,
         "quarterlyMomentum": {
             "period": "9M 2026 (Ended 30 Sep 2026)",
             "bars": quarterly_bars,
