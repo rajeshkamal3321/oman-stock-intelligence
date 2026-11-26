@@ -312,13 +312,19 @@ def parse_xbrl_statement_text(text, patterns, is_interim_is=False):
     elif re.search(r"Millions\s*/\s*Omani\s+Rial", text[:600], re.I):
         unit_mult = 1e6
 
-    # Detect 4-column Consolidated + Separate layout (4 dates on one header line or 2 pairs of same year)
-    header_zone = text[:900]
+    # Detect 4-column Consolidated + Separate/Standalone layout (Balance Sheet, Income Statement, and Cash Flow)
+    header_zone = text[:1200]
+    has_cons_and_stand = bool(
+        re.search(r"\bConsolidated\b", header_zone, re.I)
+        and re.search(r"\b(?:Standalone|Separate|Parent)\b", header_zone, re.I)
+    )
+    date_ranges = re.findall(r"\d{2}/\d{2}/\d{4}\s*[-–]\s*\d{2}/\d{2}/\d{4}", header_zone)
     dates_found = re.findall(r"\d{2}/\d{2}/\d{4}", header_zone)
     is_four_col = False
-    if not is_interim_is and len(dates_found) >= 4:
-        # e.g., 31/12/2024 31/12/2024 31/12/2025 31/12/2025
-        if len(set(dates_found[:4])) <= 2:
+    if not is_interim_is:
+        if has_cons_and_stand or len(date_ranges) >= 4:
+            is_four_col = True
+        elif len(dates_found) >= 4 and len(set(dates_found[:4])) <= 2:
             is_four_col = True
 
     out = {"_unitMult": unit_mult, "_fourCol": is_four_col}
@@ -401,9 +407,9 @@ IS_PATTERNS = {
     "grossProfit": [r"^Gross\s+profit\b"],
     "otherOpInc": [r"^Other\s+(?:operating\s+)?income\b"],
     "sgaExpenses": [
-        r"^General\s+and\s+administrative\s+expenses\b",
-        r"^Administrative\s+and\s+general\s+expenses\b",
-        r"^Selling(?:,\s*general)?\s+and\s+(?:administrative|distribution)\s+expenses\b",
+        r"^General\s+and\s+administrative\s+expenses?\b",
+        r"^Administrative\s+and\s+general\s+expenses?\b",
+        r"^Selling(?:,\s*general)?\s+and\s+(?:administrative|distribution)\s+expenses?\b",
     ],
     "opProfit": [r"^Profit\s*\(loss\)\s+from\s+operating\s+activities\b", r"^Operating\s+profit\b"],
     "opInc": [r"^Total\s+operating\s+income\b", r"^Total\s+income\b"],
