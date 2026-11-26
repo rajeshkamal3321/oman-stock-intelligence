@@ -348,7 +348,7 @@ def parse_xbrl_statement_text(text, patterns, is_interim_is=False):
 
 
 BS_PATTERNS = {
-    "shareCapital": [r"^Share\s+capital\b"],
+    "shareCapital": [r"^Share\s+capital\b", r"^Issued\s+capital\b"],
     "totalAssets": [r"^Total\s+assets\b"],
     "totalEquity": [r"^Total\s+equity\b"],
     "attrEquity": [r"^Total\s+[Ee]quity\s+attributable\s+to"],
