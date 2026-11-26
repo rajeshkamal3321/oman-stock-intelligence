@@ -1830,25 +1830,15 @@
       // Executive Management Cards
       const mgmtList = gov.management || [];
       document.getElementById("management-grid").innerHTML = mgmtList.length > 0 ? mgmtList.map((m, idx) => {
-        const isCeo = /chief executive officer|general manager|managing director/i.test(m.title) && !/deputy|country/i.test(m.title);
-        const isCfo = /chief financ/i.test(m.title);
-        const badgeCls = isCeo ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30"
-          : isCfo ? "bg-indigo-500/15 text-indigo-300 border-indigo-500/30"
-          : "bg-slate-800/80 text-slate-300 border-slate-700";
+        const isCeo = idx === 0 && /chief executive officer|managing director|^general manager$/i.test((m.title || "").trim());
         return `
-          <div class="bg-slate-900/75 border border-slate-800/80 rounded-xl p-4 glass-card-hover flex flex-col justify-between gap-2">
-            <div class="flex items-start gap-3">
-              <div class="avatar-badge w-9 h-9 rounded-lg bg-gradient-to-br ${isCeo ? 'from-emerald-600 to-teal-800' : 'from-indigo-600 to-slate-800'} flex items-center justify-center text-xs font-bold font-mono text-white shrink-0">
-                ${getInitials(m.name)}
-              </div>
-              <div class="min-w-0">
-                <div class="text-sm font-semibold text-white leading-snug">${m.name}</div>
-                <div class="text-xs text-slate-400 mt-0.5 leading-snug">${m.title}</div>
-              </div>
+          <div class="bg-slate-900/75 border border-slate-800/80 rounded-xl p-4 glass-card-hover flex items-start gap-3">
+            <div class="avatar-badge w-9 h-9 rounded-lg bg-gradient-to-br ${isCeo ? 'from-emerald-600 to-teal-800' : 'from-indigo-600 to-slate-800'} flex items-center justify-center text-xs font-bold font-mono text-white shrink-0">
+              ${getInitials(m.name)}
             </div>
-            <div class="pt-2 border-t border-slate-800/60 flex items-center justify-between text-[10px] font-mono">
-              <span class="px-2 py-0.5 rounded border ${badgeCls}">${isCeo ? "CEO" : isCfo ? "CFO" : "Executive"}</span>
-              <span class="text-slate-500">#${idx + 1}</span>
+            <div class="min-w-0 flex-1">
+              <div class="text-sm font-semibold text-white leading-snug">${m.name}</div>
+              <div class="text-xs text-slate-400 mt-0.5 leading-snug">${m.title}</div>
             </div>
           </div>
         `;
