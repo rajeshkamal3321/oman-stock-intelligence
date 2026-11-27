@@ -259,6 +259,24 @@ def audit_company(ticker, data):
                     "detail": f"{rev_key} {r_prev:,.0f} -> {r_cur:,.0f} ({ratio:.2f}x)",
                 })
 
+    # 10b. 9M vs Q3 interim column inversion guard
+    p_meta = st.get("periods") or []
+    ytd_meta = next((p for p in p_meta if p.get("isYtd")), None)
+    if ytd_meta and "9M" in str(ytd_meta.get("label") or "") and "FY2025" in periods:
+        yk = ytd_meta["key"]
+        flow_key = next((fk for fk in ("opInc", "revenue", "financeIncome", "netProfit") if (is_map.get(fk) or {}).get("FY2025") and (is_map.get(fk) or {}).get(yk)), None)
+        qm_bars = (data.get("quarterlyMomentum") or {}).get("bars") or []
+        neg_60_drop = any(isinstance(b.get("yoyPct"), (int, float)) and -82.0 <= b["yoyPct"] <= -55.0 for b in qm_bars)
+        if flow_key and neg_60_drop:
+            f25 = is_map[flow_key]["FY2025"]
+            fq = is_map[flow_key][yk]
+            if f25 > 500000 and 0 < fq < 0.40 * f25:
+                warnings.append({
+                    "code": "q3_instead_of_9m_suspect",
+                    "period": yk,
+                    "detail": f"{flow_key} {fq:,.0f} is {fq/f25:.1%} of FY2025 ({f25:,.0f}) with Q3-like YoY drop",
+                })
+
     fill_pct = round(100.0 * filled_cells / total_cells, 1) if total_cells else 0.0
     if fill_pct < 60.0:
         warnings.append({"code": "low_fill_rate", "detail": f"Fill rate {fill_pct}% ({filled_cells}/{total_cells})"})

@@ -358,22 +358,22 @@ def pick_pair(nums, is_four_col=False, is_interim_is=False):
 def detect_layout_and_anchors(lines, is_four_col=False, is_interim_is=False):
     """Detect expected column count, (cur_idx, pri_idx), and calibrated X centers from headers + data rows."""
     header_cols = []
+    header_tokens = []
     entity_grouped = False
     for ln in lines[:24]:
         ms = list(re.finditer(r"\b(?:Consolidated|Standalone|Separate|Parent(?:\s+Company)?|Group)\b", ln, re.I))
         if len(ms) >= 4:
             header_cols = [(m.start() + m.end()) / 2.0 for m in ms]
+            header_tokens = [m.group(0).lower() for m in ms]
             break
         if len(ms) == 2 and not header_cols:
             # e.g. LIVA FY2023: "Group ... Parent Company" super-headers over 2-3 year columns each
             entity_grouped = True
 
     n_cons_hdr = len(header_cols)
-    has_standalone_hdr = any(
-        re.search(r"\b(?:Standalone|Parent\s+Company)\b", ln, re.I)
-        or (re.search(r"\bSeparate\b", ln, re.I) and "consolidated and separate" not in re.sub(r"\s+", " ", ln.lower()))
-        for ln in lines[:24]
-    )
+    has_cons_col = any(t in ("consolidated", "group") for t in header_tokens)
+    has_stand_col = any(t in ("standalone", "separate") or t.startswith("parent") for t in header_tokens)
+    is_mixed_cons_stand = has_cons_col and has_stand_col
     is_eight_col = is_interim_is and (n_cons_hdr >= 8)
 
     row_pairs = [parse_line_numbers_with_pos(ln) for ln in lines]
@@ -385,7 +385,7 @@ def detect_layout_and_anchors(lines, is_four_col=False, is_interim_is=False):
     if is_interim_is:
         if is_eight_col or max_nums >= 8:
             expected_cols, cur_idx, pri_idx = 8, 4, 6
-        elif n_cons_hdr == 4 and has_standalone_hdr and max_nums <= 6:
+        elif n_cons_hdr == 4 and is_mixed_cons_stand and max_nums <= 6:
             expected_cols, cur_idx, pri_idx = 4, 0, 2
         elif max_nums >= 4:
             expected_cols, cur_idx, pri_idx = 4, 2, 3
@@ -623,10 +623,10 @@ IS_PATTERNS = {
     "feeCommission": [r"^Net\s+fee\s+and\s+commission\s+income\b", r"^Commission\s+and\s+fee\s+income\b", r"^Fee\s+and\s+commission\s+income\b"],
     "investmentIncome": [r"^Net\s+investment\s+income\b", r"^Investment\s+income\b", r"^Total\s+investment\s+income\b", r"^Income\s+from\s+investments\s+in\s+securities\b"],
     "staffExpenses": [r"^Staff\s+(?:costs?|expenses?)\b", r"^Employee\s+(?:costs?|benefits?\s+expenses?)\b"],
-    "opEx": [r"^Total\s+operating\s+expenses\b"],
+    "opEx": [r"^Total\s+operating\s+expenses\b", r"^Operating\s+expenses?\b"],
     "da": [r"^Depreciation(?:,\s*depletion)?\s+and\s+amortis?ation"],
-    "financeIncome": [r"^Finance\s+income\b"],
-    "financeCosts": [r"^Finance\s+costs?\b", r"^Finance\s+charges?\b"],
+    "financeIncome": [r"^Finance\s+income\b", r"^Total\s+finance\s+income\b"],
+    "financeCosts": [r"^Finance\s+costs?\b", r"^Finance\s+charges?\b", r"^Total\s+finance\s+costs?\b"],
     "impairment": [
         r"^(?:Net\s+)?[Ii]mpairment\s+(?:losses?|charges?)\b",
         r"^Credit\s+loss\s+expense\b",
@@ -637,11 +637,19 @@ IS_PATTERNS = {
     "insuranceServiceResult": [r"^Insurance\s+service\s+results?\b", r"^Reinsurance\s+service\s+results?\b", r"^Net\s+[Ii]nsurance\s+service\s+results?\b", r"^Net\s+reinsurance\s+results?\b"],
     "profitBeforeTax": [
         r"^Profit\s*(?:\(loss\)\s+)?before\s+(?:income\s+)?tax(?:ation)?\b",
+        r"^Total\s+profit\s*(?:\(loss\)\s+)?before\s+(?:income\s+)?tax(?:ation)?\b",
         r"^Net\s+profit\s+before\s+tax\b",
         r"^\(Loss\)/profit\s+before\s+(?:income\s+)?tax\b",
         r"^Profit\s+for\s+the\s+period\s+before\s+tax(?:ation)?\b",
     ],
-    "taxExpense": [r"^Income\s+tax\s+(?:expense|credit|benefit)\b", r"^Income\s+tax\b", r"^Tax\s+expense\b", r"^Taxation\b"],
+    "taxExpense": [
+        r"^Income\s+tax\s+(?:expense|credit|benefit)\b",
+        r"^Income\s+tax\b",
+        r"^Tax\s+income\s*\(expense\)",
+        r"^Tax\s*\(expense\)\s*/?\s*income\b",
+        r"^Tax\s+expense\b",
+        r"^Taxation\b",
+    ],
     "netProfit": [
         r"^Profit\s*(?:\(loss\)\s+)?for\s+(?:the\s+)?(?:period|year)\b",
         r"^\(Loss\)/profit\s+for\s+the\s+(?:year|period)\b",
