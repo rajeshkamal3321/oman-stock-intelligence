@@ -263,6 +263,40 @@ def audit_company(ticker, data):
     if fill_pct < 60.0:
         warnings.append({"code": "low_fill_rate", "detail": f"Fill rate {fill_pct}% ({filled_cells}/{total_cells})"})
 
+    # 11. Debt Profile sanity & split reconciliation
+    dp = data.get("debtProfile") or {}
+    if dp.get("hasDebtData"):
+        kpis = dp.get("kpis") or {}
+        for kk, kv in kpis.items():
+            if isinstance(kv, (int, float)) and (math.isnan(kv) or math.isinf(kv)):
+                issues.append({"code": "debt_nan_kpi", "period": dp.get("latestPeriod") or "", "detail": f"Non-finite KPI {kk}={kv}"})
+        for ph in dp.get("periodHistory") or []:
+            td = ph.get("totalDebt")
+            parts = [ph.get("shortTerm"), ph.get("longTerm"), ph.get("leases"), ph.get("bondsAndTier1")]
+            if td is not None and any(x is not None for x in parts):
+                psum = sum(x for x in parts if x is not None)
+                if abs(psum - td) > max(10000.0, 0.02 * abs(td)):
+                    issues.append({
+                        "code": "debt_split_mismatch",
+                        "period": ph.get("period") or "",
+                        "detail": f"Components sum {psum:,.0f} != totalDebt {td:,.0f}",
+                    })
+        by_ccy = dp.get("byCurrency") or []
+        fy25_hist = next((h for h in (dp.get("periodHistory") or []) if h.get("period") == "FY2025"), None)
+        fy25_td = fy25_hist.get("totalDebt") if fy25_hist else None
+        if by_ccy and fy25_td and fy25_td > 1_000_000:
+            ccy_tot = sum((c.get("amountOmr") or 0) for c in by_ccy)
+            if ccy_tot > 0 and abs(ccy_tot - fy25_td) / fy25_td > 0.25:
+                warnings.append({
+                    "code": "debt_ccy_mismatch",
+                    "period": "FY2025",
+                    "detail": f"byCurrency sum {ccy_tot:,.0f} vs FY2025 BS debt {fy25_td:,.0f}",
+                })
+        for b in dp.get("bonds") or []:
+            ytm = b.get("ytmPct")
+            if isinstance(ytm, (int, float)) and (math.isnan(ytm) or math.isinf(ytm) or ytm < -10.0 or ytm > 40.0):
+                warnings.append({"code": "bond_ytm_outlier", "period": "", "detail": f"Bond {b.get('symbol') or b.get('name')} YTM={ytm}"})
+
     return {
         "ticker": ticker,
         "template": template,
@@ -330,6 +364,20 @@ def main():
         f"Fill Rate: {overall_fill}% ({tot_filled:,}/{tot_cells:,}) | "
         f"Hard Issues: {len(with_issues)} | Warnings: {len(with_warnings)}"
     )
+    # Summarize Debt Profile coverage across all company JSONs
+    debt_cos = debt_ccy = debt_loans = debt_bonds = 0
+    for c in companies:
+        sym = c.get("ticker")
+        fpath = os.path.join(DATA_DIR, f"{sym}.json")
+        if os.path.exists(fpath):
+            with open(fpath, "r", encoding="utf-8") as df:
+                dp = (json.load(df) or {}).get("debtProfile") or {}
+            if dp.get("hasDebtData"):
+                debt_cos += 1
+                if dp.get("byCurrency"): debt_ccy += 1
+                if dp.get("loans"): debt_loans += 1
+                if dp.get("bonds"): debt_bonds += 1
+    print(f"[Debt Coverage] With Debt: {debt_cos}/{len(results)} | Currency Split: {debt_ccy} | Loan Schedules: {debt_loans} | Bond/Sukuk Issuers: {debt_bonds}")
 
     if with_issues:
         print("\nHard Accounting Issues:")

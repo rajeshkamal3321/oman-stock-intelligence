@@ -1,0 +1,4148 @@
+{
+  "AACT": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 23 (Finance costs), Note 31 (Financial assets and liabilities and risk management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 4055854.0,
+        "note": "IFRS 16 lease liabilities only (current OMR 19,328 + non-current OMR 4,036,526 matching data/AACT.json total debt); zero bank borrowings or debt securities at 31 Dec 2025."
+      }
+    ],
+    "loans": [],
+    "bonds": [],
+    "covenants": null,
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/AACT_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "AAIC": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 10 (Bank borrowings), Note 21 (Financial risk management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 28790000.0,
+        "note": "Total bank borrowings per Note 10 for FY ended 31 March 2025 (RO'000 28,790 = OMR 28,790,000; current OMR 4,675,000 + non-current OMR 24,115,000), matching BS borrowingsNC/debt."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Short-term loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 2000000.0,
+        "interestRate": "5.75% to 6.5% p.a. (commercial); 6.5% p.a. (Sharia-compliant)",
+        "tenor": "Short-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Availed from four Omani commercial banks and an Omani Sharia-compliant bank; secured by pledge over Group investments (RO 56M) and freehold land."
+      },
+      {
+        "facility": "Long-term loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 26790000.0,
+        "interestRate": "5.75% to 6.5% p.a. (commercial); 6.5% p.a. (Sharia-compliant)",
+        "tenor": "Quarterly and semi-annual instalments (RO 75,000 to RO 693,000)",
+        "maturityDate": "2032",
+        "renewalDate": null,
+        "terms": "Availed from four Omani commercial banks and an Omani Sharia-compliant bank; secured by pledge over Group investments (RO 56M) and freehold land; final payment due in 2032."
+      },
+      {
+        "facility": "Bank overdraft facilities",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 250000.0,
+        "outstandingOmr": 0.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Overdraft facilities of RO 0.25 million available as at 31 March 2025."
+      }
+    ],
+    "bonds": [],
+    "covenants": null,
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/AAIC_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "ABOB": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Balance Sheet only (6_Notes FY2025 PDF text unavailable; only 2/116 title pages extracted)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR/USD/Other",
+        "amountOmr": 254812000.0,
+        "note": "Due to Banks & Borrowings per FY2025 Balance Sheet (notes unavailable in excerpt; BS also reflects OMR 190,884,000 gap between Total Equity and Shareholders' Equity for Tier 1 securities)"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Due to Banks & Borrowings",
+        "bank": null,
+        "currency": "OMR/USD/Other",
+        "totalLimitOmr": null,
+        "outstandingOmr": 254812000.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Consolidated balance sheet carrying value for Due to Banks & Borrowings; detailed footnote terms unavailable in extracted PDF pages."
+      }
+    ],
+    "bonds": [],
+    "covenants": null,
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/ABOB_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "ABRJ": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 14 (Cash Flow Hedge Reserve), Note 15 (Term Loans), Note 22 (Finance Costs), Note 28",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 73809000.0,
+        "note": "Term loans C, D, E (RO 63,809,000) plus OMR short-term working capital loan (RO 10,000,000). Excludes RO 3,165,000 lease liabilities."
+      },
+      {
+        "currency": "USD",
+        "amountOmr": 25244000.0,
+        "note": "USD-denominated Term loans F (RO 20,674,000) and G (RO 4,570,000), fully hedged via IRS A, B, and C (Note 14)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loan C",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 19467000.0,
+        "interestRate": "CBO WAIRD for private sector RO time deposits + fixed margin",
+        "tenor": "28 quarterly installments",
+        "maturityDate": "2030-02",
+        "renewalDate": null,
+        "terms": "Clean loan with assignment of respective client revenues and negative lien over financed assets. Current RO 4,580,000; non-current RO 14,887,000."
+      },
+      {
+        "facility": "Term loan D",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 22500000.0,
+        "interestRate": "CBO WAIRD for private sector RO time deposits + fixed margin (Sharia-compliant)",
+        "tenor": "28 quarterly installments",
+        "maturityDate": "2030-12",
+        "renewalDate": null,
+        "terms": "Sharia-compliant term finance; clean loan with assignment of client revenues and negative lien. Current RO 4,500,000; non-current RO 18,000,000."
+      },
+      {
+        "facility": "Term loan E",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 21842000.0,
+        "interestRate": "CBO WAIRD for private sector RO time deposits + fixed margin (Sharia-compliant)",
+        "tenor": "28 quarterly installments",
+        "maturityDate": "2031-12",
+        "renewalDate": null,
+        "terms": "Sharia-compliant term finance; clean loan with assignment of client revenues and negative lien. Current RO 3,236,000; non-current RO 18,606,000."
+      },
+      {
+        "facility": "Term loan F",
+        "bank": null,
+        "currency": "USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 20674000.0,
+        "interestRate": "Overnight SOFR + fixed margin (hedged via IRS A)",
+        "tenor": "16 equal semi-annual instalments",
+        "maturityDate": "2032-12",
+        "renewalDate": null,
+        "terms": "Consolidated USD facility replacing extinguished OMR Term loans A and B in March 2025. Secured/hedged by IRS A with a local bank. Current RO 4,135,000; non-current RO 16,539,000."
+      },
+      {
+        "facility": "Term loan G",
+        "bank": null,
+        "currency": "USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 4570000.0,
+        "interestRate": "Overnight SOFR + fixed margin (hedged via IRS B & C)",
+        "tenor": "32 equal installments",
+        "maturityDate": "2033-05",
+        "renewalDate": null,
+        "terms": "Availed to finance 2024 operating capex; hedged via IRS B (RO 2,905k) and IRS C (RO 1,665k). Current RO 609,000; non-current RO 3,961,000."
+      },
+      {
+        "facility": "Short-term working capital facility",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 17000000.0,
+        "outstandingOmr": 10000000.0,
+        "interestRate": null,
+        "tenor": "Short-term (repayable during FY2026)",
+        "maturityDate": "2026",
+        "renewalDate": null,
+        "terms": "Short-term facility of RO 17 million limit obtained in 2025 for working capital and liquidity; RO 10,000,000 drawn at 31 Dec 2025 (reconciles BS borrowingsC RO 27,060,000 less RO 17,060,000 current term loans)."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Clean loans with no mortgage/charge on financed assets, assignment of client revenues, and negative lien undertaking. Financial covenants: Total Liabilities to Net Worth, Total Debt to Net Worth, and Debt Service Coverage ratios. Compliant at 31 Dec 2025 and 31 Dec 2024.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/ABRJ_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "AFAI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 18 (Loan and borrowings), Note 19 (Lease liabilities), Note 20 (Bank borrowings), Note 29 (Finance costs), Note 34 (Financial instrument risk)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 23577899.0,
+        "note": "Audited BS bank term loans OMR 23,550,087 (current OMR 2,375,094 + non-current OMR 21,174,993) + bank overdraft OMR 27,812 = OMR 23,577,899; excludes OMR 70,913 lease liabilities and OMR 5,279,732 interest-bearing related party payables (Note 34c). Note: data/AFAI.json omits non-current term loans OMR 21,174,993 from borrowingsNC (showing only borrowingsC OMR 2,402,906 = 2,375,094 + 27,812)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term Loan-1",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 21872720.0,
+        "interestRate": "6.75% p.a.",
+        "tenor": "120 monthly instalments",
+        "maturityDate": "2034-10",
+        "renewalDate": "2025-06-10",
+        "terms": "Obtained in 2023 by restructuring prior term loans; monthly interest in arrears; final instalment due October 2034. Secured by commercial charge over Group fixed and current assets (OMR 22.30M), commercial mortgage & joint insurance, irrevocable assignment of trade receivables, and subsidiary corporate guarantees."
+      },
+      {
+        "facility": "Borrowing against plant and machinery (Parent Company)",
+        "bank": "Financial institution & SME Development Fund",
+        "currency": "OMR",
+        "totalLimitOmr": 2800000.0,
+        "outstandingOmr": 1508657.0,
+        "interestRate": "9.0% - 10.5% p.a.",
+        "tenor": null,
+        "maturityDate": "2027",
+        "renewalDate": null,
+        "terms": "Comprises OMR 1,000,000 facility from a financial institution (2023, 10.5% p.a.) and OMR 1,800,000 facility from SME Development Fund (9.0% p.a., final instalments due 2027). Secured by charge over plant & machinery, subsidiary corporate guarantees, insurance assignment, and mortgage of land owned by Ms. Muna Noor Brian Ritchie."
+      },
+      {
+        "facility": "Term loan against plant and machinery (Techrock subsidiary)",
+        "bank": "SME Development Fund",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 168710.0,
+        "interestRate": "11.51% p.a.",
+        "tenor": "48 months",
+        "maturityDate": "2028-03",
+        "renewalDate": null,
+        "terms": "Subsidiary Techrock loan from SME Development Fund repayable in equal monthly instalments of OMR 5,988 (incl. interest) over 48 months, final instalment March 2028."
+      },
+      {
+        "facility": "Bank overdraft",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 27812.0,
+        "interestRate": "6.5% p.a.",
+        "tenor": "Annual renewal",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "From a commercial bank in Oman; interest rate subject to annual renegotiation upon facility renewal."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Parent Company renewed its credit facility on 10 June 2025; specific loan covenants will be reassessed on 30 June 2026 (Note 18h). Bank revised divestment timeline for Ahjaar Mining (associate), Awam Mineral LLC, and Geodynamics (subsidiaries) to 31 December 2025; management is negotiating an extension (Note 18c). Secured by commercial charge over Group fixed/current assets (OMR 22.30M), commercial mortgage and joint insurance, irrevocable assignment of trade receivables, subsidiary corporate guarantees, and shareholder land mortgage."
+  },
+  "AMAT": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 37 (Risk management) — no borrowings or issued debt securities disclosed in excerpt; Note 5 (Term deposits) and Note 6 (Sukuks) are investment assets",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 572145.0,
+        "note": "Reconciled to data/AMAT.json BS Total Debt & Lease Liabilities (OMR 572,145); excerpt contains no borrowings, lease, or issued bond notes (prior OMR 14.75M / 9.80M extraction errors came from asset-side term deposits Note 5 and sukuk investments Note 6)."
+      }
+    ],
+    "loans": [],
+    "bonds": [],
+    "covenants": null,
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/AMAT_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "AMCI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 16 (Bank borrowings), Note 28 (Liquidity Profile)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/AMCI_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 297706.0
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Bank borrowings",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 297706.0,
+        "interestRate": "6.25% p.a.",
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": "Annually",
+        "terms": "Secured through first charge on legal mortgage and 'usufruct basis' over factory building."
+      }
+    ],
+    "bonds": [],
+    "covenants": [
+      "Interest rates are fixed for the term of borrowing and may be renegotiated upon annual renewal."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "AMII": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 22 (Financial Liabilities)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/AMII_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 10352000.0
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 10352000.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Amortized cost basis"
+      }
+    ],
+    "bonds": [],
+    "covenants": [
+      "None explicitly detailed in the excerpt."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "AOFS": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 12 (Short term loans, p.28), Note 13 (Term loans, p.28), Note 14 (Lease liabilities, p.29), Note 30 (Maturity profile, p.35), Note 32(c)&(e) (pp.45-46)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 119758942.0,
+        "note": "Short-term loans OMR 112,500,000 + Compulsorily convertible bonds OMR 2,683,809 + Non-convertible redeemable bonds OMR 4,575,133 (excludes OMR 4,055,000 deposits & OMR 42,467 lease liabilities)"
+      },
+      {
+        "currency": "USD",
+        "amountOmr": 21171700.0,
+        "note": "USD long-term loans (hedged via 3M compounded SOFR IRS at 5.40% fixed)"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Short term loans",
+        "bank": "Local commercial banks",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 112500000.0,
+        "interestRate": "3.95% to 5.30% p.a.",
+        "tenor": "1 month to 3 years",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Denominated in OMR; secured by registered mortgage over the Company's assets (maturity: <=1M OMR 24.8M, 1-3M OMR 12.0M, 6M-1Y OMR 15.0M, 1-3Y OMR 60.7M)."
+      },
+      {
+        "facility": "Long term loans (USD)",
+        "bank": "Local commercial bank",
+        "currency": "USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 21171700.0,
+        "interestRate": "5.40% p.a. (fixed via IRS over 3M compounded SOFR)",
+        "tenor": "1 to 3 years (repriced annually)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "USD term loan hedged for full amount & tenor via IRS with the same bank (receive 3M compounded SOFR with 2-day lookback, pay fixed); subject to financial covenants."
+      }
+    ],
+    "bonds": [
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Compulsorily convertible bonds",
+        "instrumentType": "Compulsorily Convertible Bond",
+        "currency": "OMR",
+        "issueSizeOmr": null,
+        "outstandingOmr": 2683809.0,
+        "couponRatePct": null,
+        "ytmPct": null,
+        "maturityDate": null,
+        "terms": "Unsecured fully compulsorily convertible bonds; non-fixed maturity per Note 30; treated as part of regulatory net worth per CBO approval (Note 32e)."
+      },
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Non-convertible redeemable bonds",
+        "instrumentType": "Redeemable Bond",
+        "currency": "OMR",
+        "issueSizeOmr": null,
+        "outstandingOmr": 4575133.0,
+        "couponRatePct": null,
+        "ytmPct": null,
+        "maturityDate": null,
+        "terms": "Maturity profile per Note 30: 1-3 years OMR 1,459,676; >3 years OMR 3,115,457."
+      }
+    ],
+    "covenants": "Short-term loans are secured by a registered mortgage over the Company's assets. Term loan requires compliance with certain financial covenants (Note 13). Compulsorily convertible bonds (OMR 2,683,809) qualify as regulatory net worth per CBO approval (Note 32e). Paid-up capital meets CBO OMR 25M minimum."
+  },
+  "ASCO": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 14 (Loans and borrowings, pp.46-47), Note 8 (Leases, pp.33-34), Note 4.1-4.2 (pp.16-21), Note 7 (p.33)",
+    "currencyBreakdown": [
+      {
+        "currency": "USD/OMR",
+        "amountOmr": 726544000.0,
+        "note": "Loans & borrowings OMR 597,187,000 (denominated in USD & OMR; exact split undisclosed; functional currency USD) + Lease liabilities OMR 129,357,000"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Commercial Bank Term Loans (Consolidated excl. Parent loan)",
+        "bank": null,
+        "currency": "USD/OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 499187000.0,
+        "interestRate": "SOFR + 1.7% to 2.8% p.a.",
+        "tenor": "Maturity 2025 till 2034 (quarterly to semi-annual instalments)",
+        "maturityDate": "2034",
+        "renewalDate": null,
+        "terms": "Secured against registered mortgage of owned vessels (carrying value OMR 209.17M) and certain other securities. Consolidated borrowings include OMR 2.57M accrued interest less OMR 1.015M deferred finance cost; 80.84% of Group borrowings fixed-rate after hedging."
+      },
+      {
+        "facility": "Immediate Parent Company Term Loan",
+        "bank": "Immediate Parent Company",
+        "currency": "USD/OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 98000000.0,
+        "interestRate": "5.7% p.a.",
+        "tenor": "10 years",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Loan from Immediate Parent Company (2025: OMR 98M; 2024: OMR 99M), repayable in 10 years per agreement."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Restrictive covenants (tested semi-annually, compliant at 31 Dec 2025) covering net debt, current ratio, tangible net worth, debt service, debt equity ratio, pattern of shareholding, payment of dividends, disposal of vessel, amendment to time charter party agreement and creation of charge over authorised security. Lease agreements impose no covenants.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/ASCO_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "ATMI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 6(i), Note 16 (Bank borrowings), Risk management (Page 58-59)",
+    "currencyBreakdown": [
+      {
+        "currency": "USD",
+        "amountOmr": 28803584.0,
+        "note": "Term Loan - B of UAE subsidiary Al Jazeera Steel Products Co LLC denominated in USD (Note 16(ii)), carried inside BS totalNonCurrentLiabilities."
+      },
+      {
+        "currency": "OMR",
+        "amountOmr": 9846292.0,
+        "note": "Short-term borrowings (Parent OMR 9,268,739 + UAE subsidiary OMR 577,553), matching BS borrowingsC; total Group variable rate bank borrowings OMR 38,649,876 per Page 58 (excludes OMR 14,454,873 lease liabilities)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term Loan - B (Syndicated refinancing facility, UAE subsidiary)",
+        "bank": null,
+        "currency": "USD",
+        "totalLimitOmr": 33900000.0,
+        "outstandingOmr": 28803584.0,
+        "interestRate": "SOFR + applicable margin (variable)",
+        "tenor": "Quarterly repayments starting Dec 2027 to Sep 2034",
+        "maturityDate": "2034-09",
+        "renewalDate": null,
+        "terms": "USD 88 million (RO 33.9M) facility for Al Jazeera Steel Products Co LLC, UAE (undrawn RO 4.6M / USD 11.9M) used to prepay Term Loan - A in full; secured over present and future subsidiary assets and Parent corporate guarantee."
+      },
+      {
+        "facility": "Short-term borrowings",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 97250000.0,
+        "outstandingOmr": 9846292.0,
+        "interestRate": "Money market rate + 0.5% p.a.",
+        "tenor": "Short-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Parent credit facilities RO 97.25M (undrawn RO 87.98M) from local and foreign commercial banks plus UAE subsidiary OMR 577,553; secured by pari-passu charge on all Parent Company assets."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Term Loan - B (UAE subsidiary): maintain thresholds on total net worth and debt to net worth ratio, tested annually on 31 December (complied as at 31 Dec 2025). Parent short-term borrowings: maintain thresholds for leverage ratio and current ratio, tested annually (repayable on demand if breached; complied as at 31 Dec 2025).",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/ATMI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "BATP": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 14 (Term Loans), Note 14b (Short Term Borrowings)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/BATP_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 41731000.0
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loan (Hermes Covered Fixed Facility)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 34683000.0,
+        "interestRate": "3.60% p.a. fixed",
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured by comprehensive legal and commercial mortgages on all assets. Subject to covenants including DSCR testing (annual compliance confirmed for 2025)."
+      },
+      {
+        "facility": "Term loan (Remaining facilities)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 3846000.0,
+        "interestRate": "Floating rate (US SOFR + CAS + margin 1.75%-3.15% p.a.)",
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured by comprehensive legal and commercial mortgages on all assets."
+      },
+      {
+        "facility": "Short term borrowings",
+        "bank": "Commercial bank in Oman",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 1990000.0,
+        "interestRate": "Prevailing market rates",
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "For general working capital purposes."
+      }
+    ],
+    "bonds": [],
+    "covenants": [
+      "Compliance with covenants including liquidation and merger, entering into material new agreements, negative pledge on assets, disposal of plant, granting of loan/guarantee, acquisition of capital assets, change of business, and hedging agreement. Annual Debt Service Coverage Ratio (DSCR) testing required on 30 June and 31 December. Company complied with DSCR ratio for both testing dates in 2025."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "BKDB": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 15 (Subordinated loan, p.70), Note 17 (Perpetual Tier 1 Capital Securities, pp.71-72), Note 14 (Lease liabilities, p.70), Note 19(b) (p.73), Note 34 (p.115), BS (Due to Banks)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 256405000.0,
+        "note": "Subordinated loan OMR 100,905,000 (incl. OMR 905k accrued interest) + Perpetual Tier 1 Capital Securities OMR 155,500,000 (classified as equity under IAS 32)"
+      },
+      {
+        "currency": "OMR/USD/Other",
+        "amountOmr": 268377000.0,
+        "note": "Due to Banks & Borrowings per Balance Sheet (currency split not disclosed in excerpt)"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Unsecured Subordinated Loan (3 Tranches)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 100000000.0,
+        "outstandingOmr": 100905000.0,
+        "interestRate": "5.75% to 6.00% p.a.",
+        "tenor": "66 months",
+        "maturityDate": "2030-2031",
+        "renewalDate": null,
+        "terms": "Raised in 3 tranches in 2025 (RO 31M Apr 2025, RO 52.9M 6 Nov 2025, RO 16.1M 25 Nov 2025); interest payable semi-annually, principal due at maturity; includes OMR 905k interest payable; OMR 93.8M eligible as Tier II capital."
+      },
+      {
+        "facility": "Due to Banks & Borrowings (BS)",
+        "bank": null,
+        "currency": "OMR/USD/Other",
+        "totalLimitOmr": null,
+        "outstandingOmr": 268377000.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Balance sheet carrying amount for Due to Banks & Borrowings; detailed note breakdown not in excerpt."
+      }
+    ],
+    "bonds": [
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Bank Dhofar Perpetual Tier 1 Capital Securities (Oct 2022)",
+        "instrumentType": "Perpetual Tier 1 Bond",
+        "currency": "OMR",
+        "issueSizeOmr": 115500000.0,
+        "outstandingOmr": 115500000.0,
+        "couponRatePct": 6.75,
+        "ytmPct": null,
+        "maturityDate": "Perpetual",
+        "terms": "Listed on MSX; First Call Date Oct 2027 (5-yr reset intervals); semi-annual discretionary non-cumulative interest; write-down on non-viability; Basel III & CBO BM-1114 compliant; classified as equity (IAS 32)."
+      },
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Bank Dhofar Perpetual Tier 1 Capital Securities (Dec 2023)",
+        "instrumentType": "Perpetual Tier 1 Bond",
+        "currency": "OMR",
+        "issueSizeOmr": 40000000.0,
+        "outstandingOmr": 40000000.0,
+        "couponRatePct": 7.0,
+        "ytmPct": null,
+        "maturityDate": "Perpetual",
+        "terms": "Listed on MSX; First Call Date Dec 2028 (5-yr reset intervals); semi-annual discretionary non-cumulative interest; write-down on non-viability; Basel III & CBO BM-1114 compliant; classified as equity (IAS 32)."
+      }
+    ],
+    "covenants": "Compliant with CBO capital & liquidity ratios at 31 Dec 2025: CAR 18.64% (min 13.50%), CET1 12.52%, Tier 1 16.06%, LCR 157.12% (min 100%), NSFR 113.35% (min 100%). Transfers 20% p.a. of subordinated loan value to subordinated loan reserve per BIS guidelines. Tier 1 Securities carry dividend-stopper and non-viability write-down clauses.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/BKDB_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "BKMB": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 16 (Sukuk, p.42), Note 17 (Euro medium term notes, p.42), Note 18 (Lease liabilities, p.42), Note 37 (Derivatives, pp.54-55), BS (Due to Banks & Debt Securities)",
+    "currencyBreakdown": [
+      {
+        "currency": "USD",
+        "amountOmr": 487387000.0,
+        "note": "Euro Medium Term Notes (OMR 192,500,000 + OMR 288,750,000 + OMR 6,137,000 accrued interest)"
+      },
+      {
+        "currency": "OMR",
+        "amountOmr": 16826000.0,
+        "note": "Meethaq Sukuk Al Musharaka Series 3 (OMR 16,525,000 + OMR 301,000 accrued profit)"
+      },
+      {
+        "currency": "OMR/USD/Other",
+        "amountOmr": 1020730000.0,
+        "note": "Due to Banks & Borrowings per Balance Sheet (currency breakdown not disclosed in excerpt; excludes Tier 1 capital note not in excerpt)"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Due to Banks & Borrowings",
+        "bank": null,
+        "currency": "OMR/USD/Other",
+        "totalLimitOmr": null,
+        "outstandingOmr": 1020730000.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Balance sheet carrying amount for Due to Banks & Borrowings; includes USD borrowings hedged via SOFR IRS (Note 37). No repurchase agreements outstanding at 31 Dec 2025 (Note 38)."
+      }
+    ],
+    "bonds": [
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Bank Muscat EMTN Series (March 2021)",
+        "instrumentType": "EMTN",
+        "currency": "USD",
+        "issueSizeOmr": 192500000.0,
+        "outstandingOmr": 192500000.0,
+        "couponRatePct": 4.75,
+        "ytmPct": null,
+        "maturityDate": "March 2026",
+        "terms": "Non-convertible, unsecured, listed on Irish Stock Exchange under EMTN programme; Note 17 total OMR 487,387k includes OMR 6,137k accrued interest across both EMTN tranches."
+      },
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Bank Muscat EMTN Series (October 2025)",
+        "instrumentType": "EMTN",
+        "currency": "USD",
+        "issueSizeOmr": 288750000.0,
+        "outstandingOmr": 288750000.0,
+        "couponRatePct": 4.846,
+        "ytmPct": null,
+        "maturityDate": "October 2030",
+        "terms": "Non-convertible, unsecured, listed on Irish Stock Exchange under EMTN programme; Note 17 total OMR 487,387k includes OMR 6,137k accrued interest across both EMTN tranches."
+      },
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Meethaq Sukuk Al Musharaka Certificates (Series 3)",
+        "instrumentType": "Sukuk",
+        "currency": "OMR",
+        "issueSizeOmr": 16525000.0,
+        "outstandingOmr": 16826000.0,
+        "couponRatePct": 5.75,
+        "ytmPct": null,
+        "maturityDate": "March 2029",
+        "terms": "Issued March 2024 via SPV Meethaq Sukuk Company LLC (face value RO 1/cert); 5-year tenor; listed on MSX; profit payable bi-annually; carrying includes OMR 301k accrued profit."
+      }
+    ],
+    "covenants": "EMTNs are non-convertible and unsecured. No repurchase agreements outstanding at 31 Dec 2025 (Note 38). Note 18 also includes OMR 50,824,000 lease liabilities. Cash flow Statement records OMR 24,011,000 interest on perpetual Tier I capital (Tier 1 note page not in excerpt)."
+  },
+  "BKSB": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 8.2 (Investment securities / Collateralised USD borrowings, p.27), BS (Due to Banks & Tier 1)",
+    "currencyBreakdown": [
+      {
+        "currency": "USD",
+        "amountOmr": 354200000.0,
+        "note": "USD borrowings collateralised by USD Treasury bills of OMR 383.7M (Note 8.2)"
+      },
+      {
+        "currency": "OMR/USD/Other",
+        "amountOmr": 623278000.0,
+        "note": "Remaining Balance Sheet Due to Banks & Borrowings (total OMR 977,478,000 less OMR 354,200,000 USD collateralised borrowings; currency split not in excerpt)"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "USD Collateralised Bank Borrowings",
+        "bank": null,
+        "currency": "USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 354200000.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "USD borrowings of OMR 354.2M secured by USD Treasury bills of OMR 383.7M assigned as collateral (Note 8.2)."
+      },
+      {
+        "facility": "Other Due to Banks & Borrowings (BS)",
+        "bank": null,
+        "currency": "OMR/USD/Other",
+        "totalLimitOmr": null,
+        "outstandingOmr": 623278000.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Remainder of Balance Sheet Due to Banks & Borrowings (total OMR 977,478k less OMR 354,200k USD collateralised borrowings); dedicated borrowings/Tier 1 notes not included in excerpt."
+      }
+    ],
+    "bonds": [],
+    "covenants": "USD Treasury bills of OMR 383.7M are assigned as collateral against USD borrowings of OMR 354.2M (Note 8.2). Balance sheet shows OMR 200,000,000 gap between Total Equity (OMR 1,153,586k) and Shareholders' Equity (OMR 953,586k) for Tier 1 securities, whose note was not in the 8-page excerpt.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/BKSB_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "BRDE": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 11 (Hedging Reserve), Note 12 (Long Term Loan), Note 13 (Shareholders' Loan), Note 23 (Financial Risk Management)",
+    "currencyBreakdown": [
+      {
+        "currency": "USD",
+        "amountOmr": 65744000.0,
+        "note": "Long-term term loans (Tranche A RO 49,939k + Tranche B RO 16,646k less RO 841k unamortised transaction costs). Excludes RO 586,000 lease liabilities."
+      },
+      {
+        "currency": "OMR",
+        "amountOmr": 3484000.0,
+        "note": "Unsecured shareholders' loan carrying value (principal proceeds RO 3,851,000 less RO 367,000 fair value adjustment)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Long term loan - Tranche A",
+        "bank": null,
+        "currency": "USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 49939000.0,
+        "interestRate": "SOFR + ISDA fallback CAS + applicable margin (77% hedged via IRS at fixed 1.1425% p.a.)",
+        "tenor": "Bi-annual installments from 30 Sep 2018 to 30 Sep 2037",
+        "maturityDate": "2037-09-30",
+        "renewalDate": null,
+        "terms": "Gross carrying before shared unamortised transaction costs of RO 841,000 (total Tranche A+B facility limit RO 96,569,734 / USD 251,156,655). Hedged via IRS with MUFG Securities EMEA plc and Credit Agricole CIB. Secured by comprehensive legal and commercial mortgages on all Company assets."
+      },
+      {
+        "facility": "Long term loan - Tranche B",
+        "bank": null,
+        "currency": "USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 16646000.0,
+        "interestRate": "2.21% p.a. + applicable fixed margin (fixed)",
+        "tenor": "Bi-annual installments from 30 Sep 2018 to 30 Sep 2037",
+        "maturityDate": "2037-09-30",
+        "renewalDate": null,
+        "terms": "Unhedged fixed-rate tranche; gross carrying before shared unamortised transaction costs of RO 841,000. Secured by comprehensive legal and commercial mortgages on all Company assets."
+      },
+      {
+        "facility": "Shareholders' Loan",
+        "bank": "WJ Towell & Co LLC; I-Environment Investments Middle East Ltd; Vigie Groupe; Kahrabel FZE",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 3484000.0,
+        "interestRate": "4.6% p.a. (fixed)",
+        "tenor": "Repayable subject to cash flow availability under Financing Documents",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Unsecured subordinated shareholder loan facilities (proceeds RO 3,851,000 less RO 367,000 fair value adjustment; current RO 448,000, non-current RO 3,036,000)."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Debt/equity ratio, Debt Service Coverage Ratio (DSCR), and restrictive covenants on liquidation/merger, material new agreements, negative pledge, asset disposal, loans/guarantees, capex, and change of business. Company satisfied covenants in 2025.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/BRDE_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "BWPC": {
+    "weightedAvgRate": "6.0% p.a.",
+    "sourceNoteRef": "Note 17 (Long-Term Loan), Note 23 (Short Term Borrowings)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/BWPC_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 29045780.0
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Long-Term Loan",
+        "bank": "Bank Muscat and Ahli Bank",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 29045780.0,
+        "interestRate": "6.0% p.a.",
+        "tenor": "Till 31 December 2031",
+        "maturityDate": "2031",
+        "renewalDate": null,
+        "terms": "Fixed rate; Secured by charge on PPE (56.1M) and all other assets."
+      }
+    ],
+    "bonds": [],
+    "covenants": [
+      "Compliance with financial covenants as at 31 December 2025. Expected compliance with DSCR requirement for the next 12 months."
+    ],
+    "maturityProfile": {
+      "within1Y": 5245727.0,
+      "years1To5": 23800052.0,
+      "over5Y": null
+    }
+  },
+  "CMII": {
+    "weightedAvgRate": 6.9,
+    "sourceNoteRef": "Note 5 (Leases), Note 11 (Cash and cash equivalents), Note 14 (Term loan), Note 27 (Finance charges), Note 30 (Financial instruments and related risk management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 1436416.0,
+        "note": "Term loans total OMR 1,436,416 (current OMR 306,278 + non-current OMR 1,130,138), excluding OMR 482,386 lease liabilities. Note: data/CMII.json captures current term loan OMR 306,278 in borrowingsC but omits non-current term loans OMR 1,130,138 from borrowingsNC (showing totalDebt OMR 788,664 incl. leases)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loan-I",
+        "bank": "Bank Muscat SAOG",
+        "currency": "OMR",
+        "totalLimitOmr": 956000.0,
+        "outstandingOmr": 836825.0,
+        "interestRate": "7.0% p.a.",
+        "tenor": "60 monthly repayments",
+        "maturityDate": "2029-12",
+        "renewalDate": null,
+        "terms": "Availed in 2024 for hydrated lime plant P&M; principal repayment commenced Jan 2025 in 60 monthly instalments. Secured by comprehensive security package (Note 14)."
+      },
+      {
+        "facility": "Term loan-II",
+        "bank": "Bank Muscat SAOG",
+        "currency": "OMR",
+        "totalLimitOmr": 520000.0,
+        "outstandingOmr": 515458.0,
+        "interestRate": "6.75% p.a.",
+        "tenor": "60 monthly repayments after 6-month moratorium",
+        "maturityDate": "2030-12",
+        "renewalDate": null,
+        "terms": "Availed in 2025 for 100TPD lime kiln renovation; OMR 515,458 drawn at 31 Dec 2025 (balance to be drawn in 2026); principal repayment commences Jan 2026 in 60 monthly instalments. Secured by comprehensive security package (Note 14)."
+      },
+      {
+        "facility": "Term loan-III",
+        "bank": "Bank Muscat SAOG",
+        "currency": "OMR",
+        "totalLimitOmr": 240000.0,
+        "outstandingOmr": 84133.0,
+        "interestRate": "6.75% p.a.",
+        "tenor": "60 monthly repayments after 9-month moratorium",
+        "maturityDate": "2031-06",
+        "renewalDate": null,
+        "terms": "Availed in 2025 for new grinding unit; OMR 84,133 drawn at 31 Dec 2025 (balance to be drawn in 2026); principal repayment commences July 2026 in 60 monthly instalments. Secured by comprehensive security package (Note 14)."
+      }
+    ],
+    "bonds": [],
+    "covenants": "No financial ratio covenants disclosed. All banking facilities are secured by a comprehensive package: (i) legal mortgage of OMR 180,000 over residential plot 33 (block 06) at Msial Al Seder; (ii) usufruct mortgages of OMR 458,000 (plot 238) and OMR 119,000 (plot 234) at Sohar Industrial Estate Phase 3; (iii) lien on fixed deposit of OMR 70,274; and (iv) commercial mortgage of OMR 2,160,000 over plant, machinery, inventory, receivables, and other fixed assets.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/CMII_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "DBCI": {
+    "weightedAvgRate": 6.25,
+    "sourceNoteRef": "Note 15 (Term loan), Note 17 (Borrowings), Note 32 (Financial instruments risk)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 2032681.0,
+        "note": "Term loan OMR 619,875 (current OMR 210,000 + non-current OMR 409,875) + Bank overdraft OMR 725,571 + Bank short-term facility OMR 687,235 = OMR 2,032,681. Note: data/DBCI.json captures current borrowings OMR 1,622,806 (210,000 + 1,412,806) but omits non-current term loan OMR 409,875 from borrowingsNC."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loan",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 619875.0,
+        "interestRate": "6.25% p.a.",
+        "tenor": "36 to 66 months",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Availed from commercial banks for soft drink plant and machinery; 6.25% p.a. subject to annual reset (2024: 6.75%); monthly instalments over 36–66 months (current OMR 210,000 + non-current OMR 409,875). Secured by OMR 1.0M mortgage on Al Saada Salalah Plot 65 Block 66, OMR 345k charge on financed machineries, and OMR 500k mortgage on Mabelah land/building."
+      },
+      {
+        "facility": "Bank overdraft",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 725571.0,
+        "interestRate": "6.25% p.a.",
+        "tenor": "Annual renegotiation",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Commercial bank overdraft for daily working capital; 6.25% p.a. subject to annual renegotiation (Note 32.2); secured by same collaterals as Term loan (Note 15)."
+      },
+      {
+        "facility": "Bank short term facility",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 687235.0,
+        "interestRate": "6.25% p.a.",
+        "tenor": "Short-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Commercial bank short-term working capital facility; 6.25% p.a.; secured by same collaterals as Term loan (Note 15)."
+      }
+    ],
+    "bonds": [],
+    "covenants": "No financial ratio covenants disclosed. All facilities are secured by a registered mortgage of OMR 1,000,000 over Plot No. 65, Block 66, Al Saada Salalah, a first-ranking commercial charge of OMR 345,000 over financed machineries, and a statutory mortgage of OMR 500,000 over land and building at Mabelah, Muscat.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/DBCI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "DBIH": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "N/A (No specific debt notes found)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/DBIH_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [],
+    "loans": [],
+    "bonds": [],
+    "covenants": [
+      "The company has leased land for factory premises, at Buraimi, from the Public Establishment from Industrial Estates (PEIE), under agreements that expires in future. Generally, the company is restricted from assigning and subleasing the leased assets."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "DFIN": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 6.8 (Lease liabilities), Note 22 (Term loans), Note 23 (Bank borrowings), Note 36 (Financial instruments risk)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 33356000.0,
+        "note": "Total Group borrowings in RO'000 converted to exact OMR: Term loans OMR 10,869,000 + Bank borrowings OMR 22,487,000 (current portion OMR 23,781,000 matching BS borrowingsC + non-current term loans OMR 9,575,000 inside BS totalNonCurrentLiabilities; excludes OMR 2,364,000 lease liabilities)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loan 2 (OGF soft loan & commercial term loans)",
+        "bank": "Oman Development Bank SAOC and local commercial banks",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 496000.0,
+        "interestRate": "3% p.a. (ODB soft loan); 6.5% p.a. (local commercial banks)",
+        "tenor": "28 quarterly instalments from Mar 2023 (ODB); 36 monthly instalments Jul 2023 - Jun 2026 (commercial)",
+        "maturityDate": "2026-06",
+        "renewalDate": null,
+        "terms": "Subsidiary OGF facility including RO 500,000 Government soft loan via ODB plus local commercial bank term loans; secured by Parent corporate guarantee, investments pledge, and subsidiary PPE charge."
+      },
+      {
+        "facility": "Term loan 3 (Parent Company)",
+        "bank": "Bank Dhofar SAOG",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 10250000.0,
+        "interestRate": "6.90% p.a.",
+        "tenor": "40 quarterly instalments commencing 26 June 2024",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Parent Company term loan from Bank Dhofar SAOG; subject to current ratio and leverage ratio covenants."
+      },
+      {
+        "facility": "Term loan 5 (OGF related loan)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 123000.0,
+        "interestRate": "0% (interest-free)",
+        "tenor": "Short-term",
+        "maturityDate": "2026-01",
+        "renewalDate": null,
+        "terms": "Unsecured interest-free loan; repaid in January 2026."
+      },
+      {
+        "facility": "Short-term loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 9315000.0,
+        "interestRate": "6% to 10% p.a.",
+        "tenor": "Short-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Local commercial banks; secured by pledge of FVOCI/associate/subsidiary investments (RO 8.989M), investment properties (RO 2.48M), current assets, intangibles, and PPE (RO 17.248M)."
+      },
+      {
+        "facility": "Other short-term borrowings (overdrafts, short-term loans, trust receipts)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 13172000.0,
+        "interestRate": "6% to 10% p.a.",
+        "tenor": "Annual renewal (overdrafts) / short-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Local commercial banks; bank overdrafts and loans against trust receipts; Parent and subsidiary collateral as above."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Borrowings from Bank Dhofar are subject to financial and administrative covenants including maintaining current ratio and leverage ratio. The Group was in compliance as at 31 December 2025 and expects to comply for at least 12 months."
+  },
+  "DGEN": {
+    "weightedAvgRate": 5.18,
+    "sourceNoteRef": "Note 15 (Term Loan), Note 13 (Derivative Financial Instruments), Note 24 (Finance Cost), Note 27",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 100817947.0,
+        "note": "Combined carrying value of OMR and USD term loan tranches (gross RO 101,370,836 less unamortised arrangement fee RO 552,889). Note 15 does not separately disclose year-end outstanding principal by currency. Excludes RO 1,941,262 lease liabilities."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term Loan Facility - OMR Tranche",
+        "bank": "Consortium of local and international banks",
+        "currency": "OMR",
+        "totalLimitOmr": 69967312.0,
+        "outstandingOmr": null,
+        "interestRate": "5.59% p.a. (fixed)",
+        "tenor": "31 semi-annual installments starting 31 Jul 2018",
+        "maturityDate": "2032-12-31",
+        "renewalDate": null,
+        "terms": "Part of RO 165,576,474 (USD 429,957,087) Common Terms Agreement; combined OMR+USD carrying amount is RO 100,817,947 (gross RO 101,370,836). Secured by charge on all project assets, assignment of insurances, promoter shares security, and project accounts. 95% FCF Cash Sweep Mechanism applies."
+      },
+      {
+        "facility": "Term Loan Facility - USD Tranche",
+        "bank": "Consortium of local and international banks",
+        "currency": "USD",
+        "totalLimitOmr": 95460199.5,
+        "outstandingOmr": null,
+        "interestRate": "SOFR + Margin + CAS p.a. (weighted avg effective 4.91% p.a.; hedged via 5 IRS at 2.9%-3.2% p.a.)",
+        "tenor": "31 semi-annual installments starting 31 Jul 2018",
+        "maturityDate": "2032-12-31",
+        "renewalDate": null,
+        "terms": "Facility limit USD 248,271,000. Hedged via 5 IRS with SMBC Capital Market Limited, Standard Chartered Bank, KfW IPEX-Bank, Sumitomo Mitsui Trust Bank, and Mizuho Bank Ltd (notional RO 49,664,537 at 31 Dec 2025). Secured by charge on all project assets; 95% FCF Cash Sweep Mechanism applies."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Debt Service Coverage Ratio (DSCR) and other non-financial covenants; 95% free cash flow Cash Sweep Mechanism effective from 31 July 2021 (RO nil prepaid in 2025). Company in compliance during 2025.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/DGEN_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "DIDI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 29(b)-(e) (Borrowings, p.76), Note 42(c) (Related party balances, p.84), Note 43 (Guarantees, p.84), Note 44 (Gearing ratio, p.85)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 237551616.0,
+        "note": "Bank borrowings net OMR 235,156,181 (gross OMR 235,899,235 less OMR 743,054 deferred finance costs) + Lease liabilities OMR 2,395,435"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Long-term commercial & syndicated bank loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 185746258.0,
+        "interestRate": null,
+        "tenor": "1-2 yrs OMR 6,110,000; >2 yrs OMR 180,379,312 (gross)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Gross long-term loans OMR 186,489,312 less OMR 743,054 deferred finance costs (syndicated loan upfront fees). Includes OMR 100,335,000 long-term loans from banking associates (unsecured, fixed maturity, Note 42c)."
+      },
+      {
+        "facility": "Short-term borrowings",
+        "bank": "Various commercial banks in Oman",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 49409923.0,
+        "interestRate": "6.01% p.a. (weighted average)",
+        "tenor": "Short-term (<= 1 year)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Short-term loans from commercial banks in Oman; includes OMR 7,505,000 short-term borrowings/overdraft from banking associates and other related parties (Note 42c)."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Related-party borrowings from banking associates carry fixed maturity and are unsecured (Note 42c). Group issued OMR 6,341,953 guarantees and Parent issued OMR 3,435,000 corporate guarantees to a subsidiary (Note 43). No specific financial ratio covenants disclosed in excerpt.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/DIDI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "DTCS": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 15 (Term loans), Note 17 (Bank Overdraft), Note 26 (Finance cost), Note 31 (Financial risk management), Note 33 (Capital management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 4181936.0,
+        "note": "Matches data/DTCS.json BS total debt (OMR 4,181,936 = Term loan 1 OMR 1,125,811 + Term loan 3 OMR 1,521,554 + Bank overdraft OMR 487,453 + Related party loan principal OMR 1,047,118; Note 31b adds OMR 127,190 accrued interest on related party loan)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loan 1",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 5252101.0,
+        "outstandingOmr": 1125811.0,
+        "interestRate": "3.0% p.a.",
+        "tenor": "5 annual instalments (amended 2024)",
+        "maturityDate": "2028-11",
+        "renewalDate": null,
+        "terms": "Borrowed from a commercial bank of Qatar; amended in 2024 to 5 annual instalments of OMR 226,344 (Nov 2024–Nov 2028) with monthly interest. Nov 2024 and Nov 2025 instalments unpaid; restructuring under negotiation. Current portion OMR 679,032. Secured by Plot 174 (OMR 2,870,000) and lien over former shareholder fixed deposit of OMR 2,039,136."
+      },
+      {
+        "facility": "Term loan 3",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 2080000.0,
+        "outstandingOmr": 1521554.0,
+        "interestRate": "6.4% p.a.",
+        "tenor": "8 equal annual instalments after 2-year moratorium",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Obtained from a commercial bank during 2025; repayable in 8 equal annual instalments (12.5% each) following a 2-year moratorium. Classified wholly as non-current (within OMR 1,968,333 non-current term loans). Secured by registered legal mortgage over Plot No. 171."
+      },
+      {
+        "facility": "Bank Overdraft",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 500000.0,
+        "outstandingOmr": 487453.0,
+        "interestRate": "6.25% p.a.",
+        "tenor": "On demand",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Sanctioned limit OMR 500,000 from a commercial bank; floating rate (2024: 7.0% p.a.). Secured by registered charge over land and buildings (Plots 166, 174, and 175)."
+      },
+      {
+        "facility": "Loan from related party",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 1047118.0,
+        "interestRate": null,
+        "tenor": "Over 1 year (principal)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Floating-rate loan from related party (Note 31c floating interest exposure OMR 1,534,571 = overdraft OMR 487,453 + related party loan OMR 1,047,118; 2025 interest expense OMR 65,445 per Note 26; Note 31b shows OMR 1,174,308 incl. OMR 127,190 current accrued interest/due)."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Company failed to pay the first two amended instalments of Term loan 1 due in Nov 2024 and Nov 2025 (current/overdue portion OMR 679,032) and is negotiating restructuring with the lender without formal confirmation. Term loan 1 secured by Plot 174 (OMR 2,870,000) and lien over OMR 2,039,136 fixed deposit; Term loan 3 secured by legal mortgage over Plot 171; Bank overdraft secured by registered charge over Plots 166, 174, and 175.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/DTCS_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "FSCI": {
+    "weightedAvgRate": "6.5% to 6.75% p.a.",
+    "sourceNoteRef": "Note 18 (Bank Overdraft), Note 24 (Maturity Profile)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/FSCI_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 1074738.0
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Overdraft facility",
+        "bank": "Commercial banks",
+        "currency": "OMR",
+        "totalLimitOmr": 1400000.0,
+        "outstandingOmr": 1074738.0,
+        "interestRate": "6.5% to 6.75% p.a.",
+        "tenor": "On demand",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured against pledge of marketable securities and buildings"
+      }
+    ],
+    "bonds": [],
+    "covenants": [
+      "Facilities are secured against a pledge of marketable securities (Note 9 and 10) and buildings."
+    ],
+    "maturityProfile": {
+      "within1Y": 3508673.0,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "GECS": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 3 (Financial Risk Management), Note 29 (Bank Borrowings), Note 30 (Net Debt Reconciliation)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 87875000.0,
+        "note": "Consolidated borrowings per Note 30 Net debt reconciliation (RO 52,309,000 bank borrowings/overdrafts/short-term loans + RO 35,566,000 term loans). Excludes RO 11,686,000 lease liabilities. Note: data/GECS.json captures RO 65,430,000 current borrowings but omits non-current term loans (~RO 22,445,000) from borrowingsNC."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Bank overdrafts",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 8146000.0,
+        "interestRate": "Commercial rates (reset annually at renewal)",
+        "tenor": "On demand / within 1 year",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured against assignment of contract receivables (Note 29)."
+      },
+      {
+        "facility": "Loan against trust receipts",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 13897000.0,
+        "interestRate": "Commercial rates (reset at frequent intervals)",
+        "tenor": "Within 1 year",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured against assignment of contract receivables (Note 29)."
+      },
+      {
+        "facility": "Bills discounted",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 17587000.0,
+        "interestRate": "Commercial rates",
+        "tenor": "Within 1 year",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured against assignment of contract receivables (Note 29)."
+      },
+      {
+        "facility": "Short-term loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 12679000.0,
+        "interestRate": "Commercial rates (renegotiated at frequent intervals)",
+        "tenor": "Less than 1 year",
+        "maturityDate": "2026",
+        "renewalDate": null,
+        "terms": "Derived from Note 30 consolidated short-term borrowings RO 52,309,000 less Note 29 facilities RO 39,630,000 (undiscounted Group contractual cash flow RO 12,752,000 in Note 3c)."
+      },
+      {
+        "facility": "Term loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 35566000.0,
+        "interestRate": "Mix of fixed and variable commercial rates",
+        "tenor": "Up to >5 years",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Consolidated carrying amount per Note 30 (undiscounted contractual cash flows RO 40,086,000 in Note 3c: RO 14,833k <1Y, RO 9,393k 1-2Y, RO 12,141k 2-5Y, RO 3,719k >5Y)."
+      }
+    ],
+    "bonds": [],
+    "covenants": null
+  },
+  "GFIC": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Statement of Financial Position, Statement of Cash Flows, Note 17 (Term loan), Note 19 (Bank borrowings), Note 24 (Finance costs), Note 28 (Financial instrument and risk)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 6096901.0,
+        "note": "Audited BS borrowings total OMR 6,096,901 (Term loan OMR 1,500,000 + Short-term loan OMR 1,981,000 + Bank overdraft OMR 2,615,901), excluding OMR 112,374 lease liabilities (current OMR 12,656 + non-current OMR 99,718). Note: data/GFIC.json nets the OMR 2,615,901 overdraft against cash and reports totalDebt OMR 3,593,374."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loan",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 1500000.0,
+        "interestRate": "5.25% p.a.",
+        "tenor": "3 years",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Availed in 2025 by Parent Company from a commercial bank in Oman; interest serviced semi-annually with bullet repayment at end of 3-year tenure. Covered under OMR 9,500,000 aggregate Group bank facilities secured by share pledge (fair value OMR 39,593,618)."
+      },
+      {
+        "facility": "Short term loan",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 1981000.0,
+        "interestRate": "6.0% p.a.",
+        "tenor": "90 days rollover",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Working capital facility from a commercial bank in Oman on 90-day rollover basis with interest payable on rollover date (2024: 6.25% p.a.). Covered under OMR 9,500,000 aggregate Group bank facilities secured by share pledge."
+      },
+      {
+        "facility": "Bank overdraft",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 2615901.0,
+        "interestRate": "5.25% - 6.0% p.a.",
+        "tenor": "On demand",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Overdraft from commercial banks in Oman, repayable on demand (2024: 6.25% p.a.). Netted against cash & bank balances in Cash Flow Statement and data/GFIC.json. Secured under OMR 9,500,000 aggregate Group facilities."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Aggregate Group banking facilities of OMR 9,500,000 (2024: OMR 6,000,000) covering long-term loan, short-term loans, bank overdrafts, and guarantees from local banks are secured against a pledge of shares with a fair value of OMR 39,593,618 as at 31 December 2025 (2024: OMR 24,374,400)."
+  },
+  "GHOS": {
+    "weightedAvgRate": "5.4% p.a.",
+    "sourceNoteRef": "Note 12 (Term Loan)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/GHOS_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 2782000.0
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loan",
+        "bank": "local commercial bank in the Sultanate of Oman",
+        "currency": "OMR",
+        "totalLimitOmr": 3000000.0,
+        "outstandingOmr": 2782000.0,
+        "interestRate": "5.4% p.a.",
+        "tenor": "Repayable in 20 equal quarterly instalments commencing May 2026",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured by: Assignment of all receivables, income and payment gateways; Negative pledge over the Hotel property; Corporate guarantee from a Shareholder."
+      }
+    ],
+    "bonds": [],
+    "covenants": [
+      "Subject to certain restrictive covenants and conditions which, if violated, could permit the lender to demand early repayment of the facility."
+    ],
+    "maturityProfile": {
+      "within1Y": 600000.0,
+      "years1To5": 1732000.0,
+      "over5Y": null
+    }
+  },
+  "GICI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "N/A (No specific Borrowings/Loans note found)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/GICI_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [],
+    "loans": [],
+    "bonds": [],
+    "covenants": [
+      "Liquidity risk managed by monitoring cash flows and ensuring adequate funds are available to meet obligations as they fall due. Most financial liabilities are generally payable within 6 months from the end of the reporting period."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "GMPI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 16 (Borrowings), Note 17 (Lease liability), Note 19 (Short term borrowings), Note 34 (Financial instruments and risk management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 3621173.0,
+        "note": "Government soft loan carrying value OMR 938,995 + Commercial term loans OMR 2,470,614 (current OMR 563,372 + non-current OMR 1,907,242) + Short-term Development Bank loan OMR 211,564 = OMR 3,621,173, excluding OMR 105,103 lease liabilities. Note: data/GMPI.json shows borrowingsC OMR 921,279 (= 563,372 + 211,564 + 146,343 current soft loan) and omits non-current borrowings OMR 2,699,894 from borrowingsNC."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Commercial term loan I (Diminishing Musharaka)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 1760000.0,
+        "outstandingOmr": 1320170.0,
+        "interestRate": "5.40% p.a. (Year 1 fixed), then CBO weighted avg deposit rate + 34 bps",
+        "tenor": "6 years",
+        "maturityDate": "2031-01",
+        "renewalDate": null,
+        "terms": "Islamic banking division of a bank in Oman; OMR 1.76M disbursed Jan 2025 to refinance prior facility; repayable in 12 semi-annual instalments of OMR 146,686 from 31 July 2025. Secured by pari-passu legal mortgage on Barka land/building and usufruct mortgage on Thumrait leased land."
+      },
+      {
+        "facility": "Commercial term loan II (Diminishing Musharaka)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 1620000.0,
+        "outstandingOmr": 1150444.0,
+        "interestRate": "5.40% p.a. (Year 1 fixed), then CBO weighted avg deposit rate + 34 bps",
+        "tenor": "6 years (after 2-year moratorium)",
+        "maturityDate": "2030",
+        "renewalDate": null,
+        "terms": "Islamic banking division of a bank in Oman; OMR 1.62M availed June 2022; repayment commenced Dec 2024. Secured by pari-passu legal mortgage on Barka land/building and usufruct mortgage on Thumrait leased land."
+      },
+      {
+        "facility": "Government soft loan",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 938995.0,
+        "interestRate": null,
+        "tenor": "Over 5 years",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Subsidized-rate Government soft loan (exact % not printed in excerpt); carrying value OMR 938,995 (undiscounted maturity total OMR 1,000,998 less OMR 62,003 deferred government grant; within 1 yr OMR 162,277 undiscounted). Secured by pari-passu legal mortgage on Barka land and building."
+      },
+      {
+        "facility": "Short-term commercial loan",
+        "bank": "Development Bank",
+        "currency": "OMR",
+        "totalLimitOmr": 1000000.0,
+        "outstandingOmr": 211564.0,
+        "interestRate": "4.5% p.a.",
+        "tenor": "Short-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Availed portion of OMR 1,000,000 facility from Development Bank in Oman (2024: 4.0% p.a.)."
+      },
+      {
+        "facility": "Standby Islamic short-term commercial facility",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 1500000.0,
+        "outstandingOmr": 0.0,
+        "interestRate": "Prevailing market profit rate",
+        "tenor": "Short-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Unutilised standby arrangement of OMR 1.50M from an Islamic banking division of a bank in Oman (Note 19)."
+      }
+    ],
+    "bonds": [],
+    "covenants": "No financial ratio covenants disclosed. Commercial term loans and Government soft loan are secured by a pari-passu legal mortgage on Company land and building in Barka, and commercial term loans are additionally secured by usufruct legal mortgage on leased land in Thumrait.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/GMPI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "HECI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 14 (Borrowings), Note 15 (Accrued Interest on Borrowings), Note 28 (Financial Instrument Risk) [FY2023 Audited]",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 52699202.0,
+        "note": "FY2023 audited (latest available filing; company under liquidation): RO 44,435,288 syndicated borrowings principal (Note 14) + RO 8,263,914 overdue accrued interest classified as current (Note 15). Excludes RO 1,582,388 lease liabilities and RO 6,700,000 discretionary subordinated shareholder loans (Note 13)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Syndicated Restructured Term Facilities (i) Senior, (ii) Subordinated, (iii) Additional Term Loan",
+        "bank": "Bank Muscat SAOG, Bank Dhofar SAOG, Bank Sohar SAOG, First Abu Dhabi Bank PJSC (Oman Branch), National Bank of Oman SAOG, Oman Arab Bank SAOC, Alizz Islamic Bank SAOG",
+        "currency": "OMR",
+        "totalLimitOmr": 44800000.0,
+        "outstandingOmr": 44435288.0,
+        "interestRate": "Tranche (i) 5.5% p.a.; Tranche (ii) 6.0% p.a.; Tranche (iii) 4.5% p.a.",
+        "tenor": "Restructured 15 Nov 2017; holiday period expired",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Principal RO 44,435,288 across 3 facilities (limits RO 29.8M + RO 5M + RO 10M), plus RO 8,263,914 unpaid accrued interest classified as current borrowings (total BS borrowings RO 52,699,202). Secured by first-ranking pari passu charge over all fixed assets and receivables, insurance assignment, and charge over designated bank accounts."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Secured by first-ranking pari passu charge over fixed assets and receivables, assignment of insurance proceeds, and charge over designated bank accounts. Repayment holiday expired; RO 44,435,288 principal and RO 8,263,914 accrued interest classified as current pending extension negotiations (FY2023 audited).",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/HECI_2023_Yearly%20%28Audited%29_e.zip"
+  },
+  "LIVA": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "N/A (Borrowings/lease notes not included in 8/91 page FY2025 excerpt; BS Total Debt & Lease Liabilities = OMR 63,455,729)",
+    "currencyBreakdown": [],
+    "loans": [],
+    "bonds": [],
+    "covenants": null,
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/LIVA_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "MCDE": {
+    "weightedAvgRate": 5.16,
+    "sourceNoteRef": "Note 10 (Derivative Financial Instruments), Note 11 (Term Loans), Note 11.1 (Reconciliation of Financing Cash Flows)",
+    "currencyBreakdown": [
+      {
+        "currency": "USD",
+        "amountOmr": 38795000.0,
+        "note": "Term loans net of RO 627,000 deferred finance charges (gross RO 39,422,000; current RO 3,873,000, non-current RO 34,922,000)."
+      },
+      {
+        "currency": "OMR",
+        "amountOmr": 6621000.0,
+        "note": "Shareholders bridge loan (RO 5,837,000 + RO 30,000-31,000 accrued interest) and shareholders stand-by equity loan (RO 754,000) per Note 11.1 and BS reconciliation. Excludes RO 241,000 land lease."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loans",
+        "bank": "Consortium of international banks",
+        "currency": "USD",
+        "totalLimitOmr": 81451616.0,
+        "outstandingOmr": 38795000.0,
+        "interestRate": "Cumulative compounded SOFR + CAS + margin (effective 5.16% p.a.; IRS fixed at 2.86% p.a.)",
+        "tenor": "76 quarterly instalments",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Total drawn at inception RO 81,244,505 (USD 211,299,102), remaining undrawn cancelled. Carrying value RO 38,795,000 (gross RO 39,422,000 less RO 627,000 deferred finance charges). Hedged notional RO 31,216,273 (USD 81,186,666). Secured by commercial mortgage over PPE and legal mortgage over Usufruct Agreement."
+      },
+      {
+        "facility": "Shareholders bridge loan",
+        "bank": "Shareholders",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 5837000.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Per Note 11.1 (RO 600,000 repaid in 2025; accrued interest RO 31,000)."
+      },
+      {
+        "facility": "Shareholders stand-by equity loan",
+        "bank": "Shareholders",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 754000.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Per Note 11.1."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Restrictions on debt/equity ratio, debt service coverage ratio (DSCR), and loan life cover ratio (LLCR). Compliant for the year ended 31 Dec 2025.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/MCDE_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "MCTI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "N/A (No specific debt notes found)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/MCTI_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [],
+    "loans": [],
+    "bonds": [
+      {
+        "name": "Investment in International Government Bonds",
+        "isin": null,
+        "subType": "Bond/Debt Investment",
+        "currency": "OMR",
+        "issueValueOmr": null,
+        "outstandingOmr": 2901293.0,
+        "couponPct": 7.375,
+        "maturityDate": "2032",
+        "fairValueOmr": null,
+        "effectiveRatePct": 7.375,
+        "terms": "Amortised Cost"
+      }
+    ],
+    "covenants": [
+      "Maintain specified leverage ratios (internal framework)"
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "MFCI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 16 (Bank borrowings)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/MFCI_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 30112000.0
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Bank overdrafts",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 1248000.0,
+        "interestRate": "Subject to change upon renewal",
+        "tenor": "Annual basis (renewal)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Interest rates subject to change at discretion of banks upon renewal."
+      }
+    ],
+    "bonds": [],
+    "covenants": [
+      "Interest on long term loans are as per the agreed commercial rates."
+    ],
+    "maturityProfile": {
+      "within1Y": 26852000.0,
+      "years1To5": 3260000.0,
+      "over5Y": null
+    }
+  },
+  "MGMC": {
+    "weightedAvgRate": 6.25,
+    "sourceNoteRef": "Note 14 (Lease liabilities), Note 16 (Bank overdraft), Note 24 (Finance costs), Note 29 (Financial instruments and related risk management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 413115.0,
+        "note": "Unsecured bank overdraft OMR 413,115 (Note 16 & Note 29c), excluding OMR 333,921 IFRS 16 lease liabilities (current OMR 9,926 + non-current OMR 323,995 at 7% IBR). Note: data/MGMC.json shows only lease liabilities (totalDebt OMR 333,921) and omits the OMR 413,115 bank overdraft from borrowingsC."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Bank overdraft",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 413115.0,
+        "interestRate": "6.25% p.a.",
+        "tenor": "On demand",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Unsecured floating-rate bank overdraft from a commercial bank in Oman (2024: 6.25% p.a.; Note 29a(ii) 100 bps sensitivity OMR 4,131). Part of ~OMR 1,459,000 aggregate credit facilities across a commercial bank and an Islamic bank (covering overdraft, term loans, LTR, LCs, acceptances, and LGs)."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Bank overdraft is unsecured (Note 16). No financial ratio covenants disclosed in excerpt."
+  },
+  "MHAS": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 17 (Interest Bearing Loans and Borrowings), Note 22 (Finance Costs), Note 24.4 (Liquidity Risk)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 52683000.0,
+        "note": "Unsecured short-term loans denominated in OMR (Note 17); excludes RO 6,964,000 lease liabilities."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Short term loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 52683000.0,
+        "interestRate": "Commercial rate",
+        "tenor": "Up to 1 year",
+        "maturityDate": "2026",
+        "renewalDate": null,
+        "terms": "Unsecured short-term borrowings denominated in OMR; interest paid at maturity. Undiscounted contractual cash flow RO 52,798,000."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Restrictive covenants including routing of cashflows, maintenance of leverage, gearing, and current ratios. Company in compliance as at 31 Dec 2025.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/MHAS_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "MSPW": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 11 (Borrowings), Note 18 (Finance Costs), Note 22 (Financial Risk Management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 48744334.0,
+        "note": "Senior facility loan (RO 45,744k in Note 11) + Short-term loan facility (RO 3,000k) = RO 48,744,334 exact BS carrying borrowings. Excludes RO 93,357 lease liabilities."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Senior facility loan",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 45744000.0,
+        "interestRate": "5.25% p.a. (fixed)",
+        "tenor": "Half-yearly instalments from 30 Jun 2017 to 17 Dec 2031",
+        "maturityDate": "2031-12-17",
+        "renewalDate": null,
+        "terms": "Current portion RO 3,733,000; non-current RO 42,011,000 (exact BS sum incl. short-term loan is RO 48,744,334). Secured by legal mortgage over immovable assets, share pledge, project accounts pledge, and assignment/charge over project documents, insurances, and revenues."
+      },
+      {
+        "facility": "Short-term loan facility",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 6000000.0,
+        "outstandingOmr": 3000000.0,
+        "interestRate": "4.25% p.a. (fixed)",
+        "tenor": "Short-term (up to 1 year)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Short-term working capital facility from a commercial bank."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Senior facility loan is subject to applicable financial covenants and Debt Service Reserve Account (DSRA) requirements.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/MSPW_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "MTMI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "N/A (No specific debt note found)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/MTMI_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [],
+    "loans": [],
+    "bonds": [],
+    "covenants": [
+      "The property, plant and equipment (except buildings) are mortgaged against credit facilities obtained from a local commercial bank (note 17)."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "NAPI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": null,
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 8859751.0,
+        "note": "BS carrying borrowingsC per data/NAPI.json (OMR 8,859,751; excludes OMR 1,171,750 lease liabilities). /tmp/debt_excerpts/NAPI.txt contains only 2 header-only pages of 34 (6_Notes PDF text unextractable), so currency split, facility details, and any non-current borrowings inside BS totalNonCurrentLiabilities (OMR 9,612,476) are undisclosed."
+      }
+    ],
+    "loans": [],
+    "bonds": [],
+    "covenants": null,
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/NAPI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "NBII": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 15 (Bank Borrowings), Note 19 (Finance Charges)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/NBII_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [],
+    "loans": [],
+    "bonds": [],
+    "covenants": [
+      "Subject to certain restrictive covenants which, if violated, could permit the bank to cancel or reduce the facilities [note 29 d). The Company is in compliance with these covenants."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "NBOB": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 10 (Due to banks, p.29), Note 7 (Collateralised USD borrowings, p.27), Note 18 (Tier 1 Perpetual Bond, p.34), Note 1 (p.1), Note 12 (Lease liabilities, pp.29-30)",
+    "currencyBreakdown": [
+      {
+        "currency": "USD",
+        "amountOmr": 463560000.0,
+        "note": "Collateralised USD bank borrowings OMR 65,230,000 (Notes 7 & 10) + 4 USD Perpetual Tier 1 Capital Securities tranches totaling OMR 398,330,000 (Note 18; classified as equity under IAS 32)"
+      },
+      {
+        "currency": "OMR/USD/Other",
+        "amountOmr": 349653000.0,
+        "note": "Remaining Due to Banks & Money Market Deposits (OMR 414,883,000 less OMR 65,230,000 USD borrowings; includes OMR 341,901,000 borrowings + OMR 7,752,000 vostro balances)"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "USD Collateralised Bank Borrowings",
+        "bank": null,
+        "currency": "USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 65230000.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Collateralised by Government Sukuk - Oman and quoted Oman/foreign investments of OMR 80.65M (Notes 7 & 10)."
+      },
+      {
+        "facility": "Other Due to Banks Borrowings",
+        "bank": null,
+        "currency": "OMR/USD/Other",
+        "totalLimitOmr": null,
+        "outstandingOmr": 341901000.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Remaining borrowings in Note 10 Due to Banks (OMR 407,131k total borrowings less OMR 65,230k USD collateralised borrowings; excludes OMR 7,752k vostro balances)."
+      }
+    ],
+    "bonds": [
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "NBO Perpetual Tier 1 Capital Securities (April 2021)",
+        "instrumentType": "Perpetual Tier 1 Bond",
+        "currency": "USD",
+        "issueSizeOmr": 115500000.0,
+        "outstandingOmr": 115500000.0,
+        "couponRatePct": 8.0,
+        "ytmPct": null,
+        "maturityDate": "Perpetual",
+        "terms": "USD 300M (OMR 115.5M); listed on Euronext Dublin; 5-year rate reset (2026); direct, unconditional, subordinated, unsecured; discretionary interest & CBO-approved non-viability write-down; Basel III & CBO BM 1114 compliant; classified as equity (IAS 32)."
+      },
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "NBO Perpetual Tier 1 Capital Securities (November 2022)",
+        "instrumentType": "Perpetual Tier 1 Bond",
+        "currency": "USD",
+        "issueSizeOmr": 51630000.0,
+        "outstandingOmr": 51630000.0,
+        "couponRatePct": 6.75,
+        "ytmPct": null,
+        "maturityDate": "Perpetual",
+        "terms": "USD 134.11M (OMR 51.63M); listed on Euronext Dublin; 5-year rate reset (2027); direct, unconditional, subordinated, unsecured; discretionary interest & CBO-approved non-viability write-down; classified as equity (IAS 32)."
+      },
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "NBO Perpetual Tier 1 Capital Securities (October 2024)",
+        "instrumentType": "Perpetual Tier 1 Bond",
+        "currency": "USD",
+        "issueSizeOmr": 57900000.0,
+        "outstandingOmr": 57900000.0,
+        "couponRatePct": 6.75,
+        "ytmPct": null,
+        "maturityDate": "Perpetual",
+        "terms": "USD 150.40M (OMR 57.90M); listed on Euronext Dublin; 5-year rate reset (2029); direct, unconditional, subordinated, unsecured; discretionary interest & CBO-approved non-viability write-down; classified as equity (IAS 32)."
+      },
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "NBO Perpetual Tier 1 Capital Securities (November 2025)",
+        "instrumentType": "Perpetual Tier 1 Bond",
+        "currency": "USD",
+        "issueSizeOmr": 173300000.0,
+        "outstandingOmr": 173300000.0,
+        "couponRatePct": 6.63,
+        "ytmPct": null,
+        "maturityDate": "Perpetual",
+        "terms": "USD 450M (OMR 173.3M); listed on Euronext Dublin; 5-year rate reset (2030); direct, unconditional, subordinated, unsecured; discretionary interest & CBO-approved non-viability write-down; classified as equity (IAS 32)."
+      }
+    ],
+    "covenants": "USD bank borrowings of OMR 65.23M are collateralised by Oman Government Sukuk and quoted investments of OMR 80.65M (Notes 7 & 10). Tier 1 Perpetual Bonds are deeply subordinated, unsecured, with discretionary interest/principal payment and CBO-approved non-viability write-down provisions (Basel III / CBO BM 1114). Lease liabilities total OMR 1,907,000 (Note 12).",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/NBOB_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "NDTI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 6 (Leases), Note 13 (Bank borrowings), Note 21 (Finance charges), Note 28 (Financial risk and capital management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 4200334.0,
+        "note": "Total bank borrowings per BS borrowingsC (OMR 4,200,334, consistent with Note 28(a) 0.5% interest rate sensitivity of OMR 21,002; excludes OMR 2,479,622 lease liabilities). Note 13 & Note 28(a) confirm facilities from local commercial banks in Oman with no foreign-currency borrowings disclosed."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Bank overdraft, loan against trust receipt and short-term loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 4200334.0,
+        "interestRate": "Commercial rates (re-negotiated annually)",
+        "tenor": "Up to 6 months",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Obtained from local commercial banks in the Sultanate of Oman; interest rates re-negotiated upon annual renewal; all financial liabilities excluding leases repayable within 6 months (Note 28(c))."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Facility agreements contain restrictive covenants permitting the bank to cancel/reduce facilities or impose penal charges if violated, and require maintaining specified financial ratios (Notes 13 & 28(d)). Company was in material compliance as at 31 December 2025.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/NDTI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "NFCI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 20 (Bank borrowings, pp.45-46), Note 21 (Fixed deposits, p.46), Note 18 (Lease liabilities, p.45), Note 3.2.1 & 3.4 & 3.6 (pp.33-36), Note 4.2 (p.36)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 252628000.0,
+        "note": "OMR-denominated bank borrowings (total OMR 416,078,000 less USD borrowings OMR 163,450,000)"
+      },
+      {
+        "currency": "USD",
+        "amountOmr": 163450000.0,
+        "note": "USD-denominated long-term borrowings (USD 424.97M), hedged via 1-to-3 month rolling FX forwards"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Short-term bank loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 145588000.0,
+        "interestRate": "5.00% to 6.85% p.a.",
+        "tenor": "Short-term (<= 1 year)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured by a pari-passu floating charge on the Company's receivables from its customers."
+      },
+      {
+        "facility": "Long-term bank loans (Current & Non-current)",
+        "bank": null,
+        "currency": "OMR/USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 270490000.0,
+        "interestRate": "5.00% to 6.85% p.a.",
+        "tenor": "1 to >4 years (current OMR 127,168k; non-current OMR 143,322k)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Includes OMR 163.45M (USD 424.97M) USD-denominated long-term borrowings covered by 1-3 month rolling FX forwards; secured by pari-passu floating charge on customer receivables."
+      }
+    ],
+    "bonds": [],
+    "covenants": "All outstanding bank borrowings are secured by a pari-passu floating charge on the Company's receivables from its customers. Also carries OMR 93,455,000 corporate fixed deposits (3M-5Y per CBO guidelines, Note 21), OMR 153,000 lease liabilities (Note 18), and MSX-listed perpetual bonds classified as equity under IAS 32 (Note 4.2, amount not printed in excerpt).",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/NFCI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "NGCI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 4.13 (Foreign currencies), Note 19 (Borrowings), Note 20 (Lease liabilities), Note 36 (Financial instruments risk)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 3280339.0,
+        "note": "Parent & Omani/other borrowings (Bank overdraft OMR 437,252 + Short-term loans OMR 2,124,489 + Long-term loans OMR 718,598)."
+      },
+      {
+        "currency": "MYR",
+        "amountOmr": 1468735.0,
+        "note": "Islamic revolving credits of Malaysian subsidiary NGC Energy Sdn Bhd (functional currency MYR per Note 4.13); total Group borrowings OMR 4,749,074 matching BS borrowingsC 4,155,280 + borrowingsNC 593,794 (excludes OMR 2,648,878 lease liabilities)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Bank overdraft",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 437252.0,
+        "interestRate": "6.5% to 7.85% p.a.",
+        "tenor": "Repayable on demand (revolving)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Unsecured commercial bank overdraft for working capital requirements."
+      },
+      {
+        "facility": "Islamic revolving credits (NGC Energy Sdn Bhd)",
+        "bank": null,
+        "currency": "MYR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 1468735.0,
+        "interestRate": "5.75% p.a. (weighted avg effective rate)",
+        "tenor": "Revolving",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured by first ranking charge over 100% subsidiary shares, fixed/floating debentures over all subsidiary assets, designated bank accounts, Pasir Gudang & Port Dickson plant leases, and corporate guarantees."
+      },
+      {
+        "facility": "Short-term loans (Parent Company)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 2124489.0,
+        "interestRate": "5.5% to 6.5% p.a.",
+        "tenor": "Short-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured commercial bank loans; minimum 20% of sales turnover must be routed through designated current account."
+      },
+      {
+        "facility": "Long-term loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 718598.0,
+        "interestRate": "6.5% p.a.",
+        "tenor": "Over 4 years",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured in 2025 for acquisition of subsidiary (Parent OMR 496,874 + Subsidiary OMR 221,724; current OMR 124,804 + non-current OMR 593,794); secured by pledge over MSX listed shares, promissory note, negative pledge letter, and assignment of rentals."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Short-term loans require routing at least 20% of sales turnover through the designated current account (Note 19.3). Long-term loan includes a negative pledge letter (Note 19.4)."
+  },
+  "NMWI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 16 (Term loan), Note 17 (Bank borrowings), Note 18 (Non-convertible bonds), Note 33 (Financial risk management), Note 35 (Notes supporting statement of cash flows)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 7001505.0,
+        "note": "Bank borrowings OMR 2,506,090 + Related party loan OMR 528,165 + Non-convertible bonds carrying principal OMR 3,967,250 (excl. OMR 27,312 accrued interest in payables and OMR 84,431 lease liabilities). Note: data/NMWI.json borrowingsC (OMR 1,761,974) equals borrowings excl. overdraft (OMR 1,233,809) + related party loan (OMR 528,165), omitting overdraft OMR 1,272,281 and non-convertible bonds OMR 3,967,250 from borrowingsNC/debtSecurities."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loan facility",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 478480.0,
+        "outstandingOmr": 316456.0,
+        "interestRate": "7.0% p.a.",
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Entire balance reflected as current portion due to loan covenant breach (no waiver received as at 31 Dec 2025). Partly secured with OMR 2.44M working capital facility via charge over non-current/current assets and assignment of fixed asset insurance and trade receivables."
+      },
+      {
+        "facility": "Loan against trust receipts",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 858031.0,
+        "interestRate": "7.0% p.a.",
+        "tenor": "240 days",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Part of OMR 2,440,000 working capital facility from a commercial bank in Oman; repayable within 240 days; partly secured per Note 17."
+      },
+      {
+        "facility": "Bills discounting",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 59322.0,
+        "interestRate": "7.0% p.a.",
+        "tenor": "90 days",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Part of OMR 2,440,000 working capital facility from a commercial bank in Oman; repayable within 90 days; partly secured per Note 17."
+      },
+      {
+        "facility": "Bank overdraft",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 1272281.0,
+        "interestRate": "7.30% p.a.",
+        "tenor": "On demand",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Part of OMR 2,440,000 working capital facility from a commercial bank in Oman; repayable on demand; partly secured per Note 17."
+      },
+      {
+        "facility": "Loan from related parties",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 528165.0,
+        "interestRate": null,
+        "tenor": "Less than 1 year",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Related party loan maturing within 1 year (contractual cash flow OMR 560,665 per Note 33f)."
+      }
+    ],
+    "bonds": [
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Unsecured Non-Convertible Bonds (8% 2032)",
+        "instrumentType": "Non-convertible bond",
+        "currency": "OMR",
+        "issueSizeOmr": 4000000.0,
+        "outstandingOmr": 3967250.0,
+        "couponRatePct": 8.0,
+        "ytmPct": 8.1,
+        "maturityDate": "2032-12-03",
+        "terms": "4,000,000 unsecured non-convertible bonds of OMR 1 each issued 3 Dec 2025, listed on MSX, redeemable after 7 years; 8.0% coupon (8.1% EIR) payable semi-annually. Carrying value OMR 3,967,250 net of OMR 32,750 transaction costs (OMR 3,994,562 incl. OMR 27,312 accrued finance costs in Note 20)."
+      }
+    ],
+    "covenants": "COVENANT BREACH: Parent Company and Group breached certain loan covenants as at 31 December 2025 and had not received a bank waiver by year-end; bank reserves the right to reduce or cancel the facility and entire term loan (OMR 316,456) is classified as current (Note 16). Term loan (limit OMR 478,480) and working capital facility (OMR 2.44M) are partly secured by charge on non-current/current assets and assignment of fixed asset insurance and trade receivables.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/NMWI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "OAB": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 15 (Borrowed funds, p.54), Note 26 (Perpetual Tier 1 Capital Bonds & Sukuk, p.58), Note 38 (Derivatives, p.64), Note 40.3.3 (Currency risk, p.103), BS (Due to Banks & Tier 1)",
+    "currencyBreakdown": [
+      {
+        "currency": "USD",
+        "amountOmr": 119500000.0,
+        "note": "Badir Fund borrowed funds USD 50M (OMR 19,250,000) + 2021 Tier 1 Bonds USD 250M (OMR 96,250,000) + 2024 Alizz AT1 Sukuk USD tranche USD 10M (approx. OMR 4,000,000)"
+      },
+      {
+        "currency": "OMR",
+        "amountOmr": 86016460.0,
+        "note": "2023 Tier 1 Bonds (OMR 50,000,000) + 2024 Mandatory Convertible AT1 Bonds (OMR 10,016,460) + 2024 Alizz AT1 Sukuk OMR tranche (OMR 26,000,000)"
+      },
+      {
+        "currency": "OMR/USD/Other",
+        "amountOmr": 23389000.0,
+        "note": "Due to Banks & Borrowings per Balance Sheet (currency split not disclosed in excerpt)"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Arab Fund for Economic and Social Development (Badir Fund) SME Loan",
+        "bank": "Arab Fund for Economic and Social Development (Badir Fund)",
+        "currency": "USD",
+        "totalLimitOmr": 19250000.0,
+        "outstandingOmr": 19250000.0,
+        "interestRate": "10-year US Treasury bond rate + 0.25%",
+        "tenor": "6 years (incl. 2-year grace period)",
+        "maturityDate": "2030",
+        "renewalDate": null,
+        "terms": "Signed in 2024 for USD 50M (OMR 19.250M); semi-annual instalments in Jan & Jul starting 2026; unsecured; exclusively for SME financing; hedged via OMR 19.25M IRS (Note 38)."
+      },
+      {
+        "facility": "Commerzbank Term Loan Facility",
+        "bank": "Commerzbank Aktiengesellschaft",
+        "currency": "USD",
+        "totalLimitOmr": 38450000.0,
+        "outstandingOmr": null,
+        "interestRate": "Overnight SOFR + 0.9%",
+        "tenor": "2 years",
+        "maturityDate": "2027",
+        "renewalDate": null,
+        "terms": "Signed in 2025 for USD 100M; bullet repayment at end of 2 years; unsecured; year-end drawn balance not separately stated in Note 15."
+      },
+      {
+        "facility": "Due to Banks & Borrowings (BS)",
+        "bank": null,
+        "currency": "OMR/USD/Other",
+        "totalLimitOmr": null,
+        "outstandingOmr": 23389000.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Consolidated balance sheet Due to Banks & Borrowings carrying balance."
+      }
+    ],
+    "bonds": [
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "OAB Perpetual Tier 1 Capital Bonds (June 2021)",
+        "instrumentType": "Perpetual Tier 1 Bond",
+        "currency": "USD",
+        "issueSizeOmr": 96250000.0,
+        "outstandingOmr": 96250000.0,
+        "couponRatePct": 7.625,
+        "ytmPct": null,
+        "maturityDate": "Perpetual",
+        "terms": "USD 250M; listed on London Stock Exchange ISM; unsecured, subordinated, non-cumulative; First Call Date 4 June 2026; Basel III & CBO compliant; classified as equity (IAS 32)."
+      },
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "OAB Perpetual Tier 1 Capital Bonds (Oct 2023)",
+        "instrumentType": "Perpetual Tier 1 Bond",
+        "currency": "OMR",
+        "issueSizeOmr": 50000000.0,
+        "outstandingOmr": 50000000.0,
+        "couponRatePct": 7.0,
+        "ytmPct": null,
+        "maturityDate": "Perpetual",
+        "terms": "Private placement (50M units of RO 1); pari-passu with 2021 issue; unsecured, subordinated, non-cumulative; First Call Date 16 Oct 2028; classified as equity (IAS 32)."
+      },
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "OAB Mandatory Convertible Additional Tier 1 Bonds (Oct 2024)",
+        "instrumentType": "Mandatory Convertible AT1 Bond",
+        "currency": "OMR",
+        "issueSizeOmr": 10016460.0,
+        "outstandingOmr": 10016460.0,
+        "couponRatePct": 6.0,
+        "ytmPct": null,
+        "maturityDate": "2026-10-09",
+        "terms": "10,016,460 units of RO 1 issued as dividend; mandatorily converts on 9 Oct 2026 into 8 ordinary shares per bond (OMR 0.125/sh); pari-passu with Tier 1 bonds; classified as equity (IAS 32)."
+      },
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Alizz Islamic Bank Mudaraba Additional Tier 1 Sukuk (Dec 2024)",
+        "instrumentType": "Perpetual Tier 1 Sukuk",
+        "currency": "OMR/USD",
+        "issueSizeOmr": 30000000.0,
+        "outstandingOmr": 30000000.0,
+        "couponRatePct": 6.5,
+        "ytmPct": null,
+        "maturityDate": "Perpetual",
+        "terms": "Issued 9 Dec 2024 via Alizz Sukuk SPC, listed on MSX; dual currency (OMR 26M + USD 10M approx. OMR 4M); First Call Date 9 Dec 2029; unsecured, subordinated, non-cumulative; classified as equity (IAS 32)."
+      }
+    ],
+    "covenants": "Note 15 borrowings (Commerzbank & Badir Fund) are unsecured and the Bank complied with all financial covenants as at 31 Dec 2025. Tier 1 bonds/sukuk are direct, unconditional, subordinated, unsecured obligations classified as equity under IAS 32; discretionary non-cumulative interest; redemptions subject to regulatory consent."
+  },
+  "OCAI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 22 (Bank borrowings), Note 33 (Financial instruments and related risk management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 5952763.0,
+        "note": "IFRS 16 lease liabilities only (current OMR 255,553 + non-current OMR 5,697,210 matching data/OCAI.json BS total debt); FY2024 bank loan of OMR 769,000 fully repaid in FY2025 (OMR 0 bank borrowings at 31 Dec 2025)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Unutilised credit facilities (OAPIL subsidiary)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 25125374.0,
+        "outstandingOmr": 0.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Subsidiary Oman Aluminium Processing Industries SPC (OAPIL) holds OMR 25,125,374 of unutilised credit limits at 31 Dec 2025 (2024: OMR 21,714,391). Prior-year short-term loan of OMR 769,000 (5.8% p.a.) was fully repaid during 2025."
+      }
+    ],
+    "bonds": [],
+    "covenants": null,
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/OCAI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "OCCI": {
+    "weightedAvgRate": 5.62,
+    "sourceNoteRef": "Note 29 (Finance charges), Note 33(b) (Lease liability), Note 34 (Bank Borrowings), Risk Management Liquidity Table (p. 45)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 759913.0,
+        "note": "Bank borrowings OMR 759,913 (current OMR 417,682 + non-current OMR 342,231), excluding OMR 5,203 lease liability (Note 33b). Note: data/OCCI.json BS omits bank borrowings of OMR 759,913 (capturing only OMR 5,202 leaseC, though cashFlow debtProceeds shows OMR 759,913)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Diminishing Musharaka Loan",
+        "bank": "Alizz Islamic Bank",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 359913.0,
+        "interestRate": "5.75% p.a.",
+        "tenor": "5 years 6 months",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Availed during 2025; 1-year moratorium followed by 4.5-year repayment in quarterly instalments (current OMR 17,682 + non-current OMR 342,231)."
+      },
+      {
+        "facility": "Term Loan (Short-term working capital)",
+        "bank": "Alizz Islamic Bank",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 400000.0,
+        "interestRate": "5.50% p.a.",
+        "tenor": "150 days",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Short-term working capital loan obtained during 2025; repayable in full at maturity (150 days)."
+      }
+    ],
+    "bonds": [],
+    "covenants": null,
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/OCCI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "OCHL": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 14(d) (Derivative financial instruments), Note 15 (Term loans & Short-term facilities), Note 30 (Financial assets and liabilities and risk management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 43107861.0,
+        "note": "Total Group bank borrowings & term loans per Note 30(c)/(f) (Term loans OMR 40,654,568 + Short-term borrowings OMR 2,453,293; current portion OMR 6,360,507 matching BS borrowingsC + non-current term loans OMR 36,747,354 inside BS totalNonCurrentLiabilities; excludes OMR 2,822,440 lease liabilities). Note 30(d)(i) notes USD-pegged GCC currency exposure without numeric debt split."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loans (Consolidated Group)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 40654568.0,
+        "interestRate": "Commercial rates (incl. Union Chlorine 1M Synthetic LIBOR + 3.00% disclosed in Note 14(d))",
+        "tenor": "Multi-year (Gulf Chlorine restructured loan matures 30 Dec 2032)",
+        "maturityDate": "2032-12-30",
+        "renewalDate": null,
+        "terms": "Includes Parent Company (OMR 5,690,930, secured by commercial mortgage over PPE), Union Chlorine LLC (UAE, restructured in 2025; First Abu Dhabi Bank named in Note 14(d) hedge; shareholders' loan OMR 13,488,750 subordinated), and Gulf Chlorine WLL (Qatar, matures 30 Dec 2032); individual facility schedule on unextracted page 31."
+      },
+      {
+        "facility": "Short-term loan facilities (Consolidated Group)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 2453293.0,
+        "interestRate": "Commercial rates (fixed-rate basis per Note 30(d)(ii))",
+        "tenor": "180 days",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Working capital facilities (Parent OMR 458,082 + subsidiaries OMR 1,995,211); repayable 180 days from withdrawal."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Union Chlorine LLC breached its current ratio > 1.1x covenant at 31 Dec 2025 but obtained a bank waiver letter before 31 Dec 2025 (preserving non-current classification). Gulf Chlorine WLL was unable to meet certain loan covenants in 2025, for which the lending bank agreed to waive the covenants as at and for FY2025 (Note 15)."
+  },
+  "OCOI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 16 (Lease liabilities), Note 31 (Financial risk and capital management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 10136458.0,
+        "note": "No bank borrowings or debt securities; total debt per Note 16 & BS consists solely of IFRS 16 lease liabilities (current OMR 1,231,628 + non-current OMR 8,904,830)."
+      }
+    ],
+    "loans": [],
+    "bonds": [],
+    "covenants": null,
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/OCOI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "OEFI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 5 (PPE), Note 6(b) (Lease liability), Note 14 (Government soft loans), Note 15 (Due to bank), Note 22 (Finance costs), Note 27 (Financial risk management), Note 28 (Capital management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 3750215.0,
+        "note": "Government soft loan OMR 3,653,000 (current OMR 2,700,000 + non-current OMR 953,000) + Due to bank OMR 97,215 (total OMR 3,750,215), excluding OMR 402,564 lease liabilities (Note 6b). Note: data/OEFI.json rounds to nearest OMR '000 (borrowingsC OMR 2,797,000 = 2,700,000 + 97,215) and omits non-current soft loan OMR 953,000 from borrowingsNC."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Government soft loan",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 3653000.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Fixed contractual rate (Note 27; 2025 interest expense on borrowings/loans OMR 109,590 per Note 22; exact % not printed in excerpt). Current portion OMR 2,700,000 includes overdue balance of OMR 2,100,000; non-current portion OMR 953,000. Secured by mortgage over PPE and commercial registration in favour of disbursing commercial bank."
+      },
+      {
+        "facility": "Due to bank (unpaid & penal interest)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 97215.0,
+        "interestRate": "Maximum lending rates determined by bank",
+        "tenor": "On demand / overdue",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Unpaid actual and penal interest accumulated on Government soft loans (Note 15), chargeable at maximum lending rates determined by the bank."
+      }
+    ],
+    "bonds": [],
+    "covenants": "DEFAULT/OVERDUE: Current portion of Government soft loans of OMR 2,700,000 includes OMR 2,100,000 overdue at 31 Dec 2025 (Note 14), with OMR 97,215 unpaid actual and penal interest due to bank at maximum lending rates (Note 15). Secured by mortgage over PPE and commercial registration in favour of the disbursing commercial bank.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/OEFI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "OEIO": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 6 (Cash and bank balances), Note 13(i) (PPE mortgage), Note 22 (Term loans), Note 23 (Loans from Government) — FY2023 Audited Filing",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 11025587.0,
+        "note": "NOTE: No FY2025 Annual filing exists in data/OEIO.json or /tmp/debt_excerpts/OEIO.txt; figures are from FY2023 Audited (OEIO_2023_Yearly (Audited)_e.zip) and reconcile exactly to FY2023 BS borrowingsNC (OMR 11,025,587 = Term loans OMR 2,629,917 + Gov loans carrying OMR 8,301,526 + Bank overdrafts OMR 94,144; excludes OMR 400,615 lease liabilities). H1 2026 (Q26_CUR) BS borrowingsNC is OMR 11,852,566."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loans (Banks in Oman)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 2629917.0,
+        "interestRate": "6.25% to 7% p.a.",
+        "tenor": "Due within 1 year OMR 1,108,000; due after 1 year OMR 1,521,917",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "FY2023 Audited: secured against pledge of FVTPL/other assets and OMR 2,600,000 legal mortgage on head office building (Note 13)."
+      },
+      {
+        "facility": "Loans from Government (Parent Company - Oman & UAE Governments)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 15000000.0,
+        "outstandingOmr": 4648526.0,
+        "interestRate": "0% (interest-free soft loan)",
+        "tenor": "Annual instalments (OMR 2.5M within 1 year; OMR 2.5M in 1-2 years)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "FY2023 Audited: face value OMR 5,000,000 less deferred government grant OMR 351,474 = OMR 4,648,526 carrying value; originally OMR 7.5M each from Governments of Oman and UAE."
+      },
+      {
+        "facility": "Loans from Government (Omani Euro Food Industries Co. SAOG)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 3653000.0,
+        "interestRate": "3% p.a.",
+        "tenor": "OMR 1,000,000 within 1 year; OMR 500,000 1-2 years; OMR 2,153,000 2-5 years",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "FY2023 Audited: Government soft loan arranged through a commercial bank; secured by registered mortgage of subsidiary PPE."
+      },
+      {
+        "facility": "Bank overdrafts",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 94144.0,
+        "interestRate": null,
+        "tenor": "On demand",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "FY2023 Audited (Note 6): Group bank overdrafts OMR 94,144 (Parent OMR 25,836); Note 20 page not included in excerpt."
+      }
+    ],
+    "bonds": [],
+    "covenants": null
+  },
+  "OETI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "N/A (No specific Borrowings/Loans/Bonds note found)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/OETI_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [],
+    "loans": [],
+    "bonds": [],
+    "covenants": [
+      "No specific covenants related to debt found in the excerpt."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "OFCI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 13, Note 14, Note 22",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/OFCI_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 2834413.0
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Short-term loans",
+        "bank": "Commercial bank (unspecified)",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 746557.0,
+        "interestRate": "6% to 10.45% p.a.",
+        "tenor": "Repayable within one year (renewal)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured against post-dated cheques"
+      }
+    ],
+    "bonds": [],
+    "covenants": [
+      "The Company has not complied with the debt covenants as agreed with the financing company in accordance with the credit facility agreements."
+    ],
+    "maturityProfile": {
+      "within1Y": 2834413.0,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "OFMI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 29 (Borrowings), Note 4 (Liquidity Risk)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 60440000.0,
+        "note": "Consolidated borrowings per Note 29(k) (Current RO 53,249k + Non-current RO 7,191k = RO 50,440k bank loans/overdrafts + RO 10,000k Musharakah ICPs). Excludes RO 13,458,212 Term loan 2 held for sale (Note 40) and RO 3,363,275 lease liabilities. Note: data/OFMI.json omits non-current borrowings RO 7,191k."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loan 1 (SFM)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 6424000.0,
+        "interestRate": "6.50% p.a. (subject to semi-annual review)",
+        "tenor": "21 half-yearly instalments from Oct 2022",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Gross before shared RO 27,000 unamortised transaction cost. Obtained by SFM; secured by usufruct mortgage on Sohar Industrial Port land and first commercial charge over assets."
+      },
+      {
+        "facility": "Term loan 3 (AFI Diminishing Musharka)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 1910000.0,
+        "interestRate": "5.5% p.a.",
+        "tenor": "20 equal quarterly instalments commencing May 2026",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Gross before shared RO 27,000 unamortised transaction cost. Obtained by Atyab Food Industries; secured by usufruct mortgage over Falaj Unit and commercial mortgage over assets."
+      },
+      {
+        "facility": "Loans against trust receipts and Bank overdrafts",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 39886000.0,
+        "interestRate": "4.15% to 7.25% p.a.",
+        "tenor": "Short-term (on demand / <1 year)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Loans against trust receipts RO 39,539,000 (Parent RO 39,185,890) + bank overdrafts RO 347,000 from Islamic/commercial banks in Oman; subject to quarterly review."
+      },
+      {
+        "facility": "Short-term loan",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 2247000.0,
+        "interestRate": "6.8% to 7.25% p.a.",
+        "tenor": "Less than 6 months",
+        "maturityDate": "2026",
+        "renewalDate": null,
+        "terms": "Obtained from local commercial bank; matures within 6 months of reporting date."
+      }
+    ],
+    "bonds": [
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Musharakah Islamic Commercial Papers (ICPs)",
+        "instrumentType": "Islamic Commercial Paper (Musharakah)",
+        "currency": "OMR",
+        "issueSizeOmr": 10000000.0,
+        "outstandingOmr": 10000000.0,
+        "couponRatePct": 5.25,
+        "ytmPct": null,
+        "maturityDate": "2026-03-09",
+        "terms": "Musharaka Agreement dated 10 Mar 2025 with Ahli Islamic SAOG as Investment Agent; senior, unsecured, privately placed Shariah-compliant ICPs; 365-day tenor ending 9 Mar 2026."
+      }
+    ],
+    "covenants": "Musharaka Agreement requires Current Ratio >= 1.20 and Gearing Ratio <= 2.00. Bank facilities contain leverage, gearing, current ratio, and DSCR covenants; at 31 Dec 2025 bank covenants could not be met and management obtained a waiver letter from the bank so term loans remain classified as non-current."
+  },
+  "OMVS": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 23 (Bank Borrowings, p.50), Note 24 (Other Liabilities/Leases, p.50), Note 18A (Perpetual Sukuks, p.48), Note 18B (Perpetual Bonds, p.48), Note 41.3-41.5 (pp.64-66)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR/USD",
+        "amountOmr": 618537000.0,
+        "note": "Bank borrowings OMR 614,671,000 (gross OMR 618,070,000 less OMR 3,399,000 unamortised fees) + Lease liabilities OMR 3,866,000 (major agreements in OMR and USD; exact currency split not disclosed; excludes OMR 112,152,904 Perpetual Sukuk/Bonds classified as equity)"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term Loans (Group)",
+        "bank": null,
+        "currency": "OMR/USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 614671000.0,
+        "interestRate": null,
+        "tenor": "Less than 1 year OMR 100,184,000; more than 1 year OMR 514,487,000",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Gross term loans OMR 618,070,000 less unamortised bank processing fees OMR 3,399,000. Certain long-term loans secured by pledge of investment securities, investment in associates and subsidiaries. Group entered into IRS hedging SOFR."
+      }
+    ],
+    "bonds": [
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Ominvest Perpetual Trust Certificates (Sukuk 2021)",
+        "instrumentType": "Perpetual Sukuk",
+        "currency": "OMR",
+        "issueSizeOmr": 52000000.0,
+        "outstandingOmr": 52000000.0,
+        "couponRatePct": 6.75,
+        "ytmPct": null,
+        "maturityDate": "Perpetual",
+        "terms": "Unsecured subordinated Perpetual Trust Certificates (Mudaraba structure, RO 1.000/cert), listed on MSX; quarterly profit till First Call Date 13 Dec 2026 then reset; optional profit deferral (accrues profit); classified as equity under IAS 32."
+      },
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Ominvest Perpetual Bonds (2023)",
+        "instrumentType": "Perpetual Bond",
+        "currency": "OMR",
+        "issueSizeOmr": 60152904.0,
+        "outstandingOmr": 60152904.0,
+        "couponRatePct": 5.25,
+        "ytmPct": null,
+        "maturityDate": "Perpetual",
+        "terms": "Listed on MSX; distributed in 2023 as dividend (1 bond of RO 1 per 11.11 shares); semi-annual fixed coupon 5.25% p.a. (skippable, non-cumulative); First Call Date 18 April 2028; unsecured, subordinated; classified as equity under IAS 32."
+      }
+    ],
+    "covenants": "Certain long-term bank borrowings are secured by pledge of investment securities, investment in associates and subsidiaries. Perpetual Sukuk (2021) is a limited recourse obligation of the Trustee; both Perpetual Sukuk and Perpetual Bonds (2023) are direct, unconditional, subordinated, unsecured obligations classified as equity under IAS 32.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/OMVS_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "ONES": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 11.4 (Investments), Note 21 (Term Loans, Bank Overdraft and Other Borrowings), Note 35.6 (Liquidity Risk)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 73279418.0,
+        "note": "Consolidated Group borrowings per Note 21 & Note 35.6 (Current RO 45,289,996 + Non-current RO 27,989,422). Excludes RO 758,685 lease liabilities."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Long-term loans from banks (Note 21.1)",
+        "bank": "Various local commercial banks (Bank Muscat holds fixed deposit lien for one loan)",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 18216539.0,
+        "interestRate": "5.25% to 6.75% p.a.",
+        "tenor": "Long-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Current portion RO 15,696,539; non-current RO 2,520,000. One term loan secured against lien on RO 1,100,000 fixed deposit with Bank Muscat (Note 11.4)."
+      },
+      {
+        "facility": "Term loans against specific projects (Note 21.2)",
+        "bank": "Various local commercial banks",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 28342023.0,
+        "interestRate": "Commercial / fixed rates",
+        "tenor": "Long-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Consolidated carrying amount RO 28,342,023 (Current RO 2,872,601; non-current RO 25,469,422). Mainly secured against assignment of receivables related to financed projects."
+      },
+      {
+        "facility": "Short-term loans (Note 21.3)",
+        "bank": "Various local commercial banks",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 25533581.0,
+        "interestRate": "Market interest rates (renegotiated at frequent intervals)",
+        "tenor": "Short-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Project-specific facilities secured mainly against assignment of certain project receivables."
+      },
+      {
+        "facility": "Bank overdrafts (Note 21.3)",
+        "bank": "Various local commercial banks",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 1187275.0,
+        "interestRate": "Market interest rates (annual renewal)",
+        "tenor": "On demand / annual renewal",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Consolidated bank overdrafts RO 1,187,275 (Parent RO 1,137,741)."
+      }
+    ],
+    "bonds": [],
+    "covenants": null
+  },
+  "OOMS": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 18 (Bank borrowings, p.24), Note 23 (Finance income/expense, p.26), Note 34(a)&(c) (pp.32-33)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 129838862.0,
+        "note": "Short-term bank borrowings OMR 60,000,000 from local banks + Lease liabilities OMR 69,838,862 per Balance Sheet"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Short-term working capital bank loans",
+        "bank": "Local banks",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 60000000.0,
+        "interestRate": "Prevailing market rate",
+        "tenor": "Short-term (<= 1 year)",
+        "maturityDate": "2026",
+        "renewalDate": null,
+        "terms": "Facilities obtained from local banks for working capital; no covenants for 2025 or 2024; OMR 149.4M financing facilities unutilised at 31 Dec 2025 (Note 34c)."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Note 18 explicitly states there are no covenants for this bank loan for 2025 and 2024. Group held OMR 149.4M of unutilised financing facilities at 31 Dec 2025."
+  },
+  "OPCI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 19 (Finance Charges), Note 12 (Bank Borrowings)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/OPCI_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [],
+    "loans": [],
+    "bonds": [],
+    "covenants": [
+      "Subject to certain restrictive covenants which, if violated, could permit the bank to cancel or reduce the facilities or impose penal charges [note 25 d). Also covenanted with banks providing external debt to maintain specified ratios [note 12 c)]."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "OQBI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 2(d) (Syndicate Facility Agreement), Note 23 (Term Loans), Note 34 (Financial Risk Management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 312533444.0,
+        "note": "Consolidated term loans carrying value (gross RO 314,697,332 less unamortised transaction costs RO 2,163,888; benchmarked to USD Term SOFR). Excludes RO 13,729,846 lease liabilities. Note: data/OQBI.json captures RO 30,424,370 current borrowings but omits RO 282,109,074 non-current term loans."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Syndicated Wakala Facility (Islamic facility - OQ BI Parent)",
+        "bank": "Syndicate of 6 banks (Onshore security agent: Sohar International Bank SAOG)",
+        "currency": "OMR",
+        "totalLimitOmr": 169180000.0,
+        "outstandingOmr": 157803052.0,
+        "interestRate": "Term SOFR + fixed margin 1.4% p.a.",
+        "tenor": "24 semi-annual instalments from 30 Dec 2024 to 30 Jun 2036",
+        "maturityDate": "2036-06-30",
+        "renewalDate": null,
+        "terms": "Gross principal RO 159,029,200 less unamortised transaction costs RO 1,226,148. Repayable RO 3.4M-6.8M semi-annually till Dec 2035 with RO 76.1M bullet on 30 Jun 2036. Unsecured."
+      },
+      {
+        "facility": "Syndicated Term Loan Facility (OQ LPG Subsidiary)",
+        "bank": "Syndicate of 8 banks (Onshore security agent: Bank Muscat SAOG)",
+        "currency": "OMR",
+        "totalLimitOmr": 186482500.0,
+        "outstandingOmr": 154730392.0,
+        "interestRate": "Term SOFR + fixed margin 1.15% p.a.",
+        "tenor": "16 semi-annual instalments from 30 Dec 2024 to 30 Jun 2032",
+        "maturityDate": "2032-06-30",
+        "renewalDate": null,
+        "terms": "Gross principal RO 155,668,132 less unamortised transaction costs RO 937,740. Repayable RO 9.2M-14.3M semi-annually until 30 Jun 2032. Unsecured."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Both the OQ BI Wakala facility and OQ LPG Syndicated facility are unsecured and carry no financial covenants; they contain general undertakings regarding compliance with law, negative pledge, authorizations, disposal of assets, merger, and sanctions."
+  },
+  "OQEP": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 22 (Bank borrowings, pp.54-55), Note 8 (Finance cost, p.39), Note 31 (Financial instruments & Liquidity risk, pp.66-67)",
+    "currencyBreakdown": [
+      {
+        "currency": "USD",
+        "amountOmr": 382610000.0,
+        "note": "Gross USD bank borrowings OMR 384,500,000 (USD 1,000M) less unamortised financing costs OMR 1,890,000 (excludes OMR 25,701,000 lease liabilities)"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Bridge-to-bond credit facility",
+        "bank": "Syndicate of commercial banks",
+        "currency": "USD",
+        "totalLimitOmr": 192250000.0,
+        "outstandingOmr": 192250000.0,
+        "interestRate": "US$ SOFR + 85 bps",
+        "tenor": "2 years (obtained Sept 2024)",
+        "maturityDate": "September 2026",
+        "renewalDate": null,
+        "terms": "USD 500M conventional bridge-to-bond facility; repayable on maturity; unsecured and not guaranteed; no covenants."
+      },
+      {
+        "facility": "Islamic finance facility (Wakala bil-istithmar)",
+        "bank": "Syndicate of banks",
+        "currency": "USD",
+        "totalLimitOmr": 192250000.0,
+        "outstandingOmr": 190360000.0,
+        "interestRate": "US$ SOFR + 125 bps (variable return)",
+        "tenor": "7 years (obtained Sept 2024)",
+        "maturityDate": "July 2031",
+        "renewalDate": null,
+        "terms": "USD 500M Wakala bil-istithmar (gross OMR 192,250,000 less OMR 1,890,000 unamortised financing costs); semi-annual instalments starting Jan 2027 with USD 162.5M balloon in July 2031; unsecured, not guaranteed, no covenants."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Unsecured and not guaranteed. Note 22 explicitly states there are no covenants attached to these loans outstanding at year end. Lease liabilities at 31 Dec 2025 total OMR 25,701,000 (Note 31).",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/OQEP_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "OQGN": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 21 (Term loans, p.25), Note 10 (Finance costs, p.17), Note 23 (Lease liabilities, p.27), Note 30 (Financial risk management, pp.30-31)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 157750000.0,
+        "note": "Fixed-rate OMR commercial bank term loans gross principal (before OMR 3,006,038 total unamortised transaction costs across OMR & USD loans)"
+      },
+      {
+        "currency": "USD",
+        "amountOmr": 226470500.0,
+        "note": "Floating-rate USD commercial bank term loans gross principal (before OMR 3,006,038 total unamortised transaction costs; net BS term loans = OMR 381,214,462; excludes OMR 10,145,796 lease liabilities)"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "OMR Conventional Term Financing Facility",
+        "bank": "Syndicate of financial institutions",
+        "currency": "OMR",
+        "totalLimitOmr": 60000000.0,
+        "outstandingOmr": null,
+        "interestRate": "5.15% p.a. till 15 June 2028; then CBO Private Sector OMR Time Deposit base rate + 1.0% till 15 June 2030; + 1.20% thereafter",
+        "tenor": "10 years (entered 19 June 2023)",
+        "maturityDate": "June 2033",
+        "renewalDate": null,
+        "terms": "Unsecured; semi-annual instalments with 70% final instalment on 10th anniversary; rate reduced from 5.70% to 5.15% effective 17 June 2025. Combined gross OMR facilities outstanding = OMR 157,750,000."
+      },
+      {
+        "facility": "OMR Wakala Facility Agreement",
+        "bank": "Local and regional banks",
+        "currency": "OMR",
+        "totalLimitOmr": 165000000.0,
+        "outstandingOmr": null,
+        "interestRate": "5.15% p.a. till 15 June 2028; then CBO Private Sector OMR Time Deposit base rate + 1.0% till 15 June 2030; + 1.20% thereafter",
+        "tenor": "10 years (entered 19-20 June 2023)",
+        "maturityDate": "June 2033",
+        "renewalDate": null,
+        "terms": "Islamic Wakala; semi-annual instalments with 70% final instalment on 10th anniversary. Combined gross OMR facilities outstanding = OMR 157,750,000."
+      },
+      {
+        "facility": "USD Conventional Term Financing Facility",
+        "bank": "Syndicate of financial institutions",
+        "currency": "USD",
+        "totalLimitOmr": 86650000.0,
+        "outstandingOmr": null,
+        "interestRate": "Compounded SOFR + 1.25% p.a.",
+        "tenor": "7 years (entered 19 June 2023)",
+        "maturityDate": "June 2030",
+        "renewalDate": null,
+        "terms": "USD 225M (OMR 86.65M) unsecured; semi-annual instalments with 82% final instalment on 7th anniversary; margin reduced from 1.9% to 1.25% in Dec 2024. Combined gross USD facilities outstanding = OMR 226,470,500."
+      },
+      {
+        "facility": "USD Wakala Facility Agreement",
+        "bank": "Local and regional banks",
+        "currency": "USD",
+        "totalLimitOmr": 152110000.0,
+        "outstandingOmr": null,
+        "interestRate": "Compounded SOFR + 1.25% p.a.",
+        "tenor": "7 years (entered 19-20 June 2023)",
+        "maturityDate": "June 2030",
+        "renewalDate": null,
+        "terms": "USD 395M (OMR 152.11M) Islamic Wakala; semi-annual instalments with 82% final instalment on 7th anniversary. Combined gross USD facilities outstanding = OMR 226,470,500."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Note 21.6 explicitly states the Company is not subject to any financial ratio covenant in relation to these facilities. Total unutilised term loan balance at 31 Dec 2025 is OMR 56M; net BS carrying value is OMR 381,214,462 (gross OMR 384,220,500 less unamortised transaction costs OMR 3,006,038). Lease liabilities total OMR 10,145,796."
+  },
+  "OQIC": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "N/A (No specific Borrowings/Loans note found)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/OQIC_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [],
+    "loans": [],
+    "bonds": [],
+    "covenants": [
+      "N/A"
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "ORCI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 21 (Term loans), Note 22 (Short-term loans), Note 37 (Financial assets and liabilities and risk management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 19775231.0,
+        "note": "Total Group borrowings (Term loans OMR 6,978,903 inside BS totalNonCurrentLiabilities + Short-term loans OMR 12,796,328 matching BS borrowingsC; excludes OMR 225,900 lease liabilities). Currency denomination of Algerian subsidiary (Atlas Bottling) loans not separately disclosed in Notes 21-22 or Note 37(d)(i)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loan (Atlas Bottling Corporation Limited)",
+        "bank": "BNP Paribas Bank",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 6978903.0,
+        "interestRate": "4.75% p.a.",
+        "tenor": "7 years (equal quarterly instalments)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "100% non-current; obtained by subsidiary Atlas Bottling Corporation Limited for capex; secured against new manufacturing line in Algeria."
+      },
+      {
+        "facility": "Short-term working capital loans (Atlas Bottling Corporation Limited)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 7850256.0,
+        "interestRate": "5% to 7% p.a.",
+        "tenor": "Up to 12 months from drawdown",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Working capital loans of subsidiary Atlas Bottling Corporation Limited (Group OMR 12,796,328 minus Parent OMR 4,946,072)."
+      },
+      {
+        "facility": "Short-term bank credit card facility (Parent Company)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 4946072.0,
+        "interestRate": "0% up to 90 days; contractual bank charges thereafter",
+        "tenor": "Up to 90 days interest-free",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Utilised under a bank credit card facility by Parent Company."
+      }
+    ],
+    "bonds": [],
+    "covenants": null,
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/ORCI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "ORDS": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 22 (Loans and borrowings), Note 37 (Risk management)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/ORDS_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 11245000.0
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Short-term loan",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 11152000.0,
+        "interestRate": "FD rate + 1.75%",
+        "tenor": "12 months",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Unsecured"
+      }
+    ],
+    "bonds": [],
+    "covenants": [
+      "Compliance with financial covenants including ‘Debt to EBITDA’, Debt service coverage ratio, gearing ratio, leverage ratio and ‘Interest coverage’ ratios as at 31 December 2025 and 31 December 2024. Group expects to comply for at least 12 months after the reporting date."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "OTEL": {
+    "weightedAvgRate": 5.5,
+    "sourceNoteRef": "Note 15 (Borrowings, pp.45-49), Note 16 (Lease liabilities, p.50), Note 29(c) (Liquidity risk, p.68), Note 31 (Capital risk management, p.70)",
+    "currencyBreakdown": [
+      {
+        "currency": "SAR",
+        "amountOmr": 1052895000.0,
+        "note": "Borrowings OMR 868,872,000 + Lease liabilities OMR 184,023,000"
+      },
+      {
+        "currency": "KWD",
+        "amountOmr": 983399000.0,
+        "note": "Borrowings OMR 963,472,000 + Lease liabilities OMR 19,927,000"
+      },
+      {
+        "currency": "USD",
+        "amountOmr": 964812000.0,
+        "note": "Borrowings OMR 952,372,000 + Lease liabilities OMR 12,440,000"
+      },
+      {
+        "currency": "OMR",
+        "amountOmr": 179516000.0,
+        "note": "Borrowings OMR 38,454,000 + Lease liabilities OMR 141,062,000"
+      },
+      {
+        "currency": "JOD",
+        "amountOmr": 32849000.0,
+        "note": "Borrowings OMR 17,073,000 + Lease liabilities OMR 15,776,000"
+      },
+      {
+        "currency": "BHD",
+        "amountOmr": 21333000.0,
+        "note": "Lease liabilities OMR 21,333,000"
+      },
+      {
+        "currency": "Others",
+        "amountOmr": 75568000.0,
+        "note": "Borrowings OMR 12,504,000 + Lease liabilities OMR 63,064,000"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Parent Company Revolving Credit Facility",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 235000000.0,
+        "outstandingOmr": null,
+        "interestRate": "Fixed margin over 1-year cost of fixed deposit of the bank",
+        "tenor": "Revolving short-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Unsecured; Parent Company drew down OMR 318.9M and repaid OMR 346.4M during 2025 under OMR 235M revolving credit facility."
+      },
+      {
+        "facility": "Parent Company / Oztel Export Credit Loan",
+        "bank": "Consortium of banks",
+        "currency": "USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 2700000.0,
+        "interestRate": "2.28% p.a.",
+        "tenor": "Long-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Outstanding balance USD 6.9M (OMR 2.7M); unsecured; finances capital equipment procurement."
+      },
+      {
+        "facility": "Oman Data Park (ODP) Senior Facility Loan",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 4200000.0,
+        "interestRate": "5.25% till Aug 2025; thereafter 1.50% + CBO Bank Deposit Rate p.a.",
+        "tenor": "Quarterly instalments Jan 2026 - Jan 2030",
+        "maturityDate": "2030-01-31",
+        "renewalDate": null,
+        "terms": "Secured by legal/commercial mortgage over ODP present & future moveable and immovable assets and pledge over project accounts; DSRA & financial covenants apply."
+      },
+      {
+        "facility": "Oman Data Park (ODP) Project Loan 1",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 900000.0,
+        "outstandingOmr": 21000.0,
+        "interestRate": "5.25% p.a.",
+        "tenor": "48 monthly instalments",
+        "maturityDate": "2026-01-31",
+        "renewalDate": null,
+        "terms": "Repayable in 48 monthly instalments from 31 March 2021 to 31 January 2026; secured by ODP asset mortgage and project account pledge."
+      },
+      {
+        "facility": "Oman Data Park (ODP) Project Loan 2",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 3830000.0,
+        "outstandingOmr": 3657000.0,
+        "interestRate": "5.65% p.a.",
+        "tenor": "120 monthly instalments",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Obtained in 2023; repayable in 120 monthly instalments commenced 2 April 2025; secured by ODP asset mortgage and project account pledge."
+      },
+      {
+        "facility": "Oman Data Park (ODP) Project Loan 3",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 8950000.0,
+        "outstandingOmr": 5426000.0,
+        "interestRate": "5.65% till Oct 2025; thereafter 1Y CBO weighted avg private sector time deposit rate + 1.75% p.a.",
+        "tenor": "26 half-yearly instalments",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Limit enhanced from OMR 4.9M to OMR 8.95M in 2024; repayable in 26 half-yearly instalments starting Dec 2026; secured by ODP asset mortgage and project account pledge."
+      },
+      {
+        "facility": "Oman Data Park (ODP) Project Loan 4",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 5000000.0,
+        "outstandingOmr": 2613734.0,
+        "interestRate": "5.00% p.a.",
+        "tenor": "5 years (20 quarterly instalments)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Obtained in 2025; repayable in 20 quarterly instalments commenced March 2025; secured by ODP asset mortgage and project account pledge."
+      },
+      {
+        "facility": "MTC (Zain Group) Revolving Credit & Long-Term Facilities",
+        "bank": null,
+        "currency": "KWD/USD",
+        "totalLimitOmr": 889000000.0,
+        "outstandingOmr": null,
+        "interestRate": "Fixed margin over 3M CME Term SOFR or Central Bank Discount Rate",
+        "tenor": "Revolving and long-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Unsecured facilities (RCFs of OMR 525.4M, 37.5M, 125.1M; LT facilities of OMR 116.3M, 68.8M, 15.9M); OMR 244.89M drawn and OMR 19.3M repaid in 2025; facility-level year-end balances on p.44 not in excerpt."
+      },
+      {
+        "facility": "SMTC Islamic Shariah-Compliant Facility (2025)",
+        "bank": null,
+        "currency": "SAR",
+        "totalLimitOmr": 197000000.0,
+        "outstandingOmr": 197000000.0,
+        "interestRate": "Fixed margin + 3M SAIBOR (quarterly profit)",
+        "tenor": "Bullet maturity 17 Feb 2030",
+        "maturityDate": "2030-02-17",
+        "renewalDate": null,
+        "terms": "SAR 1,934M (OMR 197.0M) single bullet payment at maturity; used to repay Ministry of Finance - KSA in full."
+      },
+      {
+        "facility": "SMTC CAPEX Facility (2024)",
+        "bank": null,
+        "currency": "SAR",
+        "totalLimitOmr": 115170000.0,
+        "outstandingOmr": 103100000.0,
+        "interestRate": null,
+        "tenor": "Long-term CAPEX facility",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "SAR 1,125M (OMR 115.17M) facility; SAR 1,012.21M (OMR 103.1M) availed as at 31 Dec 2025; SAR 59.31M (OMR 6.04M) interest capitalised during period."
+      },
+      {
+        "facility": "SMTC Subsidiary Working Capital Murabaha Facility",
+        "bank": null,
+        "currency": "SAR",
+        "totalLimitOmr": 20370000.0,
+        "outstandingOmr": 17320000.0,
+        "interestRate": null,
+        "tenor": "Within 12 months",
+        "maturityDate": "2026",
+        "renewalDate": null,
+        "terms": "SAR 200M (OMR 20.37M) working capital Murabaha; SAR 170M (OMR 17.32M) availed at reporting date."
+      },
+      {
+        "facility": "SMTC Syndicated Murabaha Facility (2025)",
+        "bank": "Commercial banks",
+        "currency": "SAR",
+        "totalLimitOmr": 560300000.0,
+        "outstandingOmr": null,
+        "interestRate": "3M SAIBOR + margin",
+        "tenor": "Repayable after 1-year grace period",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "SAR 5,500M (OMR 560.3M) syndicated Murabaha; SAR 300M (OMR 30.56M) unused at year-end (approx. OMR 529.74M drawn); refinanced prior SAR 4,700.8M Murabaha & SAR 500M receivables discounting facilities."
+      },
+      {
+        "facility": "Zain Jordan Term Loan 1",
+        "bank": "Commercial bank",
+        "currency": "USD",
+        "totalLimitOmr": 61300000.0,
+        "outstandingOmr": 61300000.0,
+        "interestRate": null,
+        "tenor": "Long-term",
+        "maturityDate": "2030-10-01",
+        "renewalDate": null,
+        "terms": "USD 160M (OMR 61.3M) term loan from a commercial bank."
+      },
+      {
+        "facility": "Zain Jordan Term Loan 2",
+        "bank": "Commercial bank",
+        "currency": "USD",
+        "totalLimitOmr": 38340000.0,
+        "outstandingOmr": 38340000.0,
+        "interestRate": null,
+        "tenor": "Long-term",
+        "maturityDate": "2030-08-31",
+        "renewalDate": null,
+        "terms": "USD 100M (OMR 38.34M) term loan from a commercial bank."
+      },
+      {
+        "facility": "Atheer Term Loan 1",
+        "bank": "Commercial bank",
+        "currency": "USD",
+        "totalLimitOmr": 40260000.0,
+        "outstandingOmr": 40260000.0,
+        "interestRate": "Fixed margin over 3M Term SOFR",
+        "tenor": "Long-term",
+        "maturityDate": "2026-06-30",
+        "renewalDate": null,
+        "terms": "USD 105M (OMR 40.26M); guaranteed by MTC."
+      },
+      {
+        "facility": "Atheer Revolving Credit Facilities",
+        "bank": "Commercial bank",
+        "currency": "USD",
+        "totalLimitOmr": 50220000.0,
+        "outstandingOmr": 50220000.0,
+        "interestRate": "Fixed margin over 3M Term SOFR",
+        "tenor": "Revolving",
+        "maturityDate": "2027-12-17",
+        "renewalDate": null,
+        "terms": "USD 131M (OMR 50.22M) incl. converted USD 50M (OMR 19.17M) term loan; guaranteed by MTC."
+      },
+      {
+        "facility": "Atheer Term Loan 3",
+        "bank": "Commercial bank",
+        "currency": "USD",
+        "totalLimitOmr": 38260000.0,
+        "outstandingOmr": 38260000.0,
+        "interestRate": "Fixed margin over 3M Term SOFR",
+        "tenor": "Long-term",
+        "maturityDate": "2026-07-30",
+        "renewalDate": null,
+        "terms": "USD 100M (OMR 38.26M); guaranteed by MTC."
+      },
+      {
+        "facility": "Atheer Term Loan 4",
+        "bank": "Commercial bank",
+        "currency": "USD",
+        "totalLimitOmr": 23000000.0,
+        "outstandingOmr": 23000000.0,
+        "interestRate": "Fixed margin over 3M Term SOFR",
+        "tenor": "Long-term",
+        "maturityDate": "2027-04-24",
+        "renewalDate": null,
+        "terms": "USD 60M (OMR 23.00M); guaranteed by MTC."
+      },
+      {
+        "facility": "Atheer Term Loan 5",
+        "bank": "Commercial bank",
+        "currency": "USD",
+        "totalLimitOmr": 47920000.0,
+        "outstandingOmr": 47920000.0,
+        "interestRate": "Fixed margin over 3M Term SOFR",
+        "tenor": "Long-term",
+        "maturityDate": "2029-05-01",
+        "renewalDate": null,
+        "terms": "USD 125M (OMR 47.92M); guaranteed by MTC."
+      },
+      {
+        "facility": "Atheer Term Loan 6",
+        "bank": "Commercial bank",
+        "currency": "USD",
+        "totalLimitOmr": 38340000.0,
+        "outstandingOmr": 38340000.0,
+        "interestRate": "Fixed margin over 3M Term SOFR",
+        "tenor": "Long-term",
+        "maturityDate": "2027-08-19",
+        "renewalDate": null,
+        "terms": "USD 100M (OMR 38.34M); guaranteed by MTC."
+      },
+      {
+        "facility": "Atheer Term Loan 7",
+        "bank": "Commercial bank",
+        "currency": "IQD",
+        "totalLimitOmr": 11620000.0,
+        "outstandingOmr": 11620000.0,
+        "interestRate": "Fixed interest rate",
+        "tenor": "Long-term",
+        "maturityDate": "2027-04-08",
+        "renewalDate": null,
+        "terms": "IQD 40 billion (OMR 11.62M); guaranteed by Immediate Parent of Atheer."
+      },
+      {
+        "facility": "Future Cities SAOC Term Loan 1",
+        "bank": "Commercial bank",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 2339000.0,
+        "interestRate": null,
+        "tenor": "Long-term",
+        "maturityDate": "2027-07-31",
+        "renewalDate": null,
+        "terms": "Secured by assignment of receivables."
+      },
+      {
+        "facility": "Future Cities SAOC Term Loan 2",
+        "bank": "Commercial bank",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 10185000.0,
+        "interestRate": null,
+        "tenor": "Repayment starts Dec 2026 after moratorium",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Term loan from a commercial bank."
+      },
+      {
+        "facility": "Bank Overdrafts & Other Short/Long-Term Loans",
+        "bank": null,
+        "currency": "OMR/Other",
+        "totalLimitOmr": null,
+        "outstandingOmr": 22133000.0,
+        "interestRate": null,
+        "tenor": "Short-term & long-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Bank overdrafts OMR 16,890,000 + Other short-term loans OMR 886,000 + Other long-term loans OMR 4,357,000."
+      }
+    ],
+    "bonds": [
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Oztel / Omantel 6.63% USD Bond due 2028",
+        "instrumentType": "Bond",
+        "currency": "USD",
+        "issueSizeOmr": 265717000.0,
+        "outstandingOmr": 265717000.0,
+        "couponRatePct": 6.63,
+        "ytmPct": null,
+        "maturityDate": "2028",
+        "terms": "10-year USD bond (face value USD 688.1M / OMR 265.717M) listed on Irish Stock Exchange; effective interest rate 7.09%; fair value at 31 Dec 2025 USD 715.2M (OMR 275.4M)."
+      },
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "OTEL Sukuk Limited 5.375% Sukuk due 2031",
+        "instrumentType": "Sukuk",
+        "currency": "USD",
+        "issueSizeOmr": 192550000.0,
+        "outstandingOmr": 192550000.0,
+        "couponRatePct": 5.375,
+        "ytmPct": null,
+        "maturityDate": "2031",
+        "terms": "7-year USD Sukuk (face value USD 500M / OMR 192.550M); fair value at 31 Dec 2025 USD 508.9M (OMR 196.0M)."
+      }
+    ],
+    "covenants": "Group is compliant as at 31 Dec 2025 and expects compliance over next 12 months with principal covenant ratios: (1) consolidated net borrowings to adjusted consolidated EBITDA; (2) adjusted consolidated EBITDA to adjusted consolidated net interest payable; (3) consolidated net borrowings to consolidated net worth (equity). ODP loans are subject to DSRA and financial covenants, secured by mortgage over ODP assets and project accounts."
+  },
+  "OUIC": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "N/A (No specific Borrowings Note found)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/OUIC_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [],
+    "loans": [],
+    "bonds": [],
+    "covenants": [
+      "No covenants mentioned in the excerpt."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "PHPC": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 19 (Interest Bearing Loans and Borrowings), Note 20 (Derivative Financial Instruments), Note 28(d), Note 30",
+    "currencyBreakdown": [
+      {
+        "currency": "USD",
+        "amountOmr": 112542000.0,
+        "note": "Secured Term Loan agreements (USD 292,698 thousand carrying amount = gross RO 113,102,000 / USD 294,155 thousand less unamortised transaction costs RO 560,000). Excludes RO 8,124,000 lease liabilities."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Secured Term Loan agreements (Sur IPP Project)",
+        "bank": "Japan Bank for International Corporation, NEXI & Commercial Banks",
+        "currency": "USD",
+        "totalLimitOmr": 459093000.0,
+        "outstandingOmr": 112542000.0,
+        "interestRate": "SOFR plus applicable margin (7 IRS at fixed 3.102% to 3.75% p.a.)",
+        "tenor": "14 years (semi-annual instalments from 28 Dec 2014 to 28 Dec 2028)",
+        "maturityDate": "2028-12-28",
+        "renewalDate": null,
+        "terms": "Total facility USD 1,194 million (fully drawn in 2014). Carrying amount RO 112,542,000 (gross RO 113,102,000 less RO 560,000 unamortised transaction costs). Secured by comprehensive legal and commercial mortgages on all assets of the Company."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Restrictive covenants over debt service, pattern of shareholding, payment of dividends, asset sales/transfers, amendment to significant agreements, and creation of additional security under charge. Company in compliance as at 31 Dec 2025.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/PHPC_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "RCCI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 4.1 (Market & liquidity risk), Note 16.6 (Term loans), Note 16.7 (Short term borrowings), Note 16.9 (Lease liabilities)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 47227046.0,
+        "note": "Total consolidated borrowings (Term loans OMR 38,690,748 per Note 4.1(c)/16(d) + Short-term borrowings OMR 8,536,298 per Note 16.7; current portion OMR 19,041,156 matching BS borrowingsC + non-current term loans OMR 28,185,890 inside BS totalNonCurrentLiabilities; excludes OMR 6,281,973 lease liabilities). Note 4.1(a)(iii) states borrowings were denominated in OMR, USD and AED without numeric split."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loans (Consolidated Group)",
+        "bank": "Ahli Bank SAOG, two Islamic banks (syndication), and other commercial banks",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 38690748.0,
+        "interestRate": "Fixed & floating (incl. 7.00% p.a. on Sohar Cement Ijara'h and Ahli Bank transferred loan)",
+        "tenor": "Multi-year (Sohar Cement extended to Dec 2031; Ahli Bank 40 unequal quarterly instalments from Dec 2025)",
+        "maturityDate": "2031-12",
+        "renewalDate": null,
+        "terms": "Includes Parent OMR 24,910,821 (incorporating OMR 4,469,091 transferred from Duqm Cement / Ahli Bank SAOG on 29 Sep 2025 at 7% p.a.) and Sohar Cement Diminishing Ijara'h RO 10.786M syndication at 7.00% p.a. (extended to Dec 2031); individual facility tables on unextracted pages 44-46. Fixed-rate debt OMR 50,441,507 & variable-rate OMR 3,067,512 across Group gross debt incl. leases."
+      },
+      {
+        "facility": "Short-term loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 7565713.0,
+        "interestRate": "6.25% to 7.5% p.a. (Parent); 7% p.a. (Subsidiary)",
+        "tenor": "180 days",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Parent OMR 6,021,106 + Subsidiary OMR 1,544,607; Parent facility secured by pledge of Bank Dhofar SAOG and Dhofar Insurance SAOG shares, pari-passu commercial mortgage over assets, and assignment of fixed asset insurance."
+      },
+      {
+        "facility": "Bank overdrafts",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 970585.0,
+        "interestRate": "6.25% to 7.5% p.a.",
+        "tenor": "Annual renewal",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Parent Company commercial bank overdrafts; secured pari-passu as above."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Banking facilities require maintaining current ratio, leverage ratio, Debt Service Cover ratio, and Tangible net worth ratio (tested annually on 31 December). As at 31 December 2025, Parent Company and Group were not in compliance; waiver letters were obtained prior to year end for certain breached covenants, while facilities without prior year-end waivers were reclassified as current liabilities (Note 16.6(c))."
+  },
+  "RNSS": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 15 (Borrowings), Note 27 (Financial Risk Management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 51239000.0,
+        "note": "Consolidated borrowings (Current RO 14,473,000 + Non-current RO 36,766,000); majority denominated in OMR per Note 15. Excludes RO 6,700,000 lease liabilities."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Parent Syndicated Long-Term Loan (restructured to single bank)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 90000000.0,
+        "outstandingOmr": 5467000.0,
+        "interestRate": "Fixed until closure (restructured in 2025)",
+        "tenor": "52 quarterly installments (from 2013)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Original RO 130M limit (RO 90M drawn, RO 40M cancelled in 2015); restructured to a single bank in 2025 with fixed rate. Secured by commercial/legal mortgage over Parent properties, account pledge, routing of collections/dividends, and insurance assignment."
+      },
+      {
+        "facility": "Parent Short-Term Loan and Bank Overdrafts",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 3234000.0,
+        "interestRate": "Commercial interest rates",
+        "tenor": "Short-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Working capital facilities availed in 2025."
+      },
+      {
+        "facility": "RDAC Term Loans (2015 / 2021 / 2023 Amended Facility)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 64345671.0,
+        "outstandingOmr": 39164000.0,
+        "interestRate": "Fixed commercial rates reset annually (variable rate exposure in Note 27)",
+        "tenor": "40 quarterly instalments starting 12 Mar 2025 (amended 12 Dec 2023)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Original RO 45,308,000 + expansion RO 19,037,671 (second tranche RO 6,603,464 cancelled). Secured by mortgage over RDAC assets, routing of collections, and insurance assignment."
+      },
+      {
+        "facility": "Subsidiary Short-Term Borrowings (incl. RDAC)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 3374000.0,
+        "interestRate": "Commercial interest rates",
+        "tenor": "Short-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Includes RO 1.3 million short-term loan facilities availed by RDAC in 2025 and other subsidiary short-term facilities (reconciles total consolidated borrowings RO 51,239,000)."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Both Parent Company and subsidiary RDAC are subject to financial covenants under their facility agreements and were in compliance at 31 Dec 2025.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/RNSS_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "SAHS": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 13 (Bank Borrowings)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/SAHS_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [],
+    "loans": [],
+    "bonds": [],
+    "covenants": [
+      "Secured by assignment of receivables from PDO under PAC contracts and insurance policies, and negative pledge over certain buildings in Fahud and Nimr."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "SFMI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 6(h), Note 21 (Bank borrowings), Note 36 (Financial risk management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 51188809.0,
+        "note": "Total Group bank borrowings per Note 21 (current OMR 33,966,376 matching BS borrowingsC + non-current OMR 17,222,433 inside BS totalNonCurrentLiabilities; excludes OMR 3,425,097 lease liabilities). Note 36(a)(i) discloses OMR/USD currency exposure with no separate USD borrowing breakdown."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Development Bank term loan",
+        "bank": "Development Bank",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 5922380.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Non-current OMR 5,495,971 + current OMR 426,409; secured against pari-passu charge on PPE (Note 6(h))."
+      },
+      {
+        "facility": "Long-term Islamic financing (Musharaka)",
+        "bank": "Alizz Islamic Bank and Ahli Islamic Bank",
+        "currency": "OMR",
+        "totalLimitOmr": 14600000.0,
+        "outstandingOmr": 13058223.0,
+        "interestRate": null,
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Alizz Islamic Bank OMR 12,000,000 facility (2022, OMR 11,851,362 used for Bakery project) and Ahli Islamic Bank OMR 2,600,000 facility (2023, OMR 2,146,081 used for Salalah International Plastic Industry expansion); non-current OMR 11,726,462 + current OMR 1,331,761; secured against PPE (Note 6)."
+      },
+      {
+        "facility": "Short-term commercial bank loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 124000000.0,
+        "outstandingOmr": 20323389.0,
+        "interestRate": "4.25% to 4.75% p.a.",
+        "tenor": "Monthly or quarterly renewal",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Total unsecured facility limit approx. OMR 124M; interest rates renegotiated on monthly/quarterly renewal; secured against insurance over current assets favouring the banks."
+      },
+      {
+        "facility": "Short-term Islamic financing",
+        "bank": "Meethaq Islamic Bank",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 11884817.0,
+        "interestRate": "4.25% p.a.",
+        "tenor": "Short-term",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Finances raw material purchases; raw materials purchased using the facilities serve as security."
+      }
+    ],
+    "bonds": [],
+    "covenants": null
+  },
+  "SHPS": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 2(a) (Senior & Junior Loans), Note 15 (Term Loans), Note 30 (Financial assets & risk management), Note 35 (Cash flow reconciliation)",
+    "currencyBreakdown": [
+      {
+        "currency": "USD",
+        "amountOmr": 13024000.0,
+        "note": "Total restructured Term loans denominated in USD (USD 33,829 thousand per Note 30(c), RO'000 13,024 = OMR 13,024,000 matching BS borrowingsC 1,117,000 + borrowingsNC 11,907,000; excludes OMR 1,248,000 lease liabilities)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Senior Loan",
+        "bank": null,
+        "currency": "USD",
+        "totalLimitOmr": 4762000.0,
+        "outstandingOmr": 2336000.0,
+        "interestRate": "SOFR + 2.75% p.a.",
+        "tenor": "Annual instalments through 31 Dec 2027",
+        "maturityDate": "2027-12-31",
+        "renewalDate": null,
+        "terms": "Restructured under New Facility Agreement effective 29 May 2025 (balance at CPS fulfilment RO 4,762k / USD 12,369k; original signed amount RO 6,857k / USD 17,809k); outstanding at 31 Dec 2025 is RO 2,336k (USD 6,068k); secured by legal and commercial mortgages on all Company assets."
+      },
+      {
+        "facility": "Junior Loan",
+        "bank": null,
+        "currency": "USD",
+        "totalLimitOmr": 14630000.0,
+        "outstandingOmr": 10688000.0,
+        "interestRate": "0% (non-interest bearing)",
+        "tenor": "Perpetuity loan; repayment after Senior Loan discharge (expected by 31 Dec 2033)",
+        "maturityDate": "2033-12-31",
+        "renewalDate": null,
+        "terms": "Face value RO 14,630,000 (USD 38,000k) recognised at fair value under 29 May 2025 restructuring; carrying value OMR 10,688,000 derived as Note 30(c)/35 total term loans (OMR 13,024,000) minus Senior Loan (OMR 2,336,000); no default clause."
+      }
+    ],
+    "bonds": [],
+    "covenants": "New Facility Agreement became effective on 29 May 2025; Company was compliant with covenants as at 31 December 2025 (Note 15). Secured by comprehensive legal and commercial mortgages on all assets of the Company.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/SHPS_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "SHRQ": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 17 (Long Term Loan)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/SHRQ_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 30931199.0
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loan (syndicated)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 64200000.0,
+        "outstandingOmr": 30931199.0,
+        "interestRate": "SOFR + margin (1.75%-1.85%)",
+        "tenor": "Maturity 2033",
+        "maturityDate": "2033",
+        "renewalDate": null,
+        "terms": "Secured by comprehensive legal and commercial mortgages on assets and project insurances."
+      }
+    ],
+    "bonds": [],
+    "covenants": [
+      "Debt service coverage ratio of 1.25 times (minimum requirement 1.05 times) at 31 December 2025."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "SIHC": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 12 (Lease liabilities), Note 24 (Finance costs on lease liabilities), Note 32 (Financial risk management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 4060065.0,
+        "note": "IFRS 16 lease liabilities only (Note 12: current OMR 18,992 + non-current OMR 4,041,073; data/SIHC.json combines full OMR 4,060,065 into leaseNC). Zero bank borrowings or debt securities."
+      }
+    ],
+    "loans": [],
+    "bonds": [],
+    "covenants": "Leases (50-year Madayn land lease from year 2000 for Oman LNG employee housing) are non-cancellable or cancellable only with a substantive termination fee; Group is prohibited from selling or pledging underlying leased assets as security. Zero bank borrowings.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/SIHC_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "SMNP": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 14 (Term loan), Note 37 (Repayment schedule)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/SMNP_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 34439000.0
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Syndicated Term Loan (SMNBPC)",
+        "bank": "National Bank of Oman",
+        "currency": "USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 34439000.0,
+        "interestRate": "SOFR + 2.05%",
+        "tenor": "31 Dec 2024 to 30 June 2032",
+        "maturityDate": "2032",
+        "renewalDate": null,
+        "terms": "Secured (Charge over assets, pledge of shares, assignment of contracts/insurance, security over cash pooling accounts); Compliance with DSCR >= 1.05:1 required."
+      }
+    ],
+    "bonds": [],
+    "covenants": [
+      "Maintain Debt Service Coverage Ratio (DSCR) not less than 1.05:1 for a calculation period as stipulated in the New Financing Agreement or as agreed otherwise with the Facility Agent.",
+      "Timely payment of principal and interest."
+    ],
+    "maturityProfile": {
+      "within1Y": 4832000.0,
+      "years1To5": 17754000.0,
+      "over5Y": 7483000.0
+    }
+  },
+  "SOMS": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 16 (Bank Borrowings), Note 29 (Financial Risk)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/SOMS_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 10000000.0
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Bank Borrowings (Local Commercial Bank)",
+        "bank": "local commercial bank in the Sultanate of Oman",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 10000000.0,
+        "interestRate": "Commercial rates (subject to periodic re-negotiation)",
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured by pledge over all transactions items and continuing security for general obligations."
+      }
+    ],
+    "bonds": [],
+    "covenants": [
+      "Restrictive financial and non-financial covenants exist, including maintaining gearing ratio, tangible net worth, average utilization of the committed facility, requiring prior consent to create encumbrance over company assets, and restrictions on reduction of share capital or change of accounting year."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "SPFI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 24 (Borrowings)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/SPFI_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 11574802.0
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loan 1",
+        "bank": "local Islamic bank",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 3436543.0,
+        "interestRate": "CBO private sector deposit rate + 1.7%",
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured against first commercial charge on building and equipment (Note 11). Covenant: Debt service ratio cannot exceed 1.25 times."
+      },
+      {
+        "facility": "Term loan 2",
+        "bank": "local Islamic bank",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 28503150.0,
+        "interestRate": "Base rate + 3% p.a.",
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured against first commercial charge on building and equipment (Note 11). Covenant: Debt service ratio cannot exceed 1.25 times."
+      },
+      {
+        "facility": "Term loan 3",
+        "bank": "local Islamic bank",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 8353052.0,
+        "interestRate": "Variable rate (implied from Note 24(d) context)",
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": "Renewable every three months",
+        "terms": "Secured against first commercial charge on building and equipment (Note 11). Covenant: Debt service leverage ratio cannot exceed 3 times."
+      }
+    ],
+    "bonds": [],
+    "covenants": [
+      "Term loan 2: Debt service ratio cannot exceed 1.25 times.",
+      "Term loan 3: Debt service leverage ratio cannot exceed 3 times."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "SPSI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 13.b (Leases), Note 14 (Financial assets and liabilities), Note 22 (Financial risk management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 20512000.0,
+        "note": "No bank borrowings or debt securities; total debt per Note 14 & BS consists solely of IFRS 16 lease liabilities (current OMR 6,159,000 + non-current OMR 14,353,000; USD 53,329 thousand equivalent)."
+      }
+    ],
+    "loans": [],
+    "bonds": [],
+    "covenants": null
+  },
+  "SSPW": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 10 (Hedging reserve), Note 16 (Short term borrowings), Note 19 (Term loans), Note 21 (Long term lease liability), Note 23 (Financial risk management)",
+    "currencyBreakdown": [
+      {
+        "currency": "USD",
+        "amountOmr": 21175041.0,
+        "note": "Gross USD project financing loans per Note 19 & Note 23(a) (Sinosure Covered OMR 11,761,003 + USD Commercial OMR 9,414,038), before OMR 51,681 aggregate unamortised transaction costs."
+      },
+      {
+        "currency": "OMR",
+        "amountOmr": 4403160.0,
+        "note": "Gross Rial Commercial Facility per Note 19 & Note 23(a); total gross term loans OMR 25,578,201 less OMR 51,681 unamortised transaction costs = OMR 25,526,520 BS borrowingsC (excludes OMR 673,536 lease liabilities)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Sinosure Covered Facility (USD)",
+        "bank": "Bank of China, Shondong Branch (Sinosure Facility Agent; CTA consortium)",
+        "currency": "USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 11761003.0,
+        "interestRate": "Daily Simple SOFR + CAS + 3.00% p.a. (95.32% of USD loans hedged via IRS at 4.345% and 3.80%)",
+        "tenor": "29 half-yearly instalments (2012-2026)",
+        "maturityDate": "2026-03-31",
+        "renewalDate": null,
+        "terms": "Gross principal before unamortised transaction costs; 100% current; secured by mortgage on all project assets, assignment of insurance, share pledge (non-public), and project accounts."
+      },
+      {
+        "facility": "USD Commercial Facilities",
+        "bank": "Standard Chartered Bank (Dollar Commercial Facility Agent; CTA consortium)",
+        "currency": "USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 9414038.0,
+        "interestRate": "Non-Cumulative Compounded SOFR + CAS + 3.55% p.a. (3.95% after 13th anniversary; IRS hedged)",
+        "tenor": "29 half-yearly instalments (2012-2026)",
+        "maturityDate": "2026-03-31",
+        "renewalDate": null,
+        "terms": "Gross principal before unamortised transaction costs; 100% current; IRS counterparties SMBC Capital Market Limited, KfW-IPEX Bank GmbH, Standard Chartered Bank."
+      },
+      {
+        "facility": "Rial Commercial Facilities (OMR)",
+        "bank": "Bank Muscat SAOG (Rial Commercial Facility Agent; CTA consortium)",
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 4403160.0,
+        "interestRate": "5.93% p.a. fixed (Year 14-15; previously 5.65%-5.90%)",
+        "tenor": "29 half-yearly instalments (2012-2026)",
+        "maturityDate": "2026-03-31",
+        "renewalDate": null,
+        "terms": "Gross principal before unamortised transaction costs; 100% current; secured under Common Terms Agreement."
+      },
+      {
+        "facility": "Working capital facility",
+        "bank": "Bank Muscat SAOG",
+        "currency": "OMR",
+        "totalLimitOmr": 3850000.0,
+        "outstandingOmr": 0.0,
+        "interestRate": "Max 4.25% p.a.",
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Agreement dated 26 Feb 2013, last amended 9 Jan 2025; limit RO 3.85 million; Nil drawn at 31 Dec 2025; secured under CTA."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Term loan facilities contain covenants covering liquidation and merger, material new agreements, negative pledge, asset disposals, loans and guarantees, capital asset acquisitions, debt service coverage ratio, debt to equity ratio, change of business, and hedging agreements. Company was in compliance as at 31 December 2025.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/SSPW_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "SUWP": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 2 (Significant Agreements), Note 15(a) (Term Loans), Note 15(b) (Short Term Borrowings), Note 18 (Financial Risk Management)",
+    "currencyBreakdown": [
+      {
+        "currency": "USD",
+        "amountOmr": 42664000.0,
+        "note": "Consolidated term loans carrying value: gross RO 42,886,000 (USD 111,535k = RO 40,837k variable + RO 2,049k Hermes fixed) less RO 222,000 unamortised deferred finance costs. Excludes RO 500,000 lease liabilities."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loans (USD variable rate facilities)",
+        "bank": "Syndicate (Global Facility Agent: Credit Agricole CIB; KEXIM; Onshore Agent: Bank Muscat SAOG)",
+        "currency": "USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 40837000.0,
+        "interestRate": "US SOFR + CAS + margins (1.80% to 3.15% p.a.; RO 25,167k hedged via IRS)",
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Gross USD 106,207k before shared RO 222,000 unamortised deferred finance costs. Secured by comprehensive legal and commercial mortgages on all Company assets."
+      },
+      {
+        "facility": "Hermes Covered Fixed Facility",
+        "bank": "Syndicate (Global Facility Agent: Credit Agricole CIB)",
+        "currency": "USD",
+        "totalLimitOmr": null,
+        "outstandingOmr": 2049000.0,
+        "interestRate": "3.60% p.a. (fixed, incl. margin)",
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Gross USD 5,328k before shared RO 222,000 unamortised deferred finance costs. Secured by comprehensive legal and commercial mortgages on all Company assets."
+      },
+      {
+        "facility": "Revolving Working Capital Facility",
+        "bank": "Bank Muscat SAOG",
+        "currency": "OMR",
+        "totalLimitOmr": 8840000.0,
+        "outstandingOmr": 0.0,
+        "interestRate": "Prevailing market rates",
+        "tenor": "Short-term revolving",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Agreement dated 5 June 2012 up to RO 8.84 million; nil drawn at 31 Dec 2025."
+      }
+    ],
+    "bonds": [],
+    "covenants": "Restrictive covenants on liquidation/merger, material new agreements, negative pledge, asset disposal, loans/guarantees, capex, change of business, and hedging. Annual Debt Service Coverage Ratio (DSCR) tested on 30 June and 31 Dec (loan becomes repayable on demand if breached); compliant at 30 June 2025 and 31 Dec 2025.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/SUWP_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "TAOI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": null,
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/TAOI_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [],
+    "loans": [],
+    "bonds": [],
+    "covenants": [],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  },
+  "TFCI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 3.1(a)&(c) (pp.13-14, 27), Note 23(a)-(b) (Maturity profile, pp.47-49), Note 24 (Measurement category, p.50)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 158830000.0,
+        "note": "Short-term loans OMR 65,111,000 + Long-term loans OMR 78,715,000 + Unsecured non-convertible bonds OMR 15,004,000 (matches BS OMR 158,829,633 rounded to RO '000; excludes OMR 72,506k corporate/security deposits and OMR 305k lease liabilities)"
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Short-term loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 65111000.0,
+        "interestRate": null,
+        "tenor": "Up to 180 days (renegotiated annually/frequently)",
+        "maturityDate": "2026",
+        "renewalDate": null,
+        "terms": "Commercial bank revolving/short-term facilities at amortised cost; undiscounted cash flows OMR 65,417k (0-30d OMR 32,204k, 31-180d OMR 33,213k)."
+      },
+      {
+        "facility": "Long-term loans",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 78715000.0,
+        "interestRate": null,
+        "tenor": "Fixed-rate up to >3 years",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Fixed-rate loans from commercial banks at amortised cost; undiscounted cash flows OMR 89,947k (<=1Y OMR 33,783k, 1-3Y OMR 44,171k, >3Y OMR 11,993k)."
+      }
+    ],
+    "bonds": [
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Unsecured non-convertible bonds",
+        "instrumentType": "Non-Convertible Bond",
+        "currency": "OMR",
+        "issueSizeOmr": null,
+        "outstandingOmr": 15004000.0,
+        "couponRatePct": null,
+        "ytmPct": null,
+        "maturityDate": "2026",
+        "terms": "Fixed-rate unsecured non-convertible bonds at amortised cost; maturing in 181-365 days (2026) with undiscounted cash flows OMR 16,077k (Note 23b)."
+      }
+    ],
+    "covenants": "Does not hedge interest rate risk; maintains revolving credit facilities to cover liquidity needs and complies with CBO regulatory ratios (Note 11 & 12 unutilised credit facilities pages not in excerpt).",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/TFCI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "UBAR": {
+    "weightedAvgRate": 6.95,
+    "sourceNoteRef": "Note 16 (Term loans), Note 17 (Bank borrowings), Note 22 (Finance charges), Note 29 (Financial risk and capital management)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 3222409.0,
+        "note": "Net BS borrowings OMR 3,222,409 matching data/UBAR.json borrowingsC (OMR 930,182 = OMR 427,310 current term loans + OMR 502,872 bank overdraft) + borrowingsNC (OMR 2,292,227), i.e. gross facilities OMR 3,283,034 less OMR 60,625 unamortised deferred financing costs. Excludes OMR 172,197 lease liabilities (totalDebt OMR 3,394,606)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Term loan 1",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 2122958.0,
+        "interestRate": "7.0% p.a.",
+        "tenor": "30 quarterly instalments",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Gross carrying balance (before Group unamortised deferred financing costs of OMR 60,625). Local commercial bank; semi-annual rate review; interest commenced 30 Sep 2023 and principal 31 Mar 2024. Secured per Note 16(d)."
+      },
+      {
+        "facility": "Term loan 2",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 4018.0,
+        "interestRate": "0.0% p.a.",
+        "tenor": "12 equal instalments",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Interest-free loan from a local commercial bank repayable in 12 equal instalments; secured per Note 16(d)."
+      },
+      {
+        "facility": "Term loan 3",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 653186.0,
+        "interestRate": "7.0% p.a.",
+        "tenor": "28 equal quarterly instalments",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Gross carrying balance (before Group unamortised deferred financing costs of OMR 60,625). Local commercial bank; semi-annual rate review; interest commenced 30 Mar 2024 and principal 31 Mar 2025. Secured per Note 16(d)."
+      },
+      {
+        "facility": "Bank overdraft",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 502872.0,
+        "interestRate": "6.75% p.a.",
+        "tenor": "On demand",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Local commercial bank overdraft (reconciled from BS borrowingsC OMR 930,182 minus current term loans OMR 427,310, matching Note 29a 0.5% sensitivity of OMR 16,112 on OMR 3,222,409 net debt); interest rate subject to semi-annual review; secured per Note 16(d)."
+      }
+    ],
+    "bonds": [],
+    "covenants": "BREACH & DEFAULT: Actual financial ratios were NOT within covenanted levels at 31 Dec 2025, which could permit the bank to cancel or reduce facilities (Note 16e). Parent Company defaulted on term loan instalments of OMR 97,915 (OMR 47,371 repaid post year-end), triggering a 2% p.a. default charge on the outstanding loan (Note 16f). Secured by first-ranking mortgage on Golden Tulip Hotel (Al Ghubrah, Muscat), assignment of subsidiary insurance and revenues, promissory note of OMR 3,658,600, minimum DSRA of OMR 200,000, subsidiary corporate guarantee, and negative pledge on certain PPE.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/UBAR_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "UFCI": {
+    "weightedAvgRate": null,
+    "sourceNoteRef": "Note 20 (Bank Borrowings), Note 21 (Senior Bonds), Note 22 (Dividend Bonds), Note 23 (Corporate Deposits), Note 32 (Interest Rate Risk)",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 59030013.0,
+        "note": "Bank borrowings (RO 42,837,000) + Unsecured non-convertible senior bonds (RO 14,916,345) + Unsecured non-convertible dividend bonds (RO 1,276,668) = RO 59,030,013 BS debt. Excludes RO 15,385,928 corporate deposits (Note 23)."
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Short-term bank borrowings",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 31500000.0,
+        "outstandingOmr": 28261383.0,
+        "interestRate": "4.80% to 6.85% p.a.",
+        "tenor": "Short-term (up to 1 year)",
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured against pari-passu charges over net investment in finance leases, working capital finance and factoring receivables."
+      },
+      {
+        "facility": "Long-term bank borrowings",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": 39000000.0,
+        "outstandingOmr": 14575617.0,
+        "interestRate": "6.00% to 7.25% p.a.",
+        "tenor": "2 to 4 years",
+        "maturityDate": "2028-12",
+        "renewalDate": null,
+        "terms": "Secured by pari-passu charge over total assets of the Company. Maturity dates range from Jan 2025 to Dec 2028. Current portion RO 5,739,617; non-current RO 8,836,000."
+      }
+    ],
+    "bonds": [
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Unsecured Non-Convertible Senior Bonds",
+        "instrumentType": "Senior Bond",
+        "currency": "OMR",
+        "issueSizeOmr": 15000000.0,
+        "outstandingOmr": 14916345.0,
+        "couponRatePct": 7.0,
+        "ytmPct": null,
+        "maturityDate": "2028-06",
+        "terms": "Issued in June 2025 for 3 years; 7% p.a. coupon payable semi-annually; carried at amortised cost."
+      },
+      {
+        "symbol": null,
+        "isin": null,
+        "name": "Unsecured Non-Convertible Dividend Bonds",
+        "instrumentType": "Dividend Bond",
+        "currency": "OMR",
+        "issueSizeOmr": 1271374.0,
+        "outstandingOmr": 1276668.0,
+        "couponRatePct": 5.0,
+        "ytmPct": null,
+        "maturityDate": "2030-07",
+        "terms": "12,464,460 bonus stock bonds of RO 0.102 each issued in July 2025 (redeemable after 60 months); 5% p.a. annual coupon; carrying amount includes accrued interest (issuance costs RO 24,928)."
+      }
+    ],
+    "covenants": "Subject to borrowing covenants; Company was in compliance at 31 Dec 2025 and 31 Dec 2024. Undrawn bank facilities of RO 23.68 million at 31 Dec 2025.",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/UFCI_2025_Yearly%20%28Audited%29_e.zip"
+  },
+  "VOES": {
+    "weightedAvgRate": "null",
+    "sourceNoteRef": "Note 17 (Bank borrowings)",
+    "sourceFilingUrl": "https://www.msx.om/MSMDOCS/FinancialReports/VOES_2025_Yearly%20%28Audited%29_e.zip",
+    "currencyBreakdown": [
+      {
+        "currency": "OMR",
+        "amountOmr": 3015120.0
+      }
+    ],
+    "loans": [
+      {
+        "facility": "Bank borrowings (Group)",
+        "bank": null,
+        "currency": "OMR",
+        "totalLimitOmr": null,
+        "outstandingOmr": 3015120.0,
+        "interestRate": "5% to 5.25% p.a.",
+        "tenor": null,
+        "maturityDate": null,
+        "renewalDate": null,
+        "terms": "Secured against property, plant and equipment of Subsidiaries and corporate guarantee of the Parent Company."
+      }
+    ],
+    "bonds": [],
+    "covenants": [
+      "None explicitly detailed in excerpt."
+    ],
+    "maturityProfile": {
+      "within1Y": null,
+      "years1To5": null,
+      "over5Y": null
+    }
+  }
+}

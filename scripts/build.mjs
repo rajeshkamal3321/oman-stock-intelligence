@@ -21,7 +21,8 @@ function copyRecursive(src, dest) {
         entry === "ipo_prospectus_financials.json" ||
         entry === "corporate_governance_overrides.json" ||
         entry === "shareholder_translations.json" ||
-        entry === "historical_ocr_backfill.json"
+        entry === "historical_ocr_backfill.json" ||
+        entry === "debt_profiles.json"
       ) continue;
       copyRecursive(path.join(src, entry), path.join(dest, entry));
     }

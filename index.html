@@ -103,11 +103,14 @@
 
     html.light .bg-slate-950,
     html.light .bg-slate-950\/95,
-    html.light .bg-slate-950\/90 {
+    html.light .bg-slate-950\/90,
+    html.light .bg-slate-950\/60 {
       background-color: var(--bg-header) !important;
     }
     html.light .bg-slate-900,
+    html.light .bg-slate-900\/95,
     html.light .bg-slate-900\/90,
+    html.light .bg-slate-900\/80,
     html.light .bg-slate-900\/75,
     html.light .bg-slate-900\/70,
     html.light .bg-slate-900\/60,
@@ -739,12 +742,16 @@
               <i data-lucide="percent" class="w-3.5 h-3.5"></i>
               <span>Key Stats &amp; Ratios</span>
             </button>
+            <button data-fin-subtab="debt" class="fin-subtab-btn px-3.5 py-1.5 rounded-lg text-xs font-medium border border-transparent text-slate-300 hover:text-white transition flex items-center gap-1.5">
+              <i data-lucide="landmark" class="w-3.5 h-3.5"></i>
+              <span>Debt &amp; Borrowings</span>
+            </button>
           </div>
           <span id="fin-period-summary" class="text-[11px] font-mono text-slate-400">—</span>
         </div>
 
         <!-- Statement Table Container -->
-        <div class="overflow-x-auto rounded-xl border border-slate-800/90 bg-slate-950/60">
+        <div id="fin-stmt-table-wrap" class="overflow-x-auto rounded-xl border border-slate-800/90 bg-slate-950/60">
           <table class="w-full text-left border-collapse text-xs sm:text-[13px]">
             <thead id="fin-stmt-head">
               <!-- Populated by JS -->
@@ -758,6 +765,109 @@
         <!-- Footnotes (Annualisation Note + Source Note) -->
         <div id="fin-stmt-footnotes" class="mt-4 space-y-1.5 text-[11px] font-mono text-slate-400">
           <!-- Populated by JS -->
+        </div>
+
+        <!-- Debt & Borrowings Sub-Tab Panel -->
+        <div id="fin-debt-panel" class="hidden space-y-6">
+          <!-- Debt KPI Strip (6 cards) -->
+          <div id="debt-kpi-grid" class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3">
+            <!-- Populated by JS -->
+          </div>
+
+          <!-- Split Visualization: Composition History + Currency Breakdown -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <div class="lg:col-span-7 bg-slate-900/75 border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between">
+              <div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-1.5">
+                      <i data-lucide="layers" class="w-3.5 h-3.5 text-indigo-400"></i>
+                      <span>Debt Composition Split</span>
+                    </h4>
+                    <p id="debt-stack-sub" class="text-[11px] text-slate-400 mt-0.5">Short-Term, Long-Term, Lease Liabilities &amp; Bonds / Sukuk / Tier-1</p>
+                  </div>
+                  <span id="debt-stack-period" class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">—</span>
+                </div>
+                <div id="debt-split-badges" class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+                  <!-- Populated by JS -->
+                </div>
+              </div>
+              <div class="h-56 relative">
+                <canvas id="finDebtStackChart"></canvas>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 bg-slate-900/75 border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-3">
+                  <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-1.5">
+                      <i data-lucide="coins" class="w-3.5 h-3.5 text-cyan-400"></i>
+                      <span>Debt by Currency</span>
+                    </h4>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Denominated currency exposure from IFRS 7 disclosures</p>
+                  </div>
+                </div>
+                <div id="debt-ccy-bar" class="w-full h-3 rounded-full bg-slate-800 overflow-hidden flex mb-3">
+                  <!-- Populated by JS -->
+                </div>
+                <div id="debt-ccy-table-wrap" class="overflow-x-auto">
+                  <table class="w-full text-xs">
+                    <thead>
+                      <tr class="text-slate-400 border-b border-slate-800 text-[11px]">
+                        <th class="py-1.5 text-left font-semibold">Currency</th>
+                        <th class="py-1.5 text-right font-semibold">Amount</th>
+                        <th class="py-1.5 text-right font-semibold">Share</th>
+                      </tr>
+                    </thead>
+                    <tbody id="debt-ccy-body" class="divide-y divide-slate-800/60">
+                      <!-- Populated by JS -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div id="debt-ccy-note" class="mt-3 text-[11px] text-slate-500 font-mono"></div>
+            </div>
+          </div>
+
+          <!-- Bank Loans & Credit Facilities Schedule -->
+          <div class="bg-slate-900/75 border border-slate-800/80 rounded-xl p-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div>
+                <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-1.5">
+                  <i data-lucide="building-2" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>Bank Loans &amp; Credit Facilities</span>
+                </h4>
+                <p class="text-[11px] text-slate-400 mt-0.5">Term loans, working capital &amp; revolving credit disclosures from audited FY2025 Notes</p>
+              </div>
+              <span id="debt-loans-count" class="text-[11px] font-mono text-slate-400">0 facilities</span>
+            </div>
+            <div id="debt-loans-wrap" class="overflow-x-auto rounded-lg border border-slate-800/80">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Bonds & Sukuk Schedule -->
+          <div class="bg-slate-900/75 border border-slate-800/80 rounded-xl p-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div>
+                <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-1.5">
+                  <i data-lucide="scroll-text" class="w-3.5 h-3.5 text-amber-400"></i>
+                  <span>Bonds, Sukuk &amp; Perpetual Securities</span>
+                </h4>
+                <p class="text-[11px] text-slate-400 mt-0.5">Live MSX listed debt/sukuk registry (msx.om/bonds) &amp; international bond note disclosures</p>
+              </div>
+              <span id="debt-bonds-count" class="text-[11px] font-mono text-slate-400">0 issues</span>
+            </div>
+            <div id="debt-bonds-wrap" class="overflow-x-auto rounded-lg border border-slate-800/80">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Covenants & Provenance Footer -->
+          <div id="debt-footnotes" class="space-y-1.5 text-[11px] font-mono text-slate-400">
+            <!-- Populated by JS -->
+          </div>
         </div>
       </section>
     </div>
@@ -1083,6 +1193,7 @@
     let ownershipChartInstance = null;
     let govOwnershipChartInstance = null;
     let financialsChartInstance = null;
+    let debtStackChartInstance = null;
 
     const LOGO_COLORS = {
       BKMB: "from-rose-600 to-red-950",
@@ -1256,6 +1367,9 @@
         renderOwnershipChart(currentCompanyData);
         renderGovOwnershipChart(currentCompanyData);
         renderFinancialsChart(currentCompanyData);
+        if (currentTab === "financials" && currentFinSubTab === "debt") {
+          renderDebtSubTab(currentCompanyData);
+        }
       }
     }
 
@@ -1839,14 +1953,29 @@
       const headEl = document.getElementById("fin-stmt-head");
       const bodyEl = document.getElementById("fin-stmt-body");
       const footEl = document.getElementById("fin-stmt-footnotes");
+      const tableWrapEl = document.getElementById("fin-stmt-table-wrap");
+      const debtPanelEl = document.getElementById("fin-debt-panel");
+      const isDebtTab = currentFinSubTab === "debt";
+
+      if (tableWrapEl) tableWrapEl.classList.toggle("hidden", isDebtTab);
+      if (footEl) footEl.classList.toggle("hidden", isDebtTab);
+      if (debtPanelEl) debtPanelEl.classList.toggle("hidden", !isDebtTab);
 
       document.getElementById("fin-tab-title").innerHTML = `<i data-lucide="table-2" class="w-4 h-4 text-indigo-400"></i> Financial Statements &amp; Key Stats (${cCode})`;
       document.getElementById("fin-tab-subtitle").textContent = currentCurrency === "USD"
         ? "Last 4 audited fiscal years and latest YTD interim results from MSX XBRL filings, converted to USD at the CBO fixed peg (1 OMR = $2.6008)."
         : "Last 4 audited fiscal years and latest YTD interim results extracted directly from MSX XBRL financial statement filings in OMR.";
-      document.getElementById("fin-tab-unit").textContent = currentFinSubTab === "ratios"
-        ? `Ratios & Margins (%, x) • Currency: ${cCode}`
-        : `Unit: ${cCode} Millions • Per-Share in ${cCode}`;
+      document.getElementById("fin-tab-unit").textContent = isDebtTab
+        ? `Unit: ${cCode} Millions • IFRS 7 Debt Notes & msx.om/bonds`
+        : currentFinSubTab === "ratios"
+          ? `Ratios & Margins (%, x) • Currency: ${cCode}`
+          : `Unit: ${cCode} Millions • Per-Share in ${cCode}`;
+
+      if (isDebtTab) {
+        document.getElementById("fin-template-badge").textContent = (stmts && stmts.templateLabel) || "IFRS Debt";
+        renderDebtSubTab(company);
+        return;
+      }
 
       if (!stmts || !Array.isArray(stmts.periods) || stmts.periods.length === 0) {
         document.getElementById("fin-template-badge").textContent = "IFRS";
@@ -1936,12 +2065,289 @@
       footEl.innerHTML = notes.join("");
     }
 
+    function renderDebtSubTab(company) {
+      const dp = company.debtProfile;
+      const kpiEl = document.getElementById("debt-kpi-grid");
+      const splitBadgesEl = document.getElementById("debt-split-badges");
+      const ccyBarEl = document.getElementById("debt-ccy-bar");
+      const ccyBodyEl = document.getElementById("debt-ccy-body");
+      const ccyNoteEl = document.getElementById("debt-ccy-note");
+      const loansWrapEl = document.getElementById("debt-loans-wrap");
+      const loansCountEl = document.getElementById("debt-loans-count");
+      const bondsWrapEl = document.getElementById("debt-bonds-wrap");
+      const bondsCountEl = document.getElementById("debt-bonds-count");
+      const footEl = document.getElementById("debt-footnotes");
+      const periodBadgeEl = document.getElementById("debt-stack-period");
+      const summaryEl = document.getElementById("fin-period-summary");
+
+      if (debtStackChartInstance) {
+        debtStackChartInstance.destroy();
+        debtStackChartInstance = null;
+      }
+
+      if (!dp || !dp.hasDebtData) {
+        if (summaryEl) summaryEl.textContent = "Zero / Undisclosed Borrowings";
+        if (periodBadgeEl) periodBadgeEl.textContent = company.latestFiscalYear || "Latest Filing";
+        kpiEl.innerHTML = [
+          { label: "Total Debt", val: fmtLarge(0), sub: "No reported borrowings" },
+          { label: "Net Debt", val: fmtLarge(dp?.kpis?.netDebtOmr ?? null), sub: dp?.kpis?.cashOmr ? `Cash: ${fmtLarge(dp.kpis.cashOmr)}` : "Cash position" },
+          { label: "Short-Term Debt", val: "—", sub: "No short-term borrowings" },
+          { label: "Long-Term Debt", val: "—", sub: "No long-term borrowings" },
+          { label: "Lease Liabilities", val: "—", sub: "IFRS 16 leases" },
+          { label: "Bonds / Sukuk", val: "—", sub: "Debt & Tier-1 securities" }
+        ].map(k => `
+          <div class="bg-slate-900/75 border border-slate-800/80 rounded-xl p-3">
+            <div class="text-[11px] text-slate-400">${k.label}</div>
+            <div class="text-base sm:text-lg font-bold font-mono text-white mt-1">${k.val}</div>
+            <div class="text-[10px] text-slate-500 font-mono mt-0.5 truncate">${k.sub}</div>
+          </div>
+        `).join("");
+        splitBadgesEl.innerHTML = `<div class="col-span-full text-xs text-slate-400 py-2">No debt composition history reported in XBRL filings.</div>`;
+        ccyBarEl.innerHTML = "";
+        ccyBodyEl.innerHTML = `<tr><td colspan="3" class="py-4 text-center text-slate-500">No currency debt exposure reported</td></tr>`;
+        if (ccyNoteEl) ccyNoteEl.textContent = "";
+        if (loansCountEl) loansCountEl.textContent = "0 facilities";
+        loansWrapEl.innerHTML = `<div class="py-6 px-4 text-center text-xs text-slate-400">${company.name} reports no funded bank borrowings or credit facilities.</div>`;
+        if (bondsCountEl) bondsCountEl.textContent = "0 issues";
+        bondsWrapEl.innerHTML = `<div class="py-6 px-4 text-center text-xs text-slate-400">No corporate bonds, sukuk, or perpetual debt securities listed or disclosed.</div>`;
+        footEl.innerHTML = `<div class="text-slate-500">Source: MSX XBRL filings &amp; msx.om/bonds.</div>`;
+        safeCreateIcons();
+        return;
+      }
+
+      const k = dp.kpis || {};
+      const pLblMap = Object.fromEntries((company.statements?.periods || []).map(p => [p.key, p.label]));
+      const fmtPLbl = (pk) => pLblMap[pk] || (pk === "Q26_CUR" ? "9M 2026" : pk);
+      const latP = fmtPLbl(dp.latestPeriod || "FY2025");
+      if (summaryEl) summaryEl.textContent = `${(dp.periodHistory || []).length} Periods • ${(dp.loans || []).length} Loan(s) • ${(dp.bonds || []).length} Bond/Sukuk`;
+      if (periodBadgeEl) periodBadgeEl.textContent = latP;
+
+      const totDebt = k.totalDebtOmr || 0;
+      const shareStr = (v) => (v !== null && v !== undefined && totDebt > 0) ? `${(v / totDebt * 100).toFixed(1)}% of debt` : "—";
+      const kpiCards = [
+        { label: `Total Debt (${latP})`, val: fmtLarge(k.totalDebtOmr), sub: `Cash: ${fmtLarge(k.cashOmr)}`, status: "neutral" },
+        { label: "Net Debt", val: fmtLarge(k.netDebtOmr), sub: k.netDebtOmr !== null && k.netDebtOmr < 0 ? "Net cash position" : "Total Debt − Cash", status: (k.netDebtOmr || 0) <= 0 ? "positive" : "neutral" },
+        { label: "Cash / ST Debt", val: k.cashToStDebtPct !== null && k.cashToStDebtPct !== undefined ? `${k.cashToStDebtPct.toFixed(0)}%` : "—", sub: `ST Debt: ${fmtLarge(k.shortTermOmr)}`, status: (k.cashToStDebtPct || 0) >= 100 ? "positive" : "neutral" },
+        { label: "Debt / EBITDA", val: k.debtToEbitda !== null && k.debtToEbitda !== undefined ? `${k.debtToEbitda.toFixed(2)}x` : "—", sub: k.debtToEbitda !== null && k.debtToEbitda !== undefined ? "Trailing / Annualised" : "N/A for financial/negative EBITDA", status: "neutral" },
+        { label: "Interest Coverage", val: k.interestCoverage !== null && k.interestCoverage !== undefined ? `${k.interestCoverage.toFixed(2)}x` : "—", sub: "EBIT / Finance Costs", status: (k.interestCoverage || 0) >= 3 ? "positive" : "neutral" },
+        { label: "Effective Interest Rate", val: k.effectiveInterestRatePct !== null && k.effectiveInterestRatePct !== undefined ? `${k.effectiveInterestRatePct.toFixed(2)}%` : "—", sub: "Implied / Disclosed cost of debt", status: "neutral" }
+      ];
+
+      kpiEl.innerHTML = kpiCards.map(c => {
+        const dot = c.status === "positive" ? "bg-emerald-500" : "bg-indigo-500";
+        return `
+          <div class="bg-slate-900/75 border border-slate-800/80 rounded-xl p-3 glass-card-hover">
+            <div class="flex items-center justify-between text-[11px] text-slate-400 gap-1">
+              <span class="truncate">${c.label}</span>
+              <span class="w-1.5 h-1.5 rounded-full shrink-0 ${dot}"></span>
+            </div>
+            <div class="text-base sm:text-lg font-bold font-mono text-white mt-1 truncate">${c.val}</div>
+            <div class="text-[10px] text-slate-400 font-mono mt-0.5 truncate" title="${escapeHtml(c.sub)}">${escapeHtml(c.sub)}</div>
+          </div>
+        `;
+      }).join("");
+
+      splitBadgesEl.innerHTML = [
+        { label: "Short-Term", val: k.shortTermOmr, color: "bg-sky-500" },
+        { label: "Long-Term", val: k.longTermOmr, color: "bg-indigo-500" },
+        { label: "Leases", val: k.leasesOmr, color: "bg-emerald-500" },
+        { label: "Bonds / Tier-1", val: k.bondsAndTier1Omr, color: "bg-amber-500" }
+      ].map(b => `
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-lg px-2.5 py-2">
+          <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
+            <span class="w-2 h-2 rounded-full ${b.color}"></span>
+            <span>${b.label}</span>
+          </div>
+          <div class="text-xs font-bold font-mono text-white mt-1">${b.val !== null && b.val !== undefined ? fmtLarge(b.val) : "—"}</div>
+          <div class="text-[10px] font-mono text-slate-500">${shareStr(b.val)}</div>
+        </div>
+      `).join("");
+
+      const hist = dp.periodHistory || [];
+      const stackCtx = document.getElementById("finDebtStackChart");
+      if (stackCtx && hist.length > 0 && typeof Chart !== "undefined") {
+        const pal = getChartPalette();
+        const scaleM = (v) => (v !== null && v !== undefined) ? Number(((Number(v) * fxRate()) / 1e6).toFixed(2)) : 0;
+        const labels = hist.map(h => fmtPLbl(h.period));
+        debtStackChartInstance = new Chart(stackCtx.getContext("2d"), {
+          type: "bar",
+          data: {
+            labels,
+            datasets: [
+              { label: "Short-Term", data: hist.map(h => scaleM(h.shortTerm)), backgroundColor: "rgba(56, 189, 248, 0.82)", borderRadius: 3 },
+              { label: "Long-Term", data: hist.map(h => scaleM(h.longTerm)), backgroundColor: "rgba(99, 102, 241, 0.85)", borderRadius: 3 },
+              { label: "Leases", data: hist.map(h => scaleM(h.leases)), backgroundColor: "rgba(16, 185, 129, 0.82)", borderRadius: 3 },
+              { label: "Bonds / Sukuk / Tier-1", data: hist.map(h => scaleM(h.bondsAndTier1)), backgroundColor: "rgba(245, 158, 11, 0.85)", borderRadius: 3 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: "index", intersect: false },
+            plugins: {
+              legend: { labels: { color: pal.textMuted, boxWidth: 10, font: { size: 10 } } },
+              tooltip: {
+                backgroundColor: pal.tooltipBg,
+                titleColor: pal.tooltipTitle,
+                bodyColor: pal.tooltipBody,
+                borderColor: pal.tooltipBorder,
+                borderWidth: 1,
+                callbacks: {
+                  label: (ctx) => `${ctx.dataset.label}: ${currCode()} ${Number(ctx.raw).toFixed(2)}M`
+                }
+              }
+            },
+            scales: {
+              x: { stacked: true, ticks: { color: pal.textMuted, font: { size: 10 } }, grid: { display: false } },
+              y: { stacked: true, ticks: { color: pal.textMuted, font: { size: 10 }, callback: v => `${v}M` }, grid: { color: pal.gridColor } }
+            }
+          }
+        });
+      }
+
+      const ccys = dp.byCurrency || [];
+      const ccyColors = ["#6366f1", "#06b6d4", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6"];
+      if (ccys.length > 0) {
+        ccyBarEl.innerHTML = ccys.map((c, idx) => `
+          <div style="width:${Math.max(2, Number(c.pct || 0))}%; background-color:${ccyColors[idx % ccyColors.length]}" title="${escapeHtml(c.currency)}: ${Number(c.pct || 0).toFixed(1)}%"></div>
+        `).join("");
+        ccyBodyEl.innerHTML = ccys.map((c, idx) => `
+          <tr>
+            <td class="py-2 font-medium text-slate-200 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-sm shrink-0" style="background-color:${ccyColors[idx % ccyColors.length]}"></span>
+              <span class="font-mono">${escapeHtml(c.currency)}</span>
+              ${c.note ? `<span class="text-[10px] text-slate-500 truncate max-w-[140px]" title="${escapeHtml(c.note)}">${escapeHtml(c.note)}</span>` : ""}
+            </td>
+            <td class="py-2 text-right font-mono text-slate-200">${fmtLarge(c.amountOmr)}</td>
+            <td class="py-2 text-right font-mono text-cyan-400 font-semibold">${Number(c.pct || 0).toFixed(1)}%</td>
+          </tr>
+        `).join("");
+        if (ccyNoteEl) ccyNoteEl.textContent = "All foreign-currency balances converted to display currency equivalent.";
+      } else {
+        ccyBarEl.innerHTML = `<div class="w-full bg-slate-700/60"></div>`;
+        ccyBodyEl.innerHTML = `<tr><td colspan="3" class="py-5 text-center text-slate-500">Currency breakdown not separately itemized in FY2025 Notes.</td></tr>`;
+        if (ccyNoteEl) ccyNoteEl.textContent = "";
+      }
+
+      const loans = dp.loans || [];
+      if (loansCountEl) loansCountEl.textContent = `${loans.length} ${loans.length === 1 ? "facility" : "facilities"}`;
+      if (loans.length > 0) {
+        loansWrapEl.innerHTML = `
+          <table class="w-full text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-900/95 text-slate-400 border-b border-slate-800 text-[11px]">
+                <th class="py-2.5 px-3 text-left font-semibold whitespace-nowrap">Facility</th>
+                <th class="py-2.5 px-3 text-left font-semibold whitespace-nowrap">Lender / Bank</th>
+                <th class="py-2.5 px-3 text-center font-semibold whitespace-nowrap">Ccy</th>
+                <th class="py-2.5 px-3 text-right font-semibold whitespace-nowrap">Total Limit</th>
+                <th class="py-2.5 px-3 text-right font-semibold whitespace-nowrap">Outstanding</th>
+                <th class="py-2.5 px-3 text-left font-semibold whitespace-nowrap">Interest Rate</th>
+                <th class="py-2.5 px-3 text-left font-semibold whitespace-nowrap">Tenor / Maturity</th>
+                <th class="py-2.5 px-3 text-left font-semibold whitespace-nowrap">Renewal Date</th>
+                <th class="py-2.5 px-3 text-left font-semibold min-w-[200px]">Terms &amp; Covenants</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60">
+              ${loans.map(l => `
+                <tr class="hover:bg-slate-800/35 transition">
+                  <td class="py-2.5 px-3 font-medium text-white">${escapeHtml(l.facility || "Borrowing Facility")}</td>
+                  <td class="py-2.5 px-3 text-slate-300">${l.lender ? escapeHtml(l.lender) : '<span class="text-slate-500">Undisclosed</span>'}</td>
+                  <td class="py-2.5 px-3 text-center font-mono text-cyan-400">${escapeHtml(l.currency || "OMR")}</td>
+                  <td class="py-2.5 px-3 text-right font-mono text-slate-300 whitespace-nowrap">${l.totalLimitOmr ? fmtLarge(l.totalLimitOmr) : "—"}</td>
+                  <td class="py-2.5 px-3 text-right font-mono font-semibold text-white whitespace-nowrap">${l.outstandingOmr !== null && l.outstandingOmr !== undefined ? fmtLarge(l.outstandingOmr) : "—"}</td>
+                  <td class="py-2.5 px-3 font-mono text-emerald-400">${l.interestRate ? escapeHtml(l.interestRate) : "—"}</td>
+                  <td class="py-2.5 px-3 text-slate-300">${l.tenorMaturity ? escapeHtml(l.tenorMaturity) : "—"}</td>
+                  <td class="py-2.5 px-3 text-slate-400">${l.renewalDate ? escapeHtml(l.renewalDate) : "—"}</td>
+                  <td class="py-2.5 px-3 text-[11px] text-slate-400 leading-snug">${l.termsCovenants ? escapeHtml(l.termsCovenants) : "—"}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+      } else {
+        loansWrapEl.innerHTML = `<div class="py-6 px-4 text-center text-xs text-slate-400">No itemized bank loan schedule separately detailed in the FY2025 Note extract.</div>`;
+      }
+
+      const bonds = dp.bonds || [];
+      if (bondsCountEl) bondsCountEl.textContent = `${bonds.length} ${bonds.length === 1 ? "issue" : "issues"}`;
+      if (bonds.length > 0) {
+        bondsWrapEl.innerHTML = `
+          <table class="w-full text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-900/95 text-slate-400 border-b border-slate-800 text-[11px]">
+                <th class="py-2.5 px-3 text-left font-semibold whitespace-nowrap">Symbol / Issue</th>
+                <th class="py-2.5 px-3 text-left font-semibold whitespace-nowrap">ISIN</th>
+                <th class="py-2.5 px-3 text-left font-semibold whitespace-nowrap">Type</th>
+                <th class="py-2.5 px-3 text-center font-semibold whitespace-nowrap">Ccy</th>
+                <th class="py-2.5 px-3 text-right font-semibold whitespace-nowrap">Issue / Outstanding</th>
+                <th class="py-2.5 px-3 text-right font-semibold whitespace-nowrap">Coupon</th>
+                <th class="py-2.5 px-3 text-right font-semibold whitespace-nowrap">Current Yield</th>
+                <th class="py-2.5 px-3 text-right font-semibold whitespace-nowrap">YTM</th>
+                <th class="py-2.5 px-3 text-left font-semibold whitespace-nowrap">Maturity</th>
+                <th class="py-2.5 px-3 text-left font-semibold min-w-[180px]">Terms &amp; Source</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60">
+              ${bonds.map(b => `
+                <tr class="hover:bg-slate-800/35 transition">
+                  <td class="py-2.5 px-3">
+                    <div class="font-semibold text-white">${b.symbol ? `<span class="font-mono text-amber-400 mr-1.5">${escapeHtml(b.symbol)}</span>` : ""}${escapeHtml(b.name || "Debt Security")}</div>
+                    ${b.couponFrequency ? `<div class="text-[10px] text-slate-500">${escapeHtml(b.couponFrequency)} coupon</div>` : ""}
+                  </td>
+                  <td class="py-2.5 px-3 font-mono text-slate-300 whitespace-nowrap">${b.isin ? escapeHtml(b.isin) : "—"}</td>
+                  <td class="py-2.5 px-3 text-slate-300 whitespace-nowrap">${escapeHtml(b.instrumentType || "Bond")}</td>
+                  <td class="py-2.5 px-3 text-center font-mono text-cyan-400">${escapeHtml(b.currency || "OMR")}</td>
+                  <td class="py-2.5 px-3 text-right font-mono text-white whitespace-nowrap">${fmtLarge(b.outstandingOmr ?? b.issueSizeOmr)}</td>
+                  <td class="py-2.5 px-3 text-right font-mono text-emerald-400 font-semibold whitespace-nowrap">${b.couponRatePct !== null && b.couponRatePct !== undefined ? `${Number(b.couponRatePct).toFixed(2)}%` : "—"}</td>
+                  <td class="py-2.5 px-3 text-right font-mono text-slate-200 whitespace-nowrap">${b.currentYieldPct !== null && b.currentYieldPct !== undefined ? `${Number(b.currentYieldPct).toFixed(2)}%` : "—"}</td>
+                  <td class="py-2.5 px-3 text-right font-mono font-semibold text-indigo-300 whitespace-nowrap">${b.ytmPct !== null && b.ytmPct !== undefined ? `${Number(b.ytmPct).toFixed(2)}%` : (b.maturityDate === "Perpetual" ? "Perp" : "—")}</td>
+                  <td class="py-2.5 px-3 font-mono text-slate-300 whitespace-nowrap">${b.maturityDate ? escapeHtml(b.maturityDate) : "—"}</td>
+                  <td class="py-2.5 px-3 text-[11px] text-slate-400 leading-snug">${escapeHtml(b.termsCovenants || b.source || "—")}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+      } else {
+        bondsWrapEl.innerHTML = `<div class="py-6 px-4 text-center text-xs text-slate-400">No listed domestic bonds/sukuk or offshore debt securities disclosed for ${company.ticker}.</div>`;
+      }
+
+      const dNotes = [];
+      if (dp.covenantsSummary) {
+        dNotes.push(`<div class="p-3 rounded-lg bg-slate-900/80 border border-slate-800/80 text-slate-300 leading-relaxed"><span class="text-indigo-400 font-semibold">Covenants &amp; Security Note:</span> ${escapeHtml(dp.covenantsSummary)}</div>`);
+      }
+      dNotes.push(`<div class="text-slate-500">Sources: ${escapeHtml(dp.extractionSource || "msx.om XBRL + FY2025 Audited Notes + msx.om/bonds")}${currentCurrency === "USD" ? " • Converted at CBO fixed peg (1 OMR = $2.6008)" : ""}. Undisclosed counterparty/renewal terms marked "—".</div>`);
+      footEl.innerHTML = dNotes.join("");
+      safeCreateIcons();
+    }
+
     function downloadFinancialsCsv() {
       if (!currentCompanyData || !currentCompanyData.statements) return;
+      const cCode = currCode();
+      if (currentFinSubTab === "debt") {
+        const dp = currentCompanyData.debtProfile || {};
+        const lines = ['"Section","Item","Value"'];
+        const k = dp.kpis || {};
+        [["Total Debt", fmtLarge(k.totalDebtOmr)], ["Net Debt", fmtLarge(k.netDebtOmr)], ["Short-Term", fmtLarge(k.shortTermOmr)], ["Long-Term", fmtLarge(k.longTermOmr)], ["Leases", fmtLarge(k.leasesOmr)], ["Bonds/Tier-1", fmtLarge(k.bondsAndTier1Omr)]].forEach(([lbl, val]) => {
+          lines.push(`"Summary","${lbl}","${val}"`);
+        });
+        (dp.byCurrency || []).forEach(c => lines.push(`"Currency","${c.currency}","${fmtLarge(c.amountOmr)} (${Number(c.pct || 0).toFixed(1)}%)"`));
+        (dp.loans || []).forEach(l => lines.push(`"Loan","${String(l.facility || "").replace(/"/g, '""')}","${fmtLarge(l.outstandingOmr)} | ${l.interestRate || ""} | ${l.lender || "Undisclosed"}"`));
+        (dp.bonds || []).forEach(b => lines.push(`"Bond","${String(b.symbol || b.name || "").replace(/"/g, '""')}","ISIN ${b.isin || "-"} | ${fmtLarge(b.outstandingOmr ?? b.issueSizeOmr)} | Coupon ${b.couponRatePct ?? "-"}% | YTM ${b.ytmPct ?? "-"}% | Mat ${b.maturityDate || "-"}"`));
+        const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${currentCompanyData.ticker}_Debt_Borrowings_${cCode}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        return;
+      }
       const stmts = currentCompanyData.statements;
       const periods = stmts.periods || [];
       const rows = getActiveFinRows(stmts);
-      const cCode = currCode();
       const subNames = { income: "Income_Statement", balance: "Balance_Sheet", cashflow: "Cash_Flow", ratios: "Key_Stats" };
       const lines = [];
       lines.push(["Line Item", ...periods.map(p => p.label)].map(x => `"${String(x).replace(/"/g, '""')}"`).join(","));

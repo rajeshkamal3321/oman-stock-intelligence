@@ -106,6 +106,48 @@ try:
 except Exception:
     SHAREHOLDER_TRANSLATIONS = {}
 
+# Load verified IFRS 7 debt note extractions (borrowings, leases, currency split, loan facilities, offshore bonds)
+DEBT_PROFILES_PATH = os.path.join(DATA_DIR, "debt_profiles.json")
+try:
+    with open(DEBT_PROFILES_PATH, encoding="utf-8") as _dpf:
+        DEBT_PROFILES = json.load(_dpf)
+except Exception:
+    DEBT_PROFILES = {}
+
+# Corporate bond/sukuk symbol -> parent SAOG ticker mapping for SPVC / subsidiary issues on msx.om/bonds.aspx/List
+BOND_SYMBOL_TO_SAOG = {
+    # Ahli Bank (ABOB)
+    "AHLI": "ABOB", "ABBP": "ABOB", "AHPB": "ABOB", "ABMB": "ABOB", "AHBB": "ABOB",
+    # Al Omaniya Financial Services (AOFS)
+    "OB20": "AOFS", "OFSB": "AOFS", "OFBS": "AOFS", "BOFS": "AOFS", "OFB5": "AOFS", "OFB6": "AOFS",
+    # Oman Arab Bank / Alizz Islamic Bank (OAB)
+    "OAB2": "OAB", "ASOM": "OAB", "ASUS": "OAB",
+    # Bank Dhofar / Dhofar Islamic (BKDB)
+    "BPBD": "BKDB", "BDBP": "BKDB", "DIS1": "BKDB",
+    # Bank Muscat / Meethaq (BKMB)
+    "BMPB": "BKMB", "MSUK3": "BKMB",
+    # Bank Nizwa (BKNZ)
+    "NSUK": "BKNZ", "NS25": "BKNZ", "NS26": "BKNZ",
+    # Liva Group (LIVA)
+    "LGCB": "LIVA",
+    # National Finance (NFCI)
+    "NFBP": "NFCI",
+    # National Mineral Water (NMWI)
+    "NMWB": "NMWI",
+    # Ominvest (OMVS)
+    "OPSU": "OMVS", "OMBD": "OMVS", "OMCB": "OMVS", "SMOI": "OMVS",
+    # Sohar International Bank (BKSB)
+    "SIB1": "BKSB", "SBMB": "BKSB",
+    # Taageer Finance (TFCI)
+    "TGFI": "TFCI", "TFPB": "TFCI",
+    # Takaful Oman (TAOI)
+    "TSS2": "TAOI",
+    # Dhofar International Development & Investment (DIDI)
+    "BDID": "DIDI",
+    # United Finance (UFCI)
+    "UFBD": "UFCI", "UFCB": "UFCI",
+}
+
 FLAGSHIP_ORDER = ["BKMB", "BKSB", "NBOB", "BKDB", "OQGN", "OQEP", "ABRJ", "PHPC"]
 
 MARKET_NAMES = {
@@ -1027,14 +1069,33 @@ def fetch_global_registries():
 
     # Intersect MCD SAOGs with MSX listed companies
     universe = sorted(set(mcd_saog.keys()) & set(msx_by_sym.keys()))
+    saog_set = set(universe)
+
+    # Fetch live MSX Listed Corporate Bonds & Sukuk (msx.om/bonds.aspx/List)
+    msx_bonds_by_sym = {}
+    try:
+        http_get("https://www.msx.om/bonds.aspx", timeout=20)
+        raw_bonds = http_post_json("https://www.msx.om/bonds.aspx/List", {}, "https://www.msx.om/bonds.aspx").get("d", [])
+        for br in raw_bonds or []:
+            bsym = str(br.get("Symbol") or "").strip().upper()
+            isym = str(br.get("Issuer_Symbol") or "").strip().upper()
+            if not bsym or isym == "CBOB":
+                continue
+            parent_sym = BOND_SYMBOL_TO_SAOG.get(bsym) or (isym if isym in saog_set else None)
+            if parent_sym:
+                msx_bonds_by_sym.setdefault(parent_sym, []).append(br)
+        print(f"    Loaded {len(raw_bonds or [])} MSX bonds/sukuk -> mapped {sum(len(v) for v in msx_bonds_by_sym.values())} corporate issues across {len(msx_bonds_by_sym)} SAOGs.")
+    except Exception as e:
+        print(f"    Warning: msx.om/bonds.aspx/List fetch failed: {e}")
+
     print(f"    Discovered {len(universe)} active MSX SAOG public companies.")
-    return universe, mcd_saog, majors_by_isin, xsrf, mcd_cookies, msx_by_sym, fin_pref_by_sym
+    return universe, mcd_saog, majors_by_isin, xsrf, mcd_cookies, msx_by_sym, fin_pref_by_sym, msx_bonds_by_sym
 
 
 # ==============================================================================
 # STEP 2: PER-COMPANY WORKER (MSX + MCD NATIONALITY + XBRL PDF PARSER)
 # ==============================================================================
-def fetch_one_company(sym, mcd_info, majors_raw, xsrf, mcd_cookies, msx_row, fin_pref):
+def fetch_one_company(sym, mcd_info, majors_raw, xsrf, mcd_cookies, msx_row, fin_pref, msx_bonds=None):
     isin = mcd_info.get("ISINCode", "")
     snap_url = f"https://www.msx.om/snapshot.aspx?s={sym}"
     paid_up_cap = parse_float(mcd_info.get("CapitalPaid"), 0.0)
@@ -1181,6 +1242,7 @@ def fetch_one_company(sym, mcd_info, majors_raw, xsrf, mcd_cookies, msx_row, fin
         "newsRaw": news_raw,
         "filings": chosen_filings,
         "parsedFin": parsed_fin,
+        "msxBonds": msx_bonds or [],
     }
 
 
@@ -1720,7 +1782,7 @@ def build_statements_payload(sym, sector_label, is_bank, flag, parsed_fin, prosp
             f"({ytd_formula}) against period-end balance sheet stock. YoY growth compares {ytd_label} against the prior-year interim period."
         )
 
-    return {
+    statements_payload = {
         "template": template,
         "templateLabel": template_label,
         "periods": periods,
@@ -1729,6 +1791,377 @@ def build_statements_payload(sym, sector_label, is_bank, flag, parsed_fin, prosp
         "balanceSheet": balance_rows,
         "cashFlow": cashflow_rows,
         "keyStats": key_stats_rows,
+    }
+    return statements_payload, period_map
+
+
+def compute_bond_ytm_and_yield(coupon_pct, price_ratio, maturity_str, coupon_dates):
+    """Compute finite Current Yield and Yield-to-Maturity (YTM) for fixed-rate MSX bonds/sukuk."""
+    mat_raw = str(maturity_str or "").strip()
+    is_perp = mat_raw in ("-", "Perpetual", "perpetual", "N/A", "")
+    cy_pct = round(coupon_pct / price_ratio, 2) if (coupon_pct is not None and price_ratio and price_ratio > 0) else None
+    if cy_pct is not None and (math.isnan(cy_pct) or math.isinf(cy_pct) or cy_pct < 0 or cy_pct > 50.0):
+        cy_pct = None
+    if is_perp:
+        return None, cy_pct, ("Perpetual" if mat_raw == "-" else (mat_raw or None))
+
+    mat_dt = None
+    for fmt in ("%b %d, %Y", "%Y-%m-%d", "%d-%m-%Y", "%d/%m/%Y"):
+        try:
+            mat_dt = datetime.datetime.strptime(mat_raw, fmt).date()
+            break
+        except Exception:
+            pass
+    if mat_dt is None:
+        m_yr = re.search(r"\b(20\d{2})\b", mat_raw)
+        if m_yr:
+            mat_dt = datetime.date(int(m_yr.group(1)), 12, 31)
+        else:
+            return None, cy_pct, mat_raw
+
+    today = datetime.date.today()
+    years = (mat_dt - today).days / 365.25
+    if years <= 0.02 or coupon_pct is None or not price_ratio or price_ratio <= 0:
+        return None, cy_pct, mat_raw
+
+    # Deduplicate coupon dates (guards MSX quirks like ['7 Jun', '7 Jun'])
+    uniq_cpns = {c.strip().lower() for c in (coupon_dates or []) if c and c.strip()}
+    freq = len(uniq_cpns) if len(uniq_cpns) in (1, 2, 4) else 2
+    n_periods = max(1.0, years * freq)
+    c_rate = float(coupon_pct) / 100.0
+
+    def pv_diff(y):
+        r = y / freq
+        if r <= -0.99:
+            return 1e9
+        c_per = c_rate / freq
+        if abs(r) < 1e-8:
+            pv = c_per * n_periods + 1.0
+        else:
+            pv = sum(c_per / ((1.0 + r) ** k) for k in range(1, int(n_periods) + 1))
+            rem = n_periods - int(n_periods)
+            if rem > 1e-6:
+                pv += (c_per * rem) / ((1.0 + r) ** n_periods)
+            pv += 1.0 / ((1.0 + r) ** n_periods)
+        return pv - price_ratio
+
+    lo, hi = -0.5, 1.5
+    f_lo, f_hi = pv_diff(lo), pv_diff(hi)
+    if f_lo * f_hi > 0:
+        return None, cy_pct, mat_raw
+    for _ in range(55):
+        mid = 0.5 * (lo + hi)
+        if pv_diff(mid) > 0:
+            lo = mid
+        else:
+            hi = mid
+    ytm = round(0.5 * (lo + hi) * 100.0, 2)
+    if math.isnan(ytm) or math.isinf(ytm) or ytm < -10.0 or ytm > 50.0:
+        ytm = None
+    return ytm, cy_pct, mat_raw
+
+
+def _sanitize_opt_num(val, min_v=None, max_v=None):
+    if val is None or isinstance(val, bool):
+        return None
+    try:
+        v = float(val)
+    except Exception:
+        return None
+    if math.isnan(v) or math.isinf(v):
+        return None
+    if min_v is not None and v < min_v:
+        return None
+    if max_v is not None and v > max_v:
+        return None
+    return v
+
+
+def build_debt_profile(sym, statements_payload, period_map, msx_bonds, is_bank, filings):
+    """Build verified multi-period debt split, currency mix, loan schedule, and bonds/sukuk table."""
+    periods = statements_payload.get("periods") or []
+    note_dp = DEBT_PROFILES.get(sym) or {}
+
+    def _sum_opt(*vals):
+        present = [float(v) for v in vals if v is not None]
+        return sum(present) if present else None
+
+    period_history = []
+    for p in periods:
+        pk = p["key"]
+        d = period_map.get(pk) or {}
+        if is_bank:
+            st = _sanitize_opt_num(d.get("dueToBanks"))
+            lt = _sanitize_opt_num(d.get("borrowingsNC"))
+            leases = _sanitize_opt_num(_sum_opt(d.get("leaseC"), d.get("leaseNC")))
+            bonds_t1 = _sanitize_opt_num(_sum_opt(d.get("debtSecurities"), d.get("tier1Securities")))
+            comp_sum = _sum_opt(st, lt, leases, bonds_t1)
+            tot_debt = comp_sum
+        else:
+            st = _sanitize_opt_num(d.get("borrowingsC"))
+            lt = _sanitize_opt_num(d.get("borrowingsNC"))
+            leases = _sanitize_opt_num(_sum_opt(d.get("leaseC"), d.get("leaseNC")))
+            bonds_t1 = _sanitize_opt_num(_sum_opt(d.get("debtSecurities"), d.get("tier1Securities")))
+            comp_sum = _sum_opt(st, lt, leases, bonds_t1)
+            bs_debt = _sanitize_opt_num(d.get("debt"))
+            if bs_debt is not None and comp_sum is not None:
+                gap = bs_debt - comp_sum
+                if gap > max(1000.0, 0.01 * abs(bs_debt)):
+                    lt = (lt or 0.0) + gap
+                    comp_sum = bs_debt
+                tot_debt = max(comp_sum, bs_debt) if abs(gap) <= max(1000.0, 0.01 * abs(bs_debt)) else comp_sum
+            elif bs_debt is not None:
+                lt = bs_debt
+                tot_debt = bs_debt
+            else:
+                tot_debt = comp_sum
+
+        cash = _sanitize_opt_num(d.get("cash"))
+        net_debt = (tot_debt - cash) if (tot_debt is not None and cash is not None) else None
+        if tot_debt is not None or cash is not None:
+            period_history.append({
+                "period": pk,
+                "label": p.get("label") or pk,
+                "isYtd": bool(p.get("isYtd")),
+                "annualizeFactor": float(p.get("annualizeFactor") or 1.0),
+                "shortTerm": round(st, 2) if st is not None else None,
+                "longTerm": round(lt, 2) if lt is not None else None,
+                "leases": round(leases, 2) if leases is not None else None,
+                "bondsAndTier1": round(bonds_t1, 2) if bonds_t1 is not None else None,
+                "totalDebt": round(tot_debt, 2) if tot_debt is not None else None,
+                "cash": round(cash, 2) if cash is not None else None,
+                "netDebt": round(net_debt, 2) if net_debt is not None else None,
+            })
+
+    # Choose latest period that actually carries BS debt (preferring YTD if debt populated, else FY2025)
+    latest_row = None
+    for row in reversed(period_history):
+        if row.get("totalDebt") is not None and row["totalDebt"] > 0:
+            latest_row = row
+            break
+    if latest_row is None and period_history:
+        latest_row = period_history[-1]
+
+    lat_pk = latest_row["period"] if latest_row else None
+    lat_d = period_map.get(lat_pk) or {} if lat_pk else {}
+    af = float(latest_row.get("annualizeFactor") or 1.0) if (latest_row and latest_row.get("isYtd")) else 1.0
+
+    tot_debt = latest_row.get("totalDebt") if latest_row else None
+    st_debt = latest_row.get("shortTerm") if latest_row else None
+    lt_debt = latest_row.get("longTerm") if latest_row else None
+    leases_v = latest_row.get("leases") if latest_row else None
+    bonds_t1_v = latest_row.get("bondsAndTier1") if latest_row else None
+    cash_v = latest_row.get("cash") if latest_row else None
+    net_debt_v = latest_row.get("netDebt") if latest_row else None
+
+    cash_to_st = round((cash_v / st_debt) * 100.0, 1) if (cash_v is not None and st_debt is not None and st_debt > 0) else None
+    debt_to_ebitda = None
+    if not is_bank and tot_debt is not None and tot_debt > 0:
+        eb = _sanitize_opt_num(lat_d.get("ebitda")) or _sanitize_opt_num(lat_d.get("opProfit"))
+        if eb is not None and eb > 0:
+            debt_to_ebitda = min(200.0, round(tot_debt / (eb * af), 2))
+
+    int_cov = None
+    ebit_v = _sanitize_opt_num(lat_d.get("opProfit"))
+    fc_v = _sanitize_opt_num(lat_d.get("financeCosts"))
+    if ebit_v is not None and fc_v is not None and abs(fc_v) > 1000.0:
+        int_cov = max(-200.0, min(200.0, round(ebit_v / abs(fc_v), 2)))
+
+    eff_rate = _sanitize_opt_num(note_dp.get("weightedAvgRate"), min_v=0.1, max_v=30.0)
+    if eff_rate is None and not is_bank and fc_v is not None and abs(fc_v) > 0 and tot_debt and tot_debt > 0:
+        implied_r = round((abs(fc_v) * af / tot_debt) * 100.0, 2)
+        if 0.1 <= implied_r <= 25.0:
+            eff_rate = implied_r
+
+    # Currency split normalized from verified note extraction
+    raw_ccy = note_dp.get("currencyBreakdown") or []
+    clean_ccy = []
+    for c in raw_ccy:
+        if not isinstance(c, dict):
+            continue
+        amt = _sanitize_opt_num(c.get("amountOmr"), min_v=0.01)
+        code = str(c.get("currency") or "").strip().upper()
+        if amt and code:
+            clean_ccy.append({"currency": code, "amountOmr": round(amt, 2), "note": c.get("note")})
+    ccy_sum = sum(x["amountOmr"] for x in clean_ccy)
+    by_currency = []
+    for x in sorted(clean_ccy, key=lambda r: -r["amountOmr"]):
+        by_currency.append({
+            "currency": x["currency"],
+            "amountOmr": x["amountOmr"],
+            "pct": round((x["amountOmr"] / ccy_sum) * 100.0, 1) if ccy_sum > 0 else 0.0,
+            "note": x["note"],
+        })
+
+    # Bank loans & facilities normalized
+    loans = []
+    for l in note_dp.get("loans") or []:
+        if not isinstance(l, dict):
+            continue
+        fac = str(l.get("facility") or "").strip()
+        if not fac:
+            continue
+        bank_raw = l.get("bank")
+        lender = str(bank_raw).strip() if bank_raw and str(bank_raw).strip().lower() not in ("null", "none", "undisclosed", "n/a") else None
+        ren_raw = l.get("renewalDate")
+        renewal = str(ren_raw).strip() if ren_raw and str(ren_raw).strip().lower() not in ("null", "none", "n/a") else None
+        tenor = str(l.get("tenor") or "").strip()
+        mat = str(l.get("maturityDate") or "").strip()
+        tenor_mat = tenor if tenor else (mat if mat else None)
+        if tenor and mat and mat.lower() not in tenor.lower():
+            tenor_mat = f"{tenor} ({mat})"
+        loans.append({
+            "facility": fac,
+            "lender": lender,
+            "currency": str(l.get("currency") or "OMR").strip().upper(),
+            "totalLimitOmr": _sanitize_opt_num(l.get("totalLimitOmr"), min_v=0.0),
+            "outstandingOmr": _sanitize_opt_num(l.get("outstandingOmr"), min_v=0.0),
+            "interestRate": str(l.get("interestRate")).strip() if l.get("interestRate") else None,
+            "tenorMaturity": tenor_mat,
+            "renewalDate": renewal,
+            "termsCovenants": str(l.get("terms")).strip() if l.get("terms") else None,
+        })
+
+    # Merge live MSX listed bonds/sukuk with verified FY2025 note bonds (capturing offshore Eurobonds/Sukuk too)
+    bonds = []
+    seen_isins = set()
+    seen_syms = set()
+    for br in msx_bonds or []:
+        bsym = str(br.get("Symbol") or "").strip().upper()
+        isin = str(br.get("ISIN") or "").strip().upper() or None
+        name = str(br.get("NameEn") or bsym).strip()
+        sub_type = str(br.get("SubType") or "Bonds").strip()
+        rate_str = str(br.get("BondRate") or "").replace("%", "").strip()
+        coupon_pct = _sanitize_opt_num(rate_str, min_v=0.0, max_v=30.0)
+        par_val = _sanitize_opt_num(str(br.get("BondsParValue") or "").replace(",", ""), min_v=0.0)
+        issue_val = _sanitize_opt_num(str(br.get("IssueValue") or "").replace(",", ""), min_v=0.0)
+        out_face = _sanitize_opt_num(str(br.get("OutstandingFace") or "").replace(",", ""), min_v=0.0)
+        out_princ = _sanitize_opt_num(str(br.get("OutstandingPrincipal") or "").replace(",", ""), min_v=0.0)
+        mcap_b = _sanitize_opt_num(str(br.get("MarketCap") or "").replace(",", ""), min_v=0.0)
+        face_ref = out_face if (out_face and out_face > 0) else issue_val
+        p_ratio = (mcap_b / face_ref) if (mcap_b and face_ref and face_ref > 0) else 1.0
+        if p_ratio <= 0.05 or p_ratio > 5.0:
+            p_ratio = 1.0
+        cpns = [str(br.get(f"Coupon{i}") or "").strip() for i in range(1, 5) if str(br.get(f"Coupon{i}") or "").strip()]
+        uniq_cpns = sorted(set(c for c in cpns if c))
+        freq_lbl = {1: "Annual", 2: "Semi-Annual", 4: "Quarterly"}.get(len(uniq_cpns), "Semi-Annual" if uniq_cpns else None)
+        ytm_pct, cy_pct, mat_clean = compute_bond_ytm_and_yield(coupon_pct, p_ratio, br.get("Maturity"), uniq_cpns)
+        ccy = "USD" if "USD" in name.upper() else "OMR"
+        out_omr = out_princ if (out_princ and out_princ > 0) else (out_face if (out_face and out_face > 0) else issue_val)
+        notes_b = str(br.get("Notes") or "").strip() or None
+        if isin:
+            seen_isins.add(isin)
+        if bsym:
+            seen_syms.add(bsym)
+        bonds.append({
+            "symbol": bsym or None,
+            "isin": isin,
+            "name": name,
+            "instrumentType": "Perpetual " + sub_type if mat_clean == "Perpetual" else sub_type,
+            "currency": ccy,
+            "issueSizeOmr": round(issue_val, 2) if issue_val else None,
+            "outstandingOmr": round(out_omr, 2) if out_omr else None,
+            "parValue": par_val,
+            "impliedPrice": round(par_val * p_ratio, 4) if par_val else None,
+            "couponRatePct": coupon_pct,
+            "ytmPct": ytm_pct,
+            "currentYieldPct": cy_pct,
+            "maturityDate": mat_clean,
+            "couponFrequency": freq_lbl,
+            "termsCovenants": notes_b or (f"Issue date: {br.get('IssueDate')}" if br.get("IssueDate") else None),
+            "source": "msx.om/bonds",
+        })
+
+    for nb in note_dp.get("bonds") or []:
+        if not isinstance(nb, dict):
+            continue
+        nsym = str(nb.get("symbol") or "").strip().upper() or None
+        nisin = str(nb.get("isin") or "").strip().upper() or None
+        nname = str(nb.get("name") or "").strip()
+        if not nname:
+            continue
+        if (nisin and nisin in seen_isins) or (nsym and nsym in seen_syms):
+            continue
+        ncoup = _sanitize_opt_num(nb.get("couponRatePct"), min_v=0.0, max_v=30.0)
+        nytm = _sanitize_opt_num(nb.get("ytmPct"), min_v=-10.0, max_v=50.0)
+        nmat = str(nb.get("maturityDate") or "").strip() or None
+        # Check fuzzy match against already-added MSX bonds (e.g. Perpetual Tier 1 / Subordinated Sukuk matching coupon+currency)
+        dup_idx = None
+        for idx, eb in enumerate(bonds):
+            same_coup = ncoup is not None and eb.get("couponRatePct") is not None and abs(ncoup - eb["couponRatePct"]) <= 0.35
+            same_perp = (nmat and "perp" in nmat.lower() and eb.get("maturityDate") == "Perpetual")
+            same_yr = bool(nmat and eb.get("maturityDate") and re.search(r"20\d{2}", nmat) and re.search(r"20\d{2}", eb["maturityDate"]) and re.search(r"20\d{2}", nmat).group(0) == re.search(r"20\d{2}", eb["maturityDate"]).group(0))
+            if same_coup and (same_perp or same_yr):
+                dup_idx = idx
+                break
+        if dup_idx is not None:
+            if nb.get("terms"):
+                bonds[dup_idx]["termsCovenants"] = nb["terms"]
+                bonds[dup_idx]["source"] = "msx.om/bonds + FY2025 Note"
+            continue
+        if nisin:
+            seen_isins.add(nisin)
+        if nsym:
+            seen_syms.add(nsym)
+        out_omr = _sanitize_opt_num(nb.get("outstandingOmr"), min_v=0.0)
+        iss_omr = _sanitize_opt_num(nb.get("issueSizeOmr"), min_v=0.0)
+        bonds.append({
+            "symbol": nsym,
+            "isin": nisin,
+            "name": nname,
+            "instrumentType": str(nb.get("instrumentType") or "Bond / Note").strip(),
+            "currency": str(nb.get("currency") or "OMR").strip().upper(),
+            "issueSizeOmr": iss_omr,
+            "outstandingOmr": out_omr if out_omr is not None else iss_omr,
+            "parValue": None,
+            "impliedPrice": None,
+            "couponRatePct": ncoup,
+            "ytmPct": nytm,
+            "currentYieldPct": ncoup,
+            "maturityDate": nmat,
+            "couponFrequency": None,
+            "termsCovenants": str(nb.get("terms")).strip() if nb.get("terms") else None,
+            "source": f"FY2025 {note_dp.get('sourceNoteRef') or 'Audited Note'}",
+        })
+
+    has_debt = bool(
+        (tot_debt is not None and tot_debt > 0)
+        or any((r.get("totalDebt") or 0) > 0 for r in period_history)
+        or loans
+        or bonds
+        or by_currency
+    )
+    src_parts = ["msx.om XBRL"]
+    if note_dp:
+        src_parts.append(note_dp.get("sourceNoteRef") or "FY2025 Audited Debt Notes")
+    if msx_bonds:
+        src_parts.append("msx.om/bonds")
+
+    return {
+        "hasDebtData": has_debt,
+        "latestPeriod": (latest_row.get("label") or lat_pk) if latest_row else None,
+        "kpis": {
+            "totalDebtOmr": round(tot_debt, 2) if tot_debt is not None else None,
+            "shortTermOmr": round(st_debt, 2) if st_debt is not None else None,
+            "longTermOmr": round(lt_debt, 2) if lt_debt is not None else None,
+            "leasesOmr": round(leases_v, 2) if leases_v is not None else None,
+            "bondsAndTier1Omr": round(bonds_t1_v, 2) if bonds_t1_v is not None else None,
+            "cashOmr": round(cash_v, 2) if cash_v is not None else None,
+            "netDebtOmr": round(net_debt_v, 2) if net_debt_v is not None else None,
+            "cashToStDebtPct": cash_to_st,
+            "debtToEbitda": debt_to_ebitda,
+            "interestCoverage": int_cov,
+            "effectiveInterestRatePct": eff_rate,
+        },
+        "periodHistory": [
+            {k: r[k] for k in ("period", "shortTerm", "longTerm", "leases", "bondsAndTier1", "totalDebt", "cash", "netDebt")}
+            for r in period_history
+        ],
+        "byCurrency": by_currency,
+        "loans": loans,
+        "bonds": bonds,
+        "covenantsSummary": note_dp.get("covenants"),
+        "extractionSource": " + ".join(src_parts),
     }
 
 
@@ -2363,7 +2796,7 @@ def build_company_json(rec, bench_map, synced_stamp):
     }
 
     # Build full multi-period financial statements & sector-adapted Key Stats payload
-    statements_payload = build_statements_payload(
+    statements_payload, period_map = build_statements_payload(
         sym=sym,
         sector_label=sector_label,
         is_bank=is_bank,
@@ -2374,6 +2807,14 @@ def build_company_json(rec, bench_map, synced_stamp):
         shares_out_raw=shares_out_raw,
         dps_by_period=dps_by_period if not flag else None,
         q26_dps=q26_dps if not flag else None,
+    )
+    debt_profile = build_debt_profile(
+        sym=sym,
+        statements_payload=statements_payload,
+        period_map=period_map,
+        msx_bonds=rec.get("msxBonds") or [],
+        is_bank=is_bank,
+        filings=filings,
     )
 
     company_obj = {
@@ -2455,6 +2896,7 @@ def build_company_json(rec, bench_map, synced_stamp):
         },
         "financials": fin_chart,
         "statements": statements_payload,
+        "debtProfile": debt_profile,
         "quarterlyMomentum": {
             "period": "9M 2026 (Ended 30 Sep 2026)",
             "bars": quarterly_bars,
@@ -2490,7 +2932,7 @@ def build_company_json(rec, bench_map, synced_stamp):
 def main():
     t0 = time.time()
     synced_stamp = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
-    universe, mcd_saog, majors_by_isin, xsrf, mcd_cookies, msx_by_sym, fin_pref_by_sym = fetch_global_registries()
+    universe, mcd_saog, majors_by_isin, xsrf, mcd_cookies, msx_by_sym, fin_pref_by_sym, msx_bonds_by_sym = fetch_global_registries()
 
     print(f"3/4 Syncing all {len(universe)} MSX SAOG companies concurrently (6 threads)...")
     records = {}
@@ -2501,7 +2943,7 @@ def main():
         nonlocal done_cnt
         info = mcd_saog[sym]
         isin = info.get("ISINCode", "")
-        rec = fetch_one_company(sym, info, majors_by_isin.get(isin, []), xsrf, mcd_cookies, msx_by_sym[sym], fin_pref_by_sym.get(sym))
+        rec = fetch_one_company(sym, info, majors_by_isin.get(isin, []), xsrf, mcd_cookies, msx_by_sym[sym], fin_pref_by_sym.get(sym), msx_bonds_by_sym.get(sym, []))
         with lock:
             records[sym] = rec
             done_cnt += 1
