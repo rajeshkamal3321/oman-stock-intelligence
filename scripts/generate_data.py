@@ -372,10 +372,10 @@ COMPANY_VERIFIED = {
         "dps": 0.0344,
         "dpsNote": "FY2025 Cash Dividends Disbursed: OMR 274.88M (~34.4 baisa/sh)",
         "annuals": [
-            {"year": "FY2022", "revenue": 1266290000, "grossProfit": 641342000, "opProfit": 628454000, "ebitda": 1025474000, "netProfit": 617330000, "ocf": 1129691000, "capex": 362225000, "assets": 1960658000, "equity": 1275059000, "debt": 206664000, "cash": 158501000, "eps": 0.077, "dps": None},
-            {"year": "FY2023", "revenue": 1085793000, "grossProfit": 595000000, "opProfit": 427198000, "ebitda": 790481000, "netProfit": 627010000, "ocf": 806647000, "capex": 265011000, "assets": 2046710000, "equity": 1371058000, "debt": 244212000, "cash": 256843000, "eps": 0.078, "dps": None},
-            {"year": "FY2024", "revenue": 1264265000, "grossProfit": 755000000, "opProfit": 716104000, "ebitda": 994017000, "netProfit": 326563000, "ocf": 496237000, "capex": 245633000, "assets": 1658960000, "equity": 912380000, "debt": 484807000, "cash": 160154000, "eps": 0.041, "dps": 0.0216},
-            {"year": "FY2025", "revenue": 1179466000, "grossProfit": 680000000, "opProfit": 643534000, "ebitda": 932179000, "netProfit": 278036000, "ocf": 522540000, "capex": 257541000, "assets": 1540408000, "equity": 905317000, "debt": 382610000, "cash": 159836000, "eps": 0.035, "nav": 0.113, "dps": 0.0344},
+            {"year": "FY2022", "revenue": 1266290000, "opProfit": 628454000, "ebitda": 1025474000, "netProfit": 617330000, "ocf": 1129691000, "capex": 362225000, "assets": 1960658000, "equity": 1275059000, "debt": 206664000, "cash": 158501000, "eps": 0.077, "dps": None},
+            {"year": "FY2023", "revenue": 1085793000, "opProfit": 427198000, "ebitda": 790481000, "netProfit": 627010000, "ocf": 806647000, "capex": 265011000, "assets": 2046710000, "equity": 1371058000, "debt": 244212000, "cash": 256843000, "eps": 0.078, "dps": None},
+            {"year": "FY2024", "revenue": 1264265000, "opProfit": 716104000, "ebitda": 994017000, "netProfit": 326563000, "ocf": 496237000, "capex": 245633000, "assets": 1559698000, "equity": 912380000, "debt": 484807000, "cash": 160154000, "eps": 0.041, "dps": 0.0216},
+            {"year": "FY2025", "revenue": 1179466000, "opProfit": 643534000, "ebitda": 932179000, "netProfit": 278036000, "ocf": 522540000, "capex": 257541000, "assets": 1540408000, "equity": 905317000, "debt": 382610000, "cash": 159836000, "eps": 0.035, "nav": 0.113, "dps": 0.0344},
         ],
         "q3_2026": {
             "period": "9M 2026 (Ended 30 Sep 2026)",
@@ -383,7 +383,7 @@ COMPANY_VERIFIED = {
             "ebitda": 827114000, "ebitdaPrior": 737691000,
             "netProfit": 297784000, "netProfitPrior": 236869000,
             "ocf": 436241000, "capex": 200867000,
-            "assets": 1608836000, "equity": 990297000, "debt": 382908000, "cash": 213316000, "nav": 0.124, "eps9m": 0.037, "dps": 0.0240,
+            "assets": 1608836000, "equity": 990297000, "debt": 382908000, "cash": 213316000, "nav": 0.124, "eps": 0.037, "eps9m": 0.037, "dps": 0.0240,
         },
         "governance": {
             "boardSourceLabel": "OQEP Official Website — Board of Directors",

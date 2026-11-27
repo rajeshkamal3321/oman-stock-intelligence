@@ -38,6 +38,10 @@ jobs:
         if: github.event_name != 'push'
         run: python3 scripts/sync_all_msx.py
 
+      - name: Run Tier-1 deterministic financial data audit
+        if: github.event_name != 'push'
+        run: python3 scripts/audit_financials.py --summary
+
       - name: Build lightweight static dist/ bundle
         run: npm run build
 

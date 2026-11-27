@@ -89,6 +89,14 @@ try:
 except Exception:
     CORP_GOV_OVERRIDES = {}
 
+# Load cached Vision OCR historical backfills for scanned-image insurance PDFs (keeps Linux CI complete)
+HISTORICAL_OCR_PATH = os.path.join(DATA_DIR, "historical_ocr_backfill.json")
+try:
+    with open(HISTORICAL_OCR_PATH, encoding="utf-8") as _ohf:
+        HISTORICAL_OCR_BACKFILL = json.load(_ohf)
+except Exception:
+    HISTORICAL_OCR_BACKFILL = {}
+
 # Load Arabic-to-English major shareholder name translations (mcd.om)
 SHAREHOLDER_TRANS_PATH = os.path.join(DATA_DIR, "shareholder_translations.json")
 try:
@@ -169,7 +177,7 @@ def extract_pdf_text_bytes(pdf_bytes, max_pages=4):
             tf.write(pdf_bytes)
             tmp_path = tf.name
         try:
-            res = subprocess.run([MAC_PDF_BIN, tmp_path, str(max_pages)], capture_output=True, text=True, timeout=15)
+            res = subprocess.run([MAC_PDF_BIN, tmp_path, str(max_pages)], capture_output=True, text=True, timeout=60)
             return res.stdout
         finally:
             try:
@@ -247,33 +255,40 @@ def extract_json_array(text, marker):
 NUM_TOKEN_RE = re.compile(r"\(\s*[\d,]+(?:\.\d+)?\s*\)|-?[\d,]+(?:\.\d+)?")
 
 
-def parse_line_numbers(line):
-    """Extract numeric tokens from the right side of an XBRL PDF statement line."""
-    # Remove trailing date tokens like 31/12/2025
-    clean = re.sub(r"\b\d{2}/\d{2}/\d{4}\b", " ", line)
-    toks = NUM_TOKEN_RE.findall(clean)
-    nums = []
-    for tk in toks:
-        s = tk.replace(" ", "").replace(",", "")
-        neg = s.startswith("(") and s.endswith(")")
-        if neg:
-            s = s[1:-1]
+def parse_line_numbers_with_pos(line):
+    """Extract (float_val, center_char_col) tuples preserving horizontal X positions."""
+    # Replace dates with equal-length spaces so downstream char offsets remain exact
+    clean = re.sub(r"\b\d{2}/\d{2}/\d{4}\b", lambda m: " " * len(m.group(0)), line)
+    out = []
+    for m in NUM_TOKEN_RE.finditer(clean):
+        tk = m.group(0)
+        raw_s = tk.replace(" ", "")
+        neg = raw_s.startswith("(") and raw_s.endswith(")")
+        core = raw_s[1:-1] if neg else raw_s
+        if "," in core and not re.match(r"^-?\d{1,3}(?:,\d{3})+(?:\.\d+)?$", core):
+            continue
+        s = core.replace(",", "")
         try:
             v = float(s)
             if neg:
                 v = -v
-            nums.append(v)
+            out.append((v, (m.start() + m.end()) / 2.0))
         except Exception:
             pass
-    return nums
+    return out
+
+
+def parse_line_numbers(line):
+    """Extract numeric tokens from the right side of an XBRL PDF statement line."""
+    return [v for v, _ in parse_line_numbers_with_pos(line)]
 
 
 def pick_pair(nums, is_four_col=False, is_interim_is=False):
     """
-    In MSX XBRL PDFs:
+    Fallback positional selector when column X-anchors are unavailable.
       - Standard 2-col Annual: [current, prior]
       - 4-col Annual (Consolidated + Parent): [cons_curr, par_curr, cons_prior, par_prior]
-      - 3-col Q3 Balance Sheet: [30/09/curr, 30/09/prior, 31/12/prior]
+      - 3-col / 6-col Q3 Balance Sheet: [30/09/curr, ..., 30/09/prior, ...]
       - 4-col Q3 Income Statement: [Q3_curr, Q3_prior, 9M_curr, 9M_prior]
       - 8-col Q3 Income Statement (Cons+Par): [Q3_c_cur, Q3_p_cur, Q3_c_pri, Q3_p_pri, 9M_c_cur, 9M_p_cur, 9M_c_pri, 9M_p_pri]
     """
@@ -298,25 +313,148 @@ def pick_pair(nums, is_four_col=False, is_interim_is=False):
     return nums[0], None
 
 
+def detect_layout_and_anchors(lines, is_four_col=False, is_interim_is=False):
+    """Detect expected column count, (cur_idx, pri_idx), and calibrated X centers from headers + data rows."""
+    header_cols = []
+    entity_grouped = False
+    for ln in lines[:24]:
+        ms = list(re.finditer(r"\b(?:Consolidated|Standalone|Separate|Parent(?:\s+Company)?|Group)\b", ln, re.I))
+        if len(ms) >= 4:
+            header_cols = [(m.start() + m.end()) / 2.0 for m in ms]
+            break
+        if len(ms) == 2 and not header_cols:
+            # e.g. LIVA FY2023: "Group ... Parent Company" super-headers over 2-3 year columns each
+            entity_grouped = True
+
+    n_cons_hdr = len(header_cols)
+    has_standalone_hdr = any(
+        re.search(r"\b(?:Standalone|Parent\s+Company)\b", ln, re.I)
+        or (re.search(r"\bSeparate\b", ln, re.I) and "consolidated and separate" not in re.sub(r"\s+", " ", ln.lower()))
+        for ln in lines[:24]
+    )
+    is_eight_col = is_interim_is and (n_cons_hdr >= 8)
+
+    row_pairs = [parse_line_numbers_with_pos(ln) for ln in lines]
+    max_nums = max((len(np_list) for np_list in row_pairs), default=0)
+
+    # Check if there is a Notes column (indicated by small integers strictly left of financial columns on header)
+    has_notes_col = any(re.search(r"\bNotes?\b", ln, re.I) for ln in lines[:24])
+
+    if is_interim_is:
+        if is_eight_col or max_nums >= 8:
+            expected_cols, cur_idx, pri_idx = 8, 4, 6
+        elif n_cons_hdr == 4 and has_standalone_hdr and max_nums <= 6:
+            expected_cols, cur_idx, pri_idx = 4, 0, 2
+        elif max_nums >= 4:
+            expected_cols, cur_idx, pri_idx = 4, 2, 3
+        else:
+            expected_cols, cur_idx, pri_idx = 2, 0, 1
+    else:
+        if entity_grouped and max_nums >= 4:
+            # Left half belongs to Group (2023, 2022, ...), right half belongs to Parent
+            expected_cols = 6 if max_nums >= 6 else 4
+            cur_idx, pri_idx = 0, 1
+        elif is_four_col:
+            if max_nums >= 6 or n_cons_hdr >= 6:
+                expected_cols, cur_idx, pri_idx = 6, 0, 2
+            else:
+                expected_cols, cur_idx, pri_idx = 4, 0, 2
+        else:
+            expected_cols, cur_idx, pri_idx = 2, 0, 1
+
+    # Calibrate exact X-centers using full financial rows (excluding Notes column values if present)
+    cand_rows = []
+    for np_list in row_pairs:
+        if len(np_list) == expected_cols:
+            if has_notes_col and len(np_list) >= 2 and abs(np_list[0][0]) <= 60 and np_list[0][0] == int(np_list[0][0]) and abs(np_list[1][0]) > 1000:
+                continue
+            cand_rows.append(np_list)
+        elif has_notes_col and len(np_list) == expected_cols + 1:
+            # First token is Note number, remaining expected_cols are financial numbers
+            if abs(np_list[0][0]) <= 60:
+                cand_rows.append(np_list[1:])
+
+    col_centers = None
+    if len(cand_rows) >= 2:
+        col_centers = []
+        for c in range(expected_cols):
+            xs = sorted(r[c][1] for r in cand_rows)
+            col_centers.append(xs[len(xs) // 2])
+    elif len(header_cols) == expected_cols:
+        col_centers = header_cols
+
+    return expected_cols, cur_idx, pri_idx, col_centers
+
+
+def pick_pair_aligned(num_pos_list, layout_info, is_four_col=False, is_interim_is=False):
+    """Snap numeric tokens to calibrated column X-anchors so blank cells return None instead of shifting."""
+    if not num_pos_list:
+        return None, None
+    expected_cols, cur_idx, pri_idx, col_centers = layout_info
+    nums = [v for v, _ in num_pos_list]
+
+    if col_centers and len(col_centers) == expected_cols:
+        gaps = [col_centers[i + 1] - col_centers[i] for i in range(expected_cols - 1) if col_centers[i + 1] > col_centers[i]]
+        pitch = sorted(gaps)[len(gaps) // 2] if gaps else 14.0
+        max_dist = max(6.0, pitch * 0.58)
+
+        # Match each column center k to its closest numeric token within tolerance (strictly monotonic)
+        slots = {}
+        min_tok_idx = 0
+        for k in range(expected_cols):
+            cx = col_centers[k]
+            best_j = None
+            best_d = 1e9
+            for j in range(min_tok_idx, len(num_pos_list)):
+                d = abs(num_pos_list[j][1] - cx)
+                if d < best_d:
+                    best_d = d
+                    best_j = j
+            if best_j is not None and best_d <= max_dist:
+                slots[k] = num_pos_list[best_j][0]
+                min_tok_idx = best_j + 1
+        if slots:
+            return slots.get(cur_idx), slots.get(pri_idx)
+
+    if len(num_pos_list) == expected_cols:
+        return nums[cur_idx], nums[pri_idx] if pri_idx < expected_cols else None
+    return pick_pair(nums, is_four_col=is_four_col, is_interim_is=is_interim_is)
+
+
 def parse_xbrl_statement_text(text, patterns, is_interim_is=False):
-    """Search lines before Subclassifications / Comprehensive Income for target line items."""
-    for cut in ["Subclassifications of", "Statement of comprehensive income", "Analysis of income", "Analysis of Income"]:
+    """Search P&L / BS / CF text using column-aligned X-coordinates and safe truncation."""
+    for cut in ["Subclassifications of", "Analysis of income", "Analysis of Income"]:
         idx = text.find(cut)
         if idx > 80:
             text = text[:idx]
 
+    # Only truncate at 'Statement of comprehensive income' or 'OTHER COMPREHENSIVE INCOME'
+    # AFTER a P&L bottom-line line has appeared (never wipe out IFRS 17 insurers that title Page 1 that way!)
+    pl_end_m = re.search(
+        r"(?:Profit\s*(?:\(loss\)\s+)?for\s+(?:the\s+)?period|Net\s+Profit\s*/\s*\(Loss\)\s+for\s+the\s+period|Basic\s+earnings\s*\(loss\)\s+per\s+share|Earnings\s+per\s+share)",
+        text,
+        re.I,
+    )
+    if pl_end_m:
+        after_pos = pl_end_m.end()
+        for cut2 in ["Statement of comprehensive income", "STATEMENT OF COMPREHENSIVE INCOME", "OTHER COMPREHENSIVE INCOME"]:
+            c_idx = text.find(cut2, after_pos)
+            if c_idx > after_pos:
+                text = text[:c_idx]
+                break
+
     # Detect unit declaration in header
     unit_mult = 1.0
-    if re.search(r"Thousands\s*/\s*Omani\s+Rial|RO\s*'000|OMR\s*'000|\(\s*in\s+thousands\s*\)", text[:600], re.I):
+    if re.search(r"Thousands\s*/\s*Omani\s+Rial|(?:RO|OMR)\s*['’]?\s*,?\s*000|\(\s*in\s+thousands\s*\)", text[:1400], re.I):
         unit_mult = 1000.0
-    elif re.search(r"Millions\s*/\s*Omani\s+Rial", text[:600], re.I):
+    elif re.search(r"Millions\s*/\s*Omani\s+Rial|\(\s*OMR\s+millions\s*\)", text[:1400], re.I):
         unit_mult = 1e6
 
-    # Detect 4-column Consolidated + Separate/Standalone layout (Balance Sheet, Income Statement, and Cash Flow)
-    header_zone = text[:1200]
+    # Detect 4-column Consolidated + Separate/Standalone layout (Balance Sheet, Income Statement, Cash Flow)
+    header_zone = text[:1600]
     has_cons_and_stand = bool(
-        re.search(r"\bConsolidated\b", header_zone, re.I)
-        and re.search(r"\b(?:Standalone|Separate|Parent)\b", header_zone, re.I)
+        re.search(r"\b(?:Consolidated|Group)\b", header_zone, re.I)
+        and re.search(r"\b(?:Standalone|Separate|Parent(?:\s+Company)?)\b", header_zone, re.I)
     )
     date_ranges = re.findall(r"\d{2}/\d{2}/\d{4}\s*[-–]\s*\d{2}/\d{2}/\d{4}", header_zone)
     dates_found = re.findall(r"\d{2}/\d{2}/\d{4}", header_zone)
@@ -328,17 +466,18 @@ def parse_xbrl_statement_text(text, patterns, is_interim_is=False):
             is_four_col = True
 
     out = {"_unitMult": unit_mult, "_fourCol": is_four_col}
-    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+    raw_lines = [ln.rstrip() for ln in text.splitlines() if ln.strip()]
+    layout_info = detect_layout_and_anchors(raw_lines, is_four_col=is_four_col, is_interim_is=is_interim_is)
+
     for key, regex_list in patterns.items():
         for rx in regex_list:
             matched = False
-            for ln in lines:
-                if re.search(rx, ln, re.I):
-                    # Ensure label comes before numbers and avoid false-positive totals
-                    nums = parse_line_numbers(ln)
-                    if nums:
-                        c_val, p_val = pick_pair(nums, is_four_col=is_four_col, is_interim_is=is_interim_is)
-                        if c_val is not None:
+            for ln in raw_lines:
+                if re.search(rx, ln.lstrip(), re.I):
+                    num_pos = parse_line_numbers_with_pos(ln)
+                    if num_pos:
+                        c_val, p_val = pick_pair_aligned(num_pos, layout_info, is_four_col=is_four_col, is_interim_is=is_interim_is)
+                        if c_val is not None or p_val is not None:
                             out[key] = (c_val, p_val)
                             matched = True
                             break
@@ -350,13 +489,17 @@ def parse_xbrl_statement_text(text, patterns, is_interim_is=False):
 BS_PATTERNS = {
     "shareCapital": [r"^Share\s+capital\b", r"^Issued\s+capital\b"],
     "totalAssets": [r"^Total\s+assets\b"],
-    "totalEquity": [r"^Total\s+equity\b"],
-    "attrEquity": [r"^Total\s+[Ee]quity\s+attributable\s+to"],
-    "totalLiabilities": [r"^Total\s+liabilities\b"],
+    "totalEquity": [r"^Total\s+equity\b(?!.*(?:liabilit|attributable))", r"^Total\s+shareholders'?\s*equity\b(?!.*(?:liabilit|attributable))", r"^Net\s+equity\b(?!.*(?:liabilit|attributable))"],
+    "attrEquity": [r"^Total\s+[Ee]quity\s+attributable\s+to(?!.*liabilit)"],
+    "totalLiabilities": [r"^Total\s+liabilities\b(?!.*equity)", r"^Total\s+llabilities\b(?!.*equity)"],
     "loans": [r"^Loans\s+and\s+advances\b"],
     "islamicFin": [r"^Islamic\s+financing\s+receivables\b"],
     "deposits": [r"^Deposits\s+from\s+customers\b"],
-    "islamicDep": [r"^Islamic\s+customers?\s+deposit"],
+    "islamicDep": [
+        r"^Islamic\s+customers?\s+deposit",
+        r"^Total\s+[Ee]quity\s+of\s+unrestricted\s+investment\s+account",
+        r"^Equity\s+of\s+unrestricted\s+investment\s+account",
+    ],
     "cash": [
         r"^Cash\s+and\s+bank\s+balances\b",
         r"^Cash\s+and\s+cash\s+equivalents\b",
@@ -378,41 +521,57 @@ BS_PATTERNS = {
         r"^Bank\s+borrowings,\s*current\b",
         r"^Bank\s+overdrafts?\b",
     ],
+    "borrowingsTotal": [r"^Borrowings\s+[\(\-\d]"],
     "leaseNC": [r"^Non-current\s+lease\s+liabilities\b", r"^Lease\s+liabilities,\s*non-current\b"],
     "leaseC": [r"^Current\s+lease\s+liabilities\b", r"^Lease\s+liabilities,\s*current\b"],
+    "leaseTotal": [r"^Lease\s+liabilities\s+[\(\-\d]"],
     "nav": [r"^Net\s+assets\s+per\s+share\b"],
-    "receivables": [r"^Trade\s+and\s+other\s+(?:current\s+)?receivables\b", r"^Trade\s+receivables\b", r"^Accounts\s+receivable\b"],
+    "receivables": [
+        r"^Trade\s+and\s+other\s+(?:current\s+)?receivables\b",
+        r"^Trade\s+receivables\b",
+        r"^Accounts\s+receivable\b",
+        r"^Other\s+receivables\s+and\s+prepayments\b",
+        r"^Insurance\s+(?:and\s+other\s+)?receivables\b",
+    ],
     "inventories": [r"^Inventories\b", r"^Current\s+inventories\b"],
-    "totalCurrentAssets": [r"^Total\s+current\s+assets\b"],
-    "ppe": [r"^Property,\s*plant\s+and\s+equipment\b", r"^Property\s+and\s+equipment\b"],
+    "totalCurrentAssets": [r"^Total\s+current\s+assets\b(?!.*other\s+than)", r"^Total\s+current\s+assets\b"],
+    "ppe": [r"^Property,\s*plant\s+and\s+equipment\b", r"^Property\s+and\s+equipment\b", r"^Fixtures,\s*furniture\s+and\s+equipment\b"],
     "rouAssets": [r"^Right[\s-]+of[\s-]+use\s+assets?\b"],
-    "intangibles": [r"^Intangible\s+assets\b", r"^Goodwill\s+and\s+intangible\s+assets\b"],
+    "intangibles": [r"^Intangible\s+assets\b", r"^Goodwill\s+and\s+intangible\s+assets\b", r"^Intangible\s+assets\s*\(including\s+goodwill\)"],
     "totalNonCurrentAssets": [r"^Total\s+non-current\s+assets\b"],
-    "payables": [r"^Trade\s+and\s+other\s+(?:current\s+)?payables\b", r"^Trade\s+payables\b", r"^Accounts\s+payable\b"],
-    "totalCurrentLiabilities": [r"^Total\s+current\s+liabilities\b"],
+    "payables": [r"^Trade\s+and\s+other\s+(?:current\s+)?payables\b", r"^Trade\s+payables\b", r"^Accounts\s+payable\b", r"^Other\s+payables\b"],
+    "totalCurrentLiabilities": [r"^Total\s+current\s+liabilities\b(?!.*other\s+than)", r"^Total\s+current\s+liabilities\b"],
     "totalNonCurrentLiabilities": [r"^Total\s+non-current\s+liabilities\b"],
-    "retainedEarnings": [r"^Retained\s+earnings\b", r"^Accumulated\s+(?:profits?|losses?)\b"],
+    "retainedEarnings": [r"^Retained\s+earnings\b", r"^Accumulated\s+(?:profits?(?:\s*/\s*losses?)?|losses?)\b"],
     "reserves": [r"^Legal\s+reserve\b", r"^Other\s+reserves\b", r"^Statutory\s+reserve\b"],
-    "tier1Securities": [r"^Perpetual\s+Tier\s*1\b", r"^Subordinated\s+(?:debt|liabilities|sukuk)\b"],
-    "dueFromBanks": [r"^Due\s+from\s+banks\b", r"^Placements?\s+with\s+banks\b"],
-    "investmentSecurities": [r"^Investment\s+securities\b", r"^Financial\s+investments?\b", r"^Investments?\s+at\s+fair\s+value\b"],
+    "tier1Securities": [r"^Perpetual\s+(?:Tier\s*1|bonds)\b", r"^Subordinated\s+(?:debt|liabilities|sukuk)\b"],
+    "dueFromBanks": [r"^Due\s+from\s+banks\b", r"^Placements?\s+with\s+banks\b", r"^Bank\s+deposits\b"],
+    "investmentSecurities": [
+        r"^Investment\s+securities\b",
+        r"^Investments?\s+in\s+securities\b",
+        r"^Financial\s+investments?\b",
+        r"^Investments?\s+at\s+fair\s+value\b",
+        r"^Investments\s+[\(\-\d]",
+    ],
     "dueToBanks": [r"^Due\s+to\s+banks\b", r"^Deposits\s+from\s+banks\b"],
     "debtSecurities": [r"^Debt\s+securities\s+issued\b", r"^Euro\s+medium\s+term\s+notes\b", r"^Bonds\s+and\s+sukuk\b"],
-    "insuranceLiabilities": [r"^Insurance\s+contract\s+liabilities\b", r"^Gross\s+insurance\s+contract\s+liabilities\b"],
+    "insuranceLiabilities": [r"^Insurance\s+contract\s+liabilities\b", r"^Gross\s+insurance\s+contract\s+liabilities\b", r"^Reinsurance\s+contract\s+liabilities\b"],
 }
 
 IS_PATTERNS = {
-    "revenue": [r"^Revenue\b", r"^Total\s+revenue\b", r"^Insurance\s+revenue\b", r"^Gross\s+written\s+premium", r"^Rental\s+income\b"],
-    "costOfSales": [r"^Cost\s+of\s+sales\b", r"^Cost\s+of\s+revenues?\b", r"^Direct\s+costs?\b"],
+    "revenue": [r"^Revenue\b", r"^Total\s+revenue\b", r"^Insurance\s+revenue\b", r"^Reinsurance\s+revenue\b", r"^Insurance\s+contract\s+revenue\b", r"^Gross\s+written\s+premium", r"^Rental\s+income\b"],
+    "costOfSales": [r"^Cost\s+of\s+sales\b", r"^Cost\s+of\s+revenues?\b", r"^Direct\s+costs?\b", r"^Cost\s+of\s+material(?:s)?\s+consumed\b"],
     "grossProfit": [r"^Gross\s+profit\b"],
-    "otherOpInc": [r"^Other\s+(?:operating\s+)?income\b"],
+    "otherOpInc": [r"^Other\s+operating\s*\(loss\)\s*/\s*income\b", r"^Other\s+(?:operating\s+)?income\b"],
     "sgaExpenses": [
         r"^General\s+and\s+administrative\s+expenses?\b",
         r"^Administrative\s+and\s+general\s+expenses?\b",
         r"^Selling(?:,\s*general)?\s+and\s+(?:administrative|distribution)\s+expenses?\b",
     ],
+    "serviceExpenses": [r"^Service\s+expenses?\b"],
+    "otherOpEx": [r"^Other\s+operating\s+expenses?\b"],
     "opProfit": [r"^Profit\s*\(loss\)\s+from\s+operating\s+activities\b", r"^Operating\s+profit\b"],
-    "opInc": [r"^Total\s+operating\s+income\b", r"^Total\s+income\b"],
+    "opInc": [r"^Total\s+operating\s+income\b", r"^Total\s+income\b", r"^Net\s+insurance\s+and\s+investment\s+result\b"],
     "interestIncome": [r"^Interest\s+income\b"],
     "interestExpense": [r"^Interest\s+expense\b"],
     "nii": [r"^Net\s+interest\s+income\b"],
@@ -420,8 +579,8 @@ IS_PATTERNS = {
     "islamicExpense": [r"^Distribution\s+to\s+depositors\b", r"^Profit\s+paid\s+on\s+Islamic\s+deposits\b"],
     "islamicNetInc": [r"^Net\s+income\s+from\s+islamic\s+financing\b"],
     "feeCommission": [r"^Net\s+fee\s+and\s+commission\s+income\b", r"^Commission\s+and\s+fee\s+income\b", r"^Fee\s+and\s+commission\s+income\b"],
-    "investmentIncome": [r"^Net\s+investment\s+income\b", r"^Investment\s+income\b"],
-    "staffExpenses": [r"^Staff\s+(?:costs?|expenses?)\b", r"^Employee\s+(?:costs?|benefits?\s+expense)\b"],
+    "investmentIncome": [r"^Net\s+investment\s+income\b", r"^Investment\s+income\b", r"^Total\s+investment\s+income\b", r"^Income\s+from\s+investments\s+in\s+securities\b"],
+    "staffExpenses": [r"^Staff\s+(?:costs?|expenses?)\b", r"^Employee\s+(?:costs?|benefits?\s+expenses?)\b"],
     "opEx": [r"^Total\s+operating\s+expenses\b"],
     "da": [r"^Depreciation(?:,\s*depletion)?\s+and\s+amortis?ation"],
     "financeIncome": [r"^Finance\s+income\b"],
@@ -432,32 +591,51 @@ IS_PATTERNS = {
         r"^Allowance\s+for\s+credit\s+losses\b",
         r"^Expected\s+credit\s+loss",
     ],
-    "insuranceServiceExp": [r"^Insurance\s+service\s+expenses?\b"],
-    "insuranceServiceResult": [r"^Insurance\s+service\s+result\b"],
-    "profitBeforeTax": [r"^Profit\s*\(loss\)\s+before\s+tax\b", r"^Profit\s+before\s+(?:income\s+)?tax\b"],
-    "taxExpense": [r"^Income\s+tax\s+(?:expense|credit|benefit)\b", r"^Tax\s+expense\b", r"^Taxation\b"],
+    "insuranceServiceExp": [r"^Insurance\s+service\s+expenses?\b", r"^Reinsurance\s+service\s+expenses?\b"],
+    "insuranceServiceResult": [r"^Insurance\s+service\s+results?\b", r"^Reinsurance\s+service\s+results?\b", r"^Net\s+[Ii]nsurance\s+service\s+results?\b", r"^Net\s+reinsurance\s+results?\b"],
+    "profitBeforeTax": [
+        r"^Profit\s*(?:\(loss\)\s+)?before\s+(?:income\s+)?tax(?:ation)?\b",
+        r"^Net\s+profit\s+before\s+tax\b",
+        r"^\(Loss\)/profit\s+before\s+(?:income\s+)?tax\b",
+        r"^Profit\s+for\s+the\s+period\s+before\s+tax(?:ation)?\b",
+    ],
+    "taxExpense": [r"^Income\s+tax\s+(?:expense|credit|benefit)\b", r"^Income\s+tax\b", r"^Tax\s+expense\b", r"^Taxation\b"],
     "netProfit": [
-        r"^Profit\s*\(loss\)\s+for\s+(?:the\s+)?period\b",
+        r"^Profit\s*(?:\(loss\)\s+)?for\s+(?:the\s+)?(?:period|year)\b",
+        r"^\(Loss\)/profit\s+for\s+the\s+(?:year|period)\b",
+        r"^Net\s+profit\s+after\s+tax\b",
         r"^Profit\s*\(loss\)\s+from\s+continuing\s+operations\b",
         r"^Profit\s*\(loss\),\s*attributable\s+to\s+owners\b",
         r"^Profit\s*\(loss\)\s+[\(\-\d]",
-        r"^Net\s+profit\s*\(loss\)",
+        r"^Net\s+[Pp]rofit\s*(?:/\s*\(Loss\))?\s*(?:for\s+the\s+(?:period|year))?",
     ],
-    "eps": [r"^Total\s+basic\s+earnings\s*\(loss\)\s+per\s+share\b", r"^Basic\s+earnings\s*\(loss\)\s+per\s+share\b"],
+    "eps": [
+        r"^Total\s+basic\s+earnings\s*\(loss\)\s+per\s+share\b",
+        r"^Basic\s+earnings\s*\(loss\)\s+per\s+share\b",
+        r"^Earnings\s+per\s+share\s*[-–]\s*basic",
+    ],
+    "epsCont": [r"^Basic\s+earnings\s*\(loss\)\s+per\s+share\s+from\s+continuing\s+operations\b"],
 }
 
 CF_PATTERNS = {
-    "pbtCf": [r"^Profit\s*\(loss\)\s+before\s+tax\b", r"^Profit\s+before\s+tax\b"],
+    "pbtCf": [
+        r"^Profit\s*(?:\(loss\)\s+)?(?:for\s+the\s+period\s+)?before\s+(?:income\s+)?tax(?:ation)?\b",
+        r"^Profit\s+before\s+tax\b",
+    ],
     "ocfBeforeWc": [
+        r"^Cash\s+flows?\s+from\s*\(used\s+in\)\s+operations\s+before\s+changes?\s+in\s+working\s+capital\b",
         r"^Operating\s+profit\s+before\s+working\s+capital\b",
         r"^Cash\s+(?:flows?\s+)?generated\s+from\s+operations\s+before\s+working\s+capital\b",
     ],
     "taxPaid": [r"^Income\s+taxes?\s+paid\b", r"^Tax(?:es)?\s+paid\b"],
     "interestPaid": [r"^Interest\s+paid\b", r"^Finance\s+costs?\s+paid\b"],
     "ocf": [r"^Net\s+cash\s+flows?\s+from\s*\(used\s+in\)\s+operating\s+activities\b"],
-    "capex": [r"^Purchase\s+of\s+property,\s*plant\s+and\s+equipment\b", r"^Additions?\s+to\s+property,\s*plant\s+and\s+equipment\b"],
+    "capex": [r"^Purchase\s+of\s+property,\s*(?:plant\s+and\s+)?equipment\b", r"^Additions?\s+to\s+property,\s*plant\s+and\s+equipment\b"],
     "investing": [r"^Net\s+cash\s+flows?\s+from\s*\(used\s+in\)\s+investing\s+activities\b"],
-    "da": [r"^Adjustments?\s+for\s+depreciation(?:[/\s]+and)?[/\s]+amortis?ation\b"],
+    "da": [
+        r"^Adjustments?\s+for\s+depreciation(?:[/\s]+and)?[/\s]+amortis?ation\b",
+        r"^Adjustments?\s+for\s+depreciation\s+expense\b",
+    ],
     "debtProceeds": [r"^Proceeds\s+from\s+borrowings\b", r"^Proceeds\s+from\s+(?:term\s+)?loans\b"],
     "debtRepaid": [r"^Repayments?\s+of\s+borrowings\b", r"^Repayments?\s+of\s+(?:term\s+)?loans\b"],
     "divPaid": [r"^Cash\s+dividends?\s+paid\b", r"^Dividends?\s+paid\s+to\s+equity\s+holders\b", r"^Dividends?\s+paid\b"],
@@ -528,8 +706,10 @@ def parse_filing_zip_in_memory(zip_url, referer, paid_up_cap_omr, is_interim=Fal
             if not pair or pair[idx] is None:
                 return None
             val = pair[idx]
-            if k in ("eps", "nav"):
-                # Normalize baisa (> 2.0 on a par 0.100 stock) to OMR
+            if k in ("eps", "epsCont"):
+                # Normalize baisa (> 1.5 on a par 0.100 stock) to OMR
+                return round(val / 1000.0, 4) if abs(val) > 1.5 else round(val, 4)
+            if k == "nav":
                 return round(val / 1000.0, 4) if abs(val) > 5.0 else round(val, 4)
             return round(val * mult, 2)
 
@@ -540,11 +720,25 @@ def parse_filing_zip_in_memory(zip_url, referer, paid_up_cap_omr, is_interim=Fal
             isl_dep = scale(bs, "islamicDep", idx) or 0.0
             nii_c = scale(inc, "nii", idx)
             isl_inc = scale(inc, "islamicNetInc", idx) or 0.0
-            b_nc = scale(bs, "borrowingsNC", idx) or 0.0
-            b_c = scale(bs, "borrowingsC", idx) or 0.0
-            l_nc = scale(bs, "leaseNC", idx) or 0.0
-            l_c = scale(bs, "leaseC", idx) or 0.0
-            tot_debt = b_nc + b_c + l_nc + l_c
+            b_nc_raw = scale(bs, "borrowingsNC", idx)
+            b_c_raw = scale(bs, "borrowingsC", idx)
+            b_tot_raw = scale(bs, "borrowingsTotal", idx)
+            l_nc_raw = scale(bs, "leaseNC", idx)
+            l_c_raw = scale(bs, "leaseC", idx)
+            l_tot_raw = scale(bs, "leaseTotal", idx)
+            b_nc = b_nc_raw or 0.0
+            b_c = b_c_raw or 0.0
+            l_nc = l_nc_raw or 0.0
+            l_c = l_c_raw or 0.0
+            tot_borrow = (b_nc + b_c) if (b_nc_raw is not None or b_c_raw is not None) else (b_tot_raw or 0.0)
+            tot_lease = (l_nc + l_c) if (l_nc_raw is not None or l_c_raw is not None) else (l_tot_raw or 0.0)
+            tot_debt = tot_borrow + tot_lease
+            # Backfill long-term borrowings for Order-of-Liquidity filers (OMVS, LIVA, etc.) that report a single Borrowings line
+            if b_nc_raw is None and b_c_raw is None and b_tot_raw is not None:
+                b_nc_raw = b_tot_raw
+            if l_nc_raw is None and l_c_raw is None and l_tot_raw is not None:
+                l_nc_raw = l_tot_raw
+
             op_p = scale(inc, "opProfit", idx)
             da_v = abs(scale(cf, "da", idx) or scale(inc, "da", idx) or 0.0)
             ebitda = round(op_p + da_v, 2) if op_p is not None else None
@@ -554,6 +748,17 @@ def parse_filing_zip_in_memory(zip_url, referer, paid_up_cap_omr, is_interim=Fal
             div_paid = scale(cf, "divPaid", idx)
             if div_paid is not None:
                 div_paid = abs(div_paid)
+
+            eps_v = scale(inc, "eps", idx)
+            eps_cont_v = scale(inc, "epsCont", idx)
+            if (eps_v is None or eps_v == 0.0) and eps_cont_v not in (None, 0.0):
+                eps_v = eps_cont_v
+
+            sga_v = scale(inc, "sgaExpenses", idx)
+            if sga_v is None:
+                parts = [abs(x) for x in (scale(inc, "staffExpenses", idx), scale(inc, "serviceExpenses", idx), scale(inc, "otherOpEx", idx)) if x is not None]
+                if parts:
+                    sga_v = round(sum(parts), 2)
 
             ocf_v = scale(cf, "ocf", idx)
             fcf_v = round(ocf_v - capex, 2) if (ocf_v is not None and capex is not None) else None
@@ -565,7 +770,7 @@ def parse_filing_zip_in_memory(zip_url, referer, paid_up_cap_omr, is_interim=Fal
                 "costOfSales": scale(inc, "costOfSales", idx),
                 "grossProfit": scale(inc, "grossProfit", idx),
                 "otherOpInc": scale(inc, "otherOpInc", idx),
-                "sgaExpenses": scale(inc, "sgaExpenses", idx),
+                "sgaExpenses": sga_v,
                 "opInc": scale(inc, "opInc", idx),
                 "interestIncome": scale(inc, "interestIncome", idx),
                 "interestExpense": scale(inc, "interestExpense", idx),
@@ -588,14 +793,14 @@ def parse_filing_zip_in_memory(zip_url, referer, paid_up_cap_omr, is_interim=Fal
                 "profitBeforeTax": scale(inc, "profitBeforeTax", idx),
                 "taxExpense": scale(inc, "taxExpense", idx),
                 "netProfit": scale(inc, "netProfit", idx),
-                "eps": scale(inc, "eps", idx),
+                "eps": eps_v,
                 "shareCapital": scale(bs, "shareCapital", idx),
                 "assets": scale(bs, "totalAssets", idx),
                 "equity": scale(bs, "attrEquity", idx) or scale(bs, "totalEquity", idx),
                 "totalEquity": scale(bs, "totalEquity", idx),
                 "liabilities": scale(bs, "totalLiabilities", idx),
-                "loans": round(loans_c + isl_fin, 2) if loans_c is not None else None,
-                "deposits": round(dep_c + isl_dep, 2) if dep_c is not None else None,
+                "loans": round((loans_c or 0.0) + isl_fin, 2) if (loans_c is not None or scale(bs, "islamicFin", idx) is not None) else None,
+                "deposits": round((dep_c or 0.0) + isl_dep, 2) if (dep_c is not None or scale(bs, "islamicDep", idx) is not None) else None,
                 "cash": cash_v,
                 "receivables": scale(bs, "receivables", idx),
                 "inventories": scale(bs, "inventories", idx),
@@ -605,11 +810,11 @@ def parse_filing_zip_in_memory(zip_url, referer, paid_up_cap_omr, is_interim=Fal
                 "intangibles": scale(bs, "intangibles", idx),
                 "totalNonCurrentAssets": scale(bs, "totalNonCurrentAssets", idx),
                 "payables": scale(bs, "payables", idx),
-                "borrowingsC": scale(bs, "borrowingsC", idx),
-                "leaseC": scale(bs, "leaseC", idx),
+                "borrowingsC": b_c_raw,
+                "leaseC": l_c_raw,
                 "totalCurrentLiabilities": scale(bs, "totalCurrentLiabilities", idx),
-                "borrowingsNC": scale(bs, "borrowingsNC", idx),
-                "leaseNC": scale(bs, "leaseNC", idx),
+                "borrowingsNC": b_nc_raw,
+                "leaseNC": l_nc_raw,
                 "totalNonCurrentLiabilities": scale(bs, "totalNonCurrentLiabilities", idx),
                 "retainedEarnings": scale(bs, "retainedEarnings", idx),
                 "reserves": scale(bs, "reserves", idx),
@@ -949,9 +1154,11 @@ def fetch_one_company(sym, mcd_info, majors_raw, xsrf, mcd_cookies, msx_row, fin
             if yr_tag == "2023":
                 parsed_fin["FY2023"] = res23["current"]
                 parsed_fin["FY2022"] = res23["prior"]
-            elif yr_tag == "2024" and "FY2024" not in parsed_fin:
-                parsed_fin["FY2024"] = res23["current"]
-                parsed_fin["FY2023"] = res23["prior"]
+            elif yr_tag == "2024":
+                if "FY2024" not in parsed_fin:
+                    parsed_fin["FY2024"] = res23["current"]
+                if "FY2023" not in parsed_fin:
+                    parsed_fin["FY2023"] = res23["prior"]
     if rep_q26:
         uq = f"https://www.msx.om/MSMDOCS/FinancialReports/{urllib.parse.quote(rep_q26['FileNameEn'])}"
         resq = parse_filing_zip_in_memory(uq, snap_url, paid_up_cap, is_interim=True)
@@ -1001,11 +1208,23 @@ def build_statements_payload(sym, sector_label, is_bank, flag, parsed_fin, prosp
         template = "corporate"
         template_label = "Corporate IFRS"
 
-    # 1. Assemble unified period_map from XBRL parsed_fin + IPO prospectus backfill + Flagship verified overrides
+    # 1. Assemble unified period_map from XBRL parsed_fin + verified OCR backfill + IPO prospectus + Flagship overrides
     period_map = {}
     for k, v in (parsed_fin or {}).items():
         if isinstance(v, dict):
-            period_map[k] = dict(v)
+            base = dict(period_map.get(k) or {})
+            for fk, fv in v.items():
+                if fv is not None:
+                    base[fk] = fv
+            period_map[k] = base
+
+    for py, pdata in (HISTORICAL_OCR_BACKFILL.get(sym) or {}).items():
+        if isinstance(pdata, dict):
+            base = dict(period_map.get(py) or {})
+            for fk, fv in pdata.items():
+                if fv is not None:
+                    base[fk] = fv
+            period_map[py] = base
 
     for py, pdata in ((prosp_cfg or {}).get("annuals") or {}).items():
         if py not in period_map or pdata.get("override"):
@@ -1033,6 +1252,8 @@ def build_statements_payload(sym, sector_label, is_bank, flag, parsed_fin, prosp
             for fk, fv in q3.items():
                 if not fk.endswith("Prior") and fv is not None:
                     q_cur_b[fk] = fv
+            if q_cur_b.get("eps") is None and q3.get("eps9m") is not None:
+                q_cur_b["eps"] = q3["eps9m"]
             period_map["Q26_CUR"] = q_cur_b
             q_pri_b = dict(period_map.get("Q26_PRI") or {})
             for fk in ("revenue", "ebitda", "opInc", "nii", "netProfit"):
@@ -1061,7 +1282,11 @@ def build_statements_payload(sym, sector_label, is_bank, flag, parsed_fin, prosp
             d["dps"] = dps_by_period[k]
         if k == "Q26_CUR" and q26_dps is not None and d.get("dps") is None:
             d["dps"] = q26_dps
-        if d.get("fcf") is None and d.get("ocf") is not None and d.get("capex") is not None:
+        if d.get("profitBeforeTax") is None and d.get("pbtCf") is not None:
+            d["profitBeforeTax"] = d["pbtCf"]
+        if d.get("pbtCf") is None and d.get("profitBeforeTax") is not None:
+            d["pbtCf"] = d["profitBeforeTax"]
+        if d.get("ocf") is not None and d.get("capex") is not None:
             d["fcf"] = round(d["ocf"] - abs(d["capex"]), 2)
         if d.get("netDebt") is None and d.get("debt") is not None and d.get("cash") is not None:
             d["netDebt"] = round(d["debt"] - d["cash"], 2)
@@ -1127,7 +1352,7 @@ def build_statements_payload(sym, sector_label, is_bank, flag, parsed_fin, prosp
             return None
         return round(fv, decimals)
 
-    def make_field_rows(spec_list):
+    def make_field_rows(spec_list, neg_outflow_keys=()):
         """Convert [(key, label, fmt, style), ...] into pruned rows with section headers."""
         raw_rows = []
         for item in spec_list:
@@ -1141,6 +1366,8 @@ def build_statements_payload(sym, sector_label, is_bank, flag, parsed_fin, prosp
                 d = period_map.get(p["key"]) or {}
                 dec = 4 if ffmt == "perShare" else 2
                 v = clean_num(d.get(fkey), dec)
+                if v is not None and fkey in neg_outflow_keys and v != 0:
+                    v = -abs(v)
                 vals[p["key"]] = v
                 if v is not None:
                     any_val = True
@@ -1326,7 +1553,7 @@ def build_statements_payload(sym, sector_label, is_bank, flag, parsed_fin, prosp
 
     income_rows = make_field_rows(is_spec)
     balance_rows = make_field_rows(bs_spec)
-    cashflow_rows = make_field_rows(cf_spec)
+    cashflow_rows = make_field_rows(cf_spec, neg_outflow_keys=("taxPaid", "interestPaid", "capex", "debtRepaid", "divPaid"))
 
     # 4. Compute Sector-Adapted Key Stats & Ratios (with annualised YTD flow-to-stock ratios)
     def get_prior(idx):
